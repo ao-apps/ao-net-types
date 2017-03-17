@@ -35,7 +35,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name} Changelog"
 		shortTitle="Changelog"
 		tocLevels="1"
-		datePublished="2017-03-17T13:31:07-0500"
+		datePublished="2017-03-17T14:31:31-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -53,6 +53,9 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>New project for Networking-related value types for Java.</li>
+					<li>Pulled existing network value types out of
+						<core:link book="/aoserv/client" page="/index.jspx" /> into this new
+						<core:link page="index.jspx" /> project.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
