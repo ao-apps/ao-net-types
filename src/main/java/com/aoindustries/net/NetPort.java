@@ -24,6 +24,10 @@ package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
 import com.aoindustries.util.ComparatorUtils;
+import com.aoindustries.validation.InvalidResult;
+import com.aoindustries.validation.ValidResult;
+import com.aoindustries.validation.ValidationException;
+import com.aoindustries.validation.ValidationResult;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
