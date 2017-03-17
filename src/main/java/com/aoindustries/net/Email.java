@@ -153,7 +153,7 @@ final public class Email implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<DomainName,ConcurrentMap<String,Email>> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<DomainName,ConcurrentMap<String,Email>> interned = new ConcurrentHashMap<DomainName,ConcurrentMap<String,Email>>();
 
 	/**
 	 * If email is null, then returns is null.
@@ -237,7 +237,7 @@ final public class Email implements
 			// Atomically get/create the per-domain map
 			ConcurrentMap<String,Email> domainMap = interned.get(internedDomain);
 			if(domainMap==null) {
-				ConcurrentMap<String,Email> newDomainInterned = new ConcurrentHashMap<>();
+				ConcurrentMap<String,Email> newDomainInterned = new ConcurrentHashMap<String,Email>();
 				domainMap = interned.putIfAbsent(internedDomain, newDomainInterned);
 				if(domainMap==null) domainMap = newDomainInterned;
 			}

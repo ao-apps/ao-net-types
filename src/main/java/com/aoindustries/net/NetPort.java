@@ -57,7 +57,7 @@ final public class NetPort implements
 		return ValidResult.getInstance();
 	}
 
-	private static final AtomicReferenceArray<NetPort> cache = new AtomicReferenceArray<>(65536);
+	private static final AtomicReferenceArray<NetPort> cache = new AtomicReferenceArray<NetPort>(65536);
 
 	public static NetPort valueOf(int port) throws ValidationException {
 		ValidationResult result = validate(port);

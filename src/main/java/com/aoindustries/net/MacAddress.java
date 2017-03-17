@@ -104,7 +104,7 @@ final public class MacAddress implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,MacAddress> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String,MacAddress> interned = new ConcurrentHashMap<String,MacAddress>();
 
 	public static MacAddress valueOf(String address) throws ValidationException {
 		//MacAddress existing = interned.get(address);

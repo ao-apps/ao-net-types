@@ -68,8 +68,8 @@ final public class InetAddress implements
 		}
 	}
 
-	private static final ConcurrentMap<LongLong,InetAddress> interned = new ConcurrentHashMap<>();
-	private static final ConcurrentMap<String,InetAddress> internedByAddress = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<LongLong,InetAddress> interned = new ConcurrentHashMap<LongLong,InetAddress>();
+	private static final ConcurrentMap<String,InetAddress> internedByAddress = new ConcurrentHashMap<String,InetAddress>();
 
 	/**
 	 * Parses either an IPv4 or IPv6 address.

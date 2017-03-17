@@ -84,7 +84,7 @@ implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,DomainLabels> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String,DomainLabels> interned = new ConcurrentHashMap<String,DomainLabels>();
 
 	/**
 	 * If labels is null, returns null.

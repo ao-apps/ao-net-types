@@ -82,9 +82,9 @@ final public class HostAddress implements
 		else return DomainName.validate(address);
 	}
 
-	private static final ConcurrentMap<DomainName,HostAddress> internedByDomainName = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<DomainName,HostAddress> internedByDomainName = new ConcurrentHashMap<DomainName,HostAddress>();
 
-	private static final ConcurrentMap<InetAddress,HostAddress> internedByInetAddress = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<InetAddress,HostAddress> internedByInetAddress = new ConcurrentHashMap<InetAddress,HostAddress>();
 
 	/**
 	 * If address is null, returns null.

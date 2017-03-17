@@ -241,7 +241,7 @@ implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,DomainName> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String,DomainName> interned = new ConcurrentHashMap<String,DomainName>();
 
 	/**
 	 * If domain is null, returns null.

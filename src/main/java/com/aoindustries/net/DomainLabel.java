@@ -89,7 +89,7 @@ final public class DomainLabel implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,DomainLabel> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String,DomainLabel> interned = new ConcurrentHashMap<String,DomainLabel>();
 
 	public static DomainLabel valueOf(String label) throws ValidationException {
 		//DomainLabel existing = interned.get(label);
