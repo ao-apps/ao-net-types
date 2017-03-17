@@ -132,8 +132,8 @@ final public class HostAddress implements
 	}
 
 	private void validate() throws ValidationException {
-		if(domainName==null && inetAddress==null) throw new ValidationException(new InvalidResult(ApplicationResources.accessor, "HostAddress.validate.bothNull"));
-		if(domainName!=null && inetAddress!=null) throw new ValidationException(new InvalidResult(ApplicationResources.accessor, "HostAddress.validate.bothNonNull"));
+		if(domainName==null && inetAddress==null) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "HostAddress.validate.bothNull"));
+		if(domainName!=null && inetAddress!=null) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "HostAddress.validate.bothNonNull"));
 	}
 
 	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {

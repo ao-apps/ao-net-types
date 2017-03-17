@@ -67,24 +67,24 @@ final public class DomainLabel implements
 	 * Validates a domain name label.
 	 */
 	public static ValidationResult validate(String label) {
-		if(label==null) return new InvalidResult(ApplicationResources.accessor, "DomainLabel.validate.isNull");
+		if(label==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.isNull");
 		return validate(label, 0, label.length());
 	}
 	public static ValidationResult validate(String label, int beginIndex, int endIndex) {
-		if(label==null) return new InvalidResult(ApplicationResources.accessor, "DomainLabel.validate.isNull");
+		if(label==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.isNull");
 		int len = endIndex-beginIndex;
-		if(len==0) return new InvalidResult(ApplicationResources.accessor, "DomainLabel.validate.empty");
-		if(len>MAX_LENGTH) return new InvalidResult(ApplicationResources.accessor, "DomainLabel.validate.tooLong", MAX_LENGTH, len);
+		if(len==0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.empty");
+		if(len>MAX_LENGTH) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.tooLong", MAX_LENGTH, len);
 		for(int pos=beginIndex; pos<endIndex; pos++) {
 			char ch = label.charAt(pos);
 			if(ch=='-') {
-				if(pos==beginIndex) return new InvalidResult(ApplicationResources.accessor, "DomainLabel.validate.startsDash");
-				if(pos==(endIndex-1)) return new InvalidResult(ApplicationResources.accessor, "DomainLabel.validate.endsDash");
+				if(pos==beginIndex) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.startsDash");
+				if(pos==(endIndex-1)) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.endsDash");
 			} else if(
 				(ch<'a' || ch>'z')
 				&& (ch<'A' || ch>'Z')
 				&& (ch<'0' || ch>'9')
-			) return new InvalidResult(ApplicationResources.accessor, "DomainLabel.validate.invalidCharacter", ch, pos-beginIndex);
+			) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.invalidCharacter", ch, pos-beginIndex);
 		}
 		return ValidResult.getInstance();
 	}

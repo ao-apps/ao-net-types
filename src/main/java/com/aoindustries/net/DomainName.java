@@ -198,9 +198,9 @@ implements
 	 * @see DomainLabel#validate(java.lang.String)
 	 */
 	public static ValidationResult validate(String domain) {
-		if(domain==null) return new InvalidResult(ApplicationResources.accessor, "DomainName.validate.isNull");
+		if(domain==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainName.validate.isNull");
 		int len = domain.length();
-		if(len==0) return new InvalidResult(ApplicationResources.accessor, "DomainName.validate.empty");
+		if(len==0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainName.validate.empty");
 		if(
 			!isLocalhost(domain)
 			&& !isLocalhostLocaldomain(domain)
@@ -216,8 +216,8 @@ implements
 				&& ((ch=domain.charAt(4))=='u' || ch=='U')
 				&& ((ch=domain.charAt(5))=='l' || ch=='L')
 				&& ((ch=domain.charAt(6))=='t' || ch=='T')
-			) return new InvalidResult(ApplicationResources.accessor, "DomainName.validate.isDefault");
-			if(len>MAX_LENGTH) return new InvalidResult(ApplicationResources.accessor, "DomainName.validate.tooLong", MAX_LENGTH, len);
+			) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainName.validate.isDefault");
+			if(len>MAX_LENGTH) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainName.validate.tooLong", MAX_LENGTH, len);
 			boolean isArpa = isArpa(domain);
 			int labelStart = 0;
 			for(int pos=0; pos<len; pos++) {
@@ -233,10 +233,10 @@ implements
 			ValidationResult result = DomainLabel.validate(domain, labelStart, len);
 			if(!result.isValid()) return result;
 			// Last domain label must be alphabetic (not be all numeric)
-			if(isNumeric(domain, labelStart, len)) return new InvalidResult(ApplicationResources.accessor, "DomainName.validate.lastLabelAllDigits");
+			if(isNumeric(domain, labelStart, len)) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainName.validate.lastLabelAllDigits");
 			// Last label must be a valid top level domain
 			String lastLabel = domain.substring(labelStart, len);
-			if(TopLevelDomain.getByLabel(lastLabel)==null) return new InvalidResult(ApplicationResources.accessor, "DomainName.validate.notEndTopLevelDomain", lastLabel);
+			if(TopLevelDomain.getByLabel(lastLabel)==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainName.validate.notEndTopLevelDomain", lastLabel);
 		}
 		return ValidResult.getInstance();
 	}
