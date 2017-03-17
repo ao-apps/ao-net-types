@@ -23,9 +23,9 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
+import com.aoindustries.io.IoUtils;
 import com.aoindustries.math.LongLong;
 import com.aoindustries.util.Internable;
-import com.aoindustries.util.persistent.PersistentCollections;
 import com.aoindustries.validation.InvalidResult;
 import com.aoindustries.validation.ValidResult;
 import com.aoindustries.validation.ValidationException;
@@ -64,7 +64,7 @@ final public class InetAddress implements
 			parse(address);
 			return ValidResult.getInstance();
 		} catch(ValidationException exc) {
-			return exc.result;
+			return exc.getResult();
 		}
 	}
 
@@ -369,8 +369,8 @@ final public class InetAddress implements
 		}
 		// Find the longest string of zeros
 		byte[] bytes = new byte[16];
-		PersistentCollections.longToBuffer(hi, bytes);
-		PersistentCollections.longToBuffer(lo, bytes, 8);
+		IoUtils.longToBuffer(hi, bytes);
+		IoUtils.longToBuffer(lo, bytes, 8);
 		int longestFirstZero = -1;
 		int longestNumZeros = 0;
 		int currentFirstZero = -1;
