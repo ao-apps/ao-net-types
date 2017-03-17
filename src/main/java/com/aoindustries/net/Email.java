@@ -266,8 +266,8 @@ final public class Email implements
 	}
 
 	@Override
-	public com.aoindustries.aoserv.client.dto.Email getDto() {
-		return new com.aoindustries.aoserv.client.dto.Email(localPart, domain.getDto());
+	public com.aoindustries.net.dto.Email getDto() {
+		return new com.aoindustries.net.dto.Email(localPart, domain.getDto());
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">

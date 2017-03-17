@@ -144,7 +144,7 @@ final public class NetPort implements
 	}
 
 	@Override
-	public com.aoindustries.aoserv.client.dto.NetPort getDto() {
-		return new com.aoindustries.aoserv.client.dto.NetPort(port);
+	public com.aoindustries.net.dto.NetPort getDto() {
+		return new com.aoindustries.net.dto.NetPort(port);
 	}
 }

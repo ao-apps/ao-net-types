@@ -462,8 +462,8 @@ final public class InetAddress implements
 	}
 
 	@Override
-	public com.aoindustries.aoserv.client.dto.InetAddress getDto() {
-		return new com.aoindustries.aoserv.client.dto.InetAddress(toString());
+	public com.aoindustries.net.dto.InetAddress getDto() {
+		return new com.aoindustries.net.dto.InetAddress(toString());
 	}
 
 	public boolean isUnspecified() {

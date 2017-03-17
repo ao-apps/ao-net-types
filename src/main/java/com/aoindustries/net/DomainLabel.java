@@ -172,8 +172,8 @@ final public class DomainLabel implements
 	}
 
 	@Override
-	public com.aoindustries.aoserv.client.dto.DomainLabel getDto() {
-		return new com.aoindustries.aoserv.client.dto.DomainLabel(label);
+	public com.aoindustries.net.dto.DomainLabel getDto() {
+		return new com.aoindustries.net.dto.DomainLabel(label);
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">

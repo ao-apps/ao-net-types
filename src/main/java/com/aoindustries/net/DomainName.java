@@ -368,8 +368,8 @@ implements
 	}
 
 	@Override
-	public com.aoindustries.aoserv.client.dto.DomainName getDto() {
-		return new com.aoindustries.aoserv.client.dto.DomainName(domain);
+	public com.aoindustries.net.dto.DomainName getDto() {
+		return new com.aoindustries.net.dto.DomainName(domain);
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">

@@ -175,8 +175,8 @@ implements
 	}
 
 	@Override
-	public com.aoindustries.aoserv.client.dto.DomainLabels getDto() {
-		return new com.aoindustries.aoserv.client.dto.DomainLabels(labels);
+	public com.aoindustries.net.dto.DomainLabels getDto() {
+		return new com.aoindustries.net.dto.DomainLabels(labels);
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">

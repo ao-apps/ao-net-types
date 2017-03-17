@@ -189,8 +189,8 @@ final public class MacAddress implements
 	}
 
 	@Override
-	public com.aoindustries.aoserv.client.dto.MacAddress getDto() {
-		return new com.aoindustries.aoserv.client.dto.MacAddress(address);
+	public com.aoindustries.net.dto.MacAddress getDto() {
+		return new com.aoindustries.net.dto.MacAddress(address);
 	}
 
 	public boolean isBroadcast() {

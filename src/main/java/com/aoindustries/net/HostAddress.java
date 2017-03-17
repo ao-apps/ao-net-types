@@ -228,7 +228,7 @@ final public class HostAddress implements
 	}
 
 	@Override
-	public com.aoindustries.aoserv.client.dto.HostAddress getDto() {
-		return new com.aoindustries.aoserv.client.dto.HostAddress(toString());
+	public com.aoindustries.net.dto.HostAddress getDto() {
+		return new com.aoindustries.net.dto.HostAddress(toString());
 	}
 }
