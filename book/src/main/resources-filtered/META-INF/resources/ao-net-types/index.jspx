@@ -1,0 +1,92 @@
+<!--
+ao-net-types - Networking-related value types for Java.
+Copyright (C) 2017  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of ao-net-types.
+
+ao-net-types is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ao-net-types is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
+-->
+<jsp:root
+	xmlns:ao="https://aoindustries.com/ao-taglib/"
+	xmlns:core="https://semanticcms.com/core/taglib/"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:section="https://semanticcms.com/section/taglib/"
+	version="2.1"
+>
+	<jsp:directive.page language="java" pageEncoding="UTF-8" session="false" />
+	<core:page
+		title="@{documented.name}"
+		description="@{documented.description}"
+		datePublished="2017-03-17T13:34:38-0500"
+	>
+		<core:child page="changelog.jspx" />
+		<core:child page="apidocs/index.jspx" />
+		<p>
+			@{documented.description}
+		</p>
+		<section:section label="Features">
+			<ul>
+				<li>IPv4 and IPv6 address families.</li>
+				<li>Individual addresses and network ranges.</li>
+				<li>Protocols, ports, and port ranges.</li>
+				<li>Supports optimization through reduction of IP and port combinations through:
+					<ul>
+						<li>Coalescing of addresses and network ranges into fewer network ranges.</li>
+						<li>Coalescing of ports and port ranges into fewer port ranges.</li>
+					</ul>
+				</li>
+				<li><ao:a href="/ao-lang/apidocs/com/aoindustries/io/FastExternalizable.html">Fast serializable</ao:a> and self-validating objects.</li>
+				<li><ao:a href="/ao-lang/apidocs/com/aoindustries/util/Internable.html">Internable</ao:a> for memory savings on large datasets.</li>
+				<li>Small footprint, minimal dependencies - not part of a big monolithic package.</li>
+				<li>Java 1.6 implementation:
+					<ul>
+						<li>Android compatible.</li>
+						<li>Java EE 6+ compatible.</li>
+					</ul>
+				</li>
+			</ul>
+		</section:section>
+		<section:section label="Motivation">
+			<p>
+				The <core:link book="/" page="/aoserv/index.jspx" /> allows configuration of services on a per-port and per-IP basis.
+				System configuration components like <core:link book="/ao-selinux" page="/index.jspx" /> and
+				<core:link book="/ao-firewalld" page="/index.jspx" /> support configurations over port ranges and network ranges.
+			</p>
+			<p>
+				These value types are a common representation of networking configuration shared between various components.
+				They have minimal dependencies and may be useful for projects needing to go beyond the stock <code>java.net.*</code> classes.
+			</p>
+		</section:section>
+		<section:section label="Evaluated Alternatives">
+			<p>
+				Admittedly, several features of this API are redundant with the
+				<ao:a href="standard Java API">https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html</ao:a>.
+				This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient
+				for your needs, please prefer the <ao:a href="https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html">standard Java API</ao:a>.
+			</p>
+		</section:section>
+		<section:section label="Project Links">
+			<ul>
+				<li><core:link page="index.jspx">Project Home</core:link></li>
+				<li><core:link page="changelog.jspx">Changelog</core:link></li>
+				<li><core:link page="apidocs/index.jspx">API Docs</core:link></li>
+				<li><ao:a href="https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@{documented.groupId}%22%20AND%20a:%22@{documented.artifactId}%22">Maven Central Repository</ao:a></li>
+				<li><ao:a href="@{documented.scm.url}">GitHub</ao:a></li>
+			</ul>
+		</section:section>
+	</core:page>
+</jsp:root>

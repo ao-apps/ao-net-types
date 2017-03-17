@@ -21,7 +21,7 @@ The [AOServ Platform](https://aoindustries.com/aoserv/) allows configuration of 
 These value types are a common representation of networking configuration shared between various components.  They have minimal dependencies and may be useful for projects needing to go beyond the stock `java.net.*` classes.
 
 ## Evaluated Alternatives
-Admittedly, several features of this API are redundant with the [standard Java API](https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html).  This API has a long history and, as the Java platform matures, is increasingly redundant.  When they are sufficient for your needs, please prefer the [standard Java API](https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html).
+Admittedly, several features of this API are redundant with the [standard Java API](https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html).  This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient for your needs, please prefer the [standard Java API](https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html).
 
 ## Project Links
 * [Project Home](https://aoindustries.com/ao-net-types/)
