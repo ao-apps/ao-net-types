@@ -35,7 +35,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name} Changelog"
 		shortTitle="Changelog"
 		tocLevels="1"
-		datePublished="2017-03-17T14:31:31-0500"
+		datePublished="2017-03-17T22:44:47-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -56,6 +56,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 					<li>Pulled existing network value types out of
 						<core:link book="/aoserv/client" page="/index.jspx" /> into this new
 						<core:link page="index.jspx" /> project.</li>
+					<li>Renamed <code>NetPort</code> to <code>Port</code>.</li>
 				</ul>
 			</changelog:release>
 		</c:if>

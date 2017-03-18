@@ -38,33 +38,33 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 /**
  * Several network resources on a <code>Server</code> require a unique
  * port.  All of the possible network ports are represented by
- * <code>NetPort</code>s.
+ * {@link Port Port}.
  *
  * @author  AO Industries, Inc.
  */
-final public class NetPort implements
-	Comparable<NetPort>,
+final public class Port implements
+	Comparable<Port>,
 	Serializable,
 	ObjectInputValidation,
-	DtoFactory<com.aoindustries.net.dto.NetPort>
+	DtoFactory<com.aoindustries.net.dto.Port>
 {
 
 	private static final long serialVersionUID = -29372775620060200L;
 
 	public static ValidationResult validate(int port) {
-		if(port<1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "NetPort.validate.lessThanOne", port);
-		if(port>65535) return new InvalidResult(ApplicationResourcesAccessor.accessor, "NetPort.validate.greaterThan64k", port);
+		if(port<1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.lessThanOne", port);
+		if(port>65535) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.greaterThan64k", port);
 		return ValidResult.getInstance();
 	}
 
-	private static final AtomicReferenceArray<NetPort> cache = new AtomicReferenceArray<NetPort>(65536);
+	private static final AtomicReferenceArray<Port> cache = new AtomicReferenceArray<Port>(65536);
 
-	public static NetPort valueOf(int port) throws ValidationException {
+	public static Port valueOf(int port) throws ValidationException {
 		ValidationResult result = validate(port);
 		if(!result.isValid()) throw new ValidationException(result);
-		NetPort np = cache.get(port);
+		Port np = cache.get(port);
 		if(np==null) {
-			np = new NetPort(port);
+			np = new Port(port);
 			if(!cache.compareAndSet(port, null, np)) np = cache.get(port);
 		}
 		return np;
@@ -72,7 +72,7 @@ final public class NetPort implements
 
 	final private int port;
 
-	private NetPort(int port) throws ValidationException {
+	private Port(int port) throws ValidationException {
 		this.port=port;
 		validate();
 	}
@@ -115,8 +115,8 @@ final public class NetPort implements
 	public boolean equals(Object O) {
 		return
 			O!=null
-			&& O instanceof NetPort
-			&& ((NetPort)O).port==port
+			&& O instanceof Port
+			&& ((Port)O).port==port
 		;
 	}
 
@@ -126,7 +126,7 @@ final public class NetPort implements
 	}
 
 	@Override
-	public int compareTo(NetPort other) {
+	public int compareTo(Port other) {
 		return this==other ? 0 : ComparatorUtils.compare(port, other.port);
 	}
 
@@ -144,7 +144,7 @@ final public class NetPort implements
 	}
 
 	@Override
-	public com.aoindustries.net.dto.NetPort getDto() {
-		return new com.aoindustries.net.dto.NetPort(port);
+	public com.aoindustries.net.dto.Port getDto() {
+		return new com.aoindustries.net.dto.Port(port);
 	}
 }

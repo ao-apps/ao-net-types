@@ -25,14 +25,14 @@ package com.aoindustries.net.dto;
 /**
  * @author  AO Industries, Inc.
  */
-public class NetPort {
+public class Port {
 
 	private int port;
 
-	public NetPort() {
+	public Port() {
 	}
 
-	public NetPort(int port) {
+	public Port(int port) {
 		this.port = port;
 	}
 
