@@ -43,10 +43,10 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
  * @author  AO Industries, Inc.
  */
 final public class Port implements
-	Comparable<Port>,
 	Serializable,
 	ObjectInputValidation,
-	DtoFactory<com.aoindustries.net.dto.Port>
+	DtoFactory<com.aoindustries.net.dto.Port>,
+	IPortRange
 {
 
 	private static final long serialVersionUID = 2L;
@@ -159,13 +159,11 @@ final public class Port implements
 	}
 
 	/**
-	 * Ordered by port, protocol.
+	 * @see  IPortRange#compareTo(com.aoindustries.net.IPortRange)
 	 */
 	@Override
-	public int compareTo(Port other) {
-		int diff = ComparatorUtils.compare(port, other.port);
-		if(diff != 0) return diff;
-		return protocol.compareTo(other.protocol);
+	public int compareTo(IPortRange other) {
+		return getPortRange().compareTo(other.getPortRange());
 	}
 
 	/**
@@ -196,5 +194,21 @@ final public class Port implements
 	@Override
 	public com.aoindustries.net.dto.Port getDto() {
 		return new com.aoindustries.net.dto.Port(port, protocol.name());
+	}
+
+	/**
+	 * For {@link IPortRange}.
+	 *
+	 * @return a single-port range with this port as both <code>from</code> and <code>to</code>.
+	 */
+	@Override
+	public PortRange getPortRange() {
+		try {
+			return PortRange.valueOf(port, port, protocol);
+		} catch(ValidationException e) {
+			AssertionError ae = new AssertionError("Validation rules are compatible between PortRange and Port.");
+			ae.initCause(e);
+			throw ae;
+		}
 	}
 }

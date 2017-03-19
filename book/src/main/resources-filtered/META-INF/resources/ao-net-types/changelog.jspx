@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-03-18T19:43:21-0500"
+		dateModified="2017-03-18T22:25:41-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -68,6 +68,9 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 					<li>
 						<code>Port</code>s are now a combination of port number and protocol instead of just port number.
 						For example, <code>143/TCP</code>.
+					</li>
+					<li><code>PortRange</code>s are a combination of port range and protocol.
+						For example, <code>8080-8087/TCP</code>.
 					</li>
 				</ul>
 			</changelog:release>
