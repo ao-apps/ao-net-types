@@ -23,7 +23,6 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
-import com.aoindustries.util.ComparatorUtils;
 import com.aoindustries.validation.InvalidResult;
 import com.aoindustries.validation.ValidResult;
 import com.aoindustries.validation.ValidationException;
@@ -42,17 +41,13 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
  *
  * @author  AO Industries, Inc.
  */
-final public class Port implements
+final public class Port extends IPortRange implements
 	Serializable,
 	ObjectInputValidation,
-	DtoFactory<com.aoindustries.net.dto.Port>,
-	IPortRange
+	DtoFactory<com.aoindustries.net.dto.Port>
 {
 
 	private static final long serialVersionUID = 2L;
-
-	public static final int MIN_PORT = 1;
-	public static final int MAX_PORT = 65535;
 
 	public static ValidationResult validate(int port, Protocol protocol) {
 		if(port < MIN_PORT) {
@@ -94,11 +89,10 @@ final public class Port implements
 	}
 
 	final private int port;
-	final private Protocol protocol;
 
 	private Port(int port, Protocol protocol) throws ValidationException {
+		super(protocol);
 		this.port = port;
-		this.protocol = protocol;
 		validate();
 	}
 
@@ -159,14 +153,6 @@ final public class Port implements
 	}
 
 	/**
-	 * @see  IPortRange#compareTo(com.aoindustries.net.IPortRange)
-	 */
-	@Override
-	public int compareTo(IPortRange other) {
-		return getPortRange().compareTo(other.getPortRange());
-	}
-
-	/**
 	 * @return The port and protocol, such as 110/TCP.
 	 */
 	@Override
@@ -174,12 +160,28 @@ final public class Port implements
 		return Integer.toString(port) + '/' + protocol.name();
 	}
 
-	public int getPort() {
+	@Override
+	public int getFrom() {
 		return port;
 	}
 
-	public Protocol getProtocol() {
-		return protocol;
+	@Override
+	public Port getFromPort() {
+		return this;
+	}
+
+	@Override
+	public int getTo() {
+		return port;
+	}
+
+	@Override
+	public Port getToPort() {
+		return this;
+	}
+
+	public int getPort() {
+		return port;
 	}
 
 	/**
@@ -196,19 +198,13 @@ final public class Port implements
 		return new com.aoindustries.net.dto.Port(port, protocol.name());
 	}
 
-	/**
-	 * For {@link IPortRange}.
-	 *
-	 * @return a single-port range with this port as both <code>from</code> and <code>to</code>.
-	 */
 	@Override
-	public PortRange getPortRange() {
-		try {
-			return PortRange.valueOf(port, port, protocol);
-		} catch(ValidationException e) {
-			AssertionError ae = new AssertionError("Validation rules are compatible between PortRange and Port.");
-			ae.initCause(e);
-			throw ae;
-		}
+	public IPortRange splitBelow(int below) {
+		return null;
+	}
+
+	@Override
+	public IPortRange splitAbove(int above) {
+		return null;
 	}
 }

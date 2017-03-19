@@ -25,17 +25,16 @@ package com.aoindustries.net.dto;
 /**
  * @author  AO Industries, Inc.
  */
-public class Port {
+public class Port extends IPortRange {
 
 	private int port;
-	private String protocol;
 
 	public Port() {
 	}
 
 	public Port(int port, String protocol) {
+		super(protocol);
 		this.port = port;
-		this.protocol = protocol;
 	}
 
 	public int getPort() {
@@ -44,13 +43,5 @@ public class Port {
 
 	public void setPort(int port) {
 		this.port = port;
-	}
-
-	public String getProtocol() {
-		return protocol;
-	}
-
-	public void setProtocol(String protocol) {
-		this.protocol = protocol;
 	}
 }

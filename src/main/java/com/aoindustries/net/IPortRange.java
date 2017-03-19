@@ -22,14 +22,74 @@
  */
 package com.aoindustries.net;
 
+import com.aoindustries.util.ComparatorUtils;
+import com.aoindustries.validation.ValidationException;
+import com.aoindustries.validation.ValidationResult;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputValidation;
+import java.io.Serializable;
+
 /**
  * Something that can give a port range.
+ * <p>
+ * A single port must be represented by {@link Port}
+ * while a port range must use {@link PortRange}.
+ * </p>
+ * <p>
+ * {@link Port} and {@link PortRange} are compatible with
+ * {@link #equals(java.lang.Object)}, {@link #hashCode()},
+ * and {@link #compareTo(com.aoindustries.net.IPortRange)}.
+ * </p>
+ *
+ * Java 1.8: Make this an interface with default methods.
  *
  * @author  AO Industries, Inc.
  */
-public interface IPortRange extends Comparable<IPortRange> {
+abstract public class IPortRange implements
+	Comparable<IPortRange>,
+	Serializable,
+	ObjectInputValidation
+{
 
-	PortRange getPortRange();
+	private static final long serialVersionUID = 1L;
+
+	public static final int MIN_PORT = 1;
+	public static final int MAX_PORT = 65535;
+
+	public static ValidationResult validate(int from, int to, Protocol protocol) {
+		if(from == to) {
+			return Port.validate(from, protocol);
+		} else {
+			return PortRange.validate(from, to, protocol);
+		}
+	}
+
+	public static IPortRange valueOf(int from, int to, Protocol protocol) throws ValidationException {
+		if(from == to) {
+			return Port.valueOf(from, protocol);
+		} else {
+			return PortRange.valueOf(from, to, protocol);
+		}
+	}
+
+	final Protocol protocol;
+
+	IPortRange(Protocol protocol) {
+		this.protocol = protocol;
+	}
+
+	@Override
+	abstract public void validateObject() throws InvalidObjectException;
+
+	/**
+	 * {@link Port ports} and {@link PortRange port ranges} will never equal each other because
+	 * port range is forced to have a range larger than one port.
+	 */
+	@Override
+	abstract public boolean equals(Object obj);
+
+	@Override
+	abstract public int hashCode();
 
 	/**
 	 * Ordered by from, to, protocol.
@@ -37,5 +97,61 @@ public interface IPortRange extends Comparable<IPortRange> {
 	 * must not be changed without adjusting other code.
 	 */
 	@Override
-	public int compareTo(IPortRange o);
+	final public int compareTo(IPortRange other) {
+		// Java 1.8: Use Integer.compare instead
+		int diff = ComparatorUtils.compare(getFrom(), other.getFrom());
+		if(diff != 0) return diff;
+		diff = ComparatorUtils.compare(getTo(), other.getTo());
+		if(diff != 0) return diff;
+		return protocol.compareTo(other.protocol);
+	}
+
+	@Override
+	abstract public String toString();
+
+	final public Protocol getProtocol() {
+		return protocol;
+	}
+
+	/**
+	 * Gets the first port number in the range.
+	 */
+	abstract public int getFrom();
+
+	/**
+	 * Gets the first port number in the range as a {@link Port}.
+	 */
+	abstract public Port getFromPort();
+
+	/**
+	 * Gets the last port number in the range.
+	 */
+	abstract public int getTo();
+
+	/**
+	 * Gets the last port number in the range as a {@link Port}.
+	 */
+	abstract public Port getToPort();
+
+	/**
+	 * Checks if this port range is of the same protocol and overlaps the given port range.
+	 */
+	final public boolean overlaps(IPortRange other) {
+		// See http://stackoverflow.com/questions/3269434/whats-the-most-efficient-way-to-test-two-integer-ranges-for-overlap
+		return
+			protocol == other.protocol
+			&& getFrom() <= other.getTo()
+			&& other.getFrom() <= getTo()
+		;
+	}
+
+	/**
+	 * @return  The part of this port range below, and not including, the given port or {@code null} if none.
+	 */
+	abstract public IPortRange splitBelow(int below);
+
+	/**
+	 * @return  The part of this port range above, and not including, the given port or {@code null} if none.
+	 */
+	abstract public IPortRange splitAbove(int above);
 }

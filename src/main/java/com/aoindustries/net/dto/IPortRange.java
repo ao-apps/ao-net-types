@@ -25,33 +25,22 @@ package com.aoindustries.net.dto;
 /**
  * @author  AO Industries, Inc.
  */
-public class PortRange extends IPortRange {
+abstract public class IPortRange {
 
-	private int from;
-	private int to;
+	private String protocol;
 
-	public PortRange() {
+	public IPortRange() {
 	}
 
-	public PortRange(int from, int to, String protocol) {
-		super(protocol);
-		this.from = from;
-		this.to = to;
+	public IPortRange(String protocol) {
+		this.protocol = protocol;
 	}
 
-	public int getFrom() {
-		return from;
+	public String getProtocol() {
+		return protocol;
 	}
 
-	public void setFrom(int from) {
-		this.from = from;
-	}
-
-	public int getTo() {
-		return to;
-	}
-
-	public void setTo(int to) {
-		this.to = to;
+	public void setProtocol(String protocol) {
+		this.protocol = protocol;
 	}
 }
