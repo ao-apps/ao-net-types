@@ -1,5 +1,6 @@
 package com.aoindustries.net;
 
+import java.util.Locale;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -30,6 +31,18 @@ public class ProtocolTest {
 	public void testValueOfNoNulls() {
 		for(short decimal = 0; decimal <= 255; decimal++) {
 			assertNotNull("decimal=" + decimal, Protocol.valueOf(decimal));
+		}
+	}
+
+	@Test
+	public void testNamesCapital() {
+		for(Protocol p : Protocol.values()) {
+			String name = p.name();
+			assertEquals(
+				"Protocol enum names must be all upper-case in root locale",
+				name,
+				name.toUpperCase(Locale.ROOT)
+			);
 		}
 	}
 
