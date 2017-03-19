@@ -49,36 +49,61 @@ final public class Port implements
 	DtoFactory<com.aoindustries.net.dto.Port>
 {
 
-	private static final long serialVersionUID = -29372775620060200L;
+	private static final long serialVersionUID = 2L;
 
-	public static ValidationResult validate(int port) {
-		if(port<1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.lessThanOne", port);
-		if(port>65535) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.greaterThan64k", port);
+	public static final int MIN_PORT = 1;
+	public static final int MAX_PORT = 65535;
+
+	public static ValidationResult validate(int port, Protocol protocol) {
+		if(port < MIN_PORT) {
+			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.lessThanOne", port);
+		}
+		if(port > MAX_PORT) {
+			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.greaterThan64k", port);
+		}
+		if(protocol != Protocol.TCP && protocol != Protocol.UDP) {
+			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol);
+		}
 		return ValidResult.getInstance();
 	}
 
-	private static final AtomicReferenceArray<Port> cache = new AtomicReferenceArray<Port>(65536);
+	private static final AtomicReferenceArray<Port> tcpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
+	private static final AtomicReferenceArray<Port> udpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
 
-	public static Port valueOf(int port) throws ValidationException {
-		ValidationResult result = validate(port);
+	public static Port valueOf(int port, Protocol protocol) throws ValidationException {
+		ValidationResult result = validate(port, protocol);
 		if(!result.isValid()) throw new ValidationException(result);
-		Port np = cache.get(port);
-		if(np==null) {
-			np = new Port(port);
-			if(!cache.compareAndSet(port, null, np)) np = cache.get(port);
+		AtomicReferenceArray<Port> cache;
+		switch(protocol) {
+			case TCP :
+				cache = tcpCache;
+				break;
+			case UDP :
+				cache = udpCache;
+				break;
+			default :
+				throw new AssertionError();
+		}
+		int cacheIndex = port - MIN_PORT;
+		Port np = cache.get(cacheIndex);
+		if(np == null) {
+			np = new Port(port, protocol);
+			if(!cache.compareAndSet(cacheIndex, null, np)) np = cache.get(cacheIndex);
 		}
 		return np;
 	}
 
 	final private int port;
+	final private Protocol protocol;
 
-	private Port(int port) throws ValidationException {
-		this.port=port;
+	private Port(int port, Protocol protocol) throws ValidationException {
+		this.port = port;
+		this.protocol = protocol;
 		validate();
 	}
 
 	private void validate() throws ValidationException {
-		ValidationResult result = validate(port);
+		ValidationResult result = validate(port, protocol);
 		if(!result.isValid()) throw new ValidationException(result);
 	}
 
@@ -103,7 +128,7 @@ final public class Port implements
 
 	private Object readResolve() throws InvalidObjectException {
 		try {
-			return valueOf(port);
+			return valueOf(port, protocol);
 		} catch(ValidationException err) {
 			InvalidObjectException newErr = new InvalidObjectException(err.getMessage());
 			newErr.initCause(err);
@@ -111,40 +136,65 @@ final public class Port implements
 		}
 	}
 
+	/**
+	 * {@link Port Port} instances are cached and may be safely compared by identity.
+	 */
 	@Override
-	public boolean equals(Object O) {
+	public boolean equals(Object obj) {
+		// enum pattern, this is safe:
+		return (this == obj);
+		/* enum pattern, don't need this:
 		return
-			O!=null
-			&& O instanceof Port
-			&& ((Port)O).port==port
+			obj != null
+			&& obj instanceof Port
+			&& ((Port)obj).port == port
+			&& ((Port)obj).protocol == protocol
 		;
+		 */
 	}
 
 	@Override
 	public int hashCode() {
-		return port;
+		return protocol.getDecimal() * 31 + port;
 	}
 
+	/**
+	 * Ordered by port, protocol.
+	 */
 	@Override
 	public int compareTo(Port other) {
-		return this==other ? 0 : ComparatorUtils.compare(port, other.port);
+		int diff = ComparatorUtils.compare(port, other.port);
+		if(diff != 0) return diff;
+		return protocol.compareTo(other.protocol);
 	}
 
+	/**
+	 * @return The port and protocol, such as 110/TCP.
+	 */
 	@Override
 	public String toString() {
-		return Integer.toString(port);
+		return Integer.toString(port) + '/' + protocol.name();
 	}
 
 	public int getPort() {
 		return port;
 	}
 
+	public Protocol getProtocol() {
+		return protocol;
+	}
+
+	/**
+	 * Determines if this is a port that may be bound by non-root processes.
+	 *
+	 * @return {@code true} when the port is >= 1024.
+	 */
 	public boolean isUser() {
-		return port>=1024;
+		return port >= 1024;
 	}
 
 	@Override
 	public com.aoindustries.net.dto.Port getDto() {
-		return new com.aoindustries.net.dto.Port(port);
+		return new com.aoindustries.net.dto.Port(port, protocol.name());
 	}
 }

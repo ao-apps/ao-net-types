@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2010-2011, 2016  AO Industries, Inc.
+ * Copyright (C) 2010-2011, 2016, 2017  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -28,12 +28,14 @@ package com.aoindustries.net.dto;
 public class Port {
 
 	private int port;
+	private String protocol;
 
 	public Port() {
 	}
 
-	public Port(int port) {
+	public Port(int port, String protocol) {
 		this.port = port;
+		this.protocol = protocol;
 	}
 
 	public int getPort() {
@@ -42,5 +44,13 @@ public class Port {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	public String getProtocol() {
+		return protocol;
+	}
+
+	public void setProtocol(String protocol) {
+		this.protocol = protocol;
 	}
 }
