@@ -184,8 +184,7 @@ public enum Protocol {
 			// Skip TTP duplicated
 			if(p != TTP && p != UNASSIGNED) {
 				int decimal = p.getDecimal();
-				Protocol existing = protocolsByDecimal[decimal];
-				if(existing != null) throw new AssertionError("Duplicate value for decimal (" + decimal + "): " + existing + " and " + p);
+				assert protocolsByDecimal[decimal] == null: "Duplicate value for decimal (" + decimal + "): " + protocolsByDecimal[decimal] + " and " + p;
 				protocolsByDecimal[decimal] = p;
 			}
 		}
