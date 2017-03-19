@@ -576,18 +576,33 @@ final public class InetAddress implements
 		return (ip.getHigh()&0xfffffff000000000L)==0x2001001000000000L;
 	}
 
-	public boolean isIPv4() {
-		if(ip.getHigh()!=0) return false;
+	public AddressFamily getAddressFamily() {
+		if(ip.getHigh()!=0) return AddressFamily.INET6;
 		long lo = ip.getLow();
-		return
+		if(
 			lo!=0
 			&& lo!=1
 			&& (lo&0xffffffff00000000L)==0x0000000000000000L
-		;
+		) {
+			return AddressFamily.INET;
+		}
+		return AddressFamily.INET6;
 	}
 
+	/**
+	 * @deprecated  Please use {@link #getAddressFamily()}
+	 */
+	@Deprecated
+	public boolean isIPv4() {
+		return getAddressFamily() == AddressFamily.INET;
+	}
+
+	/**
+	 * @deprecated  Please use {@link #getAddressFamily()}
+	 */
+	@Deprecated
 	public boolean isIPv6() {
-		return !isIPv4();
+		return getAddressFamily() == AddressFamily.INET6;
 	}
 
 	/*

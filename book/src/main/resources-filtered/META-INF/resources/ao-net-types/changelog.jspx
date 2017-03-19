@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-03-18T18:43:14-0500"
+		dateModified="2017-03-18T19:13:09-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -54,11 +54,17 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>New project for Networking-related value types for Java.</li>
-					<li>Pulled existing network value types out of
+					<li>
+						Pulled existing network value types out of
 						<core:link book="/aoserv/client" page="/index.jspx" /> into this new
-						<core:link page="index.jspx" /> project.</li>
+						<core:link page="index.jspx" /> project.
+					</li>
 					<li>Renamed <code>NetPort</code> to <code>Port</code>.</li>
 					<li>Added full listing of <code>Protocol</code>s from <ao:a href="http://www.iana.org/assignments/protocol-numbers">iana.org</ao:a>.</li>
+					<li>
+						Added <code>AddressFamily</code> enumeration and <code>InetAddress.getAddressFamily()</code> method.
+						Deprecated <code>InetAddress.isIPv4()</code> and <code>InetAddress.isIPv6()</code>.
+					</li>
 				</ul>
 			</changelog:release>
 		</c:if>
