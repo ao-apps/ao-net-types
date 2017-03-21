@@ -156,12 +156,12 @@ final public class Email implements
 	private static final ConcurrentMap<DomainName,ConcurrentMap<String,Email>> interned = new ConcurrentHashMap<DomainName,ConcurrentMap<String,Email>>();
 
 	/**
-	 * If email is null, then returns is null.
+	 * @param email  when {@code null}, returns {@code null}
 	 *
 	 * @see #valueOf(java.lang.String, com.aoindustries.aoserv.client.validator.DomainName)
 	 */
 	public static Email valueOf(String email) throws ValidationException {
-		if(email==null) return null;
+		if(email == null) return null;
 		// Be non-empty
 		if(email.length()==0) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "Email.validate.empty"));
 		int atPos = email.indexOf('@');

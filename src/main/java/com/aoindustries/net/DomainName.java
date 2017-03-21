@@ -244,10 +244,10 @@ implements
 	private static final ConcurrentMap<String,DomainName> interned = new ConcurrentHashMap<String,DomainName>();
 
 	/**
-	 * If domain is null, returns null.
+	 * @param domain  when {@code null}, returns {@code null}
 	 */
 	public static DomainName valueOf(String domain) throws ValidationException {
-		if(domain==null) return null;
+		if(domain == null) return null;
 		//DomainName existing = interned.get(domain);
 		//return existing!=null ? existing : new DomainName(domain);
 		return new DomainName(domain);

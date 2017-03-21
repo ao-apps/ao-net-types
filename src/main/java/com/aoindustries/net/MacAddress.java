@@ -106,7 +106,11 @@ final public class MacAddress implements
 
 	private static final ConcurrentMap<String,MacAddress> interned = new ConcurrentHashMap<String,MacAddress>();
 
+	/**
+	 * @param address  when {@code null}, returns {@code null}
+	 */
 	public static MacAddress valueOf(String address) throws ValidationException {
+		if(address == null) return null;
 		//MacAddress existing = interned.get(address);
 		//return existing!=null ? existing : new MacAddress(address);
 		return new MacAddress(address);

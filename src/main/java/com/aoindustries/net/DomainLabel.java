@@ -91,7 +91,11 @@ final public class DomainLabel implements
 
 	private static final ConcurrentMap<String,DomainLabel> interned = new ConcurrentHashMap<String,DomainLabel>();
 
+	/**
+	 * @param label  when {@code null}, returns {@code null}
+	 */
 	public static DomainLabel valueOf(String label) throws ValidationException {
+		if(label == null) return null;
 		//DomainLabel existing = interned.get(label);
 		//return existing!=null ? existing : new DomainLabel(label);
 		return new DomainLabel(label);

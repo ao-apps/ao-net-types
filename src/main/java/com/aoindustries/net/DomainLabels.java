@@ -87,10 +87,10 @@ implements
 	private static final ConcurrentMap<String,DomainLabels> interned = new ConcurrentHashMap<String,DomainLabels>();
 
 	/**
-	 * If labels is null, returns null.
+	 * @param labels  when {@code null}, returns {@code null}
 	 */
 	public static DomainLabels valueOf(String labels) throws ValidationException {
-		if(labels==null) return null;
+		if(labels == null) return null;
 		//DomainLabels existing = interned.get(labels);
 		//return existing!=null ? existing : new DomainLabels(labels);
 		return new DomainLabels(labels);

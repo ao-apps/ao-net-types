@@ -74,10 +74,10 @@ final public class InetAddress implements
 	/**
 	 * Parses either an IPv4 or IPv6 address.
 	 *
-	 * If address is null, returns null.
+	 * @param address  when {@code null}, returns {@code null}
 	 */
 	public static InetAddress valueOf(String address) throws ValidationException {
-		if(address==null) return null;
+		if(address == null) return null;
 		// If found in interned, it is valid
 		//InetAddress existing = internedByAddress.get(address);
 		//return existing!=null ? existing : valueOf(parse(address));

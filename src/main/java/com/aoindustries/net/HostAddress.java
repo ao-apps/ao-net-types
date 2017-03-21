@@ -87,10 +87,10 @@ final public class HostAddress implements
 	private static final ConcurrentMap<InetAddress,HostAddress> internedByInetAddress = new ConcurrentHashMap<InetAddress,HostAddress>();
 
 	/**
-	 * If address is null, returns null.
+	 * @param address  when {@code null}, returns {@code null}
 	 */
 	public static HostAddress valueOf(String address) throws ValidationException {
-		if(address==null) return null;
+		if(address == null) return null;
 		return
 			isIp(address)
 			? valueOf(InetAddress.valueOf(address))
