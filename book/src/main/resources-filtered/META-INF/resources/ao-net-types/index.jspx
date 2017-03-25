@@ -32,6 +32,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2017-03-17T13:34:38-0500"
+		dateModified="2017-03-24T23:57:40-0500"
 	>
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
@@ -74,7 +75,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		<section:section label="Evaluated Alternatives">
 			<p>
 				Admittedly, several features of this API are redundant with the
-				<ao:a href="standard Java API">https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html</ao:a>.
+				<ao:a href="https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html">standard Java API</ao:a>.
 				This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient
 				for your needs, please prefer the <ao:a href="https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html">standard Java API</ao:a>.
 			</p>
