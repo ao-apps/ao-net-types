@@ -46,9 +46,9 @@ import java.util.concurrent.ConcurrentMap;
  * <ul>
  *   <li>Be non-null</li>
  *   <li>Be non-empty</li>
- *   <li>Conforms to definition in {@link http://en.wikipedia.org/wiki/DNS_label#Parts_of_a_domain_name}</li>
- *   <li>Conforms to rfc2181: {@link http://tools.ietf.org/html/rfc2181#section-11}</li>
- *   <li>And allow all numeric as described in {@link http://tools.ietf.org/html/rfc1123#page-13}</li>
+ *   <li>Conforms to definition in <a href="http://en.wikipedia.org/wiki/DNS_label#Parts_of_a_domain_name">http://en.wikipedia.org/wiki/DNS_label#Parts_of_a_domain_name</a></li>
+ *   <li>Conforms to <a href="http://tools.ietf.org/html/rfc2181#section-11">RFC 2181</a></li>
+ *   <li>And allow all numeric as described in <a href="http://tools.ietf.org/html/rfc1123#page-13">RFC 1123</a></li>
  * </ul>
  *
  * @author  AO Industries, Inc.

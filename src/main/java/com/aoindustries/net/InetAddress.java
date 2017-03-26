@@ -37,9 +37,10 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * Represents either an IPv4 or an IPv6 IP address.  The internal storage is always
  * that of an IPv6 address.
- *
- * {@link http://en.wikipedia.org/wiki/IPv4#Address_representations}
- * {@link http://en.wikipedia.org/wiki/IPv6_Addresses#Notation}
+ * <ul>
+ *   <li><a href="http://en.wikipedia.org/wiki/IPv4#Address_representations">http://en.wikipedia.org/wiki/IPv4#Address_representations</a></li>
+ *   <li><a href="http://en.wikipedia.org/wiki/IPv6_Addresses#Notation">http://en.wikipedia.org/wiki/IPv6_Addresses#Notation</a></li>
+ * </ul>
  *
  * @author  AO Industries, Inc.
  */

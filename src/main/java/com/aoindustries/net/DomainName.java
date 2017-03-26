@@ -49,8 +49,8 @@ import java.util.concurrent.ConcurrentMap;
  *   <li>Be non-empty</li>
  *   <li>May not be "default" (case-insensitive)</li>
  *   <li>
- *     Confirm to definition in {@link http://en.wikipedia.org/wiki/Hostname#Internet_hostnames}
- *     and {@link http://en.wikipedia.org/wiki/DNS_label#Parts_of_a_domain_name}
+ *     Conform to definition in <a href="http://en.wikipedia.org/wiki/Hostname#Internet_hostnames">http://en.wikipedia.org/wiki/Hostname#Internet_hostnames</a>
+ *     and <a href="http://en.wikipedia.org/wiki/DNS_label#Parts_of_a_domain_name">http://en.wikipedia.org/wiki/DNS_label#Parts_of_a_domain_name</a>
  *   </li>
  *   <li>May be "localhost" or "localhost.localdomain" - other checks that conflict with this are skipped.</li>
  *   <li>Last domain label must be alphabetic (not be all numeric)</li>

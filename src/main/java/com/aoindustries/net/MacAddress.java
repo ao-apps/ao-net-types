@@ -40,7 +40,9 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * Represents a 48-bit MAC address in HH:HH:HH:HH:HH:HH format.  Parses case insensitive, produces uppercase.
  *
- * {@link http://en.wikipedia.org/wiki/MAC_address}
+ * <ul>
+ *   <li><a href="http://en.wikipedia.org/wiki/MAC_address">http://en.wikipedia.org/wiki/MAC_address</a></li>
+ * </ul>
  *
  * @author  AO Industries, Inc.
  */

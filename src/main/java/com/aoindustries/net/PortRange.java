@@ -123,7 +123,7 @@ final public class PortRange extends IPortRange implements
 	}
 
 	/**
-	 * Unlike {@link Port Port}, port ranges are not cached and may not be safely compared by identity.
+	 * Unlike {@link Port}, port ranges are not cached and may not be safely compared by identity.
 	 */
 	@Override
 	public boolean equals(Object obj) {
