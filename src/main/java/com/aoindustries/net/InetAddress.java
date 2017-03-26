@@ -609,7 +609,7 @@ final public class InetAddress implements
 			hi == UNSPECIFIED_HI
 			&& (
 				   lo == IPV6_UNSPECIFIED_LO
-				|| lo == IPV4_NET_MAPPED_LO
+				|| lo == IPV4_MAPPED_UNSPECIFIED_LO
 			)
 		;
 	}
