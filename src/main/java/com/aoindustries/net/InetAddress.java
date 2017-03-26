@@ -170,16 +170,20 @@ final public class InetAddress implements
 	 * Gets an IPv6 address from its numerical representation.
 	 *
 	 * @param  ip  If ip is null, returns null.
+	 *
+	 * @see  #valueOf(long, long)
 	 */
 	public static InetAddress valueOf(LongLong ip) {
 		if(ip == null) return null;
 		//InetAddress existing = interned.get(ip);
 		//return existing!=null ? existing : new InetAddress(ip);
-		return new InetAddress(ip.getHigh(), ip.getLow());
+		return valueOf(ip.getHigh(), ip.getLow());
 	}
 
 	/**
 	 * Gets an IPv6 address from its numerical representation.
+	 *
+	 * @see  #valueOf(com.aoindustries.math.LongLong)
 	 */
 	public static InetAddress valueOf(long hi, long lo) {
 		//InetAddress existing = interned.get(ip);
