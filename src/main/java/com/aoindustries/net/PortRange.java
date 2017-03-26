@@ -101,20 +101,12 @@ final public class PortRange extends IPortRange implements
 		validateObject();
 	}
 
+	// TODO: Is this unnecessary since validation called during readObject?
+	//       Does this cause it to double-validate and cause more effort in object graph tracking for validation?
 	@Override
 	public void validateObject() throws InvalidObjectException {
 		try {
 			validate();
-		} catch(ValidationException err) {
-			InvalidObjectException newErr = new InvalidObjectException(err.getMessage());
-			newErr.initCause(err);
-			throw newErr;
-		}
-	}
-
-	private Object readResolve() throws InvalidObjectException {
-		try {
-			return valueOf(from, to, protocol);
 		} catch(ValidationException err) {
 			InvalidObjectException newErr = new InvalidObjectException(err.getMessage());
 			newErr.initCause(err);
