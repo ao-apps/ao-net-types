@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-03-18T22:25:41-0500"
+		dateModified="2017-03-26T14:10:51-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -71,6 +71,18 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 					</li>
 					<li><code>PortRange</code>s are a combination of port range and protocol.
 						For example, <code>8080-8087/TCP</code>.
+					</li>
+					<li><code>InetAddress</code> improvements:
+						<ol>
+							<li>Fixed bug in IPv4 multicast network mask.</li>
+							<li>
+								IPv4 addresses are now internally stored in the IPv4-mapped space instead of IPv4-compatibility.
+								This resolves the ambiguity between unspecified IPv6 <code>::</code> and IPv4 <code>0.0.0.0</code>.
+							</li>
+							<li>All bit sequences internally represented by constants to aid in code readability and correctness.</li>
+							<li>Separated <code>isTeredo()</code> from <code>is6to4()</code>.</li>
+							<li>Added missing <code>TEST-NET-2</code> and <code>TEST-NET-3</code> in <code>isDocumentation()</code>.</li>
+						</ol>
 					</li>
 				</ul>
 			</changelog:release>
