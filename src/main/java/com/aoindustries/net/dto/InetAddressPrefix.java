@@ -20,38 +20,37 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-net-types.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoindustries.net;
+package com.aoindustries.net.dto;
 
 /**
- * The supported address families, such as IPv4 and IPv6.
- * <p>
- * Java 1.7+: Prefer <a href="https://docs.oracle.com/javase/7/docs/api/java/net/StandardProtocolFamily.html">StandardProtocolFamily</a>.
- * </p>
- *
  * @author  AO Industries, Inc.
  */
-public enum AddressFamily {
+public class InetAddressPrefix {
 
-	/**
-	 * Internet Protocol Version 4 (IPv4).
-	 */
-	INET(32),
+	private InetAddress address;
+	private int prefix;
 
-	/**
-	 * Internet Protocol Version 6 (IPv6).
-	 */
-	INET6(128);
-
-	private final int maxPrefix;
-
-	private AddressFamily(int maxPrefix) {
-		this.maxPrefix = maxPrefix;
+	public InetAddressPrefix() {
 	}
 
-	/**
-	 * Gets the maximum size of a prefix for addresses in this family.
-	 */
-	public int getMaxPrefix() {
-		return maxPrefix;
+	public InetAddressPrefix(InetAddress address, int prefix) {
+		this.address = address;
+		this.prefix = prefix;
+	}
+
+	public InetAddress getAddress() {
+		return address;
+	}
+
+	public void setAddress(InetAddress address) {
+		this.address = address;
+	}
+
+	public int getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(int prefix) {
+		this.prefix = prefix;
 	}
 }
