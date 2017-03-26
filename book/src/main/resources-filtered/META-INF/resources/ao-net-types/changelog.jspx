@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-03-26T15:29:46-0500"
+		dateModified="2017-03-26T17:31:06-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -86,6 +86,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 							<li>Internal representation is now two <code>long</code> fields instead of a <code>LongLong</code> object.</li>
 						</ol>
 					</li>
+					<li>New <code>AddressType</code> enum corresponding to <ao:a href="https://tools.ietf.org/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</ao:a>.</li>
 				</ul>
 			</changelog:release>
 		</c:if>

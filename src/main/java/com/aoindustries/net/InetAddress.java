@@ -61,7 +61,6 @@ final public class InetAddress implements
 		IPV4_NET_COMPAT_LO                   = 0x0000000000000000L, // ::a.b.c.d
 		IPV4_NET_MAPPED_LO                   = 0x0000ffff00000000L, // ::ffff:a.b.c.d
 		// Network prefix masks
-		IPV6_NET_MASK_3_HI                   = 0xe000000000000000L, // IPv6 /3
 		IPV6_NET_MASK_7_HI                   = 0xfe00000000000000L, // IPv6 /7
 		IPV6_NET_MASK_8_HI                   = 0xff00000000000000L, // IPv6 /8
 		IPV6_NET_MASK_10_HI                  = 0xffc0000000000000L, // IPv6 /10
@@ -92,8 +91,6 @@ final public class InetAddress implements
 		IPV4_NET_COMPAT_LINK_LOCAL_LO        = 0x00000000a9fe0000L, // 169.254.0.0/16
 		IPV4_NET_MAPPED_LINK_LOCAL_LO        = 0x0000ffffa9fe0000L, // 169.254.0.0/16
 		IPV6_NET_LINK_LOCAL_HI               = 0xfe80000000000000L, // fe80::/10
-		// Global Unicast
-		IPV6_NET_GLOBAL_UNICAST              = 0x2000000000000000L, // 2000::/3
 		// Multicast
 		IPV4_NET_COMPAT_MULTICAST_LO         = 0x00000000e0000000L, // 224.0.0.0/4
 		IPV4_NET_MAPPED_MULTICAST_LO         = 0x0000ffffe0000000L, // 224.0.0.0/4
@@ -641,13 +638,6 @@ final public class InetAddress implements
 		;
 	}
 
-	/**
-	 * See <a href="https://tools.ietf.org/html/rfc4291">RFC 4291</a>.
-	 */
-	public boolean isGlobalUnicast() {
-		return (hi & IPV6_NET_MASK_3_HI) == IPV6_NET_GLOBAL_UNICAST;
-	}
-
 	public boolean isMulticast() {
 		return
 			(hi & IPV6_NET_MASK_8_HI) == IPV6_NET_MULTICAST_HI
@@ -770,6 +760,18 @@ final public class InetAddress implements
 		} else {
 			return AddressFamily.INET6;
 		}
+	}
+
+	/**
+	 * Gets the type for this address.
+	 */
+	public AddressType getAddressType() {
+		if(isUnspecified()) return AddressType.UNSPECIFIED;
+		if(isLooback())     return AddressType.LOOPBACK;
+		if(isMulticast())   return AddressType.MULTICAST;
+		if(isLinkLocal())   return AddressType.LINK_LOCAL_UNICAST;
+		// (everything else)
+		return AddressType.GLOBAL_UNICAST;
 	}
 
 	/**
