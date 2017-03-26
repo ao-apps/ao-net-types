@@ -55,8 +55,6 @@ final public class InetAddress implements
 	Internable<InetAddress>
 {
 
-	private static final long serialVersionUID = -5667211900395977633L;
-
 	private static final long
 		// Bits for IPv4 representations
 		IPV4_HI                              = 0x0000000000000000L,
@@ -177,7 +175,16 @@ final public class InetAddress implements
 		if(ip == null) return null;
 		//InetAddress existing = interned.get(ip);
 		//return existing!=null ? existing : new InetAddress(ip);
-		return new InetAddress(ip);
+		return new InetAddress(ip.getHigh(), ip.getLow());
+	}
+
+	/**
+	 * Gets an IPv6 address from its numerical representation.
+	 */
+	public static InetAddress valueOf(long hi, long lo) {
+		//InetAddress existing = interned.get(ip);
+		//return existing!=null ? existing : new InetAddress(ip);
+		return new InetAddress(hi, lo);
 	}
 
 	private static int parseOctet(String address, int start, int end) throws ValidationException {
@@ -375,49 +382,55 @@ final public class InetAddress implements
 	}
 
 	public static final InetAddress UNSPECIFIED_IPV4 = valueOf(
-		new LongLong(UNSPECIFIED_HI, IPV4_MAPPED_UNSPECIFIED_LO)
+		UNSPECIFIED_HI, IPV4_MAPPED_UNSPECIFIED_LO
 	).intern();
 
 	public static final InetAddress UNSPECIFIED_IPV6 = valueOf(
-		new LongLong(UNSPECIFIED_HI, IPV6_UNSPECIFIED_LO)
+		UNSPECIFIED_HI, IPV6_UNSPECIFIED_LO
 	).intern();
 
 	public static final InetAddress LOOPBACK_IPV4 = valueOf(
-		new LongLong(LOOPBACK_HI, IPV4_MAPPED_LOOPBACK_LO)
+		LOOPBACK_HI, IPV4_MAPPED_LOOPBACK_LO
 	).intern();
 
 	public static final InetAddress LOOPBACK_IPV6 = valueOf(
-		new LongLong(LOOPBACK_HI, IPV6_LOOPBACK_LO)
+		LOOPBACK_HI, IPV6_LOOPBACK_LO
 	).intern();
 
-	// TODO: Store hi, lo fields directly?
-	final private LongLong ip;
+	private static final long serialVersionUID = 2L;
 
-	private InetAddress(LongLong ip) {
-		this.ip = ip;
+	final private long hi, lo;
+
+	private InetAddress(long hi, long lo) {
+		this.hi = hi;
+		this.lo = lo;
 	}
 
 	@Override
 	public boolean equals(Object O) {
+		if(!(O instanceof InetAddress)) return false;
+		InetAddress other = (InetAddress)O;
 		return
-			(O instanceof InetAddress)
-			&& ip.equals(((InetAddress)O).ip)
+			hi == other.hi
+			&& lo == other.lo
 		;
 	}
 
 	@Override
 	public int hashCode() {
-		return ip.hashCode();
+		return LongLong.hashCode(hi, lo);
 	}
 
 	/**
-	 * Sorts by address family, address.
+	 * Sorts by address family then numeric address.
 	 */
 	@Override
 	public int compareTo(InetAddress other) {
 		int diff = getAddressFamily().compareTo(other.getAddressFamily());
 		if(diff != 0) return diff;
-		return ip.compareToUnsigned(other.ip);
+		diff = LongLong.compareUnsigned(hi, other.hi);
+		if(diff != 0) return diff;
+		return LongLong.compareUnsigned(lo, other.lo);
 	}
 
 	/**
@@ -425,8 +438,6 @@ final public class InetAddress implements
 	 */
 	@Override
 	public String toString() {
-		long hi = ip.getHigh();
-		long lo = ip.getLow();
 		if(hi == UNSPECIFIED_HI && lo == IPV6_UNSPECIFIED_LO) return "::";
 		if(hi == LOOPBACK_HI    && lo == IPV6_LOOPBACK_LO   ) return "::1";
 		if(hi == IPV4_HI) {
@@ -546,9 +557,10 @@ final public class InetAddress implements
 	 */
 	@Override
 	public InetAddress intern() {
-		InetAddress existing = interned.get(ip);
+		LongLong key = getIp();
+		InetAddress existing = interned.get(key);
 		if(existing==null) {
-			existing = interned.putIfAbsent(ip, this);
+			existing = interned.putIfAbsent(key, this);
 			if(existing==null) existing = this;
 			InetAddress existing2 = internedByAddress.putIfAbsent(existing.toString(), existing);
 			if(existing2!=null && existing2!=existing) throw new AssertionError("existing2!=null && existing2!=existing");
@@ -556,8 +568,34 @@ final public class InetAddress implements
 		return existing;
 	}
 
+	/**
+	 * Gets the high-order 64 bits of the numeric address.
+	 *
+	 * @see #getLow()
+	 * @see #getIp()
+	 */
+	public long getHigh() {
+		return hi;
+	}
+
+	/**
+	 * Gets the low-order 64 bits of the numeric address.
+	 *
+	 * @see #getHigh()
+	 * @see #getIp()
+	 */
+	public long getLow() {
+		return lo;
+	}
+
+	/**
+	 * Gets the numeric address as a 128-bit integer.
+	 *
+	 * @see #getHigh()
+	 * @see #getLow()
+	 */
 	public LongLong getIp() {
-		return ip;
+		return LongLong.valueOf(hi, lo);
 	}
 
 	@Override
@@ -567,33 +605,33 @@ final public class InetAddress implements
 
 	public boolean isUnspecified() {
 		return
-			ip.getHigh() == UNSPECIFIED_HI
+			hi == UNSPECIFIED_HI
 			&& (
-				   ip.getLow() == IPV6_UNSPECIFIED_LO
-				|| ip.getLow() == IPV4_NET_MAPPED_LO
+				   lo == IPV6_UNSPECIFIED_LO
+				|| lo == IPV4_NET_MAPPED_LO
 			)
 		;
 	}
 
 	public boolean isLooback() {
 		return
-			ip.getHigh() == LOOPBACK_HI
+			hi == LOOPBACK_HI
 			&& (
-				ip.getLow() == IPV6_LOOPBACK_LO
-				|| (ip.getLow() & IPV4_NET_MASK_8_LO) == IPV4_NET_COMPAT_LOOPBACK_LO
-				|| (ip.getLow() & IPV4_NET_MASK_8_LO) == IPV4_NET_MAPPED_LOOPBACK_LO
+				lo == IPV6_LOOPBACK_LO
+				|| (lo & IPV4_NET_MASK_8_LO) == IPV4_NET_COMPAT_LOOPBACK_LO
+				|| (lo & IPV4_NET_MASK_8_LO) == IPV4_NET_MAPPED_LOOPBACK_LO
 			)
 		;
 	}
 
 	public boolean isLinkLocal() {
 		return
-			(ip.getHigh() & IPV6_NET_MASK_10_HI) == IPV6_NET_LINK_LOCAL_HI
+			(hi & IPV6_NET_MASK_10_HI) == IPV6_NET_LINK_LOCAL_HI
 			|| (
-				ip.getHigh() == IPV4_HI
+				hi == IPV4_HI
 				&& (
-					   (ip.getLow() & IPV4_NET_MASK_16_LO) == IPV4_NET_COMPAT_LINK_LOCAL_LO
-					|| (ip.getLow() & IPV4_NET_MASK_16_LO) == IPV4_NET_MAPPED_LINK_LOCAL_LO
+					   (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_COMPAT_LINK_LOCAL_LO
+					|| (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_MAPPED_LINK_LOCAL_LO
 				)
 			)
 		;
@@ -603,16 +641,17 @@ final public class InetAddress implements
 	 * See <a href="https://tools.ietf.org/html/rfc4291">RFC 4291</a>.
 	 */
 	public boolean isGlobalUnicast() {
-		return (ip.getHigh() & IPV6_NET_MASK_3_HI) == IPV6_NET_GLOBAL_UNICAST;
+		return (hi & IPV6_NET_MASK_3_HI) == IPV6_NET_GLOBAL_UNICAST;
 	}
 
 	public boolean isMulticast() {
 		return
-			(ip.getHigh() & IPV6_NET_MASK_8_HI) == IPV6_NET_MULTICAST_HI
+			(hi & IPV6_NET_MASK_8_HI) == IPV6_NET_MULTICAST_HI
 			|| (
-				ip.getHigh() == IPV4_HI && (
-					   (ip.getLow() & IPV4_NET_MASK_4_LO) == IPV4_NET_COMPAT_MULTICAST_LO
-					|| (ip.getLow() & IPV4_NET_MASK_4_LO) == IPV4_NET_MAPPED_MULTICAST_LO
+				hi == IPV4_HI
+				&& (
+					   (lo & IPV4_NET_MASK_4_LO) == IPV4_NET_COMPAT_MULTICAST_LO
+					|| (lo & IPV4_NET_MASK_4_LO) == IPV4_NET_MAPPED_MULTICAST_LO
 				)
 			)
 		;
@@ -620,16 +659,16 @@ final public class InetAddress implements
 
 	public boolean isUniqueLocal() {
 		return
-			(ip.getHigh() & IPV6_NET_MASK_7_HI) == IPV6_NET_UNIQUE_LOCAL_HI
+			(hi & IPV6_NET_MASK_7_HI) == IPV6_NET_UNIQUE_LOCAL_HI
 			|| (
-				ip.getHigh() == IPV4_HI
+				hi == IPV4_HI
 				&& (
-					   (ip.getLow() & IPV4_NET_MASK_8_LO ) == IPV4_NET_COMPAT_UNIQUE_LOCAL_8_LO
-					|| (ip.getLow() & IPV4_NET_MASK_8_LO ) == IPV4_NET_MAPPED_UNIQUE_LOCAL_8_LO
-					|| (ip.getLow() & IPV4_NET_MASK_12_LO) == IPV4_NET_COMPAT_UNIQUE_LOCAL_12_LO
-					|| (ip.getLow() & IPV4_NET_MASK_12_LO) == IPV4_NET_MAPPED_UNIQUE_LOCAL_12_LO
-					|| (ip.getLow() & IPV4_NET_MASK_16_LO) == IPV4_NET_COMPAT_UNIQUE_LOCAL_16_LO
-					|| (ip.getLow() & IPV4_NET_MASK_16_LO) == IPV4_NET_MAPPED_UNIQUE_LOCAL_16_LO
+					   (lo & IPV4_NET_MASK_8_LO ) == IPV4_NET_COMPAT_UNIQUE_LOCAL_8_LO
+					|| (lo & IPV4_NET_MASK_8_LO ) == IPV4_NET_MAPPED_UNIQUE_LOCAL_8_LO
+					|| (lo & IPV4_NET_MASK_12_LO) == IPV4_NET_COMPAT_UNIQUE_LOCAL_12_LO
+					|| (lo & IPV4_NET_MASK_12_LO) == IPV4_NET_MAPPED_UNIQUE_LOCAL_12_LO
+					|| (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_COMPAT_UNIQUE_LOCAL_16_LO
+					|| (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_MAPPED_UNIQUE_LOCAL_16_LO
 				)
 			)
 		;
@@ -637,12 +676,12 @@ final public class InetAddress implements
 
 	public boolean is6to4() {
 		return
-			(ip.getHigh() & IPV6_NET_MASK_16_HI) == IPV6_NET_6TO4_HI
+			(hi & IPV6_NET_MASK_16_HI) == IPV6_NET_6TO4_HI
 			|| (
-				ip.getHigh() == IPV4_HI
+				hi == IPV4_HI
 				&& (
-					   (ip.getLow() & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_6TO4_RELAY
-					|| (ip.getLow() & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_6TO4_RELAY
+					   (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_6TO4_RELAY
+					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_6TO4_RELAY
 				)
 			)
 		;
@@ -652,7 +691,7 @@ final public class InetAddress implements
 	 * Is Teredo tunneling (<code>2001::/32</code>)?
 	 */
 	public boolean isTeredo() {
-		return (ip.getHigh() & IPV6_NET_MASK_32_HI) == IPV6_NET_TEREDO_HI;
+		return (hi & IPV6_NET_MASK_32_HI) == IPV6_NET_TEREDO_HI;
 	}
 
 	/**
@@ -660,16 +699,16 @@ final public class InetAddress implements
 	 */
 	public boolean isDocumentation() {
 		return
-			(ip.getHigh() & IPV6_NET_MASK_32_HI) == IPV6_NET_DOCUMENTATION_HI
+			(hi & IPV6_NET_MASK_32_HI) == IPV6_NET_DOCUMENTATION_HI
 			|| (
-				ip.getHigh() == IPV4_HI
+				hi == IPV4_HI
 				&& (
-					   (ip.getLow() & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_1
-					|| (ip.getLow() & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_1
-					|| (ip.getLow() & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_2
-					|| (ip.getLow() & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_2
-					|| (ip.getLow() & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_3
-					|| (ip.getLow() & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_3
+					   (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_1
+					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_1
+					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_2
+					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_2
+					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_3
+					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_3
 				)
 			)
 		;
@@ -680,12 +719,12 @@ final public class InetAddress implements
 	 */
 	public boolean isNetworkBenchmark() {
 		return
-			(ip.getHigh() & IPV6_NET_MASK_48_HI) == IPV6_NET_BENCHMARK
+			(hi & IPV6_NET_MASK_48_HI) == IPV6_NET_BENCHMARK
 			|| (
-				ip.getHigh() == IPV4_HI
+				hi == IPV4_HI
 				&& (
-					   (ip.getLow() & IPV4_NET_MASK_15_LO) == IPV4_NET_COMPAT_BENCHMARK
-					|| (ip.getLow() & IPV4_NET_MASK_15_LO) == IPV4_NET_MAPPED_BENCHMARK
+					   (lo & IPV4_NET_MASK_15_LO) == IPV4_NET_COMPAT_BENCHMARK
+					|| (lo & IPV4_NET_MASK_15_LO) == IPV4_NET_MAPPED_BENCHMARK
 				)
 			)
 		;
@@ -693,16 +732,16 @@ final public class InetAddress implements
 
 	public boolean isBroadcast() {
 		return
-			ip.getHigh() == IPV4_HI
+			hi == IPV4_HI
 			&& (
-				   ip.getLow() == IPV4_COMPAT_BROADCAST_LO
-				|| ip.getLow() == IPV4_MAPPED_BROADCAST_LO
+				   lo == IPV4_COMPAT_BROADCAST_LO
+				|| lo == IPV4_MAPPED_BROADCAST_LO
 			)
 		;
 	}
 
 	public boolean isOrchid() {
-		return (ip.getHigh() & IPV6_NET_MASK_28_HI) == IPV6_NET_ORCHID_HI;
+		return (hi & IPV6_NET_MASK_28_HI) == IPV6_NET_ORCHID_HI;
 	}
 
 	/**
@@ -710,18 +749,18 @@ final public class InetAddress implements
 	 */
 	public boolean isCarrierGradeNat() {
 		return
-			ip.getHigh() == IPV4_HI
+			hi == IPV4_HI
 			&& (
-				   (ip.getLow() & IPV4_NET_MASK_10_LO) == IPV4_NET_COMPAT_CARRIER_GRADE_NET_LO
-				|| (ip.getLow() & IPV4_NET_MASK_10_LO) == IPV4_NET_MAPPED_CARRIER_GRADE_NET_LO
+				   (lo & IPV4_NET_MASK_10_LO) == IPV4_NET_COMPAT_CARRIER_GRADE_NET_LO
+				|| (lo & IPV4_NET_MASK_10_LO) == IPV4_NET_MAPPED_CARRIER_GRADE_NET_LO
 			)
 		;
 	}
 
 	public AddressFamily getAddressFamily() {
 		if(
-			ip.getHigh() == IPV4_HI
-			&& (ip.getLow() & IPV6_NET_MASK_96_LO) == IPV4_NET_MAPPED_LO
+			hi == IPV4_HI
+			&& (lo & IPV6_NET_MASK_96_LO) == IPV4_NET_MAPPED_LO
 		) {
 			return AddressFamily.INET;
 		} else {

@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-03-26T15:02:28-0500"
+		dateModified="2017-03-26T15:29:46-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -83,6 +83,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 							<li>Separated <code>isTeredo()</code> from <code>is6to4()</code>.</li>
 							<li>Added missing <code>TEST-NET-2</code> and <code>TEST-NET-3</code> in <code>isDocumentation()</code>.</li>
 							<li>Added <code>isGlobalUnicast()</code> to check for Global Unicast addresses.</li>
+							<li>Internal representation is now two <code>long</code> fields instead of a <code>LongLong</code> object.</li>
 						</ol>
 					</li>
 				</ul>
