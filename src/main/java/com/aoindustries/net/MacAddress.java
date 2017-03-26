@@ -31,7 +31,6 @@ import com.aoindustries.validation.ValidationResult;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
-import java.io.ObjectInputValidation;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
@@ -49,7 +48,6 @@ import java.util.concurrent.ConcurrentMap;
 final public class MacAddress implements
 	Comparable<MacAddress>,
 	Serializable,
-	ObjectInputValidation,
 	DtoFactory<com.aoindustries.net.dto.MacAddress>,
 	Internable<MacAddress>
 {
@@ -135,11 +133,6 @@ final public class MacAddress implements
 	 */
 	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
 		ois.defaultReadObject();
-		validateObject();
-	}
-
-	@Override
-	public void validateObject() throws InvalidObjectException {
 		try {
 			validate();
 		} catch(ValidationException err) {

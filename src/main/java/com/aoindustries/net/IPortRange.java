@@ -25,8 +25,6 @@ package com.aoindustries.net;
 import com.aoindustries.util.ComparatorUtils;
 import com.aoindustries.validation.ValidationException;
 import com.aoindustries.validation.ValidationResult;
-import java.io.InvalidObjectException;
-import java.io.ObjectInputValidation;
 import java.io.Serializable;
 
 /**
@@ -47,8 +45,7 @@ import java.io.Serializable;
  */
 abstract public class IPortRange implements
 	Comparable<IPortRange>,
-	Serializable,
-	ObjectInputValidation
+	Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -77,9 +74,6 @@ abstract public class IPortRange implements
 	IPortRange(Protocol protocol) {
 		this.protocol = protocol;
 	}
-
-	@Override
-	abstract public void validateObject() throws InvalidObjectException;
 
 	/**
 	 * {@link Port ports} and {@link PortRange port ranges} will never equal each other because

@@ -30,7 +30,6 @@ import com.aoindustries.validation.ValidationResult;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
-import java.io.ObjectInputValidation;
 import java.io.Serializable;
 
 /**
@@ -41,7 +40,6 @@ import java.io.Serializable;
  */
 final public class PortRange extends IPortRange implements
 	Serializable,
-	ObjectInputValidation,
 	DtoFactory<com.aoindustries.net.dto.PortRange>
 {
 
@@ -98,13 +96,6 @@ final public class PortRange extends IPortRange implements
 	 */
 	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
 		ois.defaultReadObject();
-		validateObject();
-	}
-
-	// TODO: Is this unnecessary since validation called during readObject?
-	//       Does this cause it to double-validate and cause more effort in object graph tracking for validation?
-	@Override
-	public void validateObject() throws InvalidObjectException {
 		try {
 			validate();
 		} catch(ValidationException err) {
