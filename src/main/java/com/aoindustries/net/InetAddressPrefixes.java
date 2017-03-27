@@ -378,7 +378,7 @@ final public class InetAddressPrefixes {
 					0x2001000200000000L,
 					0x0000000000000000L
 				).intern(),
-				8
+				48
 			);
 		} catch(ValidationException e) {
 			throw new AssertionError(e);
