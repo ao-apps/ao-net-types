@@ -444,8 +444,8 @@ final public class InetAddress implements
 			longestFirstZero = currentFirstZero;
 			longestNumZeros = currentNumZeros;
 		}
-		StringBuilder SB = new StringBuilder(39);
-		if(longestFirstZero<=0 || (longestFirstZero+longestNumZeros)>=16) {
+		StringBuilder SB = new StringBuilder("aaaa:bbbb:cccc:dddd:eeee:ffff:gggg:hhhh".length());
+		if(longestFirstZero == -1) {
 			for(int c=0; c<16; c+=2) {
 				if(c>0) SB.append(':');
 				SB.append(
