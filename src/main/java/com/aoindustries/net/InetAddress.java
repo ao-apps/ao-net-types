@@ -61,60 +61,18 @@ final public class InetAddress implements
 		IPV4_NET_COMPAT_LO            = 0x0000000000000000L, // ::a.b.c.d
 		IPV4_NET_MAPPED_LO            = 0x0000ffff00000000L, // ::ffff:a.b.c.d
 		// Network prefix masks
-		IPV6_NET_MASK_7_HI            = 0xfe00000000000000L, // IPv6 /7
-		IPV6_NET_MASK_8_HI            = 0xff00000000000000L, // IPv6 /8
-		IPV6_NET_MASK_10_HI           = 0xffc0000000000000L, // IPv6 /10
-		IPV6_NET_MASK_16_HI           = 0xffff000000000000L, // IPv6 /16
-		IPV6_NET_MASK_28_HI           = 0xfffffff000000000L, // IPv6 /28
-		IPV6_NET_MASK_32_HI           = 0xffffffff00000000L, // IPv6 /32
-		IPV6_NET_MASK_48_HI           = 0xffffffffffff0000L, // IPv6 /48
 		IPV6_NET_MASK_96_LO           = 0xffffffff00000000L, // IPv6 /96
-		IPV4_NET_MASK_4_LO            = 0xfffffffff0000000L, // IPv4 /4
-		IPV4_NET_MASK_8_LO            = 0xffffffffff000000L, // IPv4 /8
 		IPV4_NET_MASK_10_LO           = 0xffffffffffc00000L, // IPv4 /10
-		IPV4_NET_MASK_12_LO           = 0xfffffffffff00000L, // IPv4 /12
-		IPV4_NET_MASK_15_LO           = 0xfffffffffffe0000L, // IPv4 /15
-		IPV4_NET_MASK_16_LO           = 0xffffffffffff0000L, // IPv4 /16
-		IPV4_NET_MASK_24_LO           = 0xffffffffffffff00L, // IPv4 /24
 		// Unspecified
 		UNSPECIFIED_HI                = 0x0000000000000000L,
 		IPV4_UNSPECIFIED_LO           = 0x0000ffff00000000L, // 0.0.0.0/32
 		IPV6_UNSPECIFIED_LO           = 0x0000000000000000L, // ::
 		// Bits for loopback
 		LOOPBACK_HI                   = 0x0000000000000000L,
-		IPV4_NET_LOOPBACK_LO          = 0x0000ffff7f000000L, // 127.0.0.0/8
 		IPV4_LOOPBACK_LO              = 0x0000ffff7f000001L, // 127.0.0.1
 		IPV6_LOOPBACK_LO              = 0x0000000000000001L, // ::1
-		// Link Local
-		IPV4_NET_LINK_LOCAL_LO        = 0x0000ffffa9fe0000L, // 169.254.0.0/16
-		IPV6_NET_LINK_LOCAL_HI        = 0xfe80000000000000L, // fe80::/10
-		// Multicast
-		IPV4_NET_MULTICAST_LO         = 0x0000ffffe0000000L, // 224.0.0.0/4
-		IPV6_NET_MULTICAST_HI         = 0xff00000000000000L, // ff00::/8
-		// Unique Local
-		IPV4_NET_UNIQUE_LOCAL_8_LO    = 0x0000ffff0a000000L, // 10.0.0.0/8
-		IPV4_NET_UNIQUE_LOCAL_12_LO   = 0x0000ffffac100000L, // 172.16.0.0/12
-		IPV4_NET_UNIQUE_LOCAL_16_LO   = 0x0000ffffc0a80000L, // 192.168.0.0/16
-		IPV6_NET_UNIQUE_LOCAL_HI      = 0xfc00000000000000L, // fc00::/7
-		// 6to4
-		IPV4_NET_6TO4_RELAY           = 0x0000ffffc0586300L, // 192.88.99.0/24
-		IPV6_NET_6TO4_HI              = 0x2002000000000000L, // 2002::/16
-		// Teredo
-		IPV6_NET_TEREDO_HI            = 0x2001000000000000L, // 2001::/32
-		// Documentation
-		IPV4_NET_TEST_NET_1           = 0x0000ffffc0000200L, // 192.0.2.0/24
-		IPV4_NET_TEST_NET_2           = 0x0000ffffc6336400L, // 198.51.100.0/24
-		IPV4_NET_TEST_NET_3           = 0x0000ffffcb007100L, // 203.0.113.0/24
-		IPV6_NET_DOCUMENTATION_HI     = 0x20010db800000000L, // 2001:db8::/32
-		// Network Benchmark
-		IPV4_NET_BENCHMARK            = 0x0000ffffc6120000L, // 198.18.0.0/15
-		IPV6_NET_BENCHMARK            = 0x2001000200000000L, // 2001:2::/48
 		// IPv4 Broadcast
-		IPV4_BROADCAST_LO             = 0x0000ffffffffffffL, // 255.255.255.255/32
-		// Orchid
-		IPV6_NET_ORCHID_HI            = 0x2001002000000000L, // 2001:20::/28
-		// Carrier-grade NAT
-		IPV4_NET_CARRIER_GRADE_NET_LO = 0x0000ffff64400000L  // 100.64.0.0/10
+		IPV4_BROADCAST_LO             = 0x0000ffffffffffffL  // 255.255.255.255/32
 	;
 
 	/**
@@ -386,7 +344,7 @@ final public class InetAddress implements
 
 	private static final long serialVersionUID = 2L;
 
-	final private long hi, lo;
+	final long hi, lo;
 
 	private InetAddress(long hi, long lo) {
 		this.hi = hi;
@@ -600,113 +558,122 @@ final public class InetAddress implements
 		;
 	}
 
-	public boolean isLooback() {
+	/**
+	 * @see  #LOOPBACK_IPV6
+	 * @see  InetAddressPrefixes#LOOPBACK_IPV4
+	 */
+	public boolean isLoopback() {
 		return
-			hi == LOOPBACK_HI
-			&& (
-				lo == IPV6_LOOPBACK_LO
-				|| (lo & IPV4_NET_MASK_8_LO) == IPV4_NET_LOOPBACK_LO
-			)
-		;
-	}
-
-	public boolean isLinkLocal() {
-		return
-			(hi & IPV6_NET_MASK_10_HI) == IPV6_NET_LINK_LOCAL_HI
-			|| (
-				hi == IPV4_HI
-				&& (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_LINK_LOCAL_LO
-			)
-		;
-	}
-
-	public boolean isMulticast() {
-		return
-			(hi & IPV6_NET_MASK_8_HI) == IPV6_NET_MULTICAST_HI
-			|| (
-				hi == IPV4_HI
-				&& (lo & IPV4_NET_MASK_4_LO) == IPV4_NET_MULTICAST_LO
-			)
-		;
-	}
-
-	public boolean isUniqueLocal() {
-		return
-			(hi & IPV6_NET_MASK_7_HI) == IPV6_NET_UNIQUE_LOCAL_HI
-			|| (
-				hi == IPV4_HI
-				&& (
-					   (lo & IPV4_NET_MASK_8_LO ) == IPV4_NET_UNIQUE_LOCAL_8_LO
-					|| (lo & IPV4_NET_MASK_12_LO) == IPV4_NET_UNIQUE_LOCAL_12_LO
-					|| (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_UNIQUE_LOCAL_16_LO
-				)
-			)
-		;
-	}
-
-	public boolean is6to4() {
-		return
-			(hi & IPV6_NET_MASK_16_HI) == IPV6_NET_6TO4_HI
-			|| (
-				hi == IPV4_HI
-				&& (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_6TO4_RELAY
-			)
+			   (hi == LOOPBACK_HI && lo == IPV6_LOOPBACK_LO)
+			|| InetAddressPrefixes.LOOPBACK_IPV4.contains(this)
 		;
 	}
 
 	/**
-	 * Is Teredo tunneling (<code>2001::/32</code>)?
+	 * The IPv4 Broadcast (<code>255.255.255.255/32</code>).
+	 * <p>
+	 * See <a href="https://tools.ietf.org/html/rfc922#section-7">RFC 922, Section 7</a>.
+	 * </p>
+	 *
+	 * @see  #IPV4_BROADCAST_LO
 	 */
-	public boolean isTeredo() {
-		return (hi & IPV6_NET_MASK_32_HI) == IPV6_NET_TEREDO_HI;
-	}
-
-	/**
-	 * See <a href="https://tools.ietf.org/html/rfc5737">RFC 5737</a>.
-	 */
-	public boolean isDocumentation() {
-		return
-			(hi & IPV6_NET_MASK_32_HI) == IPV6_NET_DOCUMENTATION_HI
-			|| (
-				hi == IPV4_HI
-				&& (
-					   (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_TEST_NET_1
-					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_TEST_NET_2
-					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_TEST_NET_3
-				)
-			)
-		;
-	}
-
-	/**
-	 * See <a href="https://tools.ietf.org/html/rfc5180">RFC 5180</a>.
-	 */
-	public boolean isNetworkBenchmark() {
-		return
-			(hi & IPV6_NET_MASK_48_HI) == IPV6_NET_BENCHMARK
-			|| (
-				hi == IPV4_HI
-				&& (lo & IPV4_NET_MASK_15_LO) == IPV4_NET_BENCHMARK
-			)
-		;
-	}
-
 	public boolean isBroadcast() {
 		return hi == IPV4_HI && lo == IPV4_BROADCAST_LO;
 	}
 
-	public boolean isOrchid() {
-		return (hi & IPV6_NET_MASK_28_HI) == IPV6_NET_ORCHID_HI;
+	/**
+	 * @see  InetAddressPrefixes#LINK_LOCAL_IPV4
+	 * @see  InetAddressPrefixes#LINK_LOCAL_IPV6
+	 */
+	public boolean isLinkLocal() {
+		return
+			   InetAddressPrefixes.LINK_LOCAL_IPV4.contains(this)
+			|| InetAddressPrefixes.LINK_LOCAL_IPV6.contains(this)
+		;
 	}
 
 	/**
-	 * Is an IPv4 carrier-grade NAT (<code>100.64.0.0/10</code>)?  See <a href="https://tools.ietf.org/html/rfc6598">RFC 5698</a>.
+	 * @see  InetAddressPrefixes#MULTICAST_IPV4
+	 * @see  InetAddressPrefixes#MULTICAST_IPV6
+	 */
+	public boolean isMulticast() {
+		return
+			   InetAddressPrefixes.MULTICAST_IPV4.contains(this)
+			|| InetAddressPrefixes.MULTICAST_IPV6.contains(this)
+		;
+	}
+
+	/**
+	 * @see  InetAddressPrefixes#UNIQUE_LOCAL_IPV4_8
+	 * @see  InetAddressPrefixes#UNIQUE_LOCAL_IPV4_12
+	 * @see  InetAddressPrefixes#UNIQUE_LOCAL_IPV4_16
+	 * @see  InetAddressPrefixes#UNIQUE_LOCAL_IPV6
+	 */
+	public boolean isUniqueLocal() {
+		return
+			   InetAddressPrefixes.UNIQUE_LOCAL_IPV4_8.contains(this)
+			|| InetAddressPrefixes.UNIQUE_LOCAL_IPV4_12.contains(this)
+			|| InetAddressPrefixes.UNIQUE_LOCAL_IPV4_16.contains(this)
+			|| InetAddressPrefixes.UNIQUE_LOCAL_IPV6.contains(this)
+		;
+	}
+
+	/**
+	 * @see  InetAddressPrefixes#_6TO4_IPV4
+	 * @see  InetAddressPrefixes#_6TO4_IPV6
+	 */
+	public boolean is6to4() {
+		return
+			   InetAddressPrefixes._6TO4_IPV4.contains(this)
+			|| InetAddressPrefixes._6TO4_IPV6.contains(this)
+		;
+	}
+
+	/**
+	 * @see  InetAddressPrefixes#TEREDO_IPV6
+	 */
+	public boolean isTeredo() {
+		return InetAddressPrefixes.TEREDO_IPV6.contains(this);
+	}
+
+	/**
+	 * @see  InetAddressPrefixes#DOCUMENTATION_IPV4_1
+	 * @see  InetAddressPrefixes#DOCUMENTATION_IPV4_2
+	 * @see  InetAddressPrefixes#DOCUMENTATION_IPV4_3
+	 * @see  InetAddressPrefixes#DOCUMENTATION_IPV6
+	 */
+	public boolean isDocumentation() {
+		return
+			   InetAddressPrefixes.DOCUMENTATION_IPV4_1.contains(this)
+			|| InetAddressPrefixes.DOCUMENTATION_IPV4_2.contains(this)
+			|| InetAddressPrefixes.DOCUMENTATION_IPV4_3.contains(this)
+			|| InetAddressPrefixes.DOCUMENTATION_IPV6.contains(this)
+		;
+	}
+
+	/**
+	 * @see  InetAddressPrefixes#BENCHMARK_IPV4
+	 * @see  InetAddressPrefixes#BENCHMARK_IPV6
+	 */
+	public boolean isNetworkBenchmark() {
+		return
+			   InetAddressPrefixes.BENCHMARK_IPV4.contains(this)
+			|| InetAddressPrefixes.BENCHMARK_IPV6.contains(this)
+		;
+	}
+
+	/**
+	 * @see  InetAddressPrefixes#ORCHID_IPV6
+	 */
+	public boolean isOrchid() {
+		return InetAddressPrefixes.ORCHID_IPV6.contains(this);
+	}
+
+	/**
+	 * @see  InetAddressPrefixes#CARRIER_GRADE_NAT_IPV4
 	 */
 	public boolean isCarrierGradeNat() {
-		return
-			hi == IPV4_HI
-			&& (lo & IPV4_NET_MASK_10_LO) == IPV4_NET_CARRIER_GRADE_NET_LO
-		;
+		return InetAddressPrefixes.CARRIER_GRADE_NAT_IPV4.contains(this);
 	}
 
 	public AddressFamily getAddressFamily() {
@@ -725,7 +692,7 @@ final public class InetAddress implements
 	 */
 	public AddressType getAddressType() {
 		if(isUnspecified()) return AddressType.UNSPECIFIED;
-		if(isLooback())     return AddressType.LOOPBACK;
+		if(isLoopback())     return AddressType.LOOPBACK;
 		if(isMulticast())   return AddressType.MULTICAST;
 		if(isLinkLocal())   return AddressType.LINK_LOCAL_UNICAST;
 		// (everything else)

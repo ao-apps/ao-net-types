@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-03-26T20:09:48-0500"
+		dateModified="2017-03-26T21:58:37-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -89,6 +89,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 					</li>
 					<li>New <code>AddressType</code> enum corresponding to <ao:a href="https://tools.ietf.org/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</ao:a>.</li>
 					<li>New <code>InetAddressPrefix</code> that is a compound type of <code>InetAddress</code> and an associated prefix.</li>
+					<li>New <code>InetAddressPrefixes</code> constants of standard network prefixes.</li>
 				</ul>
 			</changelog:release>
 		</c:if>

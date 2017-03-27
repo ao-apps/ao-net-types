@@ -150,4 +150,29 @@ final public class InetAddressPrefix implements
 	public com.aoindustries.net.dto.InetAddressPrefix getDto() {
 		return new com.aoindustries.net.dto.InetAddressPrefix(address.getDto(), prefix);
 	}
+
+	/**
+	 * Checks if the given address is in this prefix.
+	 * Must be of the same {@link AddressFamily address family}; IPv4 addresses will never match IPv6.
+	 */
+	public boolean contains(InetAddress other) {
+		AddressFamily addressFamily = address.getAddressFamily();
+		if(addressFamily != other.getAddressFamily()) return false;
+		switch(addressFamily) {
+			case INET :
+				assert address.hi == other.hi;
+				return (address.lo >>> (32 - prefix)) == (other.lo >>> (32 - prefix));
+			case INET6 :
+				if(prefix <= 64) {
+					return (address.hi >>> (64 - prefix)) == (other.hi >>> (64 - prefix));
+				} else {
+					return
+						address.hi == other.hi
+						&& (address.lo >>> (128 - prefix)) == (other.lo >>> (128 - prefix))
+					;
+				}
+			default :
+				throw new AssertionError();
+		}
+	}
 }
