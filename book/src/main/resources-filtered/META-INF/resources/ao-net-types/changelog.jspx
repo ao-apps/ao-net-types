@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-03-26T18:24:21-0500"
+		dateModified="2017-03-26T20:09:48-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -84,6 +84,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 							<li>Added missing <code>TEST-NET-2</code> and <code>TEST-NET-3</code> in <code>isDocumentation()</code>.</li>
 							<li>Added <code>isGlobalUnicast()</code> to check for Global Unicast addresses.</li>
 							<li>Internal representation is now two <code>long</code> fields instead of a <code>LongLong</code> object.</li>
+							<li>IPv4-compatibility addresses are deprecated.  They are no longer considered members of various IPv4-mapped network ranges.</li>
 						</ol>
 					</li>
 					<li>New <code>AddressType</code> enum corresponding to <ao:a href="https://tools.ietf.org/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</ao:a>.</li>

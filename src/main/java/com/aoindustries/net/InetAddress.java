@@ -57,78 +57,64 @@ final public class InetAddress implements
 
 	private static final long
 		// Bits for IPv4 representations
-		IPV4_HI                              = 0x0000000000000000L,
-		IPV4_NET_COMPAT_LO                   = 0x0000000000000000L, // ::a.b.c.d
-		IPV4_NET_MAPPED_LO                   = 0x0000ffff00000000L, // ::ffff:a.b.c.d
+		IPV4_HI                       = 0x0000000000000000L,
+		IPV4_NET_COMPAT_LO            = 0x0000000000000000L, // ::a.b.c.d
+		IPV4_NET_MAPPED_LO            = 0x0000ffff00000000L, // ::ffff:a.b.c.d
 		// Network prefix masks
-		IPV6_NET_MASK_7_HI                   = 0xfe00000000000000L, // IPv6 /7
-		IPV6_NET_MASK_8_HI                   = 0xff00000000000000L, // IPv6 /8
-		IPV6_NET_MASK_10_HI                  = 0xffc0000000000000L, // IPv6 /10
-		IPV6_NET_MASK_16_HI                  = 0xffff000000000000L, // IPv6 /16
-		IPV6_NET_MASK_28_HI                  = 0xfffffff000000000L, // IPv6 /28
-		IPV6_NET_MASK_32_HI                  = 0xffffffff00000000L, // IPv6 /32
-		IPV6_NET_MASK_48_HI                  = 0xffffffffffff0000L, // IPv6 /48
-		IPV6_NET_MASK_96_LO                  = 0xffffffff00000000L, // IPv6 /96
-		IPV4_NET_MASK_4_LO                   = 0xfffffffff0000000L, // IPv4 /4
-		IPV4_NET_MASK_8_LO                   = 0xffffffffff000000L, // IPv4 /8
-		IPV4_NET_MASK_10_LO                  = 0xffffffffffc00000L, // IPv4 /10
-		IPV4_NET_MASK_12_LO                  = 0xfffffffffff00000L, // IPv4 /12
-		IPV4_NET_MASK_15_LO                  = 0xfffffffffffe0000L, // IPv4 /15
-		IPV4_NET_MASK_16_LO                  = 0xffffffffffff0000L, // IPv4 /16
-		IPV4_NET_MASK_24_LO                  = 0xffffffffffffff00L, // IPv4 /24
+		IPV6_NET_MASK_7_HI            = 0xfe00000000000000L, // IPv6 /7
+		IPV6_NET_MASK_8_HI            = 0xff00000000000000L, // IPv6 /8
+		IPV6_NET_MASK_10_HI           = 0xffc0000000000000L, // IPv6 /10
+		IPV6_NET_MASK_16_HI           = 0xffff000000000000L, // IPv6 /16
+		IPV6_NET_MASK_28_HI           = 0xfffffff000000000L, // IPv6 /28
+		IPV6_NET_MASK_32_HI           = 0xffffffff00000000L, // IPv6 /32
+		IPV6_NET_MASK_48_HI           = 0xffffffffffff0000L, // IPv6 /48
+		IPV6_NET_MASK_96_LO           = 0xffffffff00000000L, // IPv6 /96
+		IPV4_NET_MASK_4_LO            = 0xfffffffff0000000L, // IPv4 /4
+		IPV4_NET_MASK_8_LO            = 0xffffffffff000000L, // IPv4 /8
+		IPV4_NET_MASK_10_LO           = 0xffffffffffc00000L, // IPv4 /10
+		IPV4_NET_MASK_12_LO           = 0xfffffffffff00000L, // IPv4 /12
+		IPV4_NET_MASK_15_LO           = 0xfffffffffffe0000L, // IPv4 /15
+		IPV4_NET_MASK_16_LO           = 0xffffffffffff0000L, // IPv4 /16
+		IPV4_NET_MASK_24_LO           = 0xffffffffffffff00L, // IPv4 /24
 		// Unspecified
-		UNSPECIFIED_HI                       = 0x0000000000000000L,
-		IPV4_MAPPED_UNSPECIFIED_LO           = 0x0000ffff00000000L, // 0.0.0.0/32
-		IPV6_UNSPECIFIED_LO                  = 0x0000000000000000L, // ::
+		UNSPECIFIED_HI                = 0x0000000000000000L,
+		IPV4_UNSPECIFIED_LO           = 0x0000ffff00000000L, // 0.0.0.0/32
+		IPV6_UNSPECIFIED_LO           = 0x0000000000000000L, // ::
 		// Bits for loopback
-		LOOPBACK_HI                          = 0x0000000000000000L,
-		IPV4_NET_COMPAT_LOOPBACK_LO          = 0x000000007f000000L, // 127.0.0.0/8
-		IPV4_NET_MAPPED_LOOPBACK_LO          = 0x0000ffff7f000000L, // 127.0.0.0/8
-		//IPV4_COMPAT_LOOPBACK_LO              = 0x000000007f000001L, // 127.0.0.1
-		IPV4_MAPPED_LOOPBACK_LO              = 0x0000ffff7f000001L, // 127.0.0.1
-		IPV6_LOOPBACK_LO                     = 0x0000000000000001L, // ::1
+		LOOPBACK_HI                   = 0x0000000000000000L,
+		IPV4_NET_LOOPBACK_LO          = 0x0000ffff7f000000L, // 127.0.0.0/8
+		IPV4_LOOPBACK_LO              = 0x0000ffff7f000001L, // 127.0.0.1
+		IPV6_LOOPBACK_LO              = 0x0000000000000001L, // ::1
 		// Link Local
-		IPV4_NET_COMPAT_LINK_LOCAL_LO        = 0x00000000a9fe0000L, // 169.254.0.0/16
-		IPV4_NET_MAPPED_LINK_LOCAL_LO        = 0x0000ffffa9fe0000L, // 169.254.0.0/16
-		IPV6_NET_LINK_LOCAL_HI               = 0xfe80000000000000L, // fe80::/10
+		IPV4_NET_LINK_LOCAL_LO        = 0x0000ffffa9fe0000L, // 169.254.0.0/16
+		IPV6_NET_LINK_LOCAL_HI        = 0xfe80000000000000L, // fe80::/10
 		// Multicast
-		IPV4_NET_COMPAT_MULTICAST_LO         = 0x00000000e0000000L, // 224.0.0.0/4
-		IPV4_NET_MAPPED_MULTICAST_LO         = 0x0000ffffe0000000L, // 224.0.0.0/4
-		IPV6_NET_MULTICAST_HI                = 0xff00000000000000L, // ff00::/8
+		IPV4_NET_MULTICAST_LO         = 0x0000ffffe0000000L, // 224.0.0.0/4
+		IPV6_NET_MULTICAST_HI         = 0xff00000000000000L, // ff00::/8
 		// Unique Local
-		IPV4_NET_COMPAT_UNIQUE_LOCAL_8_LO    = 0x000000000a000000L, // 10.0.0.0/8
-		IPV4_NET_MAPPED_UNIQUE_LOCAL_8_LO    = 0x0000ffff0a000000L, // 10.0.0.0/8
-		IPV4_NET_COMPAT_UNIQUE_LOCAL_12_LO   = 0x00000000ac100000L, // 172.16.0.0/12
-		IPV4_NET_MAPPED_UNIQUE_LOCAL_12_LO   = 0x0000ffffac100000L, // 172.16.0.0/12
-		IPV4_NET_COMPAT_UNIQUE_LOCAL_16_LO   = 0x00000000c0a80000L, // 192.168.0.0/16
-		IPV4_NET_MAPPED_UNIQUE_LOCAL_16_LO   = 0x0000ffffc0a80000L, // 192.168.0.0/16
-		IPV6_NET_UNIQUE_LOCAL_HI             = 0xfc00000000000000L, // fc00::/7
+		IPV4_NET_UNIQUE_LOCAL_8_LO    = 0x0000ffff0a000000L, // 10.0.0.0/8
+		IPV4_NET_UNIQUE_LOCAL_12_LO   = 0x0000ffffac100000L, // 172.16.0.0/12
+		IPV4_NET_UNIQUE_LOCAL_16_LO   = 0x0000ffffc0a80000L, // 192.168.0.0/16
+		IPV6_NET_UNIQUE_LOCAL_HI      = 0xfc00000000000000L, // fc00::/7
 		// 6to4
-		IPV4_NET_COMPAT_6TO4_RELAY           = 0x00000000c0586300L, // 192.88.99.0/24
-		IPV4_NET_MAPPED_6TO4_RELAY           = 0x0000ffffc0586300L, // 192.88.99.0/24
-		IPV6_NET_6TO4_HI                     = 0x2002000000000000L, // 2002::/16
+		IPV4_NET_6TO4_RELAY           = 0x0000ffffc0586300L, // 192.88.99.0/24
+		IPV6_NET_6TO4_HI              = 0x2002000000000000L, // 2002::/16
 		// Teredo
-		IPV6_NET_TEREDO_HI                   = 0x2001000000000000L, // 2001::/32
+		IPV6_NET_TEREDO_HI            = 0x2001000000000000L, // 2001::/32
 		// Documentation
-		IPV4_NET_COMPAT_TEST_NET_1           = 0x00000000c0000200L, // 192.0.2.0/24
-		IPV4_NET_MAPPED_TEST_NET_1           = 0x0000ffffc0000200L, // 192.0.2.0/24
-		IPV4_NET_COMPAT_TEST_NET_2           = 0x00000000c6336400L, // 198.51.100.0/24
-		IPV4_NET_MAPPED_TEST_NET_2           = 0x0000ffffc6336400L, // 198.51.100.0/24
-		IPV4_NET_COMPAT_TEST_NET_3           = 0x00000000cb007100L, // 203.0.113.0/24
-		IPV4_NET_MAPPED_TEST_NET_3           = 0x0000ffffcb007100L, // 203.0.113.0/24
-		IPV6_NET_DOCUMENTATION_HI            = 0x20010db800000000L, // 2001:db8::/32
+		IPV4_NET_TEST_NET_1           = 0x0000ffffc0000200L, // 192.0.2.0/24
+		IPV4_NET_TEST_NET_2           = 0x0000ffffc6336400L, // 198.51.100.0/24
+		IPV4_NET_TEST_NET_3           = 0x0000ffffcb007100L, // 203.0.113.0/24
+		IPV6_NET_DOCUMENTATION_HI     = 0x20010db800000000L, // 2001:db8::/32
 		// Network Benchmark
-		IPV4_NET_COMPAT_BENCHMARK            = 0x00000000c6120000L, // 198.18.0.0/15
-		IPV4_NET_MAPPED_BENCHMARK            = 0x0000ffffc6120000L, // 198.18.0.0/15
-		IPV6_NET_BENCHMARK                   = 0x2001000200000000L, // 2001:2::/48
+		IPV4_NET_BENCHMARK            = 0x0000ffffc6120000L, // 198.18.0.0/15
+		IPV6_NET_BENCHMARK            = 0x2001000200000000L, // 2001:2::/48
 		// IPv4 Broadcast
-		IPV4_COMPAT_BROADCAST_LO             = 0x00000000ffffffffL, // 255.255.255.255/32
-		IPV4_MAPPED_BROADCAST_LO             = 0x0000ffffffffffffL, // 255.255.255.255/32
+		IPV4_BROADCAST_LO             = 0x0000ffffffffffffL, // 255.255.255.255/32
 		// Orchid
-		IPV6_NET_ORCHID_HI                   = 0x2001002000000000L, // 2001:20::/28
+		IPV6_NET_ORCHID_HI            = 0x2001002000000000L, // 2001:20::/28
 		// Carrier-grade NAT
-		IPV4_NET_COMPAT_CARRIER_GRADE_NET_LO = 0x0000000064400000L, // 100.64.0.0/10
-		IPV4_NET_MAPPED_CARRIER_GRADE_NET_LO = 0x0000ffff64400000L  // 100.64.0.0/10
+		IPV4_NET_CARRIER_GRADE_NET_LO = 0x0000ffff64400000L  // 100.64.0.0/10
 	;
 
 	/**
@@ -383,7 +369,7 @@ final public class InetAddress implements
 	}
 
 	public static final InetAddress UNSPECIFIED_IPV4 = valueOf(
-		UNSPECIFIED_HI, IPV4_MAPPED_UNSPECIFIED_LO
+		UNSPECIFIED_HI, IPV4_UNSPECIFIED_LO
 	).intern();
 
 	public static final InetAddress UNSPECIFIED_IPV6 = valueOf(
@@ -391,7 +377,7 @@ final public class InetAddress implements
 	).intern();
 
 	public static final InetAddress LOOPBACK_IPV4 = valueOf(
-		LOOPBACK_HI, IPV4_MAPPED_LOOPBACK_LO
+		LOOPBACK_HI, IPV4_LOOPBACK_LO
 	).intern();
 
 	public static final InetAddress LOOPBACK_IPV6 = valueOf(
@@ -442,11 +428,10 @@ final public class InetAddress implements
 		if(hi == UNSPECIFIED_HI && lo == IPV6_UNSPECIFIED_LO) return "::";
 		if(hi == LOOPBACK_HI    && lo == IPV6_LOOPBACK_LO   ) return "::1";
 		if(hi == IPV4_HI) {
-			if((lo & IPV6_NET_MASK_96_LO) == IPV4_NET_COMPAT_LO) {
-				// IPv4-compatible address
+			if((lo & IPV6_NET_MASK_96_LO) == IPV4_NET_MAPPED_LO) {
+				// IPv4-mapped (used to store IPv4 addresses)
 				int loInt = (int)lo;
-				return new StringBuilder("::aaa.bbb.ccc.ddd".length())
-					.append("::")
+				return new StringBuilder("aaa.bbb.ccc.ddd".length())
 					.append((loInt >>> 24) & 255)
 					.append('.')
 					.append((loInt >>> 16) & 255)
@@ -457,10 +442,11 @@ final public class InetAddress implements
 					.toString()
 				;
 			}
-			if((lo & IPV6_NET_MASK_96_LO) == IPV4_NET_MAPPED_LO) {
-				// IPv4-mapped (used to store IPv4 addresses)
+			if((lo & IPV6_NET_MASK_96_LO) == IPV4_NET_COMPAT_LO) {
+				// IPv4-compatible address
 				int loInt = (int)lo;
-				return new StringBuilder("aaa.bbb.ccc.ddd".length())
+				return new StringBuilder("::aaa.bbb.ccc.ddd".length())
+					.append("::")
 					.append((loInt >>> 24) & 255)
 					.append('.')
 					.append((loInt >>> 16) & 255)
@@ -609,7 +595,7 @@ final public class InetAddress implements
 			hi == UNSPECIFIED_HI
 			&& (
 				   lo == IPV6_UNSPECIFIED_LO
-				|| lo == IPV4_MAPPED_UNSPECIFIED_LO
+				|| lo == IPV4_UNSPECIFIED_LO
 			)
 		;
 	}
@@ -619,8 +605,7 @@ final public class InetAddress implements
 			hi == LOOPBACK_HI
 			&& (
 				lo == IPV6_LOOPBACK_LO
-				|| (lo & IPV4_NET_MASK_8_LO) == IPV4_NET_COMPAT_LOOPBACK_LO
-				|| (lo & IPV4_NET_MASK_8_LO) == IPV4_NET_MAPPED_LOOPBACK_LO
+				|| (lo & IPV4_NET_MASK_8_LO) == IPV4_NET_LOOPBACK_LO
 			)
 		;
 	}
@@ -630,10 +615,7 @@ final public class InetAddress implements
 			(hi & IPV6_NET_MASK_10_HI) == IPV6_NET_LINK_LOCAL_HI
 			|| (
 				hi == IPV4_HI
-				&& (
-					   (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_COMPAT_LINK_LOCAL_LO
-					|| (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_MAPPED_LINK_LOCAL_LO
-				)
+				&& (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_LINK_LOCAL_LO
 			)
 		;
 	}
@@ -643,10 +625,7 @@ final public class InetAddress implements
 			(hi & IPV6_NET_MASK_8_HI) == IPV6_NET_MULTICAST_HI
 			|| (
 				hi == IPV4_HI
-				&& (
-					   (lo & IPV4_NET_MASK_4_LO) == IPV4_NET_COMPAT_MULTICAST_LO
-					|| (lo & IPV4_NET_MASK_4_LO) == IPV4_NET_MAPPED_MULTICAST_LO
-				)
+				&& (lo & IPV4_NET_MASK_4_LO) == IPV4_NET_MULTICAST_LO
 			)
 		;
 	}
@@ -657,12 +636,9 @@ final public class InetAddress implements
 			|| (
 				hi == IPV4_HI
 				&& (
-					   (lo & IPV4_NET_MASK_8_LO ) == IPV4_NET_COMPAT_UNIQUE_LOCAL_8_LO
-					|| (lo & IPV4_NET_MASK_8_LO ) == IPV4_NET_MAPPED_UNIQUE_LOCAL_8_LO
-					|| (lo & IPV4_NET_MASK_12_LO) == IPV4_NET_COMPAT_UNIQUE_LOCAL_12_LO
-					|| (lo & IPV4_NET_MASK_12_LO) == IPV4_NET_MAPPED_UNIQUE_LOCAL_12_LO
-					|| (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_COMPAT_UNIQUE_LOCAL_16_LO
-					|| (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_MAPPED_UNIQUE_LOCAL_16_LO
+					   (lo & IPV4_NET_MASK_8_LO ) == IPV4_NET_UNIQUE_LOCAL_8_LO
+					|| (lo & IPV4_NET_MASK_12_LO) == IPV4_NET_UNIQUE_LOCAL_12_LO
+					|| (lo & IPV4_NET_MASK_16_LO) == IPV4_NET_UNIQUE_LOCAL_16_LO
 				)
 			)
 		;
@@ -673,10 +649,7 @@ final public class InetAddress implements
 			(hi & IPV6_NET_MASK_16_HI) == IPV6_NET_6TO4_HI
 			|| (
 				hi == IPV4_HI
-				&& (
-					   (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_6TO4_RELAY
-					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_6TO4_RELAY
-				)
+				&& (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_6TO4_RELAY
 			)
 		;
 	}
@@ -697,12 +670,9 @@ final public class InetAddress implements
 			|| (
 				hi == IPV4_HI
 				&& (
-					   (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_1
-					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_1
-					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_2
-					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_2
-					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_COMPAT_TEST_NET_3
-					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_MAPPED_TEST_NET_3
+					   (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_TEST_NET_1
+					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_TEST_NET_2
+					|| (lo & IPV4_NET_MASK_24_LO) == IPV4_NET_TEST_NET_3
 				)
 			)
 		;
@@ -716,22 +686,13 @@ final public class InetAddress implements
 			(hi & IPV6_NET_MASK_48_HI) == IPV6_NET_BENCHMARK
 			|| (
 				hi == IPV4_HI
-				&& (
-					   (lo & IPV4_NET_MASK_15_LO) == IPV4_NET_COMPAT_BENCHMARK
-					|| (lo & IPV4_NET_MASK_15_LO) == IPV4_NET_MAPPED_BENCHMARK
-				)
+				&& (lo & IPV4_NET_MASK_15_LO) == IPV4_NET_BENCHMARK
 			)
 		;
 	}
 
 	public boolean isBroadcast() {
-		return
-			hi == IPV4_HI
-			&& (
-				   lo == IPV4_COMPAT_BROADCAST_LO
-				|| lo == IPV4_MAPPED_BROADCAST_LO
-			)
-		;
+		return hi == IPV4_HI && lo == IPV4_BROADCAST_LO;
 	}
 
 	public boolean isOrchid() {
@@ -744,10 +705,7 @@ final public class InetAddress implements
 	public boolean isCarrierGradeNat() {
 		return
 			hi == IPV4_HI
-			&& (
-				   (lo & IPV4_NET_MASK_10_LO) == IPV4_NET_COMPAT_CARRIER_GRADE_NET_LO
-				|| (lo & IPV4_NET_MASK_10_LO) == IPV4_NET_MAPPED_CARRIER_GRADE_NET_LO
-			)
+			&& (lo & IPV4_NET_MASK_10_LO) == IPV4_NET_CARRIER_GRADE_NET_LO
 		;
 	}
 
