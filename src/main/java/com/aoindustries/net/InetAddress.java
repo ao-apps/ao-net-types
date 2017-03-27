@@ -62,7 +62,6 @@ final public class InetAddress implements
 		IPV4_NET_MAPPED_LO            = 0x0000ffff00000000L, // ::ffff:a.b.c.d
 		// Network prefix masks
 		IPV6_NET_MASK_96_LO           = 0xffffffff00000000L, // IPv6 /96
-		IPV4_NET_MASK_10_LO           = 0xffffffffffc00000L, // IPv4 /10
 		// Unspecified
 		UNSPECIFIED_HI                = 0x0000000000000000L,
 		IPV4_UNSPECIFIED_LO           = 0x0000ffff00000000L, // 0.0.0.0/32
