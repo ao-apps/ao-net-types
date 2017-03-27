@@ -692,7 +692,7 @@ final public class InetAddress implements
 	 */
 	public AddressType getAddressType() {
 		if(isUnspecified()) return AddressType.UNSPECIFIED;
-		if(isLoopback())     return AddressType.LOOPBACK;
+		if(isLoopback())    return AddressType.LOOPBACK;
 		if(isMulticast())   return AddressType.MULTICAST;
 		if(isLinkLocal())   return AddressType.LINK_LOCAL_UNICAST;
 		// (everything else)
