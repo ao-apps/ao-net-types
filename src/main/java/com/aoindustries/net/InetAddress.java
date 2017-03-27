@@ -714,10 +714,4 @@ final public class InetAddress implements
 	public boolean isIPv6() {
 		return getAddressFamily() == AddressFamily.INET6;
 	}
-
-	/*
-	public static void main(String[] args) {
-		System.out.println(LOOPBACK_IPV6.toString());
-	}
-	 */
 }
