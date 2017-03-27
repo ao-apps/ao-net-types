@@ -32,13 +32,22 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2017-03-17T13:34:38-0500"
-		dateModified="2017-03-24T23:57:40-0500"
+		dateModified="2017-03-26T22:48:00-0500"
 	>
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
 		<p>
 			@{documented.description}
 		</p>
+		<section:section label="Project Links">
+			<ul>
+				<li><core:link page="index.jspx">Project Home</core:link></li>
+				<li><core:link page="changelog.jspx">Changelog</core:link></li>
+				<li><core:link page="apidocs/index.jspx">API Docs</core:link></li>
+				<li><ao:a href="https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@{documented.groupId}%22%20AND%20a:%22@{documented.artifactId}%22">Maven Central Repository</ao:a></li>
+				<li><ao:a href="@{documented.scm.url}">GitHub</ao:a></li>
+			</ul>
+		</section:section>
 		<section:section label="Features">
 			<ul>
 				<li>IPv4 and IPv6 address families.</li>
@@ -79,15 +88,6 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient
 				for your needs, please prefer the <ao:a href="https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html">standard Java API</ao:a>.
 			</p>
-		</section:section>
-		<section:section label="Project Links">
-			<ul>
-				<li><core:link page="index.jspx">Project Home</core:link></li>
-				<li><core:link page="changelog.jspx">Changelog</core:link></li>
-				<li><core:link page="apidocs/index.jspx">API Docs</core:link></li>
-				<li><ao:a href="https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@{documented.groupId}%22%20AND%20a:%22@{documented.artifactId}%22">Maven Central Repository</ao:a></li>
-				<li><ao:a href="@{documented.scm.url}">GitHub</ao:a></li>
-			</ul>
 		</section:section>
 	</core:page>
 </jsp:root>
