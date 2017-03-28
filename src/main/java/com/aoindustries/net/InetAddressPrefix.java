@@ -171,6 +171,8 @@ final public class InetAddressPrefix implements
 
 	/**
 	 * Ordered by address, prefix.
+	 *
+	 * @see  InetAddress#compareTo(com.aoindustries.net.InetAddress)
 	 */
 	@Override
 	public int compareTo(InetAddressPrefix other) {
