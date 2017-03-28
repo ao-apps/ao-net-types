@@ -160,4 +160,42 @@ abstract public class IPortRange implements
 	 * @return  The part of this port range above, and not including, the given port or {@code null} if none.
 	 */
 	abstract public IPortRange splitAbove(int above);
+
+	/**
+	 * Combines this port range with the given port range if possible.
+	 *
+	 * @return  When the protocols match and port ranges overlap or are adjacent,
+	 *          returns a port range spanning both.
+	 *          {@code null} when they cannot be combined.
+	 */
+	final public IPortRange coalesce(IPortRange other) {
+		if(protocol != other.protocol) {
+			// Different protocols
+			return null;
+		}
+		int from, to;
+		if(this.overlaps(other)) {
+			// Some overlap range
+			from = Math.min(this.getFrom(), other.getFrom());
+			to   = Math.max(this.getTo(),   other.getTo());
+		} else if((this.getTo() + 1) == other.getFrom()) {
+			// This is adjacent before other
+			from =  this.getFrom();
+			to   = other.getTo();
+		} else if((other.getTo() + 1) == this.getFrom()) {
+			// This is adjacent after other
+			from = other.getFrom();
+			to   =  this.getTo();
+		} else {
+			// No overlap and not adjacent
+			return null;
+		}
+		if(from ==  this.getFrom() && to ==  this.getTo()) return  this;
+		if(from == other.getFrom() && to == other.getTo()) return other;
+		try {
+			return valueOf(from, to, protocol);
+		} catch(ValidationException e) {
+			throw new AssertionError(e);
+		}
+	}
 }
