@@ -26,6 +26,11 @@ import java.util.Locale;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * @see Protocol
+ *
+ * @author  AO Industries, Inc.
+ */
 public class ProtocolTest {
 	
 	public ProtocolTest() {

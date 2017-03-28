@@ -25,6 +25,11 @@ package com.aoindustries.net;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * @see InetAddressPrefixes
+ *
+ * @author  AO Industries, Inc.
+ */
 public class InetAddressPrefixesTest {
 
 	@Test
