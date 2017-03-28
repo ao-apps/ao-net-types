@@ -22,6 +22,10 @@
  */
 package com.aoindustries.net;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * From <a href="http://www.iana.org/assignments/protocol-numbers">http://www.iana.org/assignments/protocol-numbers</a>
  * on 2017-03-18, with source citing "Last Updated 2016-06-22".
@@ -212,6 +216,28 @@ public enum Protocol {
 		return protocolsByDecimal[decimal];
 	}
 
+	private static final Map<String,Protocol> protocolsByUpperKeyword;
+	static {
+		Protocol[] values = values();
+		protocolsByUpperKeyword = new HashMap<String,Protocol>(values.length*4/3+1);
+		for(Protocol value : values) {
+			String upperKeyword = value.toString().toUpperCase(Locale.ROOT);
+			if(protocolsByUpperKeyword.put(upperKeyword, value) != null) throw new AssertionError("Duplicate protocol: " + upperKeyword);
+		}
+	}
+
+	/**
+	 * Gets a protocol given its keyword (or name if doesn't have a keyword),
+	 * case-insensitive in {@link Locale#ROOT}.
+	 *
+	 * @return  the protocol or {@code null} if not found
+	 *
+	 * @see #toString()
+	 */
+	public static Protocol getProtocolByKeyword(String keyword) throws IllegalArgumentException {
+		return protocolsByUpperKeyword.get(keyword.toUpperCase(Locale.ROOT));
+	}
+
 	private final short decimal;
 	private final String keyword;
 	private final String protocol;
@@ -239,6 +265,8 @@ public enum Protocol {
 
 	/**
 	 * @return The keyword, if present, or enum name when no keyword.
+	 *
+	 * @see #getProtocolByKeyword(java.lang.String)
 	 */
 	@Override
 	public String toString() {
@@ -262,6 +290,8 @@ public enum Protocol {
 
 	/**
 	 * @return The keyword or {@code ""} when no keyword in table
+	 *
+	 * @see #toString()
 	 */
 	public String getKeyword() {
 		return keyword;

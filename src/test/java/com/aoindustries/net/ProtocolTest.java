@@ -69,6 +69,17 @@ public class ProtocolTest {
 	}
 
 	@Test
+	public void testGetProtocolByKeyword() {
+		for(Protocol p : Protocol.values()) {
+			assertEquals(
+				"Protocol toString() must be found in getProtocolByKeyword(String)",
+				p,
+				Protocol.getProtocolByKeyword(p.toString())
+			);
+		}
+	}
+
+	@Test
 	public void testToString() {
 		for(Protocol p : Protocol.values()) {
 			String s = p.toString();
