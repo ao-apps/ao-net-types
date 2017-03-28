@@ -75,6 +75,41 @@ final public class InetAddressPrefix implements
 		return new InetAddressPrefix(address, prefix);
 	}
 
+	/**
+	 * Parses an IP address with optional prefix.
+	 *
+	 * @param address  The address and optional prefix as <samp><i>address</i>[/<i>prefix</i>]</samp>.
+	 *
+	 * @see  #toString()  for the inverse function
+	 */
+	public static InetAddressPrefix valueOf(String address) throws ValidationException {
+		int slashPos = address.indexOf('/');
+		if(slashPos == -1) {
+			InetAddress ia = InetAddress.valueOf(address);
+			return InetAddressPrefix.valueOf(
+				ia,
+				ia.getAddressFamily().getMaxPrefix()
+			);
+		} else {
+			int prefix;
+			{
+				String prefixStr = address.substring(slashPos + 1);
+				try {
+					prefix = Integer.parseInt(prefixStr);
+				} catch(NumberFormatException e) {
+					throw new ValidationException(
+						e,
+						new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddressPrefix.valueOf.prefix.parseError", prefixStr)
+					);
+				}
+			}
+			return InetAddressPrefix.valueOf(
+				InetAddress.valueOf(address.substring(0, slashPos)),
+				prefix
+			);
+		}
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	final private InetAddress address;
@@ -121,11 +156,17 @@ final public class InetAddressPrefix implements
 	}
 
 	/**
-	 * @return  The address and prefix as <samp><i>address</i>/<i>prefix</i></samp>.
+	 * @return  The address and optional prefix as <samp><i>address</i>[/<i>prefix</i>]</samp>.
+	 *
+	 * @see  #valueOf(String)  for the inverse function
 	 */
 	@Override
 	public String toString() {
-		return address.toString() + '/' + prefix;
+		if(prefix != address.getAddressFamily().getMaxPrefix()) {
+			return address.toString() + '/' + prefix;
+		} else {
+			return address.toString();
+		}
 	}
 
 	/**
