@@ -53,6 +53,10 @@ abstract public class IPortRange implements
 	public static final int MIN_PORT = 1;
 	public static final int MAX_PORT = 65535;
 
+	/**
+	 * @see  Port#validate(int, com.aoindustries.net.Protocol)  Used when {@code from == to}.
+	 * @see  PortRange#validate(int, int, com.aoindustries.net.Protocol)  Used when {@code from != to}.
+	 */
 	public static ValidationResult validate(int from, int to, Protocol protocol) {
 		if(from == to) {
 			return Port.validate(from, protocol);
@@ -61,6 +65,10 @@ abstract public class IPortRange implements
 		}
 	}
 
+	/**
+	 * @see  Port#valueOf(int, com.aoindustries.net.Protocol)  Used when {@code from == to}.
+	 * @see  PortRange#valueOf(int, int, com.aoindustries.net.Protocol)  Used when {@code from != to}.
+	 */
 	public static IPortRange valueOf(int from, int to, Protocol protocol) throws ValidationException {
 		if(from == to) {
 			return Port.valueOf(from, protocol);
