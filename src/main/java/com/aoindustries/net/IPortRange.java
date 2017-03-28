@@ -163,6 +163,12 @@ abstract public class IPortRange implements
 
 	/**
 	 * Combines this port range with the given port range if possible.
+	 * <ol>
+	 * <li>If different protocols or non-overlapping and non-adjacent, returns {@code null}.
+	 * <li>If the combined range equals {@code this}, returns {@code this}.</li>
+	 * <li>If the combined range equals {@code other}, returns {@code other}.</li>
+	 * <li>Otherwise, returns a new port range covering the full range.</li>
+	 * </ol>
 	 *
 	 * @return  When the protocols match and port ranges overlap or are adjacent,
 	 *          returns a port range spanning both.
