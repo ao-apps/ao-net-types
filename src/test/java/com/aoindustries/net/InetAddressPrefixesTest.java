@@ -28,6 +28,22 @@ import static org.junit.Assert.*;
 public class InetAddressPrefixesTest {
 
 	@Test
+	public void testUNSPECIFIED_IPV4() {
+		assertEquals(
+			"0.0.0.0/0",
+			InetAddressPrefixes.UNSPECIFIED_IPV4.toString()
+		);
+	}
+
+	@Test
+	public void testUNSPECIFIED_IPV6() {
+		assertEquals(
+			"::/0",
+			InetAddressPrefixes.UNSPECIFIED_IPV6.toString()
+		);
+	}
+
+	@Test
 	public void testLOOPBACK_IPV4() {
 		assertEquals(
 			"127.0.0.0/8",

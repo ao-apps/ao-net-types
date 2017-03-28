@@ -32,6 +32,36 @@ import com.aoindustries.validation.ValidationException;
 final public class InetAddressPrefixes {
 
 	/**
+	 * The IPv4 unspecified network (<code>0.0.0.0/0</code>).
+	 */
+	public static final InetAddressPrefix UNSPECIFIED_IPV4;
+	static {
+		try {
+			UNSPECIFIED_IPV4 = InetAddressPrefix.valueOf(
+				InetAddress.UNSPECIFIED_IPV4,
+				0
+			);
+		} catch(ValidationException e) {
+			throw new AssertionError(e);
+		}
+	}
+
+	/**
+	 * The IPv6 unspecified network (<code>::/0</code>).
+	 */
+	public static final InetAddressPrefix UNSPECIFIED_IPV6;
+	static {
+		try {
+			UNSPECIFIED_IPV6 = InetAddressPrefix.valueOf(
+				InetAddress.UNSPECIFIED_IPV6,
+				0
+			);
+		} catch(ValidationException e) {
+			throw new AssertionError(e);
+		}
+	}
+
+	/**
 	 * The IPv4 loopback network (<code>127.0.0.0/8</code>).
 	 * <p>
 	 * See <a href="https://tools.ietf.org/html/rfc1122#section-3.2.1.3">RFC 1122, Section 3.2.1.3 Addressing</a>.
