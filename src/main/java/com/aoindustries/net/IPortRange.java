@@ -108,6 +108,10 @@ abstract public class IPortRange implements
 		return protocol.compareTo(other.protocol);
 	}
 
+	/**
+	 * @see  Port#toString()
+	 * @see  PortRange#toString()
+	 */
 	@Override
 	abstract public String toString();
 

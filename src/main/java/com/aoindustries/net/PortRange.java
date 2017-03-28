@@ -134,7 +134,7 @@ final public class PortRange extends IPortRange implements
 	@Override
 	public String toString() {
 		assert to > from;
-		return Integer.toString(from) + '-' + Integer.toString(to) + '/' + protocol.name();
+		return Integer.toString(from) + '-' + Integer.toString(to) + '/' + protocol;
 	}
 
 	@Override

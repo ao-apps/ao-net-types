@@ -150,7 +150,7 @@ final public class Port extends IPortRange implements
 	 */
 	@Override
 	public String toString() {
-		return Integer.toString(port) + '/' + protocol.name();
+		return Integer.toString(port) + '/' + protocol;
 	}
 
 	@Override
