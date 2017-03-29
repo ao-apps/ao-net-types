@@ -59,7 +59,7 @@ final public class InetAddressPrefix implements
 		if(prefix < 0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddressPrefix.validate.prefix.lessThanZero", prefix);
 		int maxPrefix = address.getAddressFamily().getMaxPrefix();
 		if(prefix > maxPrefix) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddressPrefix.validate.prefix.tooBig", prefix, maxPrefix);
-		// TODO: Special requirements for UNSPECIFIED?
+		// TODO: Special requirements for UNSPECIFIED, such as prefix forced to be zero?
 		return ValidResult.getInstance();
 	}
 
@@ -140,6 +140,14 @@ final public class InetAddressPrefix implements
 		}
 	}
 
+	/**
+	 * Equal when has equal address and prefix.  This means two prefixes that
+	 * represent the same address range, but have different addresses, are not
+	 * considered equal.  To check if represent the same range, {@link #normalize() normalize}
+	 * each address prefix.
+	 *
+	 * @see  #normalize()
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof InetAddressPrefix)) return false;
@@ -195,6 +203,132 @@ final public class InetAddressPrefix implements
 	}
 
 	/**
+	 * Gets the first address in the network range represented by this address and prefix.
+	 */
+	public InetAddress getFrom() {
+		switch(address.getAddressFamily()) {
+			case INET : {
+				assert address.hi == InetAddress.IPV4_HI;
+				assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
+				long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
+				long fromLo = address.lo & netmask;
+				if(fromLo == address.lo) {
+					return address;
+				} else {
+					return InetAddress.valueOf(
+						InetAddress.IPV4_HI,
+						InetAddress.IPV4_NET_MAPPED_LO | fromLo
+					);
+				}
+			}
+			case INET6 : {
+				// Note: Careful of Java's left shift modulo 64 behavior
+				if(prefix == 128) return address;
+				long fromHi, fromLo;
+				if(prefix == 0) {
+					fromHi = fromLo = 0;
+				} else if(prefix < 64) {
+					long netmask = (0xffffffffffffffffL << (64 - prefix));
+					fromHi = address.hi & netmask;
+					fromLo = 0x0000000000000000L;
+				} else if(prefix == 64) {
+					fromHi = address.hi;
+					fromLo = 0;
+				} else {
+					assert prefix > 64 && prefix < 128;
+					long netmask = (0xffffffffffffffffL << (128 - prefix));
+					fromHi = address.hi;
+					fromLo = address.lo & netmask;
+				}
+				if(
+					fromHi == address.hi
+					&& fromLo == address.lo
+				) {
+					return address;
+				} else {
+					return InetAddress.valueOf(
+						fromHi,
+						fromLo
+					);
+				}
+			}
+			default :
+				throw new AssertionError();
+		}
+	}
+
+	/**
+	 * Gets the last address in the network range represented by this address and prefix.
+	 */
+	public InetAddress getTo() {
+		switch(address.getAddressFamily()) {
+			case INET : {
+				assert address.hi == InetAddress.IPV4_HI;
+				assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
+				long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
+				long toLo = (address.lo & netmask) | (0xffffffffL ^ netmask);
+				if(toLo == address.lo) {
+					return address;
+				} else {
+					return InetAddress.valueOf(
+						InetAddress.IPV4_HI,
+						InetAddress.IPV4_NET_MAPPED_LO | toLo
+					);
+				}
+			}
+			case INET6 : {
+				// Note: Careful of Java's left shift modulo 64 behavior
+				if(prefix == 128) return address;
+				long toHi, toLo;
+				if(prefix == 0) {
+					toHi = toLo = 0xffffffffffffffffL;
+				} else if(prefix < 64) {
+					long netmask = (0xffffffffffffffffL << (64 - prefix));
+					toHi = (address.hi & netmask) | (0xffffffffffffffffL ^ netmask);
+					toLo = 0xffffffffffffffffL;
+				} else if(prefix == 64) {
+					toHi = address.hi;
+					toLo = 0xffffffffffffffffL;
+				} else {
+					assert prefix > 64 && prefix < 128;
+					long netmask = (0xffffffffffffffffL << (128 - prefix));
+					toHi = address.hi;
+					toLo = (address.lo & netmask) | (0xffffffffffffffffL ^ netmask);
+				}
+				if(
+					toHi == address.hi
+					&& toLo == address.lo
+				) {
+					return address;
+				} else {
+					return InetAddress.valueOf(
+						toHi,
+						toLo
+					);
+				}
+			}
+			default :
+				throw new AssertionError();
+		}
+	}
+
+	/**
+	 * Normalizes this address prefix, where all bits not in {@code prefix} are zeroed.
+	 * This means the address will be the first address in the network range.
+	 *
+	 * @see #getFrom()
+	 */
+	public InetAddressPrefix normalize() {
+		InetAddress from = getFrom();
+		if(from == address) return this;
+		try {
+			return valueOf(from, prefix);
+		} catch(ValidationException e) {
+			throw new AssertionError(e);
+		}
+	}
+
+	/**
 	 * Checks if the given address is in this prefix.
 	 * Must be of the same {@link AddressFamily address family}; IPv4 addresses will never match IPv6.
 	 */
@@ -202,20 +336,83 @@ final public class InetAddressPrefix implements
 		AddressFamily addressFamily = address.getAddressFamily();
 		if(addressFamily != other.getAddressFamily()) return false;
 		switch(addressFamily) {
-			case INET :
+			case INET : {
 				assert address.hi == other.hi;
-				return (address.lo >>> (32 - prefix)) == (other.lo >>> (32 - prefix));
-			case INET6 :
-				if(prefix <= 64) {
-					return (address.hi >>> (64 - prefix)) == (other.hi >>> (64 - prefix));
+				long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
+				return (address.lo & netmask) == (other.lo & netmask);
+			}
+			case INET6 : {
+				// Note: Careful of Java's left shift modulo 64 behavior
+				if(prefix == 128) return address.equals(other);
+				if(prefix == 0) {
+					return true;
+				} else if(prefix < 64) {
+					long netmask = (0xffffffffffffffffL << (64 - prefix));
+					return (address.hi & netmask) == (other.hi & netmask);
+				} else if(prefix == 64) {
+					return address.hi == other.hi;
 				} else {
-					return
-						address.hi == other.hi
-						&& (address.lo >>> (128 - prefix)) == (other.lo >>> (128 - prefix))
-					;
+					assert prefix > 64 && prefix < 128;
+					if(address.hi != other.hi) return false;
+					long netmask = (0xffffffffffffffffL << (128 - prefix));
+					return (address.lo & netmask) == (other.lo & netmask);
 				}
+			}
 			default :
 				throw new AssertionError();
+		}
+	}
+
+	/**
+	 * Checks if the given address prefix is in this prefix.
+	 * Must be of the same {@link AddressFamily address family}; IPv4 addresses will never match IPv6.
+	 */
+	public boolean contains(InetAddressPrefix other) {
+		return
+			address.getAddressFamily() == other.address.getAddressFamily()
+			&& prefix <= other.prefix
+			&& contains(other.address)
+		;
+	}
+
+	/**
+	 * Combines this address prefix with the given address prefix if possible.
+	 * Will only combine address prefixes of the same {@link AddressFamily}.
+	 * <ol>
+	 * <li>If different address prefixes are non-overlapping and non-adjacent along prefix boundaries, returns {@code null}.
+	 * <li>If the combined address prefix equals {@code this}, returns {@code this}.</li>
+	 * <li>If the combined address prefix equals {@code other}, returns {@code other}.</li>
+	 * <li>Otherwise, returns a new address prefix covering the full range.</li>
+	 * </ol>
+	 *
+	 * @return  When the address prefix hae been combined, returns an address prefix spanning both.
+	 *          {@code null} when they cannot be combined.
+	 */
+	public InetAddressPrefix coalesce(InetAddressPrefix other) {
+		if(this.address.getAddressFamily() != other.address.getAddressFamily()) {
+			// Different address families
+			return null;
+		}
+		if(this.contains(other)) {
+			// This contains other, return this
+			return this;
+		}
+		if(other.contains(this)) {
+			// Other contains this, return other
+			return other;
+		}
+		if(this.prefix == other.prefix) {
+			// If the network of prefix - 1 contains both, they are successfully combined
+			try {
+				InetAddressPrefix biggerPrefix = valueOf(address, prefix - 1);
+				assert biggerPrefix.contains(this);
+				return biggerPrefix.contains(other.address) ? biggerPrefix : null;
+			} catch(ValidationException e) {
+				throw new AssertionError(e);
+			}
+		} else {
+			// Network ranges of different prefixes cannot be combined
+			return null;
 		}
 	}
 }

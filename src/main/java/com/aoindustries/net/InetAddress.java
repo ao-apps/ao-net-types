@@ -55,11 +55,12 @@ final public class InetAddress implements
 	Internable<InetAddress>
 {
 
-	private static final long
+	static final long
 		// Bits for IPv4 representations
 		IPV4_HI                       = 0x0000000000000000L,
+		IPV4_NET_MAPPED_LO            = 0x0000ffff00000000L;  // ::ffff:a.b.c.d
+	private static final long
 		IPV4_NET_COMPAT_LO            = 0x0000000000000000L, // ::a.b.c.d
-		IPV4_NET_MAPPED_LO            = 0x0000ffff00000000L, // ::ffff:a.b.c.d
 		// Network prefix masks
 		IPV6_NET_MASK_96_LO           = 0xffffffff00000000L, // IPv6 /96
 		// Unspecified
