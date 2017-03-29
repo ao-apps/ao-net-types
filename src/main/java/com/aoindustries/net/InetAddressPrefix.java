@@ -213,13 +213,13 @@ final public class InetAddressPrefix implements
 				assert address.hi == InetAddress.IPV4_HI;
 				assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
 				long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
-				long fromLo = address.lo & netmask;
-				if(fromLo == address.lo) {
+				long fromLo = (address.lo & netmask) | InetAddress.IPV4_NET_MAPPED_LO;
+				if(fromLo == address.lo) { // TODO: Need extra mapped bits
 					return address;
 				} else {
 					return InetAddress.valueOf(
 						InetAddress.IPV4_HI,
-						InetAddress.IPV4_NET_MAPPED_LO | fromLo
+						fromLo
 					);
 				}
 			}
@@ -270,13 +270,13 @@ final public class InetAddressPrefix implements
 				assert address.hi == InetAddress.IPV4_HI;
 				assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
 				long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
-				long toLo = (address.lo & netmask) | (0xffffffffL ^ netmask);
+				long toLo = (address.lo & netmask) | (0xffffffffL ^ netmask) | InetAddress.IPV4_NET_MAPPED_LO;
 				if(toLo == address.lo) {
 					return address;
 				} else {
 					return InetAddress.valueOf(
 						InetAddress.IPV4_HI,
-						InetAddress.IPV4_NET_MAPPED_LO | toLo
+						toLo
 					);
 				}
 			}

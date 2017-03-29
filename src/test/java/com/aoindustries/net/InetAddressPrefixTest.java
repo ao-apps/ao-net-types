@@ -230,6 +230,30 @@ public class InetAddressPrefixTest {
 	}
 
 	@Test
+	public void test_getFrom_IPv4_sameAsAddress_1() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("192.0.2.127"),
+			32
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getFrom()
+		);
+	}
+
+	@Test
+	public void test_getFrom_IPv4_sameAsAddress_2() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("192.0.2.0"),
+			24
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getFrom()
+		);
+	}
+
+	@Test
 	public void test_getFrom_IPv4_1() throws ValidationException {
 		assertEquals(
 			"192.0.2.127",
@@ -281,6 +305,30 @@ public class InetAddressPrefixTest {
 				InetAddress.valueOf("192.0.2.127"),
 				0
 			).getFrom().toString()
+		);
+	}
+
+	@Test
+	public void test_getFrom_IPv6_sameAsAddress_1() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("2001:db8::1:2:3:3"),
+			128
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getFrom()
+		);
+	}
+
+	@Test
+	public void test_getFrom_IPv6_sameAsAddress_2() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("2001:db8::1:2:3:0"),
+			112
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getFrom()
 		);
 	}
 
@@ -351,6 +399,30 @@ public class InetAddressPrefixTest {
 	}
 
 	@Test
+	public void test_getTo_IPv4_sameAsAddress_1() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("192.0.2.127"),
+			32
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getTo()
+		);
+	}
+
+	@Test
+	public void test_getTo_IPv4_sameAsAddress_2() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("192.0.2.255"),
+			24
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getTo()
+		);
+	}
+
+	@Test
 	public void test_getTo_IPv4_1() throws ValidationException {
 		assertEquals(
 			"192.0.2.127",
@@ -402,6 +474,30 @@ public class InetAddressPrefixTest {
 				InetAddress.valueOf("192.0.2.127"),
 				0
 			).getTo().toString()
+		);
+	}
+
+	@Test
+	public void test_getTo_IPv6_sameAsAddress_1() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("2001:db8::1:2:3:3"),
+			128
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getTo()
+		);
+	}
+
+	@Test
+	public void test_getTo_IPv6_sameAsAddress_2() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("2001:db8::1:2:3:ffff"),
+			112
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getTo()
 		);
 	}
 
