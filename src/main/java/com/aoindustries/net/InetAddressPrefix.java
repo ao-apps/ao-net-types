@@ -214,7 +214,7 @@ final public class InetAddressPrefix implements
 				assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
 				long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
 				long fromLo = (address.lo & netmask) | InetAddress.IPV4_NET_MAPPED_LO;
-				if(fromLo == address.lo) { // TODO: Need extra mapped bits
+				if(fromLo == address.lo) {
 					return address;
 				} else {
 					return InetAddress.valueOf(
