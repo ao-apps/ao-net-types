@@ -1035,4 +1035,60 @@ public class InetAddressPrefixTest {
 			)
 		);
 	}
+
+	@Test
+	public void test_coalesce_IPv4_1() throws ValidationException {
+		assertEquals(
+			InetAddressPrefix.valueOf("1.2.3.126/31"),
+			InetAddressPrefix.valueOf("1.2.3.126").coalesce(
+				InetAddressPrefix.valueOf("1.2.3.127")
+			)
+		);
+	}
+
+	@Test
+	public void test_notCoalesce_IPv4_1_below() throws ValidationException {
+		assertNull(
+			InetAddressPrefix.valueOf("1.2.3.126").coalesce(
+				InetAddressPrefix.valueOf("1.2.3.125")
+			)
+		);
+	}
+
+	@Test
+	public void test_notCoalesce_IPv4_1_above() throws ValidationException {
+		assertNull(
+			InetAddressPrefix.valueOf("1.2.3.127").coalesce(
+				InetAddressPrefix.valueOf("1.2.3.128")
+			)
+		);
+	}
+
+	@Test
+	public void test_coalesce_IPv4_2() throws ValidationException {
+		assertEquals(
+			InetAddressPrefix.valueOf("1.2.3.0/24"),
+			InetAddressPrefix.valueOf("1.2.3.1/25").coalesce(
+				InetAddressPrefix.valueOf("1.2.3.129/25")
+			)
+		);
+	}
+
+	@Test
+	public void test_notCoalesce_IPv4_2_below() throws ValidationException {
+		assertNull(
+			InetAddressPrefix.valueOf("1.2.3.1/25").coalesce(
+				InetAddressPrefix.valueOf("1.2.2.129/25")
+			)
+		);
+	}
+
+	@Test
+	public void test_notCoalesce_IPv4_2_above() throws ValidationException {
+		assertNull(
+			InetAddressPrefix.valueOf("1.2.3.129/25").coalesce(
+				InetAddressPrefix.valueOf("1.2.4.1/25")
+			)
+		);
+	}
 }
