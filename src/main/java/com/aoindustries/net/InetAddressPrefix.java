@@ -329,33 +329,38 @@ final public class InetAddressPrefix implements
 	}
 
 	/**
-	 * Checks if the given address is in this prefix.
-	 * Must be of the same {@link AddressFamily address family}; IPv4 addresses will never match IPv6.
+	 * Shared static contains to avoid object allocation on {@link #coalesce(com.aoindustries.net.InetAddressPrefix)}.
+	 * The addresses must have already had their {@link InetAddress#getAddressFamily() families} checked as equal.
 	 */
-	public boolean contains(InetAddress other) {
-		AddressFamily addressFamily = address.getAddressFamily();
-		if(addressFamily != other.getAddressFamily()) return false;
+	private static boolean containsInetAddress(
+		AddressFamily addressFamily,
+		long thisHi,
+		long thisLo,
+		int thisPrefix,
+		long otherHi,
+		long otherLo
+	) {
 		switch(addressFamily) {
 			case INET : {
-				assert address.hi == other.hi;
-				long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
-				return (address.lo & netmask) == (other.lo & netmask);
+				assert thisHi == otherHi;
+				long netmask = (0xffffffffL << (32 - thisPrefix)) & 0xffffffffL;
+				return (thisLo & netmask) == (otherLo & netmask);
 			}
 			case INET6 : {
 				// Note: Careful of Java's left shift modulo 64 behavior
-				if(prefix == 128) return address.equals(other);
-				if(prefix == 0) {
+				if(thisPrefix == 128) return thisHi == otherHi && thisLo == otherLo;
+				if(thisPrefix == 0) {
 					return true;
-				} else if(prefix < 64) {
-					long netmask = (0xffffffffffffffffL << (64 - prefix));
-					return (address.hi & netmask) == (other.hi & netmask);
-				} else if(prefix == 64) {
-					return address.hi == other.hi;
+				} else if(thisPrefix < 64) {
+					long netmask = (0xffffffffffffffffL << (64 - thisPrefix));
+					return (thisHi & netmask) == (otherHi & netmask);
+				} else if(thisPrefix == 64) {
+					return thisHi == otherHi;
 				} else {
-					assert prefix > 64 && prefix < 128;
-					if(address.hi != other.hi) return false;
-					long netmask = (0xffffffffffffffffL << (128 - prefix));
-					return (address.lo & netmask) == (other.lo & netmask);
+					assert thisPrefix > 64 && thisPrefix < 128;
+					if(thisHi != otherHi) return false;
+					long netmask = (0xffffffffffffffffL << (128 - thisPrefix));
+					return (thisLo & netmask) == (otherLo & netmask);
 				}
 			}
 			default :
@@ -364,20 +369,70 @@ final public class InetAddressPrefix implements
 	}
 
 	/**
+	 * Checks if the given address is in this prefix.
+	 * Must be of the same {@link AddressFamily address family}; IPv4 addresses will never match IPv6.
+	 */
+	public boolean contains(InetAddress other) {
+		AddressFamily addressFamily = address.getAddressFamily();
+		if(addressFamily != other.getAddressFamily()) return false;
+		return containsInetAddress(
+			addressFamily,
+			address.hi,
+			address.lo,
+			prefix,
+			other.hi,
+			other.lo
+		);
+	}
+
+	/**
+	 * Shared static contains to avoid object allocation on {@link #coalesce(com.aoindustries.net.InetAddressPrefix)}.
+	 * The addresses must have already had their {@link InetAddress#getAddressFamily() families} checked as equal.
+	 */
+	private static boolean containsInetAddressPrefix(
+		AddressFamily addressFamily,
+		long thisHi,
+		long thisLo,
+		int thisPrefix,
+		long otherHi,
+		long otherLo,
+		int otherPrefix
+	) {
+		return
+			thisPrefix <= otherPrefix
+			&& containsInetAddress(
+				addressFamily,
+				thisHi,
+				thisLo,
+				thisPrefix,
+				otherHi,
+				otherLo
+			)
+		;
+	}
+
+	/**
 	 * Checks if the given address prefix is in this prefix.
 	 * Must be of the same {@link AddressFamily address family}; IPv4 addresses will never match IPv6.
 	 */
 	public boolean contains(InetAddressPrefix other) {
-		return
-			address.getAddressFamily() == other.address.getAddressFamily()
-			&& prefix <= other.prefix
-			&& contains(other.address)
-		;
+		AddressFamily addressFamily = address.getAddressFamily();
+		if(addressFamily != other.address.getAddressFamily()) return false;
+		return containsInetAddressPrefix(
+			addressFamily,
+			address.hi,
+			address.lo,
+			prefix,
+			other.address.hi,
+			other.address.lo,
+			other.prefix
+		);
 	}
 
 	/**
 	 * Combines this address prefix with the given address prefix if possible.
 	 * Will only combine address prefixes of the same {@link AddressFamily}.
+	 * Returns a {@link #normalize() normalized} network range.
 	 * <ol>
 	 * <li>If different address prefixes are non-overlapping and non-adjacent along prefix boundaries, returns {@code null}.
 	 * <li>If the combined address prefix equals {@code this}, returns {@code this}.</li>
@@ -389,26 +444,43 @@ final public class InetAddressPrefix implements
 	 *          {@code null} when they cannot be combined.
 	 */
 	public InetAddressPrefix coalesce(InetAddressPrefix other) {
-		if(this.address.getAddressFamily() != other.address.getAddressFamily()) {
+		AddressFamily addressFamily = this.address.getAddressFamily();
+		if(addressFamily != other.address.getAddressFamily()) {
 			// Different address families
 			return null;
 		}
 		if(this.contains(other)) {
 			// This contains other, return this
-			return this;
+			return this.normalize();
 		}
 		if(other.contains(this)) {
 			// Other contains this, return other
-			return other;
+			return other.normalize();
 		}
 		if(this.prefix == other.prefix) {
 			// If the network of prefix - 1 contains both, they are successfully combined
-			try {
-				InetAddressPrefix biggerPrefix = valueOf(address, prefix - 1);
-				assert biggerPrefix.contains(this);
-				return biggerPrefix.contains(other.address) ? biggerPrefix : null;
-			} catch(ValidationException e) {
-				throw new AssertionError(e);
+			if(
+				containsInetAddressPrefix(
+					addressFamily,
+					address.hi,
+					address.lo,
+					prefix - 1,
+					other.address.hi,
+					other.address.lo,
+					other.prefix
+				)
+			) {
+				try {
+					InetAddressPrefix biggerPrefix = valueOf(address, prefix - 1).normalize();
+					assert biggerPrefix.contains(this);
+					assert biggerPrefix.contains(other);
+					return biggerPrefix;
+				} catch(ValidationException e) {
+					throw new AssertionError(e);
+				}
+			} else {
+				// Bigger range doesn't include other
+				return null;
 			}
 		} else {
 			// Network ranges of different prefixes cannot be combined
