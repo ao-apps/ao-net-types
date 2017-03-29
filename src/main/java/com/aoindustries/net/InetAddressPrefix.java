@@ -204,6 +204,8 @@ final public class InetAddressPrefix implements
 
 	/**
 	 * Gets the first address in the network range represented by this address and prefix.
+	 *
+	 * @return  {@link #getAddress()} when from == address, otherwise new address.
 	 */
 	public InetAddress getFrom() {
 		switch(address.getAddressFamily()) {
@@ -259,6 +261,8 @@ final public class InetAddressPrefix implements
 
 	/**
 	 * Gets the last address in the network range represented by this address and prefix.
+	 *
+	 * @return  {@link #getAddress()} when to == address, otherwise new address.
 	 */
 	public InetAddress getTo() {
 		switch(address.getAddressFamily()) {
