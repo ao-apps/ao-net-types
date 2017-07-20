@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-07-13T18:41:19-0500"
+		dateModified="2017-07-20T01:42:40-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -51,49 +51,58 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			>
-				<ul>
-					<li>New project for Networking-related value types for Java.</li>
-					<li>
-						Pulled existing network value types out of
-						<core:link book="/aoserv/client" page="/index.jspx" /> into this new
-						<core:link page="index.jspx" /> project.
-					</li>
-					<li>Renamed <code>NetPort</code> to <code>Port</code>.</li>
-					<li>Added full listing of <code>Protocol</code>s from <ao:a href="http://www.iana.org/assignments/protocol-numbers">iana.org</ao:a>.</li>
-					<li>
-						Added <code>AddressFamily</code> enumeration and <code>InetAddress.getAddressFamily()</code> method.
-						Deprecated <code>InetAddress.isIPv4()</code> and <code>InetAddress.isIPv6()</code>.
-					</li>
-					<li>
-						<code>Port</code>s are now a combination of port number and protocol instead of just port number.
-						For example, <code>143/TCP</code>.
-					</li>
-					<li><code>PortRange</code>s are a combination of port range and protocol.
-						For example, <code>8080-8087/TCP</code>.
-					</li>
-					<li><code>InetAddress</code> improvements:
-						<ol>
-							<li>Fixed bug in IPv4 multicast network mask.</li>
-							<li>
-								IPv4 addresses are now internally stored in the IPv4-mapped space instead of IPv4-compatibility.
-								This resolves the ambiguity between unspecified IPv6 <code>::</code> and IPv4 <code>0.0.0.0</code>.
-							</li>
-							<li>All bit sequences internally represented by constants to aid in code readability and correctness.</li>
-							<li>Separated <code>isTeredo()</code> from <code>is6to4()</code>.</li>
-							<li>Added missing <code>TEST-NET-2</code> and <code>TEST-NET-3</code> in <code>isDocumentation()</code>.</li>
-							<li>Added <code>isGlobalUnicast()</code> to check for Global Unicast addresses.</li>
-							<li>Internal representation is now two <code>long</code> fields instead of a <code>LongLong</code> object.</li>
-							<li>IPv4-compatibility addresses are deprecated.  They are no longer considered members of various IPv4-mapped network ranges.</li>
-						</ol>
-					</li>
-					<li>New <code>AddressType</code> enum corresponding to <ao:a href="https://tools.ietf.org/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</ao:a>.</li>
-					<li>New <code>InetAddressPrefix</code> that is a compound type of <code>InetAddress</code> and an associated prefix.</li>
-					<li>New <code>InetAddressPrefixes</code> constants of standard network prefixes.</li>
-					<li>New <code>Protocol.getProtocolByKeyword(String)</code> method to get protocols by their standard keyword.</li>
-					<li>Updated dependencies.</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.0.0"
+			datePublished="2017-07-20T01:42:40-0500"
+			groupId="@{documented.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{documented.scm.url}"
+		>
+			<ul>
+				<li>New project for Networking-related value types for Java.</li>
+				<li>
+					Pulled existing network value types out of
+					<core:link book="/aoserv/client" page="/index.jspx" /> into this new
+					<core:link page="index.jspx" /> project.
+				</li>
+				<li>Renamed <code>NetPort</code> to <code>Port</code>.</li>
+				<li>Added full listing of <code>Protocol</code>s from <ao:a href="http://www.iana.org/assignments/protocol-numbers">iana.org</ao:a>.</li>
+				<li>
+					Added <code>AddressFamily</code> enumeration and <code>InetAddress.getAddressFamily()</code> method.
+					Deprecated <code>InetAddress.isIPv4()</code> and <code>InetAddress.isIPv6()</code>.
+				</li>
+				<li>
+					<code>Port</code>s are now a combination of port number and protocol instead of just port number.
+					For example, <code>143/TCP</code>.
+				</li>
+				<li><code>PortRange</code>s are a combination of port range and protocol.
+					For example, <code>8080-8087/TCP</code>.
+				</li>
+				<li><code>InetAddress</code> improvements:
+					<ol>
+						<li>Fixed bug in IPv4 multicast network mask.</li>
+						<li>
+							IPv4 addresses are now internally stored in the IPv4-mapped space instead of IPv4-compatibility.
+							This resolves the ambiguity between unspecified IPv6 <code>::</code> and IPv4 <code>0.0.0.0</code>.
+						</li>
+						<li>All bit sequences internally represented by constants to aid in code readability and correctness.</li>
+						<li>Separated <code>isTeredo()</code> from <code>is6to4()</code>.</li>
+						<li>Added missing <code>TEST-NET-2</code> and <code>TEST-NET-3</code> in <code>isDocumentation()</code>.</li>
+						<li>Added <code>isGlobalUnicast()</code> to check for Global Unicast addresses.</li>
+						<li>Internal representation is now two <code>long</code> fields instead of a <code>LongLong</code> object.</li>
+						<li>IPv4-compatibility addresses are deprecated.  They are no longer considered members of various IPv4-mapped network ranges.</li>
+					</ol>
+				</li>
+				<li>New <code>AddressType</code> enum corresponding to <ao:a href="https://tools.ietf.org/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</ao:a>.</li>
+				<li>New <code>InetAddressPrefix</code> that is a compound type of <code>InetAddress</code> and an associated prefix.</li>
+				<li>New <code>InetAddressPrefixes</code> constants of standard network prefixes.</li>
+				<li>New <code>Protocol.getProtocolByKeyword(String)</code> method to get protocols by their standard keyword.</li>
+				<li>Updated dependencies.</li>
+			</ul>
+		</changelog:release>
 	</core:page>
 </jsp:root>
