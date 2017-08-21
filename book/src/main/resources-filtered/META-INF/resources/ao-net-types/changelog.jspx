@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-07-20T01:42:40-0500"
+		dateModified="2017-08-20T20:04:43-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -52,7 +52,11 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			/>
+			>
+				<ol>
+					<li>New self-validating type <ao:a href="apidocs/com/aoindustries/net/Path.html">Path</ao:a>.</li>
+				</ol>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release
