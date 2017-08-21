@@ -70,6 +70,20 @@ final public class Path implements
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The root path {@code "/"}.
+	 */
+	public static final Path ROOT;
+	static {
+		try {
+			ROOT = new Path("/").intern();
+		} catch(ValidationException e) {
+			AssertionError ae = new AssertionError("These hard-coded values are valid");
+			ae.initCause(e);
+			throw ae;
+		}
+	}
+
 	public static ValidationResult validate(String path) {
 		// Be non-null
 		if(path==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.isNull");
@@ -97,6 +111,7 @@ final public class Path implements
 	 */
 	public static Path valueOf(String path) throws ValidationException {
 		if(path == null) return null;
+		if(path.length() == 1 && path.charAt(0) == '/') return ROOT;
 		//UnixPath existing = interned.get(path);
 		//return existing!=null ? existing : new UnixPath(path);
 		return new Path(path);
@@ -131,6 +146,11 @@ final public class Path implements
 			newErr.initCause(err);
 			throw newErr;
 		}
+	}
+
+	private Object readResolve() {
+		if(path.length() == 1 && path.charAt(0) == '/') return ROOT;
+		return this;
 	}
 
 	@Override
