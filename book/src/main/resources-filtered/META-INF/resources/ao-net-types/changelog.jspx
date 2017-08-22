@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-08-20T20:04:43-0500"
+		dateModified="2017-08-22T00:53:18-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -55,6 +55,12 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ol>
 					<li>New self-validating type <ao:a href="apidocs/com/aoindustries/net/Path.html">Path</ao:a>.</li>
+					<li>New <code>DomainName</code> constants:
+						<ol type="a">
+							<li><code>LOCALHOST</code></li>
+							<li><code>LOCALHOST_LOCALDOMAIN</code></li>
+						</ol>
+					</li>
 				</ol>
 			</changelog:release>
 		</c:if>
