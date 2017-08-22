@@ -71,12 +71,22 @@ final public class Path implements
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * The path separator as a char {@code '/'}.
+	 */
+	public static final char SEPARATOR_CHAR = '/';
+
+	/**
+	 * The path separator as a single-character String {@code "/"}.
+	 */
+	public static final String SEPARATOR_STRING = Character.toString(SEPARATOR_CHAR);
+
+	/**
 	 * The root path {@code "/"}.
 	 */
 	public static final Path ROOT;
 	static {
 		try {
-			ROOT = new Path("/").intern();
+			ROOT = new Path(SEPARATOR_STRING).intern();
 		} catch(ValidationException e) {
 			AssertionError ae = new AssertionError("These hard-coded values are valid");
 			ae.initCause(e);
@@ -84,23 +94,41 @@ final public class Path implements
 		}
 	}
 
+	private static final String SLASH_DOT_DOT_SLASH = SEPARATOR_STRING + ".." + SEPARATOR_STRING;
+	private static final String SLASH_DOT_SLASH = SEPARATOR_STRING + "." + SEPARATOR_STRING;
+	private static final String SLASH_DOT = SEPARATOR_STRING + ".";
+	private static final String SLASH_DOT_DOT = SEPARATOR_STRING + "..";
+	private static final String SLASH_SLASH = SEPARATOR_STRING + SEPARATOR_STRING;
+
 	public static ValidationResult validate(String path) {
 		// Be non-null
-		if(path==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.isNull");
+		if(path == null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.isNull");
 		// Be non-empty
-		if(path.length()==0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.empty");
+		if(path.length() == 0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.empty");
 		// Start with a /
-		if(path.charAt(0)!='/') return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.startWithNonSlash", path.charAt(0));
+		if(path.charAt(0) != SEPARATOR_CHAR) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.startWithNonSlash", path.charAt(0));
 		// Not contain any null characters
-		if(path.indexOf('\0')!=-1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsNullCharacter", path.indexOf('\0'));
+		{
+			int pos = path.indexOf('\0');
+			if(pos != -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsNullCharacter", pos);
+		}
 		// Not contain any /../ or /./ path elements
-		if(path.indexOf("/../")!=-1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDotDot", path.indexOf("/../"));
-		if(path.indexOf("/./")!=-1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDot", path.indexOf("/./"));
+		{
+			int pos = path.indexOf(SLASH_DOT_DOT_SLASH);
+			if(pos != -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDotDot", pos);
+		}
+		{
+			int pos = path.indexOf(SLASH_DOT_SLASH);
+			if(pos != -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDot", pos);
+		}
 		// Not end with /.. or /.
-		if(path.endsWith("/.")) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.endsSlashDot");
-		if(path.endsWith("/..")) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.endsSlashDotDot");
+		if(path.endsWith(SLASH_DOT)) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.endsSlashDot");
+		if(path.endsWith(SLASH_DOT_DOT)) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.endsSlashDotDot");
 		// Not contain any // in the path
-		if(path.indexOf("//")!=-1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDoubleSlash", path.indexOf("//"));
+		{
+			int pos = path.indexOf(SLASH_SLASH);
+			if(pos != -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDoubleSlash", pos);
+		}
 		return ValidResult.getInstance();
 	}
 
@@ -111,7 +139,7 @@ final public class Path implements
 	 */
 	public static Path valueOf(String path) throws ValidationException {
 		if(path == null) return null;
-		if(path.length() == 1 && path.charAt(0) == '/') return ROOT;
+		if(path.length() == 1 && path.charAt(0) == SEPARATOR_CHAR) return ROOT;
 		//UnixPath existing = interned.get(path);
 		//return existing!=null ? existing : new UnixPath(path);
 		return new Path(path);
@@ -149,7 +177,7 @@ final public class Path implements
 	}
 
 	private Object readResolve() {
-		if(path.length() == 1 && path.charAt(0) == '/') return ROOT;
+		if(path.length() == 1 && path.charAt(0) == SEPARATOR_CHAR) return ROOT;
 		return this;
 	}
 
