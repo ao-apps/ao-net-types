@@ -47,7 +47,7 @@ import java.util.concurrent.ConcurrentMap;
  * <ul>
  *   <li>Be non-null</li>
  *   <li>Be non-empty</li>
- *   <li>May not be "default" (case-insensitive)</li>
+ *   <li>May not be "default" (case-insensitive) - to avoid conflicts with Cyrus no-domain configurations.</li>
  *   <li>
  *     Conform to definition in <a href="http://en.wikipedia.org/wiki/Hostname#Internet_hostnames">http://en.wikipedia.org/wiki/Hostname#Internet_hostnames</a>
  *     and <a href="http://en.wikipedia.org/wiki/DNS_label#Parts_of_a_domain_name">http://en.wikipedia.org/wiki/DNS_label#Parts_of_a_domain_name</a>
