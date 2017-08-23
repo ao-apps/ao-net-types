@@ -77,8 +77,8 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				<li>New project for Networking-related value types for Java.</li>
 				<li>
 					Pulled existing network value types out of
-					<core:link book="/aoserv/client" page="/index.jspx" /> into this new
-					<core:link page="index.jspx" /> project.
+					<core:link book="/aoserv/client" page="/" /> into this new
+					<core:link page="/" /> project.
 				</li>
 				<li>Renamed <code>NetPort</code> to <code>Port</code>.</li>
 				<li>Added full listing of <code>Protocol</code>s from <ao:a href="http://www.iana.org/assignments/protocol-numbers">iana.org</ao:a>.</li>
