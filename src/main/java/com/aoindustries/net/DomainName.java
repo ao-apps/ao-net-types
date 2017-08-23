@@ -72,21 +72,6 @@ implements
 
 	public static final int MAX_LENGTH = 253;
 
-	public static final DomainName
-		LOCALHOST,
-		LOCALHOST_LOCALDOMAIN
-	;
-	static {
-		try {
-			LOCALHOST = new DomainName("localhost").intern();
-			LOCALHOST_LOCALDOMAIN = new DomainName("localhost.localdomain").intern();
-		} catch(ValidationException e) {
-			AssertionError ae = new AssertionError("These hard-coded values are valid");
-			ae.initCause(e);
-			throw ae;
-		}
-	}
-
 	/*
 	private static boolean isNumeric(String label) {
 		return isNumeric(label, 0, label.length());
@@ -266,6 +251,22 @@ implements
 		//DomainName existing = interned.get(domain);
 		//return existing!=null ? existing : new DomainName(domain);
 		return new DomainName(domain);
+	}
+
+	// Note: These constants must go below the static checks due to class initialization order
+	public static final DomainName
+		LOCALHOST,
+		LOCALHOST_LOCALDOMAIN
+	;
+	static {
+		try {
+			LOCALHOST = new DomainName("localhost").intern();
+			LOCALHOST_LOCALDOMAIN = new DomainName("localhost.localdomain").intern();
+		} catch(ValidationException e) {
+			AssertionError ae = new AssertionError("These hard-coded values are valid");
+			ae.initCause(e);
+			throw ae;
+		}
 	}
 
 	private String domain;

@@ -80,20 +80,6 @@ final public class Path implements
 	 */
 	public static final String SEPARATOR_STRING = Character.toString(SEPARATOR_CHAR);
 
-	/**
-	 * The root path {@code "/"}.
-	 */
-	public static final Path ROOT;
-	static {
-		try {
-			ROOT = new Path(SEPARATOR_STRING).intern();
-		} catch(ValidationException e) {
-			AssertionError ae = new AssertionError("These hard-coded values are valid");
-			ae.initCause(e);
-			throw ae;
-		}
-	}
-
 	private static final String SLASH_DOT_DOT_SLASH = SEPARATOR_STRING + ".." + SEPARATOR_STRING;
 	private static final String SLASH_DOT_SLASH = SEPARATOR_STRING + "." + SEPARATOR_STRING;
 	private static final String SLASH_DOT = SEPARATOR_STRING + ".";
@@ -143,6 +129,21 @@ final public class Path implements
 		//UnixPath existing = interned.get(path);
 		//return existing!=null ? existing : new UnixPath(path);
 		return new Path(path);
+	}
+
+	/**
+	 * The root path {@code "/"}.
+	 */
+	// Note: These constants must go below the static checks due to class initialization order
+	public static final Path ROOT;
+	static {
+		try {
+			ROOT = new Path(SEPARATOR_STRING).intern();
+		} catch(ValidationException e) {
+			AssertionError ae = new AssertionError("These hard-coded values are valid");
+			ae.initCause(e);
+			throw ae;
+		}
 	}
 
 	final private String path;
