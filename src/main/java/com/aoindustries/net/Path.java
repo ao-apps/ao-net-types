@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2017  AO Industries, Inc.
+ * Copyright (C) 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -52,6 +52,9 @@ import java.util.concurrent.ConcurrentMap;
  * Note, this concept of path is minimally restrictive and only represents a well-formed path.
  * The path may not be valid for some contexts, such as the path part of a URL.
  * This does not implement <ao:a href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</ao:a>.
+ * </p>
+ * <p>
+ * TODO: Should we disallow any number path element that is all dots, such as "...." and not just "." and ".."?
  * </p>
  * <p>
  * TODO: This matches <code>UnixPath</code> in aoserv-client with the exception of allowing trailing slash.
