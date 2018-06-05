@@ -135,7 +135,8 @@ final public class Path implements
 	}
 
 	/**
-	 * The root path {@code "/"}.
+	 * The root path {@code "/"}.  This is implemented as a singleton
+	 * as is safe for direct object equality check "{@code ==}".
 	 */
 	// Note: These constants must go below the static checks due to class initialization order
 	public static final Path ROOT;
@@ -201,6 +202,7 @@ final public class Path implements
 
 	@Override
 	public int compareTo(Path other) {
+		// TODO: Sub directories before files in directory?  /path/bravo/ before /path/alpha ?
 		return this==other ? 0 : ComparatorUtils.compareIgnoreCaseConsistentWithEquals(path, other.path);
 	}
 
