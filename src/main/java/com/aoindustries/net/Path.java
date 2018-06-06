@@ -203,6 +203,7 @@ final public class Path implements
 	@Override
 	public int compareTo(Path other) {
 		// TODO: Sub directories before files in directory?  /path/bravo/ before /path/alpha ?
+		// TODO: This would result in a sorted traversal of paths being a depth-first traversal.
 		return this==other ? 0 : ComparatorUtils.compareIgnoreCaseConsistentWithEquals(path, other.path);
 	}
 
