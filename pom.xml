@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-net-types - Networking-related value types for Java.
-Copyright (C) 2017  AO Industries, Inc.
+Copyright (C) 2017, 2018  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -34,7 +34,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 	<groupId>com.aoindustries</groupId>
 	<artifactId>ao-net-types</artifactId>
 	<version>1.1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 
 	<name>AO Net Types</name>
 	<url>https://aoindustries.com/${project.artifactId}/</url>
@@ -48,6 +48,46 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		<url>https://github.com/aoindustries/${project.artifactId}</url>
 		<tag>HEAD</tag>
 	</scm>
+
+	<build>
+		<plugins>
+			<!-- TODO: Move bundle plugin to parent POM -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.5.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<!-- TODO: What to do with validation builds regarding Bundle-Version? -->
+						<!-- TODO: ao-badges for OSGI? -->
+						<!-- TODO: _nouses like in http://svn.apache.org/repos/asf/commons/proper/commons-parent/trunk/pom.xml ? -->
+						<Bundle-DocURL>${project.url}</Bundle-DocURL>
+						<!--
+							Other values seen at http://maven.reprezen.com/repository/releases/com/fasterxml/oss-parent/11/oss-parent-11.pom
+							With documentation found at https://felix.apache.org/documentation/subprojects/apache-felix-maven-bundle-plugin-bnd.html
+						-->
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Version>${project.version}</Implementation-Version><!-- TODO: What to do with validation builds? -->
+						<Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
+						<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						<Specification-Title>${project.name}</Specification-Title>
+						<Specification-Version>${project.version}</Specification-Version><!-- TODO: What to do with validation builds? -->
+						<Specification-Vendor>${project.organization.name}</Specification-Vendor>
+						<!-- Instructions not found in docs, and adapted by what found in https://github.com/mybatis/parent/blob/master/pom.xml -->
+						<!-- TODO: Necessary?  Helpful? -->
+						<Implementation-Build-Date>${maven.build.timestamp}</Implementation-Build-Date>
+						<X-Compile-Source-JDK>${javaVersion}</X-Compile-Source-JDK>
+						<X-Compile-Target-JDK>${javaVersion}</X-Compile-Target-JDK>
+						<!-- TODO: Can support Main-Class as seen at https://github.com/FasterXML/oss-parent/blob/master/pom.xml -->
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<profiles>
 		<profile>
