@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2001-2013, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2001-2013, 2016, 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -75,7 +75,7 @@ final public class Port extends IPortRange implements
 				cache = udpCache;
 				break;
 			default :
-				throw new AssertionError();
+				throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol));
 		}
 		int cacheIndex = port - MIN_PORT;
 		Port np = cache.get(cacheIndex);

@@ -524,13 +524,14 @@ final public class InetAddress implements
 	 * If IPv6, the address is surrounded by [...]
 	 */
 	public String toBracketedString() {
-		switch(getAddressFamily()) {
+		AddressFamily family = getAddressFamily();
+		switch(family) {
 			case INET6 :
 				return '[' + toString() + ']';
 			case INET :
 				return toString();
 			default :
-				throw new AssertionError();
+				throw new AssertionError("Unexpected address family: " + family);
 		}
 	}
 

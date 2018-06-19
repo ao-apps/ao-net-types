@@ -229,8 +229,9 @@ final public class Path implements
 			}
 			return existing;
 		} catch(ValidationException err) {
-			// Should not fail validation since original object passed
-			throw new AssertionError(err.getMessage());
+			AssertionError ae = new AssertionError("Should not fail validation since original object passed");
+			ae.initCause(err);
+			throw ae;
 		}
 	}
 

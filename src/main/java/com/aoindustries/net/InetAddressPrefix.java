@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2017  AO Industries, Inc.
+ * Copyright (C) 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -208,7 +208,8 @@ final public class InetAddressPrefix implements
 	 * @return  {@link #getAddress()} when from == address, otherwise new address.
 	 */
 	public InetAddress getFrom() {
-		switch(address.getAddressFamily()) {
+		AddressFamily family = address.getAddressFamily();
+		switch(family) {
 			case INET : {
 				assert address.hi == InetAddress.IPV4_HI;
 				assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
@@ -255,7 +256,7 @@ final public class InetAddressPrefix implements
 				}
 			}
 			default :
-				throw new AssertionError();
+				throw new AssertionError("Unexpected address family: " + family);
 		}
 	}
 
@@ -265,7 +266,8 @@ final public class InetAddressPrefix implements
 	 * @return  {@link #getAddress()} when to == address, otherwise new address.
 	 */
 	public InetAddress getTo() {
-		switch(address.getAddressFamily()) {
+		AddressFamily family = address.getAddressFamily();
+		switch(family) {
 			case INET : {
 				assert address.hi == InetAddress.IPV4_HI;
 				assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
@@ -312,7 +314,7 @@ final public class InetAddressPrefix implements
 				}
 			}
 			default :
-				throw new AssertionError();
+				throw new AssertionError("Unexpected address family: " + family);
 		}
 	}
 
@@ -368,7 +370,7 @@ final public class InetAddressPrefix implements
 				}
 			}
 			default :
-				throw new AssertionError();
+				throw new AssertionError("Unexpected address family: " + addressFamily);
 		}
 	}
 

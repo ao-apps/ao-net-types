@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2011-2013, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2011-2013, 2016, 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -169,8 +169,9 @@ implements
 			}
 			return existing;
 		} catch(ValidationException err) {
-			// Should not fail validation since original object passed
-			throw new AssertionError(err.getMessage());
+			AssertionError ae = new AssertionError("Should not fail validation since original object passed");
+			ae.initCause(err);
+			throw ae;
 		}
 	}
 
