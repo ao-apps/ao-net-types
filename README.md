@@ -1,4 +1,4 @@
-# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://aoindustries.com/) [AO Net Types](https://aoindustries.com/ao-net-types/)
+# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AO Net Types](https://github.com/aoindustries/ao-net-types)
 <p>
 	<a href="https://aoindustries.com/life-cycle#project-current-stable">
 		<img src="https://aoindustries.com/ao-badges/project-current-stable.svg" alt="project: current stable" />
@@ -45,7 +45,7 @@ Networking-related value types for Java.
     * Java EE 6+ compatible.
 
 ## Motivation
-The [AOServ Platform](https://aoindustries.com/aoserv/) allows configuration of services on a per-port and per-IP basis.  System configuration components like [AO SELinux](https://aoindustries.com/ao-selinux/) and [AO firewalld](https://aoindustries.com/ao-firewalld/) support configurations over port ranges and network ranges.
+The [AOServ Platform](https://aoindustries.com/aoserv/) allows configuration of services on a per-port and per-IP basis.  System configuration components like [AO SELinux](https://github.com/aoindustries/ao-selinux) and [AO firewalld](https://github.com/aoindustries/ao-firewalld) support configurations over port ranges and network ranges.
 
 These value types are a common representation of networking configuration shared between various components.  They have minimal dependencies and may be useful for projects needing to go beyond the stock `java.net.*` classes.
 
