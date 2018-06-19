@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-net-types - Networking-related value types for Java.
-Copyright (C) 2017  AO Industries, Inc.
+Copyright (C) 2017, 2018  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2017-08-22T00:53:18-0500"
+		dateModified="2018-06-19T03:12:07-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -60,6 +60,11 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 							<li><code>LOCALHOST</code></li>
 							<li><code>LOCALHOST_LOCALDOMAIN</code></li>
 						</ol>
+					</li>
+					<li>
+						Bracketed IPv6 addresses <code>[…]</code> now supported in parsing and validating
+						both <ao:a href="apidocs/com/aoindustries/net/InetAddress.html">InetAddress</ao:a>
+						and <ao:a href="apidocs/com/aoindustries/net/HostAddress.html">HostAddress</ao:a>.
 					</li>
 				</ol>
 			</changelog:release>

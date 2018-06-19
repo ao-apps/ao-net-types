@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2017  AO Industries, Inc.
+ * Copyright (C) 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -76,12 +76,28 @@ public class InetAddressPrefixTest {
 		);
 	}
 
+	@Test(expected = ValidationException.class)
+	public void test_IPv4_singleAddress_bracketed() throws ValidationException {
+		InetAddress.valueOf("[192.0.2.127]");
+	}
+
 	@Test
 	public void test_IPv6_singleAddress() throws ValidationException {
 		assertEquals(
 			"2001:db8::1:2:3:4",
 			InetAddressPrefix.valueOf(
 				InetAddress.valueOf("2001:db8::1:2:3:4"),
+				128
+			).toString()
+		);
+	}
+
+	@Test
+	public void test_IPv6_singleAddress_bracketed() throws ValidationException {
+		assertEquals(
+			"2001:db8::1:2:3:4",
+			InetAddressPrefix.valueOf(
+				InetAddress.valueOf("[2001:db8::1:2:3:4]"),
 				128
 			).toString()
 		);
@@ -399,6 +415,17 @@ public class InetAddressPrefixTest {
 	}
 
 	@Test
+	public void test_getFrom_IPv6_6_bracketed() throws ValidationException {
+		assertEquals(
+			"2001:db8:3:5::",
+			InetAddressPrefix.valueOf(
+				InetAddress.valueOf("[2001:db8:3:5:1:2:3:4]"),
+				64
+			).getFrom().toString()
+		);
+	}
+
+	@Test
 	public void test_getTo_IPv4_sameAsAddress_1() throws ValidationException {
 		InetAddressPrefix iap = InetAddressPrefix.valueOf(
 			InetAddress.valueOf("192.0.2.127"),
@@ -493,6 +520,18 @@ public class InetAddressPrefixTest {
 	public void test_getTo_IPv6_sameAsAddress_2() throws ValidationException {
 		InetAddressPrefix iap = InetAddressPrefix.valueOf(
 			InetAddress.valueOf("2001:db8::1:2:3:ffff"),
+			112
+		);
+		assertSame(
+			iap.getAddress(),
+			iap.getTo()
+		);
+	}
+
+	@Test
+	public void test_getTo_IPv6_sameAsAddress_2_bracketed() throws ValidationException {
+		InetAddressPrefix iap = InetAddressPrefix.valueOf(
+			InetAddress.valueOf("[2001:db8::1:2:3:ffff]"),
 			112
 		);
 		assertSame(
@@ -833,6 +872,18 @@ public class InetAddressPrefixTest {
 	}
 
 	@Test
+	public void test_contains_InetAddress_IPv6_2_max_bracketed() throws ValidationException {
+		assertTrue(
+			InetAddressPrefix.valueOf(
+				InetAddress.valueOf("[2001:db8::1:2:3:5]"),
+				112
+			).contains(
+				InetAddress.valueOf("[2001:db8::1:2:3:ffff]")
+			)
+		);
+	}
+
+	@Test
 	public void test_notContains_InetAddress_IPv6_2_below() throws ValidationException {
 		assertFalse(
 			InetAddressPrefix.valueOf(
@@ -869,6 +920,18 @@ public class InetAddressPrefixTest {
 	}
 
 	@Test
+	public void test_contains_InetAddress_IPv6_3_min_bracketed() throws ValidationException {
+		assertTrue(
+			InetAddressPrefix.valueOf(
+				InetAddress.valueOf("[2001:db8:1:ff:3:4:5:6]"),
+				64
+			).contains(
+				InetAddress.valueOf("[2001:db8:1:ff::]")
+			)
+		);
+	}
+
+	@Test
 	public void test_contains_InetAddress_IPv6_3_max() throws ValidationException {
 		assertTrue(
 			InetAddressPrefix.valueOf(
@@ -876,6 +939,18 @@ public class InetAddressPrefixTest {
 				64
 			).contains(
 				InetAddress.valueOf("2001:db8:1:ff:ffff:ffff:ffff:ffff")
+			)
+		);
+	}
+
+	@Test
+	public void test_contains_InetAddress_IPv6_3_max_bracketed() throws ValidationException {
+		assertTrue(
+			InetAddressPrefix.valueOf(
+				InetAddress.valueOf("[2001:db8:1:ff:3:4:5:6]"),
+				64
+			).contains(
+				InetAddress.valueOf("[2001:db8:1:ff:ffff:ffff:ffff:ffff]")
 			)
 		);
 	}
@@ -900,6 +975,18 @@ public class InetAddressPrefixTest {
 				64
 			).contains(
 				InetAddress.valueOf("2001:db8:1:100:0:0:0:0")
+			)
+		);
+	}
+
+	@Test
+	public void test_notContains_InetAddress_IPv6_3_above_bracketed() throws ValidationException {
+		assertFalse(
+			InetAddressPrefix.valueOf(
+				InetAddress.valueOf("[2001:db8:1:ff:3:4:5:6]"),
+				64
+			).contains(
+				InetAddress.valueOf("[2001:db8:1:100:0:0:0:0]")
 			)
 		);
 	}
@@ -1032,6 +1119,18 @@ public class InetAddressPrefixTest {
 				128
 			).contains(
 				InetAddressPrefix.valueOf("2001:db8:1:ff:3:4:5:6")
+			)
+		);
+	}
+
+	@Test
+	public void test_contains_InetAddressPrefix_IPv6_1_bracketed() throws ValidationException {
+		assertTrue(
+			InetAddressPrefix.valueOf(
+				InetAddress.valueOf("[2001:db8:1:ff:3:4:5:6]"),
+				128
+			).contains(
+				InetAddressPrefix.valueOf("[2001:db8:1:ff:3:4:5:6]")
 			)
 		);
 	}

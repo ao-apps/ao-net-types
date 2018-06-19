@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2010-2013, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -55,6 +55,11 @@ final public class HostAddress implements
 		if(address==null) return false;
 		int len = address.length();
 		if(len==0) return false;
+		if(
+			len >= 2
+			&& address.charAt(0) == '['
+			&& address.charAt(len - 1) == ']'
+		) return true;
 		// If contains all digits and periods, or contains any colon, then is an IP
 		boolean allDigitsAndPeriods = true;
 		for(int c=0;c<len;c++) {
@@ -73,7 +78,13 @@ final public class HostAddress implements
 
 	/**
 	 * Validates a host address, must be either a valid domain name or a valid IP address.
-	 * // TODO: Must be non-arpa
+	 * <p>
+	 * When enclosed in brackets <code>"[...]"</code>, will be validated as an IPv6 {@link InetAddress}
+	 * (see {@link #toBracketedString()}).
+	 * </p>
+	 * <p>
+	 * TODO: Must be non-arpa
+	 * </p>
 	 */
 	public static ValidationResult validate(String address) {
 		if(isIp(address)) return InetAddress.validate(address);
@@ -85,6 +96,9 @@ final public class HostAddress implements
 	private static final ConcurrentMap<InetAddress,HostAddress> internedByInetAddress = new ConcurrentHashMap<InetAddress,HostAddress>();
 
 	/**
+	 * When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
+	 * (see {@link #toBracketedString()}).
+	 *
 	 * @param address  when {@code null}, returns {@code null}
 	 */
 	public static HostAddress valueOf(String address) throws ValidationException {
@@ -146,6 +160,7 @@ final public class HostAddress implements
 	}
 
 	@Override
+	@SuppressWarnings("deprecation") // TODO: Java 1.7: Do not suppress
 	public boolean equals(Object O) {
 		if(!(O instanceof HostAddress)) return false;
 		HostAddress other = (HostAddress)O;
