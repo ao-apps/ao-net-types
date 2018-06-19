@@ -87,12 +87,10 @@ final public class InetAddress implements
 	public static ValidationResult validate(String address) {
 		// Be non-null
 		if(address==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.validate.isNull");
-		try {
-			parse(address);
-			return ValidResult.getInstance();
-		} catch(ValidationException exc) {
-			return exc.getResult();
-		}
+		Object result = parse(address);
+		if(result instanceof InvalidResult) return (InvalidResult)result;
+		assert result instanceof LongLong;
+		return ValidResult.getInstance();
 	}
 
 	private static final ConcurrentMap<LongLong,InetAddress> interned = new ConcurrentHashMap<LongLong,InetAddress>();
@@ -112,7 +110,9 @@ final public class InetAddress implements
 		// If found in interned, it is valid
 		//InetAddress existing = internedByAddress.get(address);
 		//return existing!=null ? existing : valueOf(parse(address));
-		return valueOf(parse(address));
+		Object result = parse(address);
+		if(result instanceof LongLong) return valueOf((LongLong)result);
+		throw new ValidationException((InvalidResult)result);
 	}
 
 	/**
@@ -140,7 +140,12 @@ final public class InetAddress implements
 		return new InetAddress(hi, lo);
 	}
 
-	private static int parseOctet(String address, int start, int end) throws ValidationException {
+	/**
+	 * @param octet The result is added at index zero (an "out" parameter)
+	 *
+	 * @return  A message why invalid or {@code null} when valid and octet placed in {@code octet} parameter
+	 */
+	private static InvalidResult parseOctet(String address, int start, int end, int[] octet) {
 		int len = end-start;
 		char ch1, ch2, ch3;
 		if(len==3) {
@@ -156,56 +161,102 @@ final public class InetAddress implements
 			ch2 = '0';
 			ch3 = address.charAt(start);
 		} else {
-			if(len==0) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.empty"));
-			else throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.tooLong"));
+			if(len==0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.empty");
+			else return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.tooLong");
 		}
 		// Must each be 0-9
-		if(ch1<'0' || ch1>'9') throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch1));
-		if(ch2<'0' || ch2>'9') throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch2));
-		if(ch3<'0' || ch3>'9') throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch3));
-		int octet =
+		if(ch1<'0' || ch1>'9') return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch1);
+		if(ch2<'0' || ch2>'9') return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch2);
+		if(ch3<'0' || ch3>'9') return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch3);
+		int o =
 			(ch1-'0')*100
 			+ (ch2-'0')*10
-			+ (ch3-'0')
-		;
-		if(octet>255) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.tooBig"));
-		return octet;
+			+ (ch3-'0');
+		if(o > 255) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.tooBig");
+		octet[0] = o;
+		return null;
 	}
 
-	private static int getHexValue(char ch) throws ValidationException {
-		if(ch>='0' && ch<='9') return ch-'0';
-		if(ch>='a' && ch<='f') return ch-'a'+10;
-		if(ch>='A' && ch<='F') return ch-'A'+10;
-		throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.getHexValue.badCharacter", ch));
+	/**
+	 * @param value The result is added at index zero (an "out" parameter)
+	 *
+	 * @return  A message why invalid or {@code null} when valid and result placed in {@code value} parameter
+	 */
+	private static InvalidResult getHexValue(char ch, int[] value) {
+		if(ch>='0' && ch<='9') {
+			value[0] = ch-'0';
+			return null;
+		}
+		if(ch>='a' && ch<='f') {
+			value[0] = ch-'a'+10;
+			return null;
+		}
+		if(ch>='A' && ch<='F') {
+			value[0] = ch-'A'+10;
+			return null;
+		}
+		return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.getHexValue.badCharacter", ch);
 	}
 
-	private static int parseHexWord(String address, int start, int end) throws ValidationException {
+	/**
+	 * @param value The result is added at index zero (an "out" parameter)
+	 *
+	 * @return  A message why invalid or {@code null} when valid and result placed in {@code value} parameter
+	 */
+	private static InvalidResult parseHexWord(String address, int start, int end, int[] value) {
 		// Must each be 0-9 or a-f or A-F
 		int len = end-start;
 		if(len == 4) {
-			return
-				  (getHexValue(address.charAt(start    )) << 12)
-				| (getHexValue(address.charAt(start + 1)) << 8)
-				| (getHexValue(address.charAt(start + 2)) << 4)
-				|  getHexValue(address.charAt(start + 3))
-			;
+			InvalidResult result = getHexValue(address.charAt(start), value);
+			if(result != null) return result;
+			int h1 = value[0];
+			result = getHexValue(address.charAt(start + 1), value);
+			if(result != null) return result;
+			int h2 = value[0];
+			result = getHexValue(address.charAt(start + 2), value);
+			if(result != null) return result;
+			int h3 = value[0];
+			result = getHexValue(address.charAt(start + 3), value);
+			if(result != null) return result;
+			int h4 = value[0];
+			value[0] =
+				  (h1 << 12)
+				| (h2 << 8)
+				| (h3 << 4)
+				|  h4;
+			return null;
 		} else if(len == 3) {
-			return
-				  (getHexValue(address.charAt(start    )) << 8)
-				| (getHexValue(address.charAt(start + 1)) << 4)
-				|  getHexValue(address.charAt(start + 2))
-			;
+			InvalidResult result = getHexValue(address.charAt(start), value);
+			if(result != null) return result;
+			int h1 = value[0];
+			result = getHexValue(address.charAt(start + 1), value);
+			if(result != null) return result;
+			int h2 = value[0];
+			result = getHexValue(address.charAt(start + 2), value);
+			if(result != null) return result;
+			int h3 = value[0];
+			value[0] =
+				  (h1 << 8)
+				| (h2 << 4)
+				|  h3;
+			return null;
 		} else if(len == 2) {
-			return
-				  (getHexValue(address.charAt(start    )) << 4)
-				|  getHexValue(address.charAt(start + 1))
-			;
+			InvalidResult result = getHexValue(address.charAt(start), value);
+			if(result != null) return result;
+			int h1 = value[0];
+			result = getHexValue(address.charAt(start + 1), value);
+			if(result != null) return result;
+			int h2 = value[0];
+			value[0] =
+				  (h1 << 4)
+				|  h2;
+			return null;
 		} else if(len == 1) {
-			return getHexValue(address.charAt(start));
+			return getHexValue(address.charAt(start), value);
 		} else if(len == 0) {
-			throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty"));
+			return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty");
 		} else {
-			throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.tooLong"));
+			return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.tooLong");
 		}
 	}
 
@@ -220,21 +271,21 @@ final public class InetAddress implements
 	 *   <li><code>[hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd]</code> (with single :: shortcut) - IPv6,
 	 *     unless resolves to an IPv4-mapped address (::ffff:a.b.c.d) it will be considered IPv4.</li>
 	 * </ol>
-	 * <p>
-	 * TODO: Don't throw ValidationException here, instead return Object of either LongLong or InvalidResult.  Same in other classes
-	 * </p>
+	 *
+	 * @return  Either the resulting {@link LongLong} or an {@link InvalidResult} explaining why can't parse.
 	 */
-	private static LongLong parse(String address) throws ValidationException {
+	private static Object parse(String address) {
+		int[] outValue = new int[1];
 		boolean requireIPv6;
 		int start;
 		int end;
 		{
 			// Be non-empty
 			int len = address.length();
-			if(len == 0) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.empty"));
+			if(len == 0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.empty");
 			{
 				final int maxLen = "[hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd]".length();
-				if(len > maxLen) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooLong"));
+				if(len > maxLen) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooLong");
 			}
 			if(
 				len >= 2
@@ -244,10 +295,10 @@ final public class InetAddress implements
 				requireIPv6 = true;
 				start = 1;
 				end = len - 1;
-				if(start == end) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.bracketsEmptyIPv6"));
+				if(start == end) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.bracketsEmptyIPv6");
 				final int maxLen = "hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd".length();
 				assert (end - start) == (len - 2);
-				if((end - start) > maxLen) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooLong"));
+				if((end - start) > maxLen) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooLong");
 			} else {
 				requireIPv6 = false;
 				start = 0;
@@ -270,20 +321,31 @@ final public class InetAddress implements
 		if(dot3Pos != -1) {
 			// May be either IPv4 or IPv6 with : and . mix
 			int dot2Pos = address.lastIndexOf('.', dot3Pos - 1);
-			if(dot2Pos == -1) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.oneDot"));
+			if(dot2Pos == -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.oneDot");
 			int dot1Pos = address.lastIndexOf('.', dot2Pos - 1);
-			if(dot1Pos == -1) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.twoDots"));
+			if(dot1Pos == -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.twoDots");
 			rightColonPos = address.lastIndexOf(':', dot1Pos - 1);
 			// Must be all [0-9] between dots and beginning/colon
+			InvalidResult result = parseOctet(address, (rightColonPos == -1) ? start : (rightColonPos + 1), dot1Pos, outValue);
+			if(result != null) return result;
+			int o1 = outValue[0];
+			result = parseOctet(address, dot1Pos + 1, dot2Pos, outValue);
+			if(result != null) return result;
+			int o2 = outValue[0];
+			result = parseOctet(address, dot2Pos + 1, dot3Pos, outValue);
+			if(result != null) return result;
+			int o3 = outValue[0];
+			result = parseOctet(address, dot3Pos + 1, end, outValue);
+			if(result != null) return result;
+			int o4 = outValue[0];
 			ipLow =
-				(long)parseOctet(address, (rightColonPos == -1) ? start : (rightColonPos + 1), dot1Pos) << 24
-				| (long)parseOctet(address, dot1Pos + 1, dot2Pos)<<16
-				| (long)parseOctet(address, dot2Pos + 1, dot3Pos)<<8
-				| (long)parseOctet(address, dot3Pos + 1, end)
-			;
+				(long)o1 << 24
+				| (long)o2 << 16
+				| (long)o3 << 8
+				| (long)o4;
 			if(rightColonPos == -1) {
 				// IPv4
-				if(requireIPv6) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.bracketsNotIPv6"));
+				if(requireIPv6) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.bracketsNotIPv6");
 				return LongLong.valueOf(
 					IPV4_HI,
 					IPV4_NET_MAPPED_LO | ipLow
@@ -302,9 +364,9 @@ final public class InetAddress implements
 		while(rightWord > 0) {
 			int prevColonPos = address.lastIndexOf(':', rightColonPos - 1);
 			if(prevColonPos == -1) {
-				if(rightWord != 1) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.notEnoughColons"));
+				if(rightWord != 1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.notEnoughColons");
 			} else {
-				if(rightWord == 1) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons"));
+				if(rightWord == 1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons");
 			}
 			// This address ends with :: - don't confuse with shortcut, just leave as zero
 			if(prevColonPos == (end - 1)) {
@@ -313,7 +375,7 @@ final public class InetAddress implements
 					break;
 				} else {
 					// Ends in : but doesn't end in ::
-					throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty"));
+					return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty");
 				}
 			} else {
 				// Check for shortcut
@@ -321,7 +383,9 @@ final public class InetAddress implements
 					rightColonPos = prevColonPos;
 					break;
 				}
-				int wordValue = parseHexWord(address, (prevColonPos == -1) ? start : (prevColonPos + 1), rightColonPos);
+				InvalidResult result = parseHexWord(address, (prevColonPos == -1) ? start : (prevColonPos + 1), rightColonPos, outValue);
+				if(result != null) return result;
+				int wordValue = outValue[0];
 				rightWord--;
 				if(rightWord < 4) {
 					ipHigh |= (long)wordValue << ((3 - rightWord) << 4);
@@ -334,13 +398,13 @@ final public class InetAddress implements
 		int leftColonPos = start - 1;
 		int leftWord = 0;
 		while(leftColonPos < rightColonPos) {
-			if(leftWord >= rightWord) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons"));
+			if(leftWord >= rightWord) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons");
 			int nextColonPos = address.indexOf(':', leftColonPos + 1);
 			if(nextColonPos == -1) {
-				if(leftWord != 7) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.notEnoughColons"));
+				if(leftWord != 7) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.notEnoughColons");
 				nextColonPos = end;
 			} else {
-				if(leftWord == 7) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons"));
+				if(leftWord == 7) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons");
 			}
 			// Handle beginning ::
 			if(nextColonPos == start) {
@@ -349,10 +413,12 @@ final public class InetAddress implements
 					// OK - we match the scan from right
 					break;
 				} else {
-					throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty"));
+					return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty");
 				}
 			} else {
-				int wordValue = parseHexWord(address, leftColonPos + 1, nextColonPos);
+				InvalidResult result = parseHexWord(address, leftColonPos + 1, nextColonPos, outValue);
+				if(result != null) return result;
+				int wordValue = outValue[0];
 				if(leftWord < 4) {
 					ipHigh |= (long)wordValue << ((3 - leftWord) << 4);
 				} else {
@@ -436,8 +502,7 @@ final public class InetAddress implements
 					.append((loInt >>> 8) & 255)
 					.append('.')
 					.append(loInt & 255)
-					.toString()
-				;
+					.toString();
 			}
 			if((lo & IPV6_NET_MASK_96_LO) == IPV4_NET_COMPAT_LO) {
 				// IPv4-compatible address
@@ -451,8 +516,7 @@ final public class InetAddress implements
 					.append((loInt >>> 8) & 255)
 					.append('.')
 					.append(loInt & 255)
-					.toString()
-				;
+					.toString();
 			}
 		}
 		// Find the longest string of zeros
