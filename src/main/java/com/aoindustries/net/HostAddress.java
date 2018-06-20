@@ -160,7 +160,7 @@ final public class HostAddress implements
 	}
 
 	@Override
-	@SuppressWarnings("deprecation") // TODO: Java 1.7: Do not suppress
+	@SuppressWarnings("deprecation") // Java 1.7: Do not suppress
 	public boolean equals(Object O) {
 		if(!(O instanceof HostAddress)) return false;
 		HostAddress other = (HostAddress)O;
