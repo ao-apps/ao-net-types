@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
+import com.aoindustries.lang.LocalizedIllegalArgumentException;
 import com.aoindustries.util.ComparatorUtils;
 import com.aoindustries.util.Internable;
 import com.aoindustries.validation.InvalidResult;
@@ -131,7 +132,7 @@ final public class Path implements
 		if(path.length() == 1 && path.charAt(0) == SEPARATOR_CHAR) return ROOT;
 		//UnixPath existing = interned.get(path);
 		//return existing!=null ? existing : new UnixPath(path);
-		return new Path(path);
+		return new Path(path, true);
 	}
 
 	/**
@@ -139,22 +140,21 @@ final public class Path implements
 	 * as is safe for direct object equality check "{@code ==}".
 	 */
 	// Note: These constants must go below the static checks due to class initialization order
-	public static final Path ROOT;
-	static {
-		try {
-			ROOT = new Path(SEPARATOR_STRING).intern();
-		} catch(ValidationException e) {
-			AssertionError ae = new AssertionError("These hard-coded values are valid");
-			ae.initCause(e);
-			throw ae;
-		}
-	}
+	public static final Path ROOT = new Path(SEPARATOR_STRING);
 
 	final private String path;
 
-	private Path(String path) throws ValidationException {
+	private Path(String path, boolean validate) throws ValidationException {
 		this.path = path;
-		validate();
+		if(validate) validate();
+	}
+
+	/**
+	 * @param  path  Does not validate, should only be used with a known valid path.
+	 */
+	private Path(String path) {
+		assert validate(path).isValid();
+		this.path = path;
 	}
 
 	private void validate() throws ValidationException {
@@ -204,7 +204,7 @@ final public class Path implements
 	public int compareTo(Path other) {
 		// TODO: Sub directories before files in directory?  /path/bravo/ before /path/alpha ?
 		// TODO: This would result in a sorted traversal of paths being a depth-first traversal.
-		return this==other ? 0 : ComparatorUtils.compareIgnoreCaseConsistentWithEquals(path, other.path);
+		return (this == other) ? 0 : ComparatorUtils.compareIgnoreCaseConsistentWithEquals(path, other.path);
 	}
 
 	@Override
@@ -219,24 +219,78 @@ final public class Path implements
 	 */
 	@Override
 	public Path intern() {
-		try {
-			Path existing = interned.get(path);
-			if(existing==null) {
-				String internedPath = path.intern();
-				Path addMe = path==internedPath ? this : new Path(internedPath);
-				existing = interned.putIfAbsent(internedPath, addMe);
-				if(existing==null) existing = addMe;
-			}
-			return existing;
-		} catch(ValidationException err) {
-			AssertionError ae = new AssertionError("Should not fail validation since original object passed");
-			ae.initCause(err);
-			throw ae;
+		// TODO: Other noValidate constructors within this project
+		Path existing = interned.get(path);
+		if(existing==null) {
+			String internedPath = path.intern();
+			Path addMe = (path == internedPath) ? this : new Path(internedPath);
+			existing = interned.putIfAbsent(internedPath, addMe);
+			if(existing==null) existing = addMe;
 		}
+		return existing;
 	}
 
 	@Override
 	public com.aoindustries.net.dto.Path getDto() {
 		return new com.aoindustries.net.dto.Path(path);
+	}
+
+	/**
+	 * Gets a sub path of the given beginning and end.
+	 *
+	 * @param  beginIndex  Must align with a {@link #SEPARATOR_CHAR}.
+	 * @param  endIndex    One-past the last character to include.
+	 *                     Must be greater than {@link beginIndex}.
+	 *
+	 * @see  String#substring(int, int)
+	 */
+	public Path subPath(int beginIndex, int endIndex) throws IllegalArgumentException, IndexOutOfBoundsException {
+		if(path.charAt(beginIndex) != SEPARATOR_CHAR) {
+			throw new LocalizedIllegalArgumentException(
+				ApplicationResourcesAccessor.accessor,
+				"Path.subPath.beginIndexNotSlash",
+				beginIndex
+			);
+		}
+		if(beginIndex >= endIndex) {
+			throw new LocalizedIllegalArgumentException(
+				ApplicationResourcesAccessor.accessor,
+				"Path.subPath.beginIndexNotBeforeEndIndex",
+				beginIndex,
+				endIndex
+			);
+		}
+		if(endIndex == (beginIndex + 1)) {
+			assert path.substring(beginIndex, endIndex).equals(SEPARATOR_STRING);
+			return ROOT;
+		}
+		String subPath = path.substring(beginIndex, endIndex);
+		return (path == subPath) ? this : new Path(subPath);
+	}
+
+	/**
+	 * Gets a prefix path of the given length.
+	 *
+	 * @param  len  Must be greater than {@code 0}.
+	 *
+	 * @implSpec  Calls {@link #subPath(int, int) subPath(0, len)}
+	 *
+	 * @see  #subPath(int, int)
+	 */
+	public Path prefix(int len) throws IllegalArgumentException, IndexOutOfBoundsException {
+		return subPath(0, len);
+	}
+
+	/**
+	 * Gets a suffix path starting at the given index.
+	 *
+	 * @param  beginIndex  Must align with a {@link #SEPARATOR_CHAR}.
+	 *
+	 * @implSpec  Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}
+	 *
+	 * @see  #subPath(int, int)
+	 */
+	public Path suffix(int beginIndex) throws IllegalArgumentException, IndexOutOfBoundsException {
+		return subPath(beginIndex, path.length());
 	}
 }
