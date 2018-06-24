@@ -72,6 +72,11 @@ final public class InetAddressPrefix implements
 	 */
 	public static InetAddressPrefix valueOf(InetAddress address, int prefix) throws ValidationException {
 		if(address == null) return null;
+		return new InetAddressPrefix(address, prefix, true);
+	}
+
+	static InetAddressPrefix valueOfNoValidate(InetAddress address, int prefix) {
+		if(address == null) return null;
 		return new InetAddressPrefix(address, prefix);
 	}
 
@@ -115,10 +120,21 @@ final public class InetAddressPrefix implements
 	final private InetAddress address;
 	final private int prefix;
 
-	private InetAddressPrefix(InetAddress address, int prefix) throws ValidationException {
+	private InetAddressPrefix(InetAddress address, int prefix, boolean validate) throws ValidationException {
 		this.address = address;
 		this.prefix = prefix;
-		validate();
+		if(validate) validate();
+	}
+
+	/**
+	 * @param  address  Does not validate, should only be used with a known valid value.
+	 * @param  prefix  Does not validate, should only be used with a known valid value.
+	 */
+	private InetAddressPrefix(InetAddress address, int prefix) {
+		ValidationResult result;
+		assert (result = validate(address, prefix)).isValid() : result.toString();
+		this.address = address;
+		this.prefix = prefix;
 	}
 
 	private void validate() throws ValidationException {
@@ -183,6 +199,7 @@ final public class InetAddressPrefix implements
 	 * @see  InetAddress#compareTo(com.aoindustries.net.InetAddress)
 	 */
 	@Override
+	@SuppressWarnings("deprecation") // Java 1.7: Do not suppress
 	public int compareTo(InetAddressPrefix other) {
 		int diff = address.compareTo(other.address);
 		if(diff != 0) return diff;
@@ -327,11 +344,7 @@ final public class InetAddressPrefix implements
 	public InetAddressPrefix normalize() {
 		InetAddress from = getFrom();
 		if(from == address) return this;
-		try {
-			return valueOf(from, prefix);
-		} catch(ValidationException e) {
-			throw new AssertionError(e);
-		}
+		return valueOfNoValidate(from, prefix);
 	}
 
 	/**
@@ -476,14 +489,10 @@ final public class InetAddressPrefix implements
 					other.prefix
 				)
 			) {
-				try {
-					InetAddressPrefix biggerPrefix = valueOf(address, prefix - 1).normalize();
-					assert biggerPrefix.contains(this);
-					assert biggerPrefix.contains(other);
-					return biggerPrefix;
-				} catch(ValidationException e) {
-					throw new AssertionError(e);
-				}
+				InetAddressPrefix biggerPrefix = valueOfNoValidate(address, prefix - 1).normalize();
+				assert biggerPrefix.contains(this);
+				assert biggerPrefix.contains(other);
+				return biggerPrefix;
 			} else {
 				// Bigger range doesn't include other
 				return null;

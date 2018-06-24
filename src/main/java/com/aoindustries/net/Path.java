@@ -139,8 +139,8 @@ final public class Path implements
 	 * The root path {@code "/"}.  This is implemented as a singleton
 	 * as is safe for direct object equality check "{@code ==}".
 	 */
-	// Note: These constants must go below the static checks due to class initialization order
-	public static final Path ROOT = new Path(SEPARATOR_STRING);
+	// Note: These constants must go below the static checks and interned due to class initialization order
+	public static final Path ROOT = new Path(SEPARATOR_STRING).intern();
 
 	final private String path;
 
@@ -150,10 +150,11 @@ final public class Path implements
 	}
 
 	/**
-	 * @param  path  Does not validate, should only be used with a known valid path.
+	 * @param  path  Does not validate, should only be used with a known valid value.
 	 */
 	private Path(String path) {
-		assert validate(path).isValid();
+		ValidationResult result;
+		assert (result = validate(path)).isValid() : result.toString();
 		this.path = path;
 	}
 
@@ -219,7 +220,6 @@ final public class Path implements
 	 */
 	@Override
 	public Path intern() {
-		// TODO: Other noValidate constructors within this project
 		Path existing = interned.get(path);
 		if(existing==null) {
 			String internedPath = path.intern();

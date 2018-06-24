@@ -250,7 +250,7 @@ implements
 		if(domain == null) return null;
 		//DomainName existing = interned.get(domain);
 		//return existing!=null ? existing : new DomainName(domain);
-		return new DomainName(domain);
+		return new DomainName(domain, true);
 	}
 
 	// Note: These constants must go below the static checks due to class initialization order
@@ -259,27 +259,29 @@ implements
 		LOCALHOST_LOCALDOMAIN
 	;
 	static {
-		try {
-			LOCALHOST = new DomainName("localhost").intern();
-			LOCALHOST_LOCALDOMAIN = new DomainName("localhost.localdomain").intern();
-		} catch(ValidationException e) {
-			AssertionError ae = new AssertionError("These hard-coded values are valid");
-			ae.initCause(e);
-			throw ae;
-		}
+		LOCALHOST = new DomainName("localhost", "localhost").intern();
+		LOCALHOST_LOCALDOMAIN = new DomainName("localhost.localdomain", "localhost.localdomain").intern();
 	}
 
 	private String domain;
 	private String lowerDomain;
 
-	private DomainName(String domain) throws ValidationException {
-		this(domain, domain.toLowerCase(Locale.ROOT));
+	private DomainName(String domain, boolean validate) throws ValidationException {
+		this.domain = domain;
+		this.lowerDomain = domain.toLowerCase(Locale.ROOT);
+		if(validate) validate();
 	}
 
-	private DomainName(String domain, String lowerDomain) throws ValidationException {
+	/**
+	 * @param  domain  Does not validate, should only be used with a known valid value.
+	 * @param  lowerDomain   Does not validate, should only be used with a known valid value.
+	 */
+	private DomainName(String domain, String lowerDomain) {
+		ValidationResult result;
+		assert (result = validate(domain)).isValid() : result.toString();
+		assert domain.toLowerCase(Locale.ROOT).equals(lowerDomain);
 		this.domain = domain;
 		this.lowerDomain = lowerDomain;
-		validate();
 	}
 
 	private void validate() throws ValidationException {
@@ -367,21 +369,15 @@ implements
 	 */
 	@Override
 	public DomainName intern() {
-		try {
-			DomainName existing = interned.get(domain);
-			if(existing==null) {
-				String internedDomain = domain.intern();
-				String internedLowerDomain = lowerDomain.intern();
-				DomainName addMe = domain==internedDomain && lowerDomain==internedLowerDomain ? this : new DomainName(internedDomain);
-				existing = interned.putIfAbsent(internedDomain, addMe);
-				if(existing==null) existing = addMe;
-			}
-			return existing;
-		} catch(ValidationException err) {
-			AssertionError ae = new AssertionError("Should not fail validation since original object passed");
-			ae.initCause(err);
-			throw ae;
+		DomainName existing = interned.get(domain);
+		if(existing==null) {
+			String internedDomain = domain.intern();
+			String internedLowerDomain = lowerDomain.intern();
+			DomainName addMe = (domain == internedDomain) && (lowerDomain == internedLowerDomain) ? this : new DomainName(internedDomain, internedLowerDomain);
+			existing = interned.putIfAbsent(internedDomain, addMe);
+			if(existing==null) existing = addMe;
 		}
+		return existing;
 	}
 
 	@Override

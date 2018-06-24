@@ -210,7 +210,7 @@ final public class HostAddress implements
 			HostAddress existing = internedByDomainName.get(domainName);
 			if(existing==null) {
 				DomainName internedDomainName = domainName.intern();
-				HostAddress addMe = domainName==internedDomainName ? this : new HostAddress(internedDomainName);
+				HostAddress addMe = (domainName == internedDomainName) ? this : new HostAddress(internedDomainName);
 				existing = internedByDomainName.putIfAbsent(internedDomainName, addMe);
 				if(existing==null) existing = addMe;
 			}
@@ -219,7 +219,7 @@ final public class HostAddress implements
 			HostAddress existing = internedByInetAddress.get(inetAddress);
 			if(existing==null) {
 				InetAddress internedInetAddress = inetAddress.intern();
-				HostAddress addMe = inetAddress==internedInetAddress ? this : new HostAddress(internedInetAddress);
+				HostAddress addMe = (inetAddress == internedInetAddress) ? this : new HostAddress(internedInetAddress);
 				existing = internedByInetAddress.putIfAbsent(internedInetAddress, addMe);
 				if(existing==null) existing = addMe;
 			}

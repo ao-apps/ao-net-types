@@ -113,14 +113,24 @@ final public class MacAddress implements
 		if(address == null) return null;
 		//MacAddress existing = interned.get(address);
 		//return existing!=null ? existing : new MacAddress(address);
-		return new MacAddress(address);
+		return new MacAddress(address, true);
 	}
 
 	final private String address;
 
-	private MacAddress(String address) throws ValidationException {
+	private MacAddress(String address, boolean validate) throws ValidationException {
 		this.address = address.toUpperCase(Locale.ROOT);
-		validate();
+		if(validate) validate();
+	}
+
+	/**
+	 * @param  address  Does not validate, should only be used with a known valid value.
+	 */
+	private MacAddress(String address) {
+		ValidationResult result;
+		assert (result = validate(address)).isValid() : result.toString();
+		assert address.toUpperCase(Locale.ROOT).equals(address);
+		this.address = address;
 	}
 
 	private void validate() throws ValidationException {
@@ -172,20 +182,14 @@ final public class MacAddress implements
 	 */
 	@Override
 	public MacAddress intern() {
-		try {
-			MacAddress existing = interned.get(address);
-			if(existing==null) {
-				String internedAddress = address.intern();
-				MacAddress addMe = address==internedAddress ? this : new MacAddress(internedAddress);
-				existing = interned.putIfAbsent(internedAddress, addMe);
-				if(existing==null) existing = addMe;
-			}
-			return existing;
-		} catch(ValidationException err) {
-			AssertionError ae = new AssertionError("Should not fail validation since original object passed");
-			ae.initCause(err);
-			throw ae;
+		MacAddress existing = interned.get(address);
+		if(existing==null) {
+			String internedAddress = address.intern();
+			MacAddress addMe = (address == internedAddress) ? this : new MacAddress(internedAddress);
+			existing = interned.putIfAbsent(internedAddress, addMe);
+			if(existing==null) existing = addMe;
 		}
+		return existing;
 	}
 
 	@Override

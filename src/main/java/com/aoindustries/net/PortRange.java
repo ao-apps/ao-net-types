@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2017  AO Industries, Inc.
+ * Copyright (C) 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -73,17 +73,36 @@ final public class PortRange extends IPortRange implements
 	public static PortRange valueOf(int from, int to, Protocol protocol) throws ValidationException {
 		ValidationResult result = validate(from, to, protocol);
 		if(!result.isValid()) throw new ValidationException(result);
+		return valueOfNoValidate(from, to, protocol);
+	}
+
+	static PortRange valueOfNoValidate(int from, int to, Protocol protocol) {
 		return new PortRange(from, to, protocol);
 	}
 
 	final private int from;
 	final private int to;
 
-	private PortRange(int from, int to, Protocol protocol) throws ValidationException {
+	/* Unused
+	private PortRange(int from, int to, Protocol protocol, boolean validate) throws ValidationException {
 		super(protocol);
 		this.from = from;
 		this.to = to;
-		validate();
+		if(validate) validate();
+	}
+	 */
+
+	/**
+	 * @param  from  Does not validate, should only be used with a known valid value.
+	 * @param  to  Does not validate, should only be used with a known valid value.
+	 * @param  protocol  Does not validate, should only be used with a known valid value.
+	 */
+	private PortRange(int from, int to, Protocol protocol) {
+		super(protocol);
+		ValidationResult result;
+		assert (result = validate(from, to, protocol)).isValid() : result.toString();
+		this.from = from;
+		this.to = to;
 	}
 
 	private void validate() throws ValidationException {
@@ -144,13 +163,7 @@ final public class PortRange extends IPortRange implements
 
 	@Override
 	public Port getFromPort() {
-		try {
-			return Port.valueOf(from, protocol);
-		} catch(ValidationException e) {
-			AssertionError ae = new AssertionError("Validation rules are compatible between PortRange and Port.");
-			ae.initCause(e);
-			throw ae;
-		}
+		return Port.valueOfNoValidate(from, protocol);
 	}
 
 	@Override
@@ -160,13 +173,7 @@ final public class PortRange extends IPortRange implements
 
 	@Override
 	public Port getToPort() {
-		try {
-			return Port.valueOf(to, protocol);
-		} catch(ValidationException e) {
-			AssertionError ae = new AssertionError("Validation rules are compatible between PortRange and Port.");
-			ae.initCause(e);
-			throw ae;
-		}
+		return Port.valueOfNoValidate(to, protocol);
 	}
 
 	@Override
@@ -178,13 +185,7 @@ final public class PortRange extends IPortRange implements
 	public IPortRange splitBelow(int below) {
 		int newTo = Math.min(to, below - 1);
 		if(newTo >= from) {
-			try {
-				return IPortRange.valueOf(from, newTo, protocol);
-			} catch(ValidationException e) {
-				AssertionError ae = new AssertionError("Previously valid PortRange should still be valid.");
-				ae.initCause(e);
-				throw ae;
-			}
+			return IPortRange.valueOfNoValidate(from, newTo, protocol);
 		} else {
 			return null;
 		}
@@ -194,13 +195,7 @@ final public class PortRange extends IPortRange implements
 	public IPortRange splitAbove(int above) {
 		int newFrom = Math.max(from, above + 1);
 		if(newFrom <= to) {
-			try {
-				return IPortRange.valueOf(newFrom, to, protocol);
-			} catch(ValidationException e) {
-				AssertionError ae = new AssertionError("Previously valid PortRange should still be valid.");
-				ae.initCause(e);
-				throw ae;
-			}
+			return IPortRange.valueOfNoValidate(newFrom, to, protocol);
 		} else {
 			return null;
 		}

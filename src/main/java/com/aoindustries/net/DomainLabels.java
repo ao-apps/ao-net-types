@@ -93,20 +93,28 @@ implements
 		if(labels == null) return null;
 		//DomainLabels existing = interned.get(labels);
 		//return existing!=null ? existing : new DomainLabels(labels);
-		return new DomainLabels(labels);
+		return new DomainLabels(labels, true);
 	}
 
 	private String labels;
 	private String lowerLabels;
 
-	private DomainLabels(String labels) throws ValidationException {
-		this(labels, labels.toLowerCase(Locale.ROOT));
+	private DomainLabels(String labels, boolean validate) throws ValidationException {
+		this.labels = labels;
+		this.lowerLabels = labels.toLowerCase(Locale.ROOT);
+		if(validate) validate();
 	}
 
-	private DomainLabels(String labels, String lowerLabels) throws ValidationException {
+	/**
+	 * @param  labels  Does not validate, should only be used with a known valid value.
+	 * @param  lowerLabels  Does not validate, should only be used with a known valid value.
+	 */
+	private DomainLabels(String labels, String lowerLabels) {
+		ValidationResult result;
+		assert (result = validate(labels)).isValid() : result.toString();
+		assert labels.toLowerCase(Locale.ROOT).equals(lowerLabels);
 		this.labels = labels;
 		this.lowerLabels = lowerLabels;
-		validate();
 	}
 
 	private void validate() throws ValidationException {
@@ -158,21 +166,15 @@ implements
 	 */
 	@Override
 	public DomainLabels intern() {
-		try {
-			DomainLabels existing = interned.get(labels);
-			if(existing==null) {
-				String internedLabels = labels.intern();
-				String internedLowerLabels = lowerLabels.intern();
-				DomainLabels addMe = labels==internedLabels && lowerLabels==internedLowerLabels ? this : new DomainLabels(internedLabels);
-				existing = interned.putIfAbsent(internedLabels, addMe);
-				if(existing==null) existing = addMe;
-			}
-			return existing;
-		} catch(ValidationException err) {
-			AssertionError ae = new AssertionError("Should not fail validation since original object passed");
-			ae.initCause(err);
-			throw ae;
+		DomainLabels existing = interned.get(labels);
+		if(existing==null) {
+			String internedLabels = labels.intern();
+			String internedLowerLabels = lowerLabels.intern();
+			DomainLabels addMe = (labels == internedLabels) && (lowerLabels == internedLowerLabels) ? this : new DomainLabels(internedLabels, internedLowerLabels);
+			existing = interned.putIfAbsent(internedLabels, addMe);
+			if(existing==null) existing = addMe;
 		}
+		return existing;
 	}
 
 	@Override

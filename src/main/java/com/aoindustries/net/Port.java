@@ -60,12 +60,21 @@ final public class Port extends IPortRange implements
 		return ValidResult.getInstance();
 	}
 
+	// TODO: Worth making this weak references?
 	private static final AtomicReferenceArray<Port> tcpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
 	private static final AtomicReferenceArray<Port> udpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
 
 	public static Port valueOf(int port, Protocol protocol) throws ValidationException {
 		ValidationResult result = validate(port, protocol);
 		if(!result.isValid()) throw new ValidationException(result);
+		return valueOfNoValidate(port, protocol);
+	}
+
+	/**
+	 * @param  port  Does not validate, should only be used with a known valid value.
+	 * @param  protocol  Does not validate, should only be used with a known valid value.
+	 */
+	static Port valueOfNoValidate(int port, Protocol protocol) {
 		AtomicReferenceArray<Port> cache;
 		switch(protocol) {
 			case TCP :
@@ -75,7 +84,7 @@ final public class Port extends IPortRange implements
 				cache = udpCache;
 				break;
 			default :
-				throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol));
+				throw new AssertionError(new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol)));
 		}
 		int cacheIndex = port - MIN_PORT;
 		Port np = cache.get(cacheIndex);
@@ -88,10 +97,23 @@ final public class Port extends IPortRange implements
 
 	final private int port;
 
-	private Port(int port, Protocol protocol) throws ValidationException {
+	/* Unused
+	private Port(int port, Protocol protocol, boolean validate) throws ValidationException {
 		super(protocol);
 		this.port = port;
-		validate();
+		if(validate) validate();
+	}
+	 */
+
+	/**
+	 * @param  port  Does not validate, should only be used with a known valid value.
+	 * @param  protocol  Does not validate, should only be used with a known valid value.
+	 */
+	private Port(int port, Protocol protocol) {
+		super(protocol);
+		ValidationResult result;
+		assert (result = validate(port, protocol)).isValid() : result.toString();
+		this.port = port;
 	}
 
 	private void validate() throws ValidationException {

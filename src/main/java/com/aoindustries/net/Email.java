@@ -93,6 +93,7 @@ final public class Email implements
 	/**
 	 * Validates the local part of the email address (before the @ symbol), as well as additional domain rules.
 	 */
+	@SuppressWarnings("deprecation") // Java 1.7: Do not suppress
 	public static ValidationResult validate(String localPart, DomainName domain) {
 		return validateImpl(localPart, ObjectUtils.toString(domain));
 	}
@@ -175,16 +176,27 @@ final public class Email implements
 		//    Email existing = domainMap.get(localPart);
 		//    if(existing!=null) return existing;
 		//}
-		return new Email(localPart, domain);
+		return new Email(localPart, domain, true);
 	}
 
 	private String localPart;
 	private DomainName domain;
 
-	private Email(String localPart, DomainName domain) throws ValidationException {
+	private Email(String localPart, DomainName domain, boolean validate) throws ValidationException {
 		this.localPart = localPart;
 		this.domain = domain;
-		validate();
+		if(validate) validate();
+	}
+
+	/**
+	 * @param  localPart  Does not validate, should only be used with a known valid value.
+	 * @param  domain  Does not validate, should only be used with a known valid value.
+	 */
+	private Email(String localPart, DomainName domain) {
+		ValidationResult result;
+		assert (result = validate(localPart, domain)).isValid() : result.toString();
+		this.localPart = localPart;
+		this.domain = domain;
 	}
 
 	private void validate() throws ValidationException {
@@ -230,32 +242,26 @@ final public class Email implements
 	 */
 	@Override
 	public Email intern() {
-		try {
-			// Intern the domain
-			DomainName internedDomain = domain.intern();
+		// Intern the domain
+		DomainName internedDomain = domain.intern();
 
-			// Atomically get/create the per-domain map
-			ConcurrentMap<String,Email> domainMap = interned.get(internedDomain);
-			if(domainMap==null) {
-				ConcurrentMap<String,Email> newDomainInterned = new ConcurrentHashMap<String,Email>();
-				domainMap = interned.putIfAbsent(internedDomain, newDomainInterned);
-				if(domainMap==null) domainMap = newDomainInterned;
-			}
-
-			// Atomically get/create the Email object within the domainMap
-			Email existing = domainMap.get(localPart);
-			if(existing==null) {
-				String internedLocalPart = localPart.intern();
-				Email addMe = localPart==internedLocalPart && domain==internedDomain ? this : new Email(internedLocalPart, internedDomain);
-				existing = domainMap.putIfAbsent(internedLocalPart, addMe);
-				if(existing==null) existing = addMe;
-			}
-			return existing;
-		} catch(ValidationException err) {
-			AssertionError ae = new AssertionError("Should not fail validation since original object passed");
-			ae.initCause(err);
-			throw ae;
+		// Atomically get/create the per-domain map
+		ConcurrentMap<String,Email> domainMap = interned.get(internedDomain);
+		if(domainMap==null) {
+			ConcurrentMap<String,Email> newDomainInterned = new ConcurrentHashMap<String,Email>();
+			domainMap = interned.putIfAbsent(internedDomain, newDomainInterned);
+			if(domainMap==null) domainMap = newDomainInterned;
 		}
+
+		// Atomically get/create the Email object within the domainMap
+		Email existing = domainMap.get(localPart);
+		if(existing==null) {
+			String internedLocalPart = localPart.intern();
+			Email addMe = (localPart == internedLocalPart) && (domain == internedDomain) ? this : new Email(internedLocalPart, internedDomain);
+			existing = domainMap.putIfAbsent(internedLocalPart, addMe);
+			if(existing==null) existing = addMe;
+		}
+		return existing;
 	}
 
 	public String getLocalPart() {

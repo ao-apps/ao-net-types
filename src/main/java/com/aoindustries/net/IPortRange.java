@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2017  AO Industries, Inc.
+ * Copyright (C) 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -77,6 +77,18 @@ abstract public class IPortRange implements
 		}
 	}
 
+	/**
+	 * @see  Port#valueOfNoValidate(int, com.aoindustries.net.Protocol)  Used when {@code from == to}.
+	 * @see  PortRange#valueOfNoValidate(int, int, com.aoindustries.net.Protocol)  Used when {@code from != to}.
+	 */
+	static IPortRange valueOfNoValidate(int from, int to, Protocol protocol) {
+		if(from == to) {
+			return Port.valueOfNoValidate(from, protocol);
+		} else {
+			return PortRange.valueOfNoValidate(from, to, protocol);
+		}
+	}
+
 	final Protocol protocol;
 
 	IPortRange(Protocol protocol) {
@@ -99,8 +111,8 @@ abstract public class IPortRange implements
 	 * must not be changed without adjusting other code.
 	 */
 	@Override
+	@SuppressWarnings("deprecation") // Java 1.7: No suppress
 	final public int compareTo(IPortRange other) {
-		// Java 1.8: Use Integer.compare instead
 		int diff = ComparatorUtils.compare(getFrom(), other.getFrom());
 		if(diff != 0) return diff;
 		diff = ComparatorUtils.compare(getTo(), other.getTo());
@@ -198,10 +210,6 @@ abstract public class IPortRange implements
 		}
 		if(from ==  this.getFrom() && to ==  this.getTo()) return  this;
 		if(from == other.getFrom() && to == other.getTo()) return other;
-		try {
-			return valueOf(from, to, protocol);
-		} catch(ValidationException e) {
-			throw new AssertionError(e);
-		}
+		return valueOfNoValidate(from, to, protocol);
 	}
 }
