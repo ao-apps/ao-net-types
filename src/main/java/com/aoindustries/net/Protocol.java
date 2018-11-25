@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types for Java.
- * Copyright (C) 2017  AO Industries, Inc.
+ * Copyright (C) 2017, 2018  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -32,6 +32,7 @@ import java.util.Map;
  *
  * @author  AO Industries, Inc.
  */
+// Matches aoserv-master-db/aoindustries/net/NetProtocol-type.sql
 public enum Protocol {
 	HOPOPT(0, "HOPOPT", "IPv6 Hop-by-Hop Option", true),
 	ICMP(1, "ICMP", "Internet Control Message"),
