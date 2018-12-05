@@ -54,7 +54,7 @@ final public class Port extends IPortRange implements
 		if(port > MAX_PORT) {
 			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.greaterThan64k", port);
 		}
-		if(protocol != Protocol.TCP && protocol != Protocol.UDP) {
+		if(protocol != Protocol.TCP && protocol != Protocol.UDP && protocol != Protocol.SCTP) {
 			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol);
 		}
 		return ValidResult.getInstance();
@@ -63,6 +63,7 @@ final public class Port extends IPortRange implements
 	// TODO: Worth making this weak references?
 	private static final AtomicReferenceArray<Port> tcpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
 	private static final AtomicReferenceArray<Port> udpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
+	private static final AtomicReferenceArray<Port> sctpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
 
 	public static Port valueOf(int port, Protocol protocol) throws ValidationException {
 		ValidationResult result = validate(port, protocol);
@@ -82,6 +83,9 @@ final public class Port extends IPortRange implements
 				break;
 			case UDP :
 				cache = udpCache;
+				break;
+			case SCTP :
+				cache = sctpCache;
 				break;
 			default :
 				throw new AssertionError(new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol)));

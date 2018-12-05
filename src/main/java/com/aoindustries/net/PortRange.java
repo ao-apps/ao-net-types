@@ -64,7 +64,7 @@ final public class PortRange extends IPortRange implements
 		if(from == to) {
 			return new InvalidResult(ApplicationResourcesAccessor.accessor, "PortRange.validate.fromEqualsTo", from, to);
 		}
-		if(protocol != Protocol.TCP && protocol != Protocol.UDP) {
+		if(protocol != Protocol.TCP && protocol != Protocol.UDP && protocol != Protocol.SCTP) {
 			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol);
 		}
 		return ValidResult.getInstance();
