@@ -53,6 +53,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author  AO Industries, Inc.
  */
+// Matches src/main/sql/com/aoindustries/net/DomainLabel-type.sql
 final public class DomainLabel implements
 	Comparable<DomainLabel>,
 	FastExternalizable,
@@ -70,6 +71,7 @@ final public class DomainLabel implements
 		if(label==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.isNull");
 		return validate(label, 0, label.length());
 	}
+	// Matches src/main/sql/com/aoindustries/net/DomainLabel.validate-function.sql
 	public static ValidationResult validate(String label, int beginIndex, int endIndex) {
 		if(label==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.isNull");
 		int len = endIndex-beginIndex;
