@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-ao-net-types - Networking-related value types for Java.
-Copyright (C) 2017  AO Industries, Inc.
+ao-net-types - Networking-related value types.
+Copyright (C) 2017, 2018  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -33,7 +33,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2017-03-17T13:34:38-0500"
-		dateModified="2017-08-03T11:05:22-0500"
+		dateModified="2018-12-11T16:15:32-0600"
 	>
 		<core:child page="changelog" />
 		<core:child page="apidocs/" />
@@ -78,6 +78,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 						<li>Java EE 6+ compatible.</li>
 					</ul>
 				</li>
+				<li>Compatible <ao:a href="https://www.postgresql.org/">PostgreSQL</ao:a> type implementations for database-level integrity.</li>
 			</ul>
 		</section:section>
 		<section:section label="Motivation">

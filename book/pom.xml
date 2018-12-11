@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-ao-net-types - Networking-related value types for Java.
+ao-net-types - Networking-related value types.
 Copyright (C) 2017, 2018  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
@@ -39,7 +39,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		<documented.javac.link.javaApi>${javac.link.javaApi.jdk16}</documented.javac.link.javaApi>
 		<documented.name>AO Net Types</documented.name>
 		<documented.url>https://aoindustries.com/${documented.artifactId}/</documented.url>
-		<documented.description>Networking-related value types for Java.</documented.description>
+		<documented.description>Networking-related value types.</documented.description>
 		<documented.inceptionYear>2017</documented.inceptionYear>
 		<documented.scm.url>https://github.com/aoindustries/${documented.artifactId}</documented.scm.url>
 

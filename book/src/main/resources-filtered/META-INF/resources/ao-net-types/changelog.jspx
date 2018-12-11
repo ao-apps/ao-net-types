@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-ao-net-types - Networking-related value types for Java.
+ao-net-types - Networking-related value types.
 Copyright (C) 2017, 2018  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2018-12-05T04:51:00-0600"
+		dateModified="2018-12-11T15:48:54-0600"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -71,6 +71,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 						by no longer internally throwing and catching exceptions during parsing.
 					</li>
 					<li>SCTP also has ports in range 1-65535, like TCP and UDP.</li>
+					<li>Added SQL implementation in alternate "sql" classifier.</li>
 				</ol>
 			</changelog:release>
 		</c:if>
@@ -84,7 +85,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 			scmUrl="@{documented.scm.url}"
 		>
 			<ul>
-				<li>New project for Networking-related value types for Java.</li>
+				<li>New project for Networking-related value types.</li>
 				<li>
 					Pulled existing network value types out of
 					<core:link book="/aoserv/client" page="/" /> into this new

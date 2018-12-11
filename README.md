@@ -21,7 +21,7 @@
 	</a>
 </p>
 
-Networking-related value types for Java.
+Networking-related value types.
 
 ## Project Links
 * [Project Home](https://aoindustries.com/ao-net-types/)
@@ -43,6 +43,7 @@ Networking-related value types for Java.
 * Java 1.6 implementation:
     * Android compatible.
     * Java EE 6+ compatible.
+* Compatible [PostgreSQL](https://www.postgresql.org/) type implementations for database-level integrity.
 
 ## Motivation
 The [AOServ Platform](https://aoindustries.com/aoserv/) allows configuration of services on a per-port and per-IP basis.  System configuration components like [AO SELinux](https://github.com/aoindustries/ao-selinux) and [AO firewalld](https://github.com/aoindustries/ao-firewalld) support configurations over port ranges and network ranges.
