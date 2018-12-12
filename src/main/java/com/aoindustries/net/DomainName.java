@@ -62,8 +62,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author  AO Industries, Inc.
  */
 // Matches src/main/sql/com/aoindustries/net/DomainName-type.sql
-final public class DomainName
-implements
+final public class DomainName implements
 	Comparable<DomainName>,
 	FastExternalizable,
 	ObjectInputValidation,
