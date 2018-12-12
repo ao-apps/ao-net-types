@@ -63,7 +63,7 @@ BEGIN
     RETURN 'Email.validate.localePart.doubleDot';
   END IF;
   -- https://www.regular-expressions.info/charclass.html
-  IF "localPart" !~ '^[A-Za-z0-9!#$%&''*+\-/=?\^_`{|}~.]+$' THEN
+  IF "localPart" !~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+$' THEN
     RETURN 'Email.validate.localePart.invalidCharacter';
   END IF;
   -- All is OK
