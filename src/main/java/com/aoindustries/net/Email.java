@@ -52,6 +52,7 @@ import java.util.concurrent.ConcurrentMap;
  * 
  * @author  AO Industries, Inc.
  */
+// Matches src/main/sql/com/aoindustries/net/Email-type.sql
 final public class Email implements
 	Comparable<Email>,
 	FastExternalizable,
@@ -69,6 +70,7 @@ final public class Email implements
 	 *
 	 * @see #validate(java.lang.String, com.aoindustries.aoserv.client.validator.DomainName)
 	 */
+	// Matches src/main/sql/com/aoindustries/net/Email.validate-function.sql
 	public static ValidationResult validate(String email) {
 		// Be non-null
 		if(email==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Email.validate.isNull");
@@ -82,6 +84,7 @@ final public class Email implements
 	/**
 	 * Validates the local part of the email address (before the @ symbol), as well as additional domain rules.
 	 */
+	// Matches src/main/sql/com/aoindustries/net/Email.validate-function.sql
 	public static ValidationResult validate(String localPart, String domain) {
 		if(domain!=null) {
 			ValidationResult result = DomainName.validate(domain);
@@ -93,6 +96,7 @@ final public class Email implements
 	/**
 	 * Validates the local part of the email address (before the @ symbol), as well as additional domain rules.
 	 */
+	// Matches src/main/sql/com/aoindustries/net/Email.validate-function.sql
 	@SuppressWarnings("deprecation") // Java 1.7: Do not suppress
 	public static ValidationResult validate(String localPart, DomainName domain) {
 		return validateImpl(localPart, ObjectUtils.toString(domain));
@@ -132,6 +136,7 @@ final public class Email implements
 	/**
 	 * Validates the local part of the email address (before the @ symbol), as well as additional domain rules.
 	 */
+	// Matches src/main/sql/com/aoindustries/net/Email.validate-function.sql
 	private static ValidationResult validateImpl(String localPart, String domain) {
 		if(localPart==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Email.validate.localePart.isNull");
 		if(domain==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Email.validate.domain.isNull");
