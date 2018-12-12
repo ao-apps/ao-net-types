@@ -61,6 +61,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author  AO Industries, Inc.
  */
+// Matches src/main/sql/com/aoindustries/net/DomainName-type.sql
 final public class DomainName
 implements
 	Comparable<DomainName>,
@@ -197,6 +198,7 @@ implements
 	 *
 	 * @see DomainLabel#validate(java.lang.String)
 	 */
+	// Matches src/main/sql/com/aoindustries/net/DomainName.validate-function.sql
 	public static ValidationResult validate(String domain) {
 		if(domain==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainName.validate.isNull");
 		int len = domain.length();

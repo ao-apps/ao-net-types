@@ -23,8 +23,8 @@
 -- Must be done as "postgres" user:
 CREATE EXTENSION IF NOT EXISTS citext;
 
-CREATE DOMAIN "com.aoindustries.net"."DomainLabel" AS citext
-  CHECK (value IS NULL OR "com.aoindustries.net"."DomainLabel.validate"(value) IS NULL);
+CREATE DOMAIN "com.aoindustries.net"."DomainName" AS citext
+  CHECK (value IS NULL OR "com.aoindustries.net"."DomainName.validate"(value) IS NULL);
 
-COMMENT ON DOMAIN "com.aoindustries.net"."DomainLabel"
-IS 'Matches class com.aoindustries.net.DomainLabel';
+COMMENT ON DOMAIN "com.aoindustries.net"."DomainName"
+IS 'Matches class com.aoindustries.net.DomainName';
