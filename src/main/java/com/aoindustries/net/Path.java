@@ -64,6 +64,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author  AO Industries, Inc.
  */
+// Matches src/main/sql/com/aoindustries/net/Path-type.sql
 final public class Path implements
 	Comparable<Path>,
 	Serializable,
@@ -90,6 +91,7 @@ final public class Path implements
 	private static final String SLASH_DOT_DOT = SEPARATOR_STRING + "..";
 	private static final String SLASH_SLASH = SEPARATOR_STRING + SEPARATOR_STRING;
 
+	// Matches src/main/sql/com/aoindustries/net/Path.validate-function.sql
 	public static ValidationResult validate(String path) {
 		// Be non-null
 		if(path == null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.isNull");
