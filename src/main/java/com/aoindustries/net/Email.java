@@ -27,6 +27,7 @@ import com.aoindustries.io.FastExternalizable;
 import com.aoindustries.io.FastObjectInput;
 import com.aoindustries.io.FastObjectOutput;
 import com.aoindustries.lang.ObjectUtils;
+import com.aoindustries.sql.LocalizedSQLException;
 import com.aoindustries.util.ComparatorUtils;
 import com.aoindustries.util.Internable;
 import com.aoindustries.validation.InvalidResult;
@@ -38,6 +39,10 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInput;
 import java.io.ObjectInputValidation;
 import java.io.ObjectOutput;
+import java.sql.SQLData;
+import java.sql.SQLException;
+import java.sql.SQLInput;
+import java.sql.SQLOutput;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -58,7 +63,8 @@ final public class Email implements
 	FastExternalizable,
 	ObjectInputValidation,
 	DtoFactory<com.aoindustries.net.dto.Email>,
-	Internable<Email>
+	Internable<Email>,
+	SQLData
 {
 
 	public static final int MAX_LENGTH = 254;
@@ -205,7 +211,7 @@ final public class Email implements
 	}
 
 	private void validate() throws ValidationException {
-		ValidationResult result = validate(localPart, domain.toString());
+		ValidationResult result = validateImpl(localPart, domain.toString());
 		if(!result.isValid()) throw new ValidationException(result);
 	}
 
@@ -324,6 +330,37 @@ final public class Email implements
 			InvalidObjectException newErr = new InvalidObjectException(err.getMessage());
 			newErr.initCause(err);
 			throw newErr;
+		}
+	}
+	// </editor-fold>
+
+	// <editor-fold defaultstate="collapsed" desc="SQLData">
+	public static final String SQL_TYPE = "\"com.aoindustries.net\".\"Email\"";
+
+	@Override
+	public String getSQLTypeName() {
+		return SQL_TYPE;
+	}
+
+	@Override
+	public void writeSQL(SQLOutput stream) throws SQLException {
+		stream.writeString(localPart + '@' + domain.toString());
+	}
+
+	// TODO: Change SQL type "Email" to be a compound type (localPart, domain)?
+	@Override
+	public void readSQL(SQLInput stream, String typeName) throws SQLException {
+		if(localPart != null) throw new IllegalStateException();
+		//System.err.println("DEBUG: typeName = " + typeName);
+		try {
+			String email = stream.readString();
+			int atPos = email.indexOf('@');		
+			if(atPos == -1) throw new LocalizedSQLException(ApplicationResourcesAccessor.accessor, "Email.validate.noAt");
+			localPart = email.substring(0, atPos);
+			domain = DomainName.valueOf(email.substring(atPos + 1));
+			validate();
+		} catch(ValidationException err) {
+			throw new SQLException(err.getMessage(), err);
 		}
 	}
 	// </editor-fold>
