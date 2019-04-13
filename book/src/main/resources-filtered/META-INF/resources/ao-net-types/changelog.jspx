@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-net-types - Networking-related value types.
-Copyright (C) 2017, 2018  AO Industries, Inc.
+Copyright (C) 2017, 2018, 2019  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -88,8 +88,8 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				<li>New project for Networking-related value types.</li>
 				<li>
 					Pulled existing network value types out of
-					<core:link book="/aoserv/client" page="/" /> into this new
-					<core:link page="/" /> project.
+					<core:link book="/aoserv/client" page="/index.jspx" /> into this new
+					<core:link page="index.jspx" /> project.
 				</li>
 				<li>Renamed <code>NetPort</code> to <code>Port</code>.</li>
 				<li>Added full listing of <code>Protocol</code>s from <ao:a href="http://www.iana.org/assignments/protocol-numbers">iana.org</ao:a>.</li>
