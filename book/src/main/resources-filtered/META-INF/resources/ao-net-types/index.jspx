@@ -33,7 +33,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2017-03-17T13:34:38-0500"
-		dateModified="2018-12-11T16:15:32-0600"
+		dateModified="2019-04-15T01:09:21-0500"
 	>
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
@@ -72,7 +72,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				<li><ao:a href="/ao-lang/apidocs/com/aoindustries/io/FastExternalizable.html">Fast serializable</ao:a> and self-validating objects.</li>
 				<li><ao:a href="/ao-lang/apidocs/com/aoindustries/util/Internable.html">Internable</ao:a> for memory savings on large datasets.</li>
 				<li>Small footprint, minimal dependencies - not part of a big monolithic package.</li>
-				<li>Java 1.6 implementation:
+				<li>Java 1.7 implementation:
 					<ul>
 						<li>Android compatible.</li>
 						<li>Java EE 6+ compatible.</li>
@@ -95,9 +95,9 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		<section:section label="Evaluated Alternatives">
 			<p>
 				Admittedly, several features of this API are redundant with the
-				<ao:a rel="nofollow" href="@{javac.link.javaApi.jdk16}/java/net/package-summary.html">standard Java API</ao:a>.
+				<ao:a rel="nofollow" href="@{javac.link.javaApi.jdk6}/java/net/package-summary.html">standard Java API</ao:a>.
 				This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient
-				for your needs, please prefer the <ao:a rel="nofollow" href="@{javac.link.javaApi.jdk16}/java/net/package-summary.html">standard Java API</ao:a>.
+				for your needs, please prefer the <ao:a rel="nofollow" href="@{javac.link.javaApi.jdk6}/java/net/package-summary.html">standard Java API</ao:a>.
 			</p>
 		</section:section>
 	</core:page>

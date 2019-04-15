@@ -10,8 +10,8 @@
 		<img src="https://aoindustries.com/ao-badges/packaging-active.svg" alt="packaging: active" />
 	</a>
 	<br />
-	<a href="https://docs.oracle.com/javase/6/docs/api/">
-		<img src="https://aoindustries.com/ao-badges/java-6.svg" alt="java: &gt;= 6" />
+	<a href="https://docs.oracle.com/javase/7/docs/api/">
+		<img src="https://aoindustries.com/ao-badges/java-7.svg" alt="java: &gt;= 7" />
 	</a>
 	<a href="http://semver.org/spec/v2.0.0.html">
 		<img src="https://aoindustries.com/ao-badges/semver-2.0.0.svg" alt="semantic versioning: 2.0.0" />
@@ -40,7 +40,7 @@ Networking-related value types.
 * [Fast serializable](https://aoindustries.com/ao-lang/apidocs/com/aoindustries/io/FastExternalizable.html) and self-validating objects.
 * [Internable](https://aoindustries.com/ao-lang/apidocs/com/aoindustries/util/Internable.html) for memory savings on large datasets.
 * Small footprint, minimal dependencies - not part of a big monolithic package.
-* Java 1.6 implementation:
+* Java 1.7 implementation:
     * Android compatible.
     * Java EE 6+ compatible.
 * Compatible [PostgreSQL](https://www.postgresql.org/) type implementations for database-level integrity.
@@ -51,7 +51,7 @@ The [AOServ Platform](https://aoindustries.com/aoserv/) allows configuration of 
 These value types are a common representation of networking configuration shared between various components.  They have minimal dependencies and may be useful for projects needing to go beyond the stock `java.net.*` classes.
 
 ## Evaluated Alternatives
-Admittedly, several features of this API are redundant with the [standard Java API](https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html).  This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient for your needs, please prefer the [standard Java API](https://docs.oracle.com/javase/6/docs/api/java/net/package-summary.html).
+Admittedly, several features of this API are redundant with the [standard Java API](https://docs.oracle.com/javase/7/docs/api/java/net/package-summary.html).  This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient for your needs, please prefer the [standard Java API](https://docs.oracle.com/javase/7/docs/api/java/net/package-summary.html).
 
 ## Contact Us
 For questions or support, please [contact us](https://aoindustries.com/contact):
