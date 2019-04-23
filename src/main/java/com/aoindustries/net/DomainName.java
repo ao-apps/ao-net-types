@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2015, 2016, 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2015, 2016, 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -242,7 +242,7 @@ final public class DomainName implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,DomainName> interned = new ConcurrentHashMap<String,DomainName>();
+	private static final ConcurrentMap<String,DomainName> interned = new ConcurrentHashMap<>();
 
 	/**
 	 * @param domain  when {@code null}, returns {@code null}

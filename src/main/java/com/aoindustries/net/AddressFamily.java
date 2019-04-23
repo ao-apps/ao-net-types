@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,24 +22,32 @@
  */
 package com.aoindustries.net;
 
+import java.net.StandardProtocolFamily;
+
 /**
  * The supported address families, such as IPv4 and IPv6.
- * <p>
- * Java 1.7+: Prefer <a href="https://docs.oracle.com/javase/7/docs/api/java/net/StandardProtocolFamily.html">StandardProtocolFamily</a>.
- * </p>
+ *
+ * @deprecated  Please use {@link StandardProtocolFamily} as of Java 1.7.
  *
  * @author  AO Industries, Inc.
  */
+@Deprecated
 public enum AddressFamily {
 
 	/**
 	 * Internet Protocol Version 4 (IPv4).
+	 *
+	 * @deprecated  Please use {@link StandardProtocolFamily#INET} as of Java 1.7.
 	 */
+	@Deprecated
 	INET(32),
 
 	/**
 	 * Internet Protocol Version 6 (IPv6).
+	 *
+	 * @deprecated  Please use {@link StandardProtocolFamily#INET6} as of Java 1.7.
 	 */
+	@Deprecated
 	INET6(128);
 
 	private final int maxPrefix;

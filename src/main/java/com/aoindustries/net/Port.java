@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2001-2013, 2016, 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2001-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -61,9 +61,9 @@ final public class Port extends IPortRange implements
 	}
 
 	// TODO: Worth making this weak references?
-	private static final AtomicReferenceArray<Port> tcpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
-	private static final AtomicReferenceArray<Port> udpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
-	private static final AtomicReferenceArray<Port> sctpCache = new AtomicReferenceArray<Port>(MAX_PORT - MIN_PORT + 1);
+	private static final AtomicReferenceArray<Port> tcpCache = new AtomicReferenceArray<>(MAX_PORT - MIN_PORT + 1);
+	private static final AtomicReferenceArray<Port> udpCache = new AtomicReferenceArray<>(MAX_PORT - MIN_PORT + 1);
+	private static final AtomicReferenceArray<Port> sctpCache = new AtomicReferenceArray<>(MAX_PORT - MIN_PORT + 1);
 
 	public static Port valueOf(int port, Protocol protocol) throws ValidationException {
 		ValidationResult result = validate(port, protocol);

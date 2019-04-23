@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,7 +23,6 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
-import com.aoindustries.lang.ObjectUtils;
 import com.aoindustries.util.Internable;
 import com.aoindustries.validation.InvalidResult;
 import com.aoindustries.validation.ValidationException;
@@ -32,6 +31,7 @@ import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -91,9 +91,9 @@ final public class HostAddress implements
 		else return DomainName.validate(address);
 	}
 
-	private static final ConcurrentMap<DomainName,HostAddress> internedByDomainName = new ConcurrentHashMap<DomainName,HostAddress>();
+	private static final ConcurrentMap<DomainName,HostAddress> internedByDomainName = new ConcurrentHashMap<>();
 
-	private static final ConcurrentMap<InetAddress,HostAddress> internedByInetAddress = new ConcurrentHashMap<InetAddress,HostAddress>();
+	private static final ConcurrentMap<InetAddress,HostAddress> internedByInetAddress = new ConcurrentHashMap<>();
 
 	/**
 	 * When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
@@ -160,13 +160,12 @@ final public class HostAddress implements
 	}
 
 	@Override
-	@SuppressWarnings("deprecation") // Java 1.7: Do not suppress
 	public boolean equals(Object O) {
 		if(!(O instanceof HostAddress)) return false;
 		HostAddress other = (HostAddress)O;
 		return
-			ObjectUtils.equals(domainName, other.domainName)
-			&& ObjectUtils.equals(inetAddress, other.inetAddress)
+			Objects.equals(domainName, other.domainName)
+			&& Objects.equals(inetAddress, other.inetAddress)
 		;
 	}
 

@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,7 +23,6 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
-import com.aoindustries.util.ComparatorUtils;
 import com.aoindustries.validation.InvalidResult;
 import com.aoindustries.validation.ValidResult;
 import com.aoindustries.validation.ValidationException;
@@ -57,6 +56,7 @@ final public class InetAddressPrefix implements
 		// Be non-null
 		if(address==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddressPrefix.validate.address.isNull");
 		if(prefix < 0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddressPrefix.validate.prefix.lessThanZero", prefix);
+		@SuppressWarnings("deprecation")
 		int maxPrefix = address.getAddressFamily().getMaxPrefix();
 		if(prefix > maxPrefix) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddressPrefix.validate.prefix.tooBig", prefix, maxPrefix);
 		// TODO: Special requirements for UNSPECIFIED, such as prefix forced to be zero?
@@ -87,6 +87,7 @@ final public class InetAddressPrefix implements
 	 *
 	 * @see  #toString()  for the inverse function
 	 */
+	@SuppressWarnings("deprecation")
 	public static InetAddressPrefix valueOf(String address) throws ValidationException {
 		int slashPos = address.indexOf('/');
 		if(slashPos == -1) {
@@ -185,6 +186,7 @@ final public class InetAddressPrefix implements
 	 * @see  #valueOf(String)  for the inverse function
 	 */
 	@Override
+	@SuppressWarnings("deprecation")
 	public String toString() {
 		if(prefix != address.getAddressFamily().getMaxPrefix()) {
 			return address.toString() + '/' + prefix;
@@ -199,11 +201,10 @@ final public class InetAddressPrefix implements
 	 * @see  InetAddress#compareTo(com.aoindustries.net.InetAddress)
 	 */
 	@Override
-	@SuppressWarnings("deprecation") // Java 1.7: Do not suppress
 	public int compareTo(InetAddressPrefix other) {
 		int diff = address.compareTo(other.address);
 		if(diff != 0) return diff;
-		return ComparatorUtils.compare(prefix, other.prefix);
+		return Integer.compare(prefix, other.prefix);
 	}
 
 	public InetAddress getAddress() {
@@ -225,6 +226,7 @@ final public class InetAddressPrefix implements
 	 * @return  {@link #getAddress()} when from == address, otherwise new address.
 	 */
 	public InetAddress getFrom() {
+		@SuppressWarnings("deprecation")
 		AddressFamily family = address.getAddressFamily();
 		switch(family) {
 			case INET : {
@@ -282,6 +284,7 @@ final public class InetAddressPrefix implements
 	 *
 	 * @return  {@link #getAddress()} when to == address, otherwise new address.
 	 */
+	@SuppressWarnings("deprecation")
 	public InetAddress getTo() {
 		AddressFamily family = address.getAddressFamily();
 		switch(family) {
@@ -351,6 +354,7 @@ final public class InetAddressPrefix implements
 	 * Shared static contains to avoid object allocation on {@link #coalesce(com.aoindustries.net.InetAddressPrefix)}.
 	 * The addresses must have already had their {@link InetAddress#getAddressFamily() families} checked as equal.
 	 */
+	@SuppressWarnings("deprecation")
 	private static boolean containsInetAddress(
 		AddressFamily addressFamily,
 		long thisHi,
@@ -391,6 +395,7 @@ final public class InetAddressPrefix implements
 	 * Checks if the given address is in this prefix.
 	 * Must be of the same {@link AddressFamily address family}; IPv4 addresses will never match IPv6.
 	 */
+	@SuppressWarnings("deprecation")
 	public boolean contains(InetAddress other) {
 		AddressFamily addressFamily = address.getAddressFamily();
 		if(addressFamily != other.getAddressFamily()) return false;
@@ -408,6 +413,7 @@ final public class InetAddressPrefix implements
 	 * Shared static contains to avoid object allocation on {@link #coalesce(com.aoindustries.net.InetAddressPrefix)}.
 	 * The addresses must have already had their {@link InetAddress#getAddressFamily() families} checked as equal.
 	 */
+	@SuppressWarnings("deprecation")
 	private static boolean containsInetAddressPrefix(
 		AddressFamily addressFamily,
 		long thisHi,
@@ -434,6 +440,7 @@ final public class InetAddressPrefix implements
 	 * Checks if the given address prefix is in this prefix.
 	 * Must be of the same {@link AddressFamily address family}; IPv4 addresses will never match IPv6.
 	 */
+	@SuppressWarnings("deprecation")
 	public boolean contains(InetAddressPrefix other) {
 		AddressFamily addressFamily = address.getAddressFamily();
 		if(addressFamily != other.address.getAddressFamily()) return false;
@@ -462,6 +469,7 @@ final public class InetAddressPrefix implements
 	 * @return  When the address prefix hae been combined, returns an address prefix spanning both.
 	 *          {@code null} when they cannot be combined.
 	 */
+	@SuppressWarnings("deprecation")
 	public InetAddressPrefix coalesce(InetAddressPrefix other) {
 		AddressFamily addressFamily = this.address.getAddressFamily();
 		if(addressFamily != other.address.getAddressFamily()) {

@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -31,6 +31,8 @@ import com.aoindustries.validation.ValidResult;
 import com.aoindustries.validation.ValidationException;
 import com.aoindustries.validation.ValidationResult;
 import java.io.Serializable;
+import java.net.ProtocolFamily;
+import java.net.StandardProtocolFamily;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -93,8 +95,8 @@ final public class InetAddress implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<LongLong,InetAddress> interned = new ConcurrentHashMap<LongLong,InetAddress>();
-	private static final ConcurrentMap<String,InetAddress> internedByAddress = new ConcurrentHashMap<String,InetAddress>();
+	private static final ConcurrentMap<LongLong,InetAddress> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String,InetAddress> internedByAddress = new ConcurrentHashMap<>();
 
 	/**
 	 * Parses either an IPv4 or IPv6 address.
@@ -588,6 +590,7 @@ final public class InetAddress implements
 	 * If IPv6, the address is surrounded by [...]
 	 */
 	public String toBracketedString() {
+		@SuppressWarnings("deprecation")
 		AddressFamily family = getAddressFamily();
 		switch(family) {
 			case INET6 :
@@ -780,6 +783,10 @@ final public class InetAddress implements
 		return InetAddressPrefixes.CARRIER_GRADE_NAT_IPV4.contains(this);
 	}
 
+	/**
+	 * @deprecated  Please use {@link #getProtocolFamily()} as of Java 1.7.
+	 */
+	@Deprecated
 	public AddressFamily getAddressFamily() {
 		if(
 			hi == IPV4_HI
@@ -788,6 +795,17 @@ final public class InetAddress implements
 			return AddressFamily.INET;
 		} else {
 			return AddressFamily.INET6;
+		}
+	}
+
+	public ProtocolFamily getProtocolFamily() {
+		if(
+			hi == IPV4_HI
+			&& (lo & IPV6_NET_MASK_96_LO) == IPV4_NET_MAPPED_LO
+		) {
+			return StandardProtocolFamily.INET;
+		} else {
+			return StandardProtocolFamily.INET6;
 		}
 	}
 

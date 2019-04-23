@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2018-12-11T15:48:54-0600"
+		dateModified="2019-04-22T20:50:10-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -54,6 +54,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				scmUrl="@{documented.scm.url}"
 			>
 				<ol>
+					<li>Minimum Java version changed from 1.6 to 1.7.</li>
 					<li>New self-validating type <ao:a href="apidocs/com/aoindustries/net/Path.html">Path</ao:a>.</li>
 					<li>New <code>DomainName</code> constants:
 						<ol type="a">

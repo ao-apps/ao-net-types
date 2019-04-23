@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -220,7 +220,7 @@ public enum Protocol {
 	private static final Map<String,Protocol> protocolsByUpperKeyword;
 	static {
 		Protocol[] values = values();
-		protocolsByUpperKeyword = new HashMap<String,Protocol>(values.length*4/3+1);
+		protocolsByUpperKeyword = new HashMap<>(values.length*4/3+1);
 		for(Protocol value : values) {
 			String upperKeyword = value.toString().toUpperCase(Locale.ROOT);
 			if(protocolsByUpperKeyword.put(upperKeyword, value) != null) throw new AssertionError("Duplicate protocol: " + upperKeyword);

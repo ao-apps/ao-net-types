@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -124,7 +124,7 @@ final public class Path implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,Path> interned = new ConcurrentHashMap<String,Path>();
+	private static final ConcurrentMap<String,Path> interned = new ConcurrentHashMap<>();
 
 	/**
 	 * @param path  when {@code null}, returns {@code null}

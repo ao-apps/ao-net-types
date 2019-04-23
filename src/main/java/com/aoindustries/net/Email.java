@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -26,7 +26,6 @@ import com.aoindustries.dto.DtoFactory;
 import com.aoindustries.io.FastExternalizable;
 import com.aoindustries.io.FastObjectInput;
 import com.aoindustries.io.FastObjectOutput;
-import com.aoindustries.lang.ObjectUtils;
 import com.aoindustries.sql.LocalizedSQLException;
 import com.aoindustries.util.ComparatorUtils;
 import com.aoindustries.util.Internable;
@@ -43,6 +42,7 @@ import java.sql.SQLData;
 import java.sql.SQLException;
 import java.sql.SQLInput;
 import java.sql.SQLOutput;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -103,9 +103,8 @@ final public class Email implements
 	 * Validates the local part of the email address (before the @ symbol), as well as additional domain rules.
 	 */
 	// Matches src/main/sql/com/aoindustries/net/Email.validate-function.sql
-	@SuppressWarnings("deprecation") // Java 1.7: Do not suppress
 	public static ValidationResult validate(String localPart, DomainName domain) {
-		return validateImpl(localPart, ObjectUtils.toString(domain));
+		return validateImpl(localPart, Objects.toString(domain, null));
 	}
 
 	private static final boolean[] validChars = new boolean[128];
@@ -165,7 +164,7 @@ final public class Email implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<DomainName,ConcurrentMap<String,Email>> interned = new ConcurrentHashMap<DomainName,ConcurrentMap<String,Email>>();
+	private static final ConcurrentMap<DomainName,ConcurrentMap<String,Email>> interned = new ConcurrentHashMap<>();
 
 	/**
 	 * @param email  when {@code null}, returns {@code null}
@@ -259,7 +258,7 @@ final public class Email implements
 		// Atomically get/create the per-domain map
 		ConcurrentMap<String,Email> domainMap = interned.get(internedDomain);
 		if(domainMap==null) {
-			ConcurrentMap<String,Email> newDomainInterned = new ConcurrentHashMap<String,Email>();
+			ConcurrentMap<String,Email> newDomainInterned = new ConcurrentHashMap<>();
 			domainMap = interned.putIfAbsent(internedDomain, newDomainInterned);
 			if(domainMap==null) domainMap = newDomainInterned;
 		}

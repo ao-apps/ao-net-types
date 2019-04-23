@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,7 +22,6 @@
  */
 package com.aoindustries.net;
 
-import com.aoindustries.util.ComparatorUtils;
 import com.aoindustries.validation.ValidationException;
 import com.aoindustries.validation.ValidationResult;
 import java.io.Serializable;
@@ -111,11 +110,10 @@ abstract public class IPortRange implements
 	 * must not be changed without adjusting other code.
 	 */
 	@Override
-	@SuppressWarnings("deprecation") // Java 1.7: No suppress
 	final public int compareTo(IPortRange other) {
-		int diff = ComparatorUtils.compare(getFrom(), other.getFrom());
+		int diff = Integer.compare(getFrom(), other.getFrom());
 		if(diff != 0) return diff;
-		diff = ComparatorUtils.compare(getTo(), other.getTo());
+		diff = Integer.compare(getTo(), other.getTo());
 		if(diff != 0) return diff;
 		return protocol.compareTo(other.protocol);
 	}
