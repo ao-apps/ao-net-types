@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2018  AO Industries, Inc.
+ * Copyright (C) 2018, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,6 +27,7 @@ package com.aoindustries.net;
  *
  * @author  AO Industries, Inc.
  */
+import com.aoindustries.lang.LocalizedIllegalArgumentException;
 import com.aoindustries.validation.ValidationException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -89,23 +90,28 @@ public class PathTest {
 		);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = LocalizedIllegalArgumentException.class)
 	public void testPrefixInvalidBegin1() throws ValidationException {
-		Path.valueOf("/test").prefix(2);
+		Path.valueOf("/test").prefix(-1);
 	}
 
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void testPrefixInvalidBegin2() throws ValidationException {
-		Path.valueOf("/test").prefix(-1);
+		Path.valueOf("/test").prefix(6);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testPrefixInvalidBegin3() throws ValidationException {
-		Path.valueOf("/test").prefix(4);
+	@Test(expected = LocalizedIllegalArgumentException.class)
+	public void testSuffixInvalidBegin1() throws ValidationException {
+		Path.valueOf("/test").suffix(1);
+	}
+
+	@Test(expected = LocalizedIllegalArgumentException.class)
+	public void testSuffixInvalidBegin2() throws ValidationException {
+		Path.valueOf("/test").suffix(4);
 	}
 
 	@Test(expected = IndexOutOfBoundsException.class)
-	public void testPrefixInvalidBegin4() throws ValidationException {
-		Path.valueOf("/test").prefix(5);
+	public void testSuffixInvalidBegin3() throws ValidationException {
+		Path.valueOf("/test").suffix(5);
 	}
 }
