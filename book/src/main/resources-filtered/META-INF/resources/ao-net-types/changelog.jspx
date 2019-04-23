@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2019-04-22T20:50:10-0500"
+		dateModified="2019-04-22T21:23:08-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -52,30 +52,39 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			>
-				<ol>
-					<li>Minimum Java version changed from 1.6 to 1.7.</li>
-					<li>New self-validating type <ao:a href="apidocs/com/aoindustries/net/Path.html">Path</ao:a>.</li>
-					<li>New <code>DomainName</code> constants:
-						<ol type="a">
-							<li><code>LOCALHOST</code></li>
-							<li><code>LOCALHOST_LOCALDOMAIN</code></li>
-						</ol>
-					</li>
-					<li>
-						Bracketed IPv6 addresses <code>[…]</code> now supported in parsing and validating
-						both <ao:a href="apidocs/com/aoindustries/net/InetAddress.html">InetAddress</ao:a>
-						and <ao:a href="apidocs/com/aoindustries/net/HostAddress.html">HostAddress</ao:a>.
-					</li>
-					<li>
-						Improved performance of <ao:a href="apidocs/com/aoindustries/net/InetAddress.html#validate-java.lang.String-">InetAddress.validate(String)</ao:a>
-						by no longer internally throwing and catching exceptions during parsing.
-					</li>
-					<li>SCTP also has ports in range 1-65535, like TCP and UDP.</li>
-					<li>Added SQL implementation in alternate "sql" classifier.</li>
-				</ol>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.1.0"
+			datePublished="2019-04-22T21:23:08-0500"
+			groupId="@{documented.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{documented.scm.url}"
+		>
+			<ol>
+				<li>Minimum Java version changed from 1.6 to 1.7.</li>
+				<li>New self-validating type <ao:a href="apidocs/com/aoindustries/net/Path.html">Path</ao:a>.</li>
+				<li>New <code>DomainName</code> constants:
+					<ol type="a">
+						<li><code>LOCALHOST</code></li>
+						<li><code>LOCALHOST_LOCALDOMAIN</code></li>
+					</ol>
+				</li>
+				<li>
+					Bracketed IPv6 addresses <code>[…]</code> now supported in parsing and validating
+					both <ao:a href="apidocs/com/aoindustries/net/InetAddress.html">InetAddress</ao:a>
+					and <ao:a href="apidocs/com/aoindustries/net/HostAddress.html">HostAddress</ao:a>.
+				</li>
+				<li>
+					Improved performance of <ao:a href="apidocs/com/aoindustries/net/InetAddress.html#validate-java.lang.String-">InetAddress.validate(String)</ao:a>
+					by no longer internally throwing and catching exceptions during parsing.
+				</li>
+				<li>SCTP also has ports in range 1-65535, like TCP and UDP.</li>
+				<li>Added SQL implementation in alternate "sql" classifier.</li>
+			</ol>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
