@@ -822,7 +822,7 @@ final public class InetAddress implements
 	}
 
 	/**
-	 * @deprecated  Please use {@link #getAddressFamily()}
+	 * @deprecated  Please use {@link #getProtocolFamily()}
 	 */
 	@Deprecated
 	public boolean isIPv4() {
@@ -830,7 +830,7 @@ final public class InetAddress implements
 	}
 
 	/**
-	 * @deprecated  Please use {@link #getAddressFamily()}
+	 * @deprecated  Please use {@link #getProtocolFamily()}
 	 */
 	@Deprecated
 	public boolean isIPv6() {
