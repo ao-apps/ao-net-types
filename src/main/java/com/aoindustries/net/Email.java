@@ -52,7 +52,7 @@ import java.util.concurrent.ConcurrentMap;
  *   <li>Be non-null</li>
  *   <li>Be non-empty</li>
  *   <li>Contain a single @, but not at the beginning or end</li>
- *   <li>Local part must adhere to <a href="http://en.wikipedia.org/wiki/E-mail_address#RFC_specification">RFC 5322</a>.</li>
+ *   <li>Local part must adhere to <a href="https://wikipedia.org/wiki/E-mail_address#RFC_specification">RFC 5322</a>.</li>
  * </ul>
  * 
  * @author  AO Industries, Inc.

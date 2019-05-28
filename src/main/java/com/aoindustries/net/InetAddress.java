@@ -44,8 +44,8 @@ import java.util.concurrent.ConcurrentMap;
  * but their external representation is always dotted-decimal IPv4 notation (<code>a.b.c.d</code>).
  * </p>
  * <ul>
- *   <li><a href="http://en.wikipedia.org/wiki/IPv4#Address_representations">http://en.wikipedia.org/wiki/IPv4#Address_representations</a></li>
- *   <li><a href="http://en.wikipedia.org/wiki/IPv6_Addresses#Notation">http://en.wikipedia.org/wiki/IPv6_Addresses#Notation</a></li>
+ *   <li><a href="https://wikipedia.org/wiki/IPv4#Address_representations">https://wikipedia.org/wiki/IPv4#Address_representations</a></li>
+ *   <li><a href="https://wikipedia.org/wiki/IPv6_Addresses#Notation">https://wikipedia.org/wiki/IPv6_Addresses#Notation</a></li>
  * </ul>
  *
  * @author  AO Industries, Inc.
