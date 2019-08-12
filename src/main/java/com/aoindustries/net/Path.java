@@ -242,7 +242,7 @@ final public class Path implements
 	 *
 	 * @param  beginIndex  Must align with a {@link #SEPARATOR_CHAR}.
 	 * @param  endIndex    One-past the last character to include.
-	 *                     Must be greater than {@link beginIndex}.
+	 *                     Must be greater than {@code beginIndex}.
 	 *
 	 * @see  String#substring(int, int)
 	 */
@@ -272,10 +272,11 @@ final public class Path implements
 
 	/**
 	 * Gets a prefix path of the given length.
+	 * <p>
+	 * Implementation Note: Calls {@link #subPath(int, int) subPath(0, len)}
+	 * </p>
 	 *
 	 * @param  len  Must be greater than {@code 0}.
-	 *
-	 * @implSpec  Calls {@link #subPath(int, int) subPath(0, len)}
 	 *
 	 * @see  #subPath(int, int)
 	 */
@@ -285,10 +286,11 @@ final public class Path implements
 
 	/**
 	 * Gets a suffix path starting at the given index.
+	 * <p>
+	 * Implementation Note: Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}
+	 * </p>
 	 *
 	 * @param  beginIndex  Must align with a {@link #SEPARATOR_CHAR}.
-	 *
-	 * @implSpec  Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}
 	 *
 	 * @see  #subPath(int, int)
 	 */

@@ -74,7 +74,7 @@ final public class Email implements
 	/**
 	 * Validates a complete email address.  Splits on @ and calls <code>validate</code> on local part and domain.
 	 *
-	 * @see #validate(java.lang.String, com.aoindustries.aoserv.client.validator.DomainName)
+	 * @see #validate(java.lang.String, com.aoindustries.net.DomainName)
 	 */
 	// Matches src/main/sql/com/aoindustries/net/Email.validate-function.sql
 	public static ValidationResult validate(String email) {
@@ -169,7 +169,7 @@ final public class Email implements
 	/**
 	 * @param email  when {@code null}, returns {@code null}
 	 *
-	 * @see #valueOf(java.lang.String, com.aoindustries.aoserv.client.validator.DomainName)
+	 * @see #valueOf(java.lang.String, com.aoindustries.net.DomainName)
 	 */
 	public static Email valueOf(String email) throws ValidationException {
 		if(email == null) return null;
