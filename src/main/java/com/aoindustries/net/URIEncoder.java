@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.io.Encoder;
+import com.aoindustries.util.StringUtility;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
