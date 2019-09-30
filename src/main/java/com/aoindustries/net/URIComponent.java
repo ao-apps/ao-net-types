@@ -98,51 +98,61 @@ public enum URIComponent {
 	 */
 	BASE {
 		@Override
+		@SuppressWarnings("deprecation")
 		public String encode(String s, String documentEncoding) {
 			return URIEncoder.encodeURIComponent(s);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String s, String documentEncoding, Appendable out) throws IOException {
 			URIEncoder.encodeURIComponent(s, out);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String s, String documentEncoding, Appendable out, Encoder encoder) throws IOException {
 			URIEncoder.encodeURIComponent(s, out, encoder);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String s, String documentEncoding, StringBuilder sb) {
 			URIEncoder.encodeURIComponent(s, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String s, String documentEncoding, StringBuffer sb) {
 			URIEncoder.encodeURIComponent(s, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public String decode(String s, String documentEncoding) {
 			return URIDecoder.decodeURIComponent(s);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String s, String documentEncoding, Appendable out) throws IOException {
 			URIDecoder.decodeURIComponent(s, out);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String s, String documentEncoding, Appendable out, Encoder encoder) throws IOException {
 			URIDecoder.decodeURIComponent(s, out, encoder);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String s, String documentEncoding, StringBuilder sb) {
 			URIDecoder.decodeURIComponent(s, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String s, String documentEncoding, StringBuffer sb) {
 			URIDecoder.decodeURIComponent(s, sb);
 		}
@@ -175,51 +185,61 @@ public enum URIComponent {
 	 */
 	QUERY {
 		@Override
+		@SuppressWarnings("deprecation")
 		public String encode(String param, String documentEncoding) throws UnsupportedEncodingException {
 			return URIEncoder.encodeURIComponent(param, documentEncoding);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String param, String documentEncoding, Appendable out) throws UnsupportedEncodingException, IOException {
 			URIEncoder.encodeURIComponent(param, documentEncoding, out);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String param, String documentEncoding, Appendable out, Encoder encoder) throws UnsupportedEncodingException, IOException {
 			URIEncoder.encodeURIComponent(param, documentEncoding, out, encoder);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String param, String documentEncoding, StringBuilder sb) throws UnsupportedEncodingException {
 			URIEncoder.encodeURIComponent(param, documentEncoding, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String param, String documentEncoding, StringBuffer sb) throws UnsupportedEncodingException {
 			URIEncoder.encodeURIComponent(param, documentEncoding, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public String decode(String param, String documentEncoding) throws UnsupportedEncodingException {
 			return URIDecoder.decodeURIComponent(param, documentEncoding);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String param, String documentEncoding, Appendable out) throws UnsupportedEncodingException, IOException {
 			URIDecoder.decodeURIComponent(param, documentEncoding, out);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String param, String documentEncoding, Appendable out, Encoder encoder) throws UnsupportedEncodingException, IOException {
 			URIDecoder.decodeURIComponent(param, documentEncoding, out, encoder);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String param, String documentEncoding, StringBuilder sb) throws UnsupportedEncodingException {
 			URIDecoder.decodeURIComponent(param, documentEncoding, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String param, String documentEncoding, StringBuffer sb) throws UnsupportedEncodingException {
 			URIDecoder.decodeURIComponent(param, documentEncoding, sb);
 		}
@@ -286,51 +306,61 @@ public enum URIComponent {
 	 */
 	FRAGMENT {
 		@Override
+		@SuppressWarnings("deprecation")
 		public String encode(String fragment, String documentEncoding) {
 			return URIEncoder.encodeURIComponent(fragment);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String fragment, String documentEncoding, Appendable out) throws IOException {
 			URIEncoder.encodeURIComponent(fragment, out);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String fragment, String documentEncoding, Appendable out, Encoder encoder) throws IOException {
 			URIEncoder.encodeURIComponent(fragment, out, encoder);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String fragment, String documentEncoding, StringBuilder sb) {
 			URIEncoder.encodeURIComponent(fragment, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void encode(String fragment, String documentEncoding, StringBuffer sb) {
 			URIEncoder.encodeURIComponent(fragment, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public String decode(String fragment, String documentEncoding) {
 			return URIDecoder.decodeURIComponent(fragment);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String fragment, String documentEncoding, Appendable out) throws IOException {
 			URIDecoder.decodeURIComponent(fragment, out);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String fragment, String documentEncoding, Appendable out, Encoder encoder) throws IOException {
 			URIDecoder.decodeURIComponent(fragment, out, encoder);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String fragment, String documentEncoding, StringBuilder sb) {
 			URIDecoder.decodeURIComponent(fragment, sb);
 		}
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public void decode(String fragment, String documentEncoding, StringBuffer sb) {
 			URIDecoder.decodeURIComponent(fragment, sb);
 		}

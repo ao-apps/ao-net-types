@@ -1054,8 +1054,8 @@ public class AnyURI {
 	 */
 	public AnyURI addParameter(String name, String value, String documentEncoding) throws UnsupportedEncodingException {
 		return addEncodedParameter(
-			URIEncoder.encodeURIComponent(name, documentEncoding),
-			URIEncoder.encodeURIComponent(value, documentEncoding)
+			URIComponent.QUERY.encode(name, documentEncoding),
+			URIComponent.QUERY.encode(value, documentEncoding)
 		);
 	}
 
@@ -1070,6 +1070,7 @@ public class AnyURI {
 	 *
 	 * @see  URIParametersUtils#addParams(java.lang.String, com.aoindustries.net.URIParameters, java.lang.String)
 	 */
+	// TODO: Store the document encoding as part of AnyURI?
 	public AnyURI addParameters(URIParameters params, String documentEncoding) throws UnsupportedEncodingException {
 		final AnyURI newAnyURI;
 		if(params == null) {
@@ -1173,8 +1174,13 @@ public class AnyURI {
 	 */
 	@Deprecated
 	public AnyURI setFragment(String fragment) {
-		final AnyURI newAnyURI = setEncodedFragment(URIEncoder.encodeURIComponent(fragment));
-		// TODO: What do we assert here?
-		return newAnyURI;
+		try {
+			// TODO: Store the document encoding as part of AnyURI?
+			final AnyURI newAnyURI = setEncodedFragment(URIComponent.FRAGMENT.encode(fragment, IRI.ENCODING.name()));
+			// TODO: What do we assert here?
+			return newAnyURI;
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 }

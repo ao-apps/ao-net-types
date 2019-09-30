@@ -63,11 +63,11 @@ public class URIParametersMap implements MutableURIParameters {
 				String name;
 				String value;
 				if(pos == -1) {
-					name = URIDecoder.decodeURIComponent(nameValue, documentEncoding);
+					name = URIComponent.QUERY.decode(nameValue, documentEncoding);
 					value = ""; // Servlet environment treats no equal sign same as value equal empty string - matching here
 				} else {
-					name = URIDecoder.decodeURIComponent(nameValue.substring(0, pos), documentEncoding);
-					value = URIDecoder.decodeURIComponent(nameValue.substring(pos + 1), documentEncoding);
+					name = URIComponent.QUERY.decode(nameValue.substring(0, pos), documentEncoding);
+					value = URIComponent.QUERY.decode(nameValue.substring(pos + 1), documentEncoding);
 				}
 				addParameter(name, value);
 			}

@@ -82,7 +82,7 @@ final public class URIParametersUtils {
 				}
 				for(Map.Entry<String,List<String>> entry : paramsMap.entrySet()) {
 					String name = entry.getKey();
-					String encodedName = URIEncoder.encodeURIComponent(name, documentEncoding);
+					String encodedName = URIComponent.QUERY.encode(name, documentEncoding);
 					for(String value : entry.getValue()) {
 						assert value != null : "null values no longer supported to be consistent with servlet environment";
 						if(hasQuestion) {
@@ -92,7 +92,7 @@ final public class URIParametersUtils {
 							hasQuestion = true;
 						}
 						newUri.append(encodedName).append('=');
-						URIEncoder.encodeURIComponent(value, documentEncoding, newUri);
+						URIComponent.QUERY.encode(value, documentEncoding, newUri);
 					}
 				}
 				if(anchorStart != -1) newUri.append(uri, anchorStart, uriLen);
@@ -116,7 +116,7 @@ final public class URIParametersUtils {
 		StringBuilder sb = new StringBuilder();
 		boolean didOne = false;
 		for(Map.Entry<String,List<String>> entry : map.entrySet()) {
-			String encodedName = URIEncoder.encodeURIComponent(entry.getKey(), documentEncoding);
+			String encodedName = URIComponent.QUERY.encode(entry.getKey(), documentEncoding);
 			for(String value : entry.getValue()) {
 				if(didOne) {
 					sb.append('&');
@@ -126,7 +126,7 @@ final public class URIParametersUtils {
 				sb.append(encodedName);
 				assert value != null : "null values no longer supported to be consistent with servlet environment";
 				sb.append('=');
-				URIEncoder.encodeURIComponent(value, documentEncoding, sb);
+				URIComponent.QUERY.encode(value, documentEncoding, sb);
 			}
 		}
 		assert didOne;

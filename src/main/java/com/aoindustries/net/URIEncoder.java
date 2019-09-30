@@ -50,7 +50,10 @@ public class URIEncoder {
 	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.String)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String)}
 	 */
+	@Deprecated
 	public static String encodeURIComponent(String s, String encoding) throws UnsupportedEncodingException {
 		return (s == null) ? null : StringUtility.replace(URLEncoder.encode(s, encoding), '+', "%20");
 	}
@@ -66,7 +69,10 @@ public class URIEncoder {
 	 * </p>
 	 *
 	 * @see #decodeURIComponent(java.lang.String)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String)}
 	 */
+	@Deprecated
 	public static String encodeURIComponent(String s) {
 		try {
 			return encodeURIComponent(s, IRI.ENCODING.name());
@@ -88,7 +94,10 @@ public class URIEncoder {
 	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.String, java.lang.Appendable)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.Appendable)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String s, String encoding, Appendable out) throws UnsupportedEncodingException, IOException {
 		if(s != null) StringUtility.replace(URLEncoder.encode(s, encoding), '+', "%20", out);
 	}
@@ -104,7 +113,10 @@ public class URIEncoder {
 	 * </p>
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.Appendable)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.Appendable)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String s, Appendable out) throws IOException {
 		try {
 			encodeURIComponent(s, IRI.ENCODING.name(), out);
@@ -127,7 +139,10 @@ public class URIEncoder {
 	 * @param encoder  An optional encoder the output is applied through
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String s, String encoding, Appendable out, Encoder encoder) throws UnsupportedEncodingException, IOException {
 		if(s != null) {
 			if(encoder == null) {
@@ -151,7 +166,10 @@ public class URIEncoder {
 	 * @param encoder  An optional encoder the output is applied through
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String s, Appendable out, Encoder encoder) throws IOException {
 		try {
 			encodeURIComponent(s, IRI.ENCODING.name(), out, encoder);
@@ -173,7 +191,10 @@ public class URIEncoder {
 	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.String, java.lang.StringBuilder)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.StringBuilder)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String s, String encoding, StringBuilder sb) throws UnsupportedEncodingException {
 		if(s != null) {
 			try {
@@ -197,7 +218,10 @@ public class URIEncoder {
 	 * </p>
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.StringBuilder)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.StringBuilder)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String s, StringBuilder sb) {
 		try {
 			encodeURIComponent(s, IRI.ENCODING.name(), sb);
@@ -219,7 +243,10 @@ public class URIEncoder {
 	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.String, java.lang.StringBuffer)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.StringBuffer)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String s, String encoding, StringBuffer sb) throws UnsupportedEncodingException {
 		if(s != null) {
 			try {
@@ -243,7 +270,10 @@ public class URIEncoder {
 	 * </p>
 	 *
 	 * @see #decodeURIComponent(java.lang.String, java.lang.StringBuffer)
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.StringBuffer)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String s, StringBuffer sb) {
 		try {
 			encodeURIComponent(s, IRI.ENCODING.name(), sb);
