@@ -22,6 +22,7 @@
  */
 package com.aoindustries.net;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,14 @@ public interface URIParameters {
 	 */
 	@Override
 	String toString();
+
+	/**
+	 * Gets the query string encoded in the given encoding,
+	 * not including the '?' prefix.
+	 *
+	 * @see URIParametersUtils#toQueryString(com.aoindustries.net.URIParameters)
+	 */
+	String toString(String documentEncoding) throws UnsupportedEncodingException;
 
 	/**
 	 * Gets the value for the provided parameter name or <code>null</code> if doesn't exist.

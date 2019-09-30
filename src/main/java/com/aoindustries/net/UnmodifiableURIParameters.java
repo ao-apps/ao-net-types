@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.util.AoCollections;
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -64,6 +65,11 @@ public class UnmodifiableURIParameters implements URIParameters {
 	@Override
 	public String toString() {
 		return wrapped.toString();
+	}
+
+	@Override
+	public String toString(String documentEncoding) throws UnsupportedEncodingException {
+		return wrapped.toString(documentEncoding);
 	}
 
 	@Override

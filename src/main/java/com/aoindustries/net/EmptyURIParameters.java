@@ -22,6 +22,7 @@
  */
 package com.aoindustries.net;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +46,11 @@ final public class EmptyURIParameters implements URIParameters {
 
 	@Override
 	public String toString() {
+		return "";
+	}
+
+	@Override
+	public String toString(String documentEncoding) {
 		return "";
 	}
 

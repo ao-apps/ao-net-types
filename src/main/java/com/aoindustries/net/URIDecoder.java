@@ -297,7 +297,10 @@ public class URIDecoder {
 	 * @return  The decoded URI or {@code url} when not modified
 	 *
 	 * @see #encodeURI(java.lang.String)
+	 *
+	 * @deprecated  Please use {@link #decodeURI(java.lang.String, java.lang.String)}, providing the document encoding
 	 */
+	@Deprecated
 	public static String decodeURI(String uri) {
 		try {
 			return decodeURI(uri, IRI.ENCODING.name());
@@ -335,7 +338,10 @@ public class URIDecoder {
 	 * </p>
 	 *
 	 * @see #encodeURI(java.lang.String, java.lang.Appendable)
+	 *
+	 * @deprecated  Please use {@link #decodeURI(java.lang.String, java.lang.String, java.lang.Appendable)}, providing the document encoding
 	 */
+	@Deprecated
 	public static void decodeURI(String uri, Appendable out) throws IOException {
 		try {
 			decodeURI(uri, IRI.ENCODING.name(), out);
@@ -402,7 +408,10 @@ public class URIDecoder {
 	 * @param encoder  An optional encoder the output is applied through
 	 *
 	 * @see #encodeURI(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
+	 *
+	 * @deprecated  Please use {@link #decodeURI(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)}, providing the document encoding
 	 */
+	@Deprecated
 	public static void decodeURI(String uri, Appendable out, Encoder encoder) throws IOException {
 		try {
 			decodeURI(uri, IRI.ENCODING.name(), out, encoder);
@@ -446,7 +455,10 @@ public class URIDecoder {
 	 * </p>
 	 *
 	 * @see #encodeURI(java.lang.String, java.lang.StringBuilder)
+	 *
+	 * @deprecated  Please use {@link #decodeURI(java.lang.String, java.lang.String, java.lang.StringBuilder)}, providing the document encoding
 	 */
+	@Deprecated
 	public static void decodeURI(String uri, StringBuilder sb) {
 		try {
 			decodeURI(uri, IRI.ENCODING.name(), sb);
@@ -490,7 +502,10 @@ public class URIDecoder {
 	 * </p>
 	 *
 	 * @see #encodeURI(java.lang.String, java.lang.StringBuffer)
+	 *
+	 * @deprecated  Please use {@link #decodeURI(java.lang.String, java.lang.String, java.lang.StringBuffer)}, providing the document encoding
 	 */
+	@Deprecated
 	public static void decodeURI(String uri, StringBuffer sb) {
 		try {
 			decodeURI(uri, IRI.ENCODING.name(), sb);

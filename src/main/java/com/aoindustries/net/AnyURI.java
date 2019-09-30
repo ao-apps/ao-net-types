@@ -1172,6 +1172,7 @@ public class AnyURI {
 	 * @deprecated  This is an incomplete implementation - recommend using {@code org.xbib.net.URL}
 	 *              or {@code org.apache.http.client.utils.URIBuilder}
 	 */
+	// TODO: documentEncoding here, too?
 	@Deprecated
 	public AnyURI setFragment(String fragment) {
 		try {

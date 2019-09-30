@@ -77,10 +77,15 @@ public class URIParametersMap implements MutableURIParameters {
 	@Override
 	public String toString() {
 		try {
-			return Objects.toString(URIParametersUtils.toQueryString(this, IRI.ENCODING.name()), "");
+			return toString(IRI.ENCODING.name());
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 		}
+	}
+
+	@Override
+	public String toString(String documentEncoding) throws UnsupportedEncodingException {
+		return Objects.toString(URIParametersUtils.toQueryString(this, documentEncoding), "");
 	}
 
 	@Override
