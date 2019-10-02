@@ -26,7 +26,8 @@ import com.aoindustries.io.Encoder;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.nio.charset.Charset;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -63,12 +64,79 @@ import java.util.Objects;
  * is preferred, use {@link IRI}.  Otherwise, to support both, use {@link AnyURI}, which should also perform
  * the best since it performs fewer conversions.
  * </p>
- *
- * @see URIComponent
+ * <hr />
+ * <p>
+ * Encoding and decoding is always done in UTF-8.  This choice is supported by
+ * <a href="https://www.w3.org/International/wiki/IRIStatus">IRIStatus - Query encoding</a>,
+ * and is consistent with {@link java.net.URI}.
+ * </p>
+ * <p>
+ * This simplification allows us to no longer pass encoding around and no longer
+ * throw any {@link UnsupportedEncodingException} as UTF-8 is a
+ * {@linkplain StandardCharsets#UTF_8 standard character set}.
+ * </p>
+ * <p>
+ * We do not support the use of any encoding other than UTF-8, which allows us
+ * to avoid all the gray zones of the various protocol specifications, versions,
+ * and implementations.
+ * </p>
+ * <hr />
+ * <p>
+ * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
+ * They are not meant for general purpose URL manipulation, and are not trying to replace
+ * any full-featured URI tools.
+ * <p>
+ * Consider the following if needing more than what this provides (in no particular order):
+ * </p>
+ * <ol>
+ * <li>{@link URL}</li>
+ * <li>{@link java.net.URI}</li>
+ * <li><a href="https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/utils/URIBuilder.html">URIBuilder</a></li>
+ * <li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/util/UriUtils.html">UriUtils</a></li>
+ * <li><a href="https://guava.dev/releases/19.0/api/docs/com/google/common/net/UrlEscapers.html">UrlEscapers</a></li>
+ * <li><a href="https://jena.apache.org/documentation/notes/iri.html">jena-iri</a></li>
+ * <li><a href="https://github.com/xbib/net>org.xbib:net-url</a></li>
+ * </ol>
+ * <hr />
+ * <p>Further reading:</p>
+ * <ol>
+ * <li><a href="https://www.w3.org/International/wiki/IRIStatus">IRIStatus - Query encoding</a>:
+ *   <blockquote>
+ *     Update 2015-08-25: The URL spec defines this formally. By default the query string
+ *     uses UTF-8. X-Form's (defined by HTML) allows the page author to supply the override
+ *     legacy character encoding if needed (UTF-8 is encouraged). If an override is used,
+ *     there may be nothing in the URL itself that indicates what this override encoding
+ *     is: the receiver just has to know.
+ *   </blockquote>
+ * </li>
+ * <li><a href="https://tools.ietf.org/html/rfc3987#section-6.4">RFC 3987: 6.4.  Use of UTF-8 for Encoding Original Characters</a>:
+ *   <blockquote>
+ *     Similar considerations apply to query parts.  The functionality of
+ *     IRIs (namely, to be able to include non-ASCII characters) can only be
+ *     used if the query part is encoded in UTF-8.
+ *   </blockquote>
+ * </li>
+ * <li><a href="https://dev.w3.org/html5/spec-LC/urls.html#terminology-0">HTML 5: 2.6.1 Terminology</a>:
+ *   <blockquote>
+ *     The URL is a valid IRI reference and its query component contains no unescaped non-ASCII characters. [RFC3987]<br />
+ *     The URL is a valid IRI reference and the character encoding of the URL's Document is UTF-8 or UTF-16. [RFC3987]
+ *   </blockquote>
+ * </li>
+ * <li><a href="https://dev.w3.org/html5/spec-LC/urls.html#resolving-urls">HTML 5: 2.6.3 Resolving URLs</a>:
+ *   <blockquote>
+ *     Let encoding be determined as follows:<br />
+ *     If the URL came from a DOM node (e.g. from an element)<br />
+ *     The node has a Document, and the URL character encoding is the document's character encoding.
+ *   </blockquote>
+ * </li>
+ * </ol>
+ * 
+ * @see URI
+ * @see URIParser
+ * @see java.net.URI
  *
  * @author  AO Industries, Inc.
  */
-// TODO: Take documentEncoding as a constructor parameter, since it affects the query strings?
 public class AnyURI {
 
 	private final String uri;
@@ -700,19 +768,19 @@ public class AnyURI {
 	/**
 	 * @return  The new {@link URI} or {@code this} when unmodified.
 	 *
-	 * @see  URIEncoder#encodeURI(java.lang.String, java.lang.String)
+	 * @see  URIEncoder#encodeURI(java.lang.String)
 	 */
-	public URI toURI(String documentEncoding) throws UnsupportedEncodingException {
-		return new URI(uri, documentEncoding);
+	public URI toURI() {
+		return new URI(uri);
 	}
 
 	/**
 	 * @return  The new {@link IRI} or {@code this} when unmodified.
 	 *
-	 * @see  URLDecoder#decodeURI(java.lang.String, java.lang.String)
+	 * @see  URIDecoder#decodeURI(java.lang.String)
 	 */
-	public IRI toIRI(String documentEncoding) throws UnsupportedEncodingException {
-		return new IRI(uri, documentEncoding);
+	public IRI toIRI() {
+		return new IRI(uri);
 	}
 
 	// TODO: setScheme
@@ -1039,44 +1107,42 @@ public class AnyURI {
 	}
 
 	/**
-	 * Encodes and adds a parameter in a given encoding.
+	 * Encodes and adds a parameter.
 	 *
 	 * @param name  The parameter name.
 	 *              Nothing is added when the name is {@code null}.
 	 * @param value  The parameter value.
 	 *               When {@code null}, the parameter is added without any '='.
 	 *               Must be {@code null} when {@code name} is {@code null}.
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}.
 	 *
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
 	 *
-	 * @see  URIEncoder#encodeURIComponent(java.lang.String, java.lang.String)
+	 * @see  URIEncoder#encodeURIComponent(java.lang.String)
 	 */
-	public AnyURI addParameter(String name, String value, String documentEncoding) throws UnsupportedEncodingException {
+	public AnyURI addParameter(String name, String value) {
 		return addEncodedParameter(
-			URIComponent.QUERY.encode(name, documentEncoding),
-			URIComponent.QUERY.encode(value, documentEncoding)
+			URIEncoder.encodeURIComponent(name),
+			URIEncoder.encodeURIComponent(value)
 		);
 	}
 
 	/**
-	 * Adds all of the parameters in a given encoding.
+	 * Adds all of the parameters.
 	 *
 	 * @param params  The parameters to add.
 	 *                Nothing is added when {@code null} or empty.
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}.
 	 *
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
 	 *
-	 * @see  URIParametersUtils#addParams(java.lang.String, com.aoindustries.net.URIParameters, java.lang.String)
+	 * @see  URIParametersUtils#addParams(java.lang.String, com.aoindustries.net.URIParameters)
 	 */
 	// TODO: Store the document encoding as part of AnyURI?
-	public AnyURI addParameters(URIParameters params, String documentEncoding) throws UnsupportedEncodingException {
+	public AnyURI addParameters(URIParameters params) {
 		final AnyURI newAnyURI;
 		if(params == null) {
 			newAnyURI = this;
 		} else {
-			String newUri = URIParametersUtils.addParams(uri, params, documentEncoding);
+			String newUri = URIParametersUtils.addParams(uri, params);
 			newAnyURI = (newUri == uri) ? this : newAnyURI(
 				newUri,
 				schemeLength,
@@ -1160,7 +1226,7 @@ public class AnyURI {
 	}
 
 	/**
-	 * Replaces the fragment in the default encoding {@link URI#ENCODING}.
+	 * Replaces the fragment in the default encoding {@link IRI#ENCODING}.
 	 * <p>
 	 * TODO: Implement specification of <a href="https://dev.w3.org/html5/spec-LC/urls.html#url-manipulation-and-creation">fragment-escape</a>.
 	 * </p>
@@ -1172,16 +1238,11 @@ public class AnyURI {
 	 * @deprecated  This is an incomplete implementation - recommend using {@code org.xbib.net.URL}
 	 *              or {@code org.apache.http.client.utils.URIBuilder}
 	 */
-	// TODO: documentEncoding here, too?
 	@Deprecated
 	public AnyURI setFragment(String fragment) {
-		try {
-			// TODO: Store the document encoding as part of AnyURI?
-			final AnyURI newAnyURI = setEncodedFragment(URIComponent.FRAGMENT.encode(fragment, IRI.ENCODING.name()));
-			// TODO: What do we assert here?
-			return newAnyURI;
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
+		// TODO: Store the document encoding as part of AnyURI?
+		final AnyURI newAnyURI = setEncodedFragment(URIEncoder.encodeURIComponent(fragment));
+		// TODO: What do we assert here?
+		return newAnyURI;
 	}
 }

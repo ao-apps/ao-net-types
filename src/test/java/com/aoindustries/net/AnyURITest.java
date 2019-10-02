@@ -26,7 +26,6 @@ import static com.aoindustries.encoding.TextInXhtmlEncoder.textInXhtmlEncoder;
 import com.aoindustries.io.Encoder;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -908,13 +907,13 @@ public class AnyURITest {
 	// </editor-fold>
 
 	// <editor-fold defaultstate="collapsed" desc="Test Encode/Decode URI">
-	private static void testEncodeURI(String message, String asciiUrl, String unicodeUrl) throws UnsupportedEncodingException {
-		assertSame(message, asciiUrl, new AnyURI(asciiUrl).toURI(IRI.ENCODING.name()).toString());
-		assertEquals(message, asciiUrl, new AnyURI(unicodeUrl).toURI(IRI.ENCODING.name()).toString());
+	private static void testEncodeURI(String message, String asciiUrl, String unicodeUrl) {
+		assertSame(message, asciiUrl, new AnyURI(asciiUrl).toURI().toString());
+		assertEquals(message, asciiUrl, new AnyURI(unicodeUrl).toURI().toString());
 	}
 
 	@Test
-	public void testEncodeURI() throws UnsupportedEncodingException {
+	public void testEncodeURI() {
 		testEncodeURI(
 			null,
 			"http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A",
@@ -977,13 +976,13 @@ public class AnyURITest {
 		);
 	}
 
-	private static void testDecodeURI(String message, String unicodeUrl, String asciiUrl) throws UnsupportedEncodingException {
-		assertSame(message, unicodeUrl, new AnyURI(unicodeUrl).toIRI(IRI.ENCODING.name()).toString());
-		assertEquals(message, unicodeUrl, new AnyURI(asciiUrl).toIRI(IRI.ENCODING.name()).toString());
+	private static void testDecodeURI(String message, String unicodeUrl, String asciiUrl) {
+		assertSame(message, unicodeUrl, new AnyURI(unicodeUrl).toIRI().toString());
+		assertEquals(message, unicodeUrl, new AnyURI(asciiUrl).toIRI().toString());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testDecodeURIInvalidEncoded() throws UnsupportedEncodingException {
+	public void testDecodeURIInvalidEncoded() {
 		testDecodeURI(
 			null,
 			"かおり BBB#fragment?notParam%%%",
@@ -992,7 +991,7 @@ public class AnyURITest {
 	}
 
 	@Test
-	public void testDecodeURI() throws UnsupportedEncodingException {
+	public void testDecodeURI() {
 		testDecodeURI(
 			null,
 			"http://localhost/かおり",
@@ -1217,12 +1216,12 @@ public class AnyURITest {
 		testAddEncodedParameter("htTP:?new=val#fragment?notParam", "htTP:#fragment?notParam", "new", "val");
 	}
 
-	private static void testAddParameterSame(String url, String name, String value) throws UnsupportedEncodingException {
+	private static void testAddParameterSame(String url, String name, String value) {
 		AnyURI anyURI = new AnyURI(url);
-		assertSame(anyURI, anyURI.addParameter(name, value, IRI.ENCODING.name()));
+		assertSame(anyURI, anyURI.addParameter(name, value));
 	}
 
-	public void testAddParameterSame() throws UnsupportedEncodingException {
+	public void testAddParameterSame() {
 		testAddParameterSame("", null, null);
 		testAddParameterSame("?", null, null);
 		testAddParameterSame("#", null, null);
@@ -1235,25 +1234,25 @@ public class AnyURITest {
 		testAddParameterSame("htTP:#fragment?notParam", null, null);
 	}
 
-	private static void testAddParameter(String expected, String url, String name, String value) throws UnsupportedEncodingException {
-		assertEquals(expected, new AnyURI(url).addParameter(name, value, IRI.ENCODING.name()).toString());
+	private static void testAddParameter(String expected, String url, String name, String value) {
+		assertEquals(expected, new AnyURI(url).addParameter(name, value).toString());
 	}
 
-	public void testAddParameterNameEncodesFragment() throws UnsupportedEncodingException {
+	public void testAddParameterNameEncodesFragment() {
 		testAddParameter("?%23#", "#", "#", null);
 	}
 
-	public void testAddParameterValueEncodesFragment() throws UnsupportedEncodingException {
+	public void testAddParameterValueEncodesFragment() {
 		testAddParameter("?name=%23#", "#", "name", "#");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddParameterNullNameWithNonNullValue() throws UnsupportedEncodingException {
+	public void testAddParameterNullNameWithNonNullValue() {
 		testAddParameter("/test?=value", "/test", null, "value");
 	}
 
 	@Test
-	public void testAddParameter() throws UnsupportedEncodingException {
+	public void testAddParameter() {
 		testAddParameter("?%E3%81%8B%E3%81%8A%E3%82%8A", "", "かおり", null);
 		testAddParameter("?%E3%81%8B%E3%81%8A%E3%82%8A=", "", "かおり", "");
 		testAddParameter("?%E3%81%8B%E3%81%8A%E3%82%8A=val", "", "かおり", "val");

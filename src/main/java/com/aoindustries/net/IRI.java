@@ -22,7 +22,6 @@
  */
 package com.aoindustries.net;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -46,11 +45,6 @@ public class IRI extends AnyURI {
 	 */
 	public static final Charset ENCODING = StandardCharsets.UTF_8;
 
-	public IRI(String anyUri, String documentEncoding) throws UnsupportedEncodingException {
-		// TODO: Should we just verify here, and error if not already URI formatted?
-		super(URIDecoder.decodeURI(anyUri, documentEncoding));
-	}
-
 	public IRI(String anyUri) {
 		// TODO: Should we just verify here, and error if not already IRI formatted?
 		// TODO: Can we verify without knowing document encoding?
@@ -72,7 +66,7 @@ public class IRI extends AnyURI {
 	 * @return  {@code this}
 	 */
 	@Override
-	public IRI toIRI(String documentEncoding) {
+	public IRI toIRI() {
 		return this;
 	}
 
@@ -101,15 +95,15 @@ public class IRI extends AnyURI {
 	}
 
 	@Override
-	public IRI addParameter(String name, String value, String documentEncoding) throws UnsupportedEncodingException {
+	public IRI addParameter(String name, String value) {
 		// TODO: decode to IRI
-		return (IRI)super.addParameter(name, value, documentEncoding);
+		return (IRI)super.addParameter(name, value);
 	}
 
 	@Override
-	public IRI addParameters(URIParameters params, String documentEncoding) throws UnsupportedEncodingException {
+	public IRI addParameters(URIParameters params) {
 		// TODO: decode to IRI
-		return (IRI)super.addParameters(params, documentEncoding);
+		return (IRI)super.addParameters(params);
 	}
 
 	@Override

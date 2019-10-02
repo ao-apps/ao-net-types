@@ -24,8 +24,6 @@ package com.aoindustries.net;
 
 import com.aoindustries.lang.NullArgumentException;
 import com.aoindustries.util.StringUtility;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -51,23 +49,23 @@ public class URIParametersMap implements MutableURIParameters {
 	}
 
 	/**
-	 * Parses the provided URL-Encoded parameter string in a given encoding.
+	 * Parses the provided URL-Encoded parameter string.
 	 *
 	 * @param queryString  The URL-encoded parameter string or {@code null} or {@code ""} for none
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}.
 	 */
-	public URIParametersMap(String queryString, String documentEncoding) throws UnsupportedEncodingException {
+	public URIParametersMap(String queryString) {
 		if(queryString != null) {
 			for(String nameValue : StringUtility.splitString(queryString, '&')) {
 				int pos = nameValue.indexOf('=');
 				String name;
 				String value;
 				if(pos == -1) {
-					name = URIComponent.QUERY.decode(nameValue, documentEncoding);
+					name = URIDecoder.decodeURIComponent(nameValue);
 					value = ""; // Servlet environment treats no equal sign same as value equal empty string - matching here
 				} else {
-					name = URIComponent.QUERY.decode(nameValue.substring(0, pos), documentEncoding);
-					value = URIComponent.QUERY.decode(nameValue.substring(pos + 1), documentEncoding);
+					// TODO: Avoid substring?
+					name = URIDecoder.decodeURIComponent(nameValue.substring(0, pos));
+					value = URIDecoder.decodeURIComponent(nameValue.substring(pos + 1));
 				}
 				addParameter(name, value);
 			}
@@ -76,16 +74,7 @@ public class URIParametersMap implements MutableURIParameters {
 
 	@Override
 	public String toString() {
-		try {
-			return toString(IRI.ENCODING.name());
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	@Override
-	public String toString(String documentEncoding) throws UnsupportedEncodingException {
-		return Objects.toString(URIParametersUtils.toQueryString(this, documentEncoding), "");
+		return Objects.toString(URIParametersUtils.toQueryString(this), "");
 	}
 
 	@Override

@@ -22,8 +22,6 @@
  */
 package com.aoindustries.net;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
@@ -35,13 +33,11 @@ import java.util.Map;
 final public class URIParametersUtils {
 
 	/**
-	 * Adds all of the parameters to a URI in a given encoding.
-	 *
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}.
+	 * Adds all of the parameters to a URI.
 	 *
 	 * @return  The new URI or {@code uri} when not modified
 	 */
-	public static String addParams(String uri, URIParameters params, String documentEncoding) throws UnsupportedEncodingException {
+	public static String addParams(String uri, URIParameters params) {
 		if(params != null) {
 			Map<String, List<String>> paramsMap = params.getParameterMap();
 			int mapSize = paramsMap.size();
@@ -53,18 +49,15 @@ final public class URIParametersUtils {
 					+ mapSize * 20
 				);
 				int anchorStart;
-				boolean hasQuestion;
 				{
 					// Find first of '?' or '#'
 					int pathEnd = URIParser.getPathEnd(uri);
 					if(pathEnd >= uriLen) {
 						// First parameter to end
-						newUri.append(uri);
+						newUri.append(uri).append('?');
 						anchorStart = -1;
-						hasQuestion = false;
 					} else if(uri.charAt(pathEnd) == '?') {
 						anchorStart = uri.indexOf('#', pathEnd + 1);
-						hasQuestion = true;
 						if(anchorStart == -1) {
 							// Additional parameter to end
 							newUri.append(uri);
@@ -76,25 +69,10 @@ final public class URIParametersUtils {
 						// First parameter before anchor
 						assert uri.charAt(pathEnd) == '#';
 						anchorStart = pathEnd;
-						newUri.append(uri, 0, anchorStart);
-						hasQuestion = false;
+						newUri.append(uri, 0, anchorStart).append('?');
 					}
 				}
-				for(Map.Entry<String,List<String>> entry : paramsMap.entrySet()) {
-					String name = entry.getKey();
-					String encodedName = URIComponent.QUERY.encode(name, documentEncoding);
-					for(String value : entry.getValue()) {
-						assert value != null : "null values no longer supported to be consistent with servlet environment";
-						if(hasQuestion) {
-							newUri.append('&');
-						} else {
-							newUri.append('?');
-							hasQuestion = true;
-						}
-						newUri.append(encodedName).append('=');
-						URIComponent.QUERY.encode(value, documentEncoding, newUri);
-					}
-				}
+				appendQueryString(paramsMap.entrySet(), newUri);
 				if(anchorStart != -1) newUri.append(uri, anchorStart, uriLen);
 				assert newUri.length() > uriLen : "Parameters must have been added";
 				uri = newUri.toString();
@@ -104,47 +82,80 @@ final public class URIParametersUtils {
 	}
 
 	/**
-	 * Gets the query string encoded in a given encoding,
-	 * not including the '?' prefix.
-	 *
-	 * @return  The query string or {@code null} for none.
+	 * Appends the query string encoded, not including the '?' prefix.
 	 */
-	public static String toQueryString(URIParameters params, String documentEncoding) throws UnsupportedEncodingException {
-		if(params == null) return null;
-		Map<String,List<String>> map = params.getParameterMap();
-		if(map.isEmpty()) return null;
-		StringBuilder sb = new StringBuilder();
+	private static void appendQueryString(Iterable<Map.Entry<String,List<String>>> params, StringBuilder sb) {
 		boolean didOne = false;
-		for(Map.Entry<String,List<String>> entry : map.entrySet()) {
-			String encodedName = URIComponent.QUERY.encode(entry.getKey(), documentEncoding);
-			for(String value : entry.getValue()) {
+		for(Map.Entry<String,List<String>> entry : params) {
+			String name = entry.getKey();
+			List<String> values = entry.getValue();
+			if(values.size() == 1) {
+				// Optimize common single-value case
+				String value = values.get(0);
+				assert value != null : "null values no longer supported to be consistent with servlet environment";
 				if(didOne) {
 					sb.append('&');
 				} else {
 					didOne = true;
 				}
-				sb.append(encodedName);
-				assert value != null : "null values no longer supported to be consistent with servlet environment";
+				URIEncoder.encodeURIComponent(name, sb);
 				sb.append('=');
-				URIComponent.QUERY.encode(value, documentEncoding, sb);
+				URIEncoder.encodeURIComponent(value, sb);
+			} else {
+				String encodedName = URIEncoder.encodeURIComponent(name);
+				for(String value : values) {
+					assert value != null : "null values no longer supported to be consistent with servlet environment";
+					if(didOne) {
+						sb.append('&');
+					} else {
+						didOne = true;
+					}
+					sb.append(encodedName);
+					sb.append('=');
+					URIEncoder.encodeURIComponent(value, sb);
+				}
 			}
 		}
 		assert didOne;
+	}
+
+	/**
+	 * Appends the query string encoded, not including the '?' prefix.
+	 */
+	public static void appendQueryString(URIParameters params, StringBuilder sb) {
+		if(params == null) return;
+		Map<String,List<String>> map = params.getParameterMap();
+		if(map.isEmpty()) return;
+		appendQueryString(map.entrySet(), sb);
+	}
+
+	/**
+	 * Gets the query string encoded, not including the '?' prefix.
+	 *
+	 * @return  The query string or {@code null} for none.
+	 */
+	// TODO: StringBuilder variant?
+	public static String toQueryString(URIParameters params) {
+		if(params == null) return null;
+		Map<String,List<String>> map = params.getParameterMap();
+		if(map.isEmpty()) return null;
+		StringBuilder sb = new StringBuilder();
+		appendQueryString(map.entrySet(), sb);
 		return sb.toString();
 	}
 
 	/**
 	 * Returns the optimal type of parameters.
 	 * <ol>
-	 * <li>When @{code queryString} is {@code null} or {@code ""}: {@link EmptyParameters}</li>
+	 * <li>When @{code queryString} is {@code null} or {@code ""}: {@link EmptyURIParameters}</li>
 	 * <li>Otherwise {@link URIParametersMap}.
 	 * </ol>
 	 */
-	public static URIParameters of(String queryString, String documentEncoding) throws UnsupportedEncodingException {
+	public static URIParameters of(String queryString) {
 		if(queryString == null || queryString.isEmpty()) {
 			return EmptyURIParameters.getInstance();
 		} else {
-			return new URIParametersMap(queryString, documentEncoding);
+			return new URIParametersMap(queryString);
 		}
 	}
 

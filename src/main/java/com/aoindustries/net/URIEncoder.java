@@ -26,10 +26,29 @@ import com.aoindustries.io.Encoder;
 import com.aoindustries.util.StringUtility;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 
 /**
  * URI encoding utilities.
+ * <p>
+ * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
+ * They are not meant for general purpose URL manipulation, and are not trying to replace
+ * any full-featured URI tools.
+ * <p>
+ * Consider the following if needing more than what this provides (in no particular order):
+ * </p>
+ * <ol>
+ * <li>{@link URL}</li>
+ * <li>{@link java.net.URI}</li>
+ * <li><a href="https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/utils/URIBuilder.html">URIBuilder</a></li>
+ * <li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/util/UriUtils.html">UriUtils</a></li>
+ * <li><a href="https://guava.dev/releases/19.0/api/docs/com/google/common/net/UrlEscapers.html">UrlEscapers</a></li>
+ * <li><a href="https://jena.apache.org/documentation/notes/iri.html">jena-iri</a></li>
+ * <li><a href="https://github.com/xbib/net>org.xbib:net-url</a></li>
+ * </ol>
+ *
+ * @see  URLEncoder
  *
  * @author  AO Industries, Inc.
  */
@@ -38,68 +57,23 @@ public class URIEncoder {
 	private URIEncoder() {}
 
 	/**
-	 * Encodes a value for use in a path component or fragment in a given encoding.
-	 * <p>
-	 * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-	 * '+' with "%20".
-	 * </p>
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
-	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.String)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String)}
-	 */
-	@Deprecated
-	public static String encodeURIComponent(String s, String encoding) throws UnsupportedEncodingException {
-		return (s == null) ? null : StringUtility.replace(URLEncoder.encode(s, encoding), '+', "%20");
-	}
-
-	/**
 	 * Encodes a value for use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * <p>
-	 * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
+	 * This uses {@link URLEncoder#encode(java.lang.String)} then replaces
 	 * '+' with "%20".
 	 * </p>
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @see #decodeURIComponent(java.lang.String)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String)}
+	 * @see URIDecoder#decodeURIComponent(java.lang.String)
 	 */
-	@Deprecated
 	public static String encodeURIComponent(String s) {
 		try {
-			return encodeURIComponent(s, IRI.ENCODING.name());
+			return (s == null) ? null : StringUtility.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20");
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 		}
-	}
-
-	/**
-	 * Encodes a value for use in a path component or fragment in a given encoding.
-	 * <p>
-	 * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-	 * '+' with "%20".
-	 * </p>
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
-	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.String, java.lang.Appendable)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.Appendable)}
-	 */
-	@Deprecated
-	public static void encodeURIComponent(String s, String encoding, Appendable out) throws UnsupportedEncodingException, IOException {
-		if(s != null) StringUtility.replace(URLEncoder.encode(s, encoding), '+', "%20", out);
 	}
 
 	/**
@@ -112,44 +86,13 @@ public class URIEncoder {
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.Appendable)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.Appendable)}
+	 * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.Appendable)
 	 */
-	@Deprecated
 	public static void encodeURIComponent(String s, Appendable out) throws IOException {
 		try {
-			encodeURIComponent(s, IRI.ENCODING.name(), out);
+			if(s != null) StringUtility.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out);
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	/**
-	 * Encodes a value for use in a path component or fragment in a given encoding.
-	 * <p>
-	 * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-	 * '+' with "%20".
-	 * </p>
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
-	 * @param encoder  An optional encoder the output is applied through
-	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)}
-	 */
-	@Deprecated
-	public static void encodeURIComponent(String s, String encoding, Appendable out, Encoder encoder) throws UnsupportedEncodingException, IOException {
-		if(s != null) {
-			if(encoder == null) {
-				encodeURIComponent(s, encoding, out);
-			} else {
-				StringUtility.replace(URLEncoder.encode(s, encoding), '+', "%20", out, encoder);
-			}
 		}
 	}
 
@@ -165,45 +108,19 @@ public class URIEncoder {
 	 *
 	 * @param encoder  An optional encoder the output is applied through
 	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)}
+	 * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
 	 */
-	@Deprecated
 	public static void encodeURIComponent(String s, Appendable out, Encoder encoder) throws IOException {
 		try {
-			encodeURIComponent(s, IRI.ENCODING.name(), out, encoder);
+			if(s != null) {
+				if(encoder == null) {
+					encodeURIComponent(s, out);
+				} else {
+					StringUtility.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out, encoder);
+				}
+			}
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	/**
-	 * Encodes a value for use in a path component or fragment in a given encoding.
-	 * <p>
-	 * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-	 * '+' with "%20".
-	 * </p>
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
-	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.String, java.lang.StringBuilder)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.StringBuilder)}
-	 */
-	@Deprecated
-	public static void encodeURIComponent(String s, String encoding, StringBuilder sb) throws UnsupportedEncodingException {
-		if(s != null) {
-			try {
-				StringUtility.replace(URLEncoder.encode(s, encoding), '+', "%20", sb);
-			} catch(UnsupportedEncodingException e) {
-				throw e;
-			} catch(IOException e) {
-				throw new AssertionError("IOException should not occur on StringBuilder", e);
-			}
 		}
 	}
 
@@ -217,45 +134,13 @@ public class URIEncoder {
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.StringBuilder)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.StringBuilder)}
+	 * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.StringBuilder)
 	 */
-	@Deprecated
 	public static void encodeURIComponent(String s, StringBuilder sb) {
 		try {
-			encodeURIComponent(s, IRI.ENCODING.name(), sb);
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	/**
-	 * Encodes a value for use in a path component or fragment in a given encoding.
-	 * <p>
-	 * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-	 * '+' with "%20".
-	 * </p>
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @param encoding  The name of a supported {@linkplain Charset character encoding}.
-	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.String, java.lang.StringBuffer)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.StringBuffer)}
-	 */
-	@Deprecated
-	public static void encodeURIComponent(String s, String encoding, StringBuffer sb) throws UnsupportedEncodingException {
-		if(s != null) {
-			try {
-				StringUtility.replace(URLEncoder.encode(s, encoding), '+', "%20", sb);
-			} catch(UnsupportedEncodingException e) {
-				throw e;
-			} catch(IOException e) {
-				throw new AssertionError("IOException should not occur on StringBuffer", e);
-			}
+			encodeURIComponent(s, (Appendable)sb);
+		} catch(IOException e) {
+			throw new AssertionError("IOException should not occur on StringBuilder", e);
 		}
 	}
 
@@ -269,21 +154,18 @@ public class URIEncoder {
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @see #decodeURIComponent(java.lang.String, java.lang.StringBuffer)
-	 *
-	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, java.lang.String, java.lang.StringBuffer)}
+	 * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.StringBuffer)
 	 */
-	@Deprecated
 	public static void encodeURIComponent(String s, StringBuffer sb) {
 		try {
-			encodeURIComponent(s, IRI.ENCODING.name(), sb);
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+			encodeURIComponent(s, (Appendable)sb);
+		} catch(IOException e) {
+			throw new AssertionError("IOException should not occur on StringBuffer", e);
 		}
 	}
 
 	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in a given encoding.
+	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
 	 * (and '%' for already percent-encoded).
@@ -291,18 +173,14 @@ public class URIEncoder {
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}, only used for the query.
-	 *                          When any encoding other than {@link StandardCharsets#UTF_8},
-	 *                          the query string is left unaltered.
-	 *
 	 * @return  The encoded URI or {@code url} when not modified
 	 *
-	 * @see #decodeURI(java.lang.String, java.lang.String)
+	 * @see URIDecoder#decodeURI(java.lang.String)
 	 */
-	public static String encodeURI(String uri, String documentEncoding) throws UnsupportedEncodingException {
+	public static String encodeURI(String uri) {
 		if(uri == null) return null;
 		StringBuilder sb = new StringBuilder(uri.length() + 16);
-		encodeURI(uri, documentEncoding, sb);
+		encodeURI(uri, sb);
 		if(sb.length() == uri.length()) {
 			assert uri.equals(sb.toString());
 			return uri;
@@ -315,43 +193,22 @@ public class URIEncoder {
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (and '%' for already percent-encoded).
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @return  The encoded URI or {@code url} when not modified
-	 *
-	 * @see #decodeURI(java.lang.String)
-	 *
-	 * @deprecated  Please use {@link #encodeURI(java.lang.String, java.lang.String)}, providing the document encoding
-	 */
-	@Deprecated
-	public static String encodeURI(String uri) {
-		try {
-			return encodeURI(uri, IRI.ENCODING.name());
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in a given encoding.
-	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
 	 * (or '%' for already percent-encoded).
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}, only used for the query.
-	 *                          When any encoding other than {@link StandardCharsets#UTF_8},
-	 *                          the query string is left unaltered.
-	 *
-	 * @see #decodeURI(java.lang.String, java.lang.String, java.lang.Appendable)
+	 * @see URIDecoder#decodeURI(java.lang.String, java.lang.Appendable)
 	 */
-	public static void encodeURI(String uri, String documentEncoding, Appendable out) throws UnsupportedEncodingException, IOException {
-		encodeURI(uri, documentEncoding, out, null);
+	public static void encodeURI(String uri, Appendable out) throws IOException {
+		encodeURI(uri, out, null);
+	}
+
+	private static final char[] rfc3986ReservedCharacters_and_percent;
+	static {
+		rfc3986ReservedCharacters_and_percent = new char[RFC3986.RESERVED.length + 1];
+		System.arraycopy(RFC3986.RESERVED, 0, rfc3986ReservedCharacters_and_percent, 0, RFC3986.RESERVED.length);
+		rfc3986ReservedCharacters_and_percent[RFC3986.RESERVED.length] = '%';
 	}
 
 	/**
@@ -363,61 +220,26 @@ public class URIEncoder {
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @see #decodeURI(java.lang.String, java.lang.Appendable)
-	 *
-	 * @deprecated  Please use {@link #encodeURI(java.lang.String, java.lang.String, java.lang.Appendable)}, providing the document encoding
-	 */
-	@Deprecated
-	public static void encodeURI(String uri, Appendable out) throws IOException {
-		try {
-			encodeURI(uri, IRI.ENCODING.name(), out);
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	private static final char[] rfc3986ReservedCharacters_and_percent;
-	static {
-		rfc3986ReservedCharacters_and_percent = new char[RFC3986.RESERVED.length + 1];
-		System.arraycopy(RFC3986.RESERVED, 0, rfc3986ReservedCharacters_and_percent, 0, RFC3986.RESERVED.length);
-		rfc3986ReservedCharacters_and_percent[RFC3986.RESERVED.length] = '%';
-	}
-
-	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in a given encoding.
-	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-	 * </p>
-	 * <p>
-	 * TODO: Support <a href="https://tools.ietf.org/html/rfc2368">mailto:</a> scheme specifically?
-	 * </p>
-	 *
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}, only used for the query.
-	 *                          When any encoding other than {@link StandardCharsets#UTF_8},
-	 *                          the query string is left unaltered.
 	 * @param encoder  An optional encoder the output is applied through
 	 *
-	 * @see #decodeURI(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
+	 * @see URIDecoder#decodeURI(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
 	 */
-	public static void encodeURI(String uri, String documentEncoding, Appendable out, Encoder encoder) throws UnsupportedEncodingException, IOException {
+	public static void encodeURI(String uri, Appendable out, Encoder encoder) throws IOException {
 		if(uri != null) {
 			int len = uri.length();
 			int pos = 0;
-			URIComponent stage = URIComponent.BASE;
 			while(pos < len) {
 				int nextPos = StringUtility.indexOf(uri, rfc3986ReservedCharacters_and_percent, pos);
 				if(nextPos == -1) {
-					stage.encodeUnreserved(uri, pos, len, documentEncoding, out, encoder);
+					// TODO: Avoid substring?
+					encodeURIComponent(uri.substring(pos), out, encoder);
 					pos = len;
 				} else {
 					if(nextPos != pos) {
-						stage.encodeUnreserved(uri, pos, nextPos, documentEncoding, out, encoder);
+						// TODO: Avoid substring?
+						encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
 					}
 					char reserved = uri.charAt(nextPos++);
-					stage = stage.nextStage(reserved);
 					if(encoder == null) {
 						out.append(reserved);
 					} else {
@@ -438,41 +260,11 @@ public class URIEncoder {
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @param encoder  An optional encoder the output is applied through
-	 *
-	 * @see #decodeURI(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
-	 *
-	 * @deprecated  Please use {@link #encodeURI(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)}, providing the document encoding
+	 * @see URIDecoder#decodeURI(java.lang.String, java.lang.StringBuilder)
 	 */
-	@Deprecated
-	public static void encodeURI(String uri, Appendable out, Encoder encoder) throws IOException {
+	public static void encodeURI(String uri, StringBuilder sb) {
 		try {
-			encodeURI(uri, IRI.ENCODING.name(), out, encoder);
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in a given encoding.
-	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}, only used for the query.
-	 *                          When any encoding other than {@link StandardCharsets#UTF_8},
-	 *                          the query string is left unaltered.
-	 *
-	 * @see #decodeURI(java.lang.String, java.lang.String, java.lang.StringBuilder)
-	 */
-	public static void encodeURI(String uri, String documentEncoding, StringBuilder sb) throws UnsupportedEncodingException {
-		try {
-			encodeURI(uri, documentEncoding, sb, null);
-		} catch(UnsupportedEncodingException e) {
-			throw e;
+			encodeURI(uri, sb, null);
 		} catch(IOException e) {
 			throw new AssertionError("IOException should not occur on StringBuilder", e);
 		}
@@ -487,63 +279,13 @@ public class URIEncoder {
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @see #decodeURI(java.lang.String, java.lang.StringBuilder)
-	 *
-	 * @deprecated  Please use {@link #encodeURI(java.lang.String, java.lang.String, java.lang.StringBuilder)}, providing the document encoding
+	 * @see URIDecoder#decodeURI(java.lang.String, java.lang.StringBuffer)
 	 */
-	@Deprecated
-	public static void encodeURI(String uri, StringBuilder sb) {
-		try {
-			encodeURI(uri, IRI.ENCODING.name(), sb);
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in a given encoding.
-	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @param documentEncoding  The name of a supported {@linkplain Charset character encoding}, only used for the query.
-	 *                          When any encoding other than {@link StandardCharsets#UTF_8},
-	 *                          the query string is left unaltered.
-	 *
-	 * @see #decodeURI(java.lang.String, java.lang.String, java.lang.StringBuffer)
-	 */
-	public static void encodeURI(String uri, String documentEncoding, StringBuffer sb) throws UnsupportedEncodingException {
-		try {
-			encodeURI(uri, documentEncoding, sb, null);
-		} catch(UnsupportedEncodingException e) {
-			throw e;
-		} catch(IOException e) {
-			throw new AssertionError("IOException should not occur on StringBuffer", e);
-		}
-	}
-
-	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
-	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
-	 * <p>
-	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-	 * </p>
-	 *
-	 * @see #decodeURI(java.lang.String, java.lang.StringBuffer)
-	 *
-	 * @deprecated  Please use {@link #encodeURI(java.lang.String, java.lang.String, java.lang.StringBuffer)}, providing the document encoding
-	 */
-	@Deprecated
 	public static void encodeURI(String uri, StringBuffer sb) {
 		try {
-			encodeURI(uri, IRI.ENCODING.name(), sb);
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+			encodeURI(uri, sb, null);
+		} catch(IOException e) {
+			throw new AssertionError("IOException should not occur on StringBuffer", e);
 		}
 	}
 }

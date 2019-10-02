@@ -22,8 +22,6 @@
  */
 package com.aoindustries.net;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * Implementation of {@link AnyURI} that is restricted to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a> only.
  * <p>
@@ -37,11 +35,6 @@ import java.io.UnsupportedEncodingException;
  */
 // TODO: Add tests
 public class URI extends AnyURI {
-
-	public URI(String anyUri, String documentEncoding) throws UnsupportedEncodingException {
-		// TODO: Should we just verify here, and error if not already URI formatted?
-		super(URIEncoder.encodeURI(anyUri, documentEncoding));
-	}
 
 	public URI(String anyUri) {
 		// TODO: Should we just verify here, and error if not already URI formatted?
@@ -64,7 +57,7 @@ public class URI extends AnyURI {
 	 * @return  {@code this}
 	 */
 	@Override
-	public URI toURI(String documentEncoding) {
+	public URI toURI() {
 		return this;
 	}
 
@@ -93,15 +86,15 @@ public class URI extends AnyURI {
 	}
 
 	@Override
-	public URI addParameter(String name, String value, String documentEncoding) throws UnsupportedEncodingException {
+	public URI addParameter(String name, String value) {
 		// TODO: encode to URI
-		return (URI)super.addParameter(name, value, documentEncoding);
+		return (URI)super.addParameter(name, value);
 	}
 
 	@Override
-	public URI addParameters(URIParameters params, String documentEncoding) throws UnsupportedEncodingException {
+	public URI addParameters(URIParameters params) {
 		// TODO: encode to URI
-		return (URI)super.addParameters(params, documentEncoding);
+		return (URI)super.addParameters(params);
 	}
 
 	@Override
