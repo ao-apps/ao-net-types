@@ -214,12 +214,9 @@ public class URIDecoder {
 		if(uri == null) return null;
 		StringBuilder sb = new StringBuilder(uri.length());
 		decodeURI(uri, sb);
-		if(sb.length() == uri.length()) {
-			assert uri.equals(sb.toString());
-			return uri;
-		} else {
-			return sb.toString();
-		}
+		String decoded = sb.toString();
+		// Hex case may have changed during decode, leaving altered but same length
+		return uri.equals(decoded) ? uri : decoded;
 	}
 
 	/**
@@ -257,15 +254,11 @@ public class URIDecoder {
 			while(pos < len) {
 				int nextPos = StringUtility.indexOf(uri, RFC3986.RESERVED, pos);
 				if(nextPos == -1) {
-					// TODO: A specialized form of decode that skips decoding to reserved characters would be better than decode/re-encode.
-					//       This implementation is less precise, such as converting lower-case percent-encoded to upper-case.
 					// TODO: Avoid substring?
 					encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos)), out, encoder);
 					pos = len;
 				} else {
 					if(nextPos != pos) {
-						// TODO: A specialized form of decode that skips decoding to reserved characters would be better than decode/re-encode.
-						//       This implementation is less precise, such as converting lower-case percent-encoded to upper-case.
 						// TODO: Avoid substring?
 						encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos, nextPos)), out, encoder);
 					}
