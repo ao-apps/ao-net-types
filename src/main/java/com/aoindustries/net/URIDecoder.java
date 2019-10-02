@@ -164,90 +164,35 @@ public class URIDecoder {
 	 *
 	 * @param encoder  An optional encoder the output is applied through
 	 */
-	// TODO: Implement as streaming encoder
 	private static void encodeRfc3968ReservedCharacters_and_percent(String value, Appendable out, Encoder encoder) throws IOException {
 		int len = value.length();
-		for(int i = 0; i < len; i++) {
-			char ch = value.charAt(i);
-			String replacement;
-			// TODO: Use RFC3986
-			// TODO: Benchmark switch versus BitSet (this might help all encoders that are switch-based)
-			switch(ch) {
-				// gen-delims
-				case ':' :
-					replacement = "%3A";
-					break;
-				case '/' :
-					replacement = "%2F";
-					break;
-				case '?' :
-					replacement = "%3F";
-					break;
-				case '#' :
-					replacement = "%23";
-					break;
-				case '[' :
-					replacement = "%5B";
-					break;
-				case ']' :
-					replacement = "%5D";
-					break;
-				case '@' :
-					replacement = "%40";
-					break;
-				// sub-delims
-				case '!' :
-					replacement = "%21";
-					break;
-				case '$' :
-					replacement = "%24";
-					break;
-				case '&' :
-					replacement = "%26";
-					break;
-				case '\'' :
-					replacement = "%27";
-					break;
-				case '(' :
-					replacement = "%28";
-					break;
-				case ')' :
-					replacement = "%29";
-					break;
-				case '*' :
-					replacement = "%2A";
-					break;
-				case '+' :
-					replacement = "%2B";
-					break;
-				case ',' :
-					replacement = "%2C";
-					break;
-				case ';' :
-					replacement = "%3B";
-					break;
-				case '=' :
-					replacement = "%3D";
-					break;
-				// already percent-encoded
-				case '%' :
-					replacement = "%25";
-					break;
-				default :
-					replacement = null;
-			}
-			if(replacement != null) {
+		int pos = 0;
+		while(pos < len) {
+			int nextPos = StringUtility.indexOf(value, URIEncoder.rfc3986ReservedCharacters_and_percent, pos);
+			if(nextPos == -1) {
+				if(encoder == null) {
+					out.append(value, pos, len);
+				} else {
+					encoder.append(value, pos, len, out);
+				}
+				pos = len;
+			} else {
+				if(nextPos != pos) {
+					if(encoder == null) {
+						out.append(value, pos, nextPos);
+					} else {
+						encoder.append(value, pos, nextPos, out);
+					}
+				}
+				char ch = value.charAt(nextPos++);
+				String replacement = URIEncoder.encodeRfc3986ReservedCharacters_and_percent(ch);
+				if(replacement == null) throw new AssertionError("No replacement found for character: " + ch);
 				if(encoder == null) {
 					out.append(replacement);
 				} else {
 					encoder.append(replacement, out);
 				}
-			} else {
-				if(encoder == null) {
-					out.append(ch);
-				} else {
-					encoder.append(ch, out);
-				}
+				pos = nextPos;
 			}
 		}
 	}

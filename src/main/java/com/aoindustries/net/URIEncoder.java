@@ -205,11 +205,62 @@ public class URIEncoder {
 		encodeURI(uri, out, null);
 	}
 
-	private static final BitSet rfc3986ReservedCharacters_and_percent;
+	static final BitSet rfc3986ReservedCharacters_and_percent;
 	static {
 		rfc3986ReservedCharacters_and_percent = new BitSet(128);
 		rfc3986ReservedCharacters_and_percent.or(RFC3986.RESERVED);
 		rfc3986ReservedCharacters_and_percent.set('%');
+	}
+
+	static String encodeRfc3986ReservedCharacters_and_percent(char ch) {
+		// TODO: Benchmark switch versus BitSet (this might help all encoders that are switch-based)
+		switch(ch) {
+			// gen-delims
+			case ':' : return "%3A";
+			case '/' : return "%2F";
+			case '?' : return "%3F";
+			case '#' : return "%23";
+			case '[' : return "%5B";
+			case ']' : return "%5D";
+			case '@' : return "%40";
+			// sub-delims
+			case '!' : return "%21";
+			case '$' : return "%24";
+			case '&' : return "%26";
+			case '\'' : return "%27";
+			case '(' : return "%28";
+			case ')' : return "%29";
+			case '*' : return "%2A";
+			case '+' : return "%2B";
+			case ',' : return "%2C";
+			case ';' : return "%3B";
+			case '=' : return "%3D";
+			// already percent-encoded
+			case '%' : return "%25";
+			default : return null;
+		}
+	}
+
+	private static boolean assertEncodeRfc3986ReservedCharacters_and_percentConsistent() {
+		for(int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; i++) {
+			char ch = (char)i;
+			boolean isInBitSet = rfc3986ReservedCharacters_and_percent.get(ch);
+			String replacement = encodeRfc3986ReservedCharacters_and_percent(ch);
+			if(isInBitSet) {
+				if(replacement == null) {
+					throw new AssertionError("Character is in encodeRfc3986ReservedCharacters_and_percent but is not encoded: " + ch);
+				}
+			} else {
+				if(replacement != null) {
+					throw new AssertionError("Character is not in encodeRfc3986ReservedCharacters_and_percent but is encoded: " + ch + " -> " + replacement);
+				}
+			}
+		}
+		return true;
+	}
+
+	static {
+		assert assertEncodeRfc3986ReservedCharacters_and_percentConsistent();
 	}
 
 	/**
