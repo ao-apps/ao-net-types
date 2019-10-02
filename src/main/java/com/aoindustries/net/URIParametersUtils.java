@@ -134,7 +134,6 @@ final public class URIParametersUtils {
 	 *
 	 * @return  The query string or {@code null} for none.
 	 */
-	// TODO: StringBuilder variant?
 	public static String toQueryString(URIParameters params) {
 		if(params == null) return null;
 		Map<String,List<String>> map = params.getParameterMap();

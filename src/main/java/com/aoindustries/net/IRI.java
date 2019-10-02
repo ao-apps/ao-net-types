@@ -46,13 +46,12 @@ public class IRI extends AnyURI {
 	public static final Charset ENCODING = StandardCharsets.UTF_8;
 
 	public IRI(String anyUri) {
-		// TODO: Should we just verify here, and error if not already IRI formatted?
-		// TODO: Can we verify without knowing document encoding?
 		super(URIDecoder.decodeURI(anyUri));
 	}
 
 	private IRI(String iri, int schemeLength, int queryIndex, int fragmentIndex) {
 		super(iri, schemeLength, queryIndex, fragmentIndex);
+		assert iri.equals(URIDecoder.decodeURI(iri)) : "iri is not already decoded: " + iri;
 	}
 
 	@Override
@@ -72,50 +71,53 @@ public class IRI extends AnyURI {
 
 	@Override
 	public IRI setHierPart(String hierPart) {
-		// TODO: decode to IRI
-		return (IRI)super.setHierPart(hierPart);
+		return (IRI)super.setHierPart(URIDecoder.decodeURI(hierPart));
 	}
 
 	@Override
 	public IRI setQueryString(String query) {
-		// TODO: decode to IRI
-		return (IRI)super.setQueryString(query);
+		return (IRI)super.setQueryString(URIDecoder.decodeURI(query));
 	}
 
 	@Override
 	public IRI addQueryString(String query) {
-		// TODO: decode to IRI
-		return (IRI)super.addQueryString(query);
+		return (IRI)super.addQueryStringImpl(URIDecoder.decodeURI(query));
 	}
 
 	@Override
 	public IRI addEncodedParameter(String encodedName, String encodedValue) {
-		// TODO: decode to IRI
-		return (IRI)super.addEncodedParameter(encodedName, encodedValue);
+		return (IRI)super.addEncodedParameterImpl(
+			URIDecoder.decodeURI(encodedName),
+			URIDecoder.decodeURI(encodedValue)
+		);
 	}
 
 	@Override
 	public IRI addParameter(String name, String value) {
-		// TODO: decode to IRI
-		return (IRI)super.addParameter(name, value);
+		return (IRI)addEncodedParameterImpl(
+			// TODO: encodeIRIComponent to do this in one shot?
+			URIDecoder.decodeURI(URIEncoder.encodeURIComponent(name)),
+			URIDecoder.decodeURI(URIEncoder.encodeURIComponent(value))
+		);
 	}
 
 	@Override
 	public IRI addParameters(URIParameters params) {
-		// TODO: decode to IRI
-		return (IRI)super.addParameters(params);
+		if(params == null) {
+			return this;
+		} else {
+			return (IRI)addQueryStringImpl(URIDecoder.decodeURI(URIParametersUtils.toQueryString(params)));
+		}
 	}
 
 	@Override
 	public IRI setEncodedFragment(String encodedFragment) {
-		// TODO: decode to IRI
-		return (IRI)super.setEncodedFragment(encodedFragment);
+		return (IRI)super.setEncodedFragmentImpl(URIDecoder.decodeURI(encodedFragment));
 	}
 
-	@Deprecated
 	@Override
 	public IRI setFragment(String fragment) {
-		// TODO: decode to IRI
-		return (IRI)super.setFragment(fragment);
+		// TODO: encodeIRIComponent to do this in one shot?
+		return (IRI)setEncodedFragmentImpl(URIDecoder.decodeURI(URIEncoder.encodeURIComponent(fragment)));
 	}
 }

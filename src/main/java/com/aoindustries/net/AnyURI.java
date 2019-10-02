@@ -978,16 +978,7 @@ public class AnyURI {
 		return newAnyURI;
 	}
 
-	/**
-	 * Adds a query string.
-	 *
-	 * @param query  The query (not including the first '?' / '&') - it is added without additional encoding.
-	 *               Nothing is added when the query is {@code null}.
-	 *               The query may not contain the fragment marker '#'
-	 *
-	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
-	 */
-	public AnyURI addQueryString(String query) {
+	final AnyURI addQueryStringImpl(String query) {
 		final AnyURI newAnyURI;
 		if(query == null) {
 			newAnyURI = this;
@@ -1039,26 +1030,26 @@ public class AnyURI {
 	}
 
 	/**
-	 * Adds an already-encoded parameter.
+	 * Adds a query string.
 	 *
-	 * @param encodedName  The parameter name - it is added without additional encoding.
-	 *                     Nothing is added when the name is {@code null}.
-	 *                     The name may not contain the fragment marker '#'
-	 * @param encodedValue  The parameter value - it is added without additional encoding.
-	 *                      When {@code null}, the parameter is added without any '='.
-	 *                      Must be {@code null} when {@code name} is {@code null}.
-	 *                      The value may not contain the fragment marker '#'
+	 * @param query  The query (not including the first '?' / '&') - it is added without additional encoding.
+	 *               Nothing is added when the query is {@code null}.
+	 *               The query may not contain the fragment marker '#'
 	 *
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
 	 */
-	public AnyURI addEncodedParameter(String encodedName, String encodedValue) {
+	public AnyURI addQueryString(String query) {
+		return addQueryStringImpl(query);
+	}
+
+	final AnyURI addEncodedParameterImpl(String encodedName, String encodedValue) {
 		final AnyURI newAnyURI;
 		if(encodedName == null) {
 			if(encodedValue != null) throw new IllegalArgumentException("non-null value provided with null name: " + encodedValue);
 			newAnyURI = this;
 		} else {
 			if(encodedValue == null) {
-				newAnyURI = addQueryString(encodedName);
+				newAnyURI = addQueryStringImpl(encodedName);
 			} else {
 				if(encodedName.indexOf('#') != -1) throw new IllegalArgumentException("name may not contain fragment marker (#): " + encodedName);
 				if(encodedValue.indexOf('#') != -1) throw new IllegalArgumentException("value may not contain fragment marker (#): " + encodedValue);
@@ -1107,6 +1098,23 @@ public class AnyURI {
 	}
 
 	/**
+	 * Adds an already-encoded parameter.
+	 *
+	 * @param encodedName  The parameter name - it is added without additional encoding.
+	 *                     Nothing is added when the name is {@code null}.
+	 *                     The name may not contain the fragment marker '#'
+	 * @param encodedValue  The parameter value - it is added without additional encoding.
+	 *                      When {@code null}, the parameter is added without any '='.
+	 *                      Must be {@code null} when {@code name} is {@code null}.
+	 *                      The value may not contain the fragment marker '#'
+	 *
+	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
+	 */
+	public AnyURI addEncodedParameter(String encodedName, String encodedValue) {
+		return addEncodedParameterImpl(encodedName, encodedValue);
+	}
+
+	/**
 	 * Encodes and adds a parameter.
 	 *
 	 * @param name  The parameter name.
@@ -1120,7 +1128,7 @@ public class AnyURI {
 	 * @see  URIEncoder#encodeURIComponent(java.lang.String)
 	 */
 	public AnyURI addParameter(String name, String value) {
-		return addEncodedParameter(
+		return addEncodedParameterImpl(
 			URIEncoder.encodeURIComponent(name),
 			URIEncoder.encodeURIComponent(value)
 		);
@@ -1136,35 +1144,15 @@ public class AnyURI {
 	 *
 	 * @see  URIParametersUtils#addParams(java.lang.String, com.aoindustries.net.URIParameters)
 	 */
-	// TODO: Store the document encoding as part of AnyURI?
 	public AnyURI addParameters(URIParameters params) {
-		final AnyURI newAnyURI;
 		if(params == null) {
-			newAnyURI = this;
+			return this;
 		} else {
-			String newUri = URIParametersUtils.addParams(uri, params);
-			newAnyURI = (newUri == uri) ? this : newAnyURI(
-				newUri,
-				schemeLength,
-				queryIndex != -1 ? queryIndex
-					: fragmentIndex != -1 ? fragmentIndex
-					: uri.length(),
-				fragmentIndex == -1 ? -1 : (newUri.length() - (uri.length() - fragmentIndex))
-			);
+			return addQueryStringImpl(URIParametersUtils.toQueryString(params));
 		}
-		// TODO: What do we assert here?
-		return newAnyURI;
 	}
 
-	/**
-	 * Replaces the fragment.
-	 *
-	 * @param encodedFragment  The fragment (not including the '#') - it is added without additional encoding.
-	 *                         Removes fragment when {@code null}.
-	 *
-	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
-	 */
-	public AnyURI setEncodedFragment(String encodedFragment) {
+	final AnyURI setEncodedFragmentImpl(String encodedFragment) {
 		final AnyURI newAnyURI;
 		if(encodedFragment == null) {
 			// Removing fragment
@@ -1226,6 +1214,18 @@ public class AnyURI {
 	}
 
 	/**
+	 * Replaces the fragment.
+	 *
+	 * @param encodedFragment  The fragment (not including the '#') - it is added without additional encoding.
+	 *                         Removes fragment when {@code null}.
+	 *
+	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
+	 */
+	public AnyURI setEncodedFragment(String encodedFragment) {
+		return setEncodedFragmentImpl(encodedFragment);
+	}
+
+	/**
 	 * Replaces the fragment in the default encoding {@link IRI#ENCODING}.
 	 * <p>
 	 * TODO: Implement specification of <a href="https://dev.w3.org/html5/spec-LC/urls.html#url-manipulation-and-creation">fragment-escape</a>.
@@ -1234,15 +1234,8 @@ public class AnyURI {
 	 * @param fragment  The fragment (not including the '#') or {@code null} for no fragment.
 	 *
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
-	 *
-	 * @deprecated  This is an incomplete implementation - recommend using {@code org.xbib.net.URL}
-	 *              or {@code org.apache.http.client.utils.URIBuilder}
 	 */
-	@Deprecated
 	public AnyURI setFragment(String fragment) {
-		// TODO: Store the document encoding as part of AnyURI?
-		final AnyURI newAnyURI = setEncodedFragment(URIEncoder.encodeURIComponent(fragment));
-		// TODO: What do we assert here?
-		return newAnyURI;
+		return setEncodedFragmentImpl(URIEncoder.encodeURIComponent(fragment));
 	}
 }

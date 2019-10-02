@@ -37,13 +37,12 @@ package com.aoindustries.net;
 public class URI extends AnyURI {
 
 	public URI(String anyUri) {
-		// TODO: Should we just verify here, and error if not already URI formatted?
-		// TODO: Can we verify without knowing document encoding?
 		super(URIEncoder.encodeURI(anyUri));
 	}
 
 	private URI(String uri, int schemeLength, int queryIndex, int fragmentIndex) {
 		super(uri, schemeLength, queryIndex, fragmentIndex);
+		assert uri.equals(URIEncoder.encodeURI(uri)) : "uri is not already encoded: " + uri;
 	}
 
 	@Override
@@ -63,50 +62,44 @@ public class URI extends AnyURI {
 
 	@Override
 	public URI setHierPart(String hierPart) {
-		// TODO: encode to URI
-		return (URI)super.setHierPart(hierPart);
+		return (URI)super.setHierPart(URIEncoder.encodeURI(hierPart));
 	}
 
 	@Override
 	public URI setQueryString(String query) {
-		// TODO: encode to URI
-		return (URI)super.setQueryString(query);
+		return (URI)super.setQueryString(URIEncoder.encodeURI(query));
 	}
 
 	@Override
 	public URI addQueryString(String query) {
-		// TODO: encode to URI
-		return (URI)super.addQueryString(query);
+		return (URI)super.addQueryStringImpl(URIEncoder.encodeURI(query));
 	}
 
 	@Override
 	public URI addEncodedParameter(String encodedName, String encodedValue) {
-		// TODO: encode to URI
-		return (URI)super.addEncodedParameter(encodedName, encodedValue);
+		return (URI)super.addEncodedParameterImpl(
+			URIEncoder.encodeURI(encodedName),
+			URIEncoder.encodeURI(encodedValue)
+		);
 	}
 
 	@Override
 	public URI addParameter(String name, String value) {
-		// TODO: encode to URI
 		return (URI)super.addParameter(name, value);
 	}
 
 	@Override
 	public URI addParameters(URIParameters params) {
-		// TODO: encode to URI
 		return (URI)super.addParameters(params);
 	}
 
 	@Override
 	public URI setEncodedFragment(String encodedFragment) {
-		// TODO: encode to URI
-		return (URI)super.setEncodedFragment(encodedFragment);
+		return (URI)super.setEncodedFragmentImpl(URIEncoder.encodeURI(encodedFragment));
 	}
 
-	@Deprecated
 	@Override
 	public URI setFragment(String fragment) {
-		// TODO: encode to URI
 		return (URI)super.setFragment(fragment);
 	}
 }
