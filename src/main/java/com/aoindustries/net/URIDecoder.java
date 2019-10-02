@@ -170,6 +170,8 @@ public class URIDecoder {
 		for(int i = 0; i < len; i++) {
 			char ch = value.charAt(i);
 			String replacement;
+			// TODO: Use RFC3986
+			// TODO: Benchmark switch versus BitSet (this might help all encoders that are switch-based)
 			switch(ch) {
 				// gen-delims
 				case ':' :

@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.BitSet;
 
 /**
  * URI encoding utilities.
@@ -204,11 +205,11 @@ public class URIEncoder {
 		encodeURI(uri, out, null);
 	}
 
-	private static final char[] rfc3986ReservedCharacters_and_percent;
+	private static final BitSet rfc3986ReservedCharacters_and_percent;
 	static {
-		rfc3986ReservedCharacters_and_percent = new char[RFC3986.RESERVED.length + 1];
-		System.arraycopy(RFC3986.RESERVED, 0, rfc3986ReservedCharacters_and_percent, 0, RFC3986.RESERVED.length);
-		rfc3986ReservedCharacters_and_percent[RFC3986.RESERVED.length] = '%';
+		rfc3986ReservedCharacters_and_percent = new BitSet(128);
+		rfc3986ReservedCharacters_and_percent.or(RFC3986.RESERVED);
+		rfc3986ReservedCharacters_and_percent.set('%');
 	}
 
 	/**

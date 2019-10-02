@@ -22,6 +22,8 @@
  */
 package com.aoindustries.net;
 
+import java.util.BitSet;
+
 /**
  * Java helper for <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 - Uniform Resource Identifier (URI): Generic Syntax</a>.
  * <p>
@@ -41,87 +43,88 @@ class RFC3986 {
 	/**
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
-	static final char[] GEN_DELIMS = {
-		':' , '/' , '?' , '#' , '[' , ']' , '@'
+	static final BitSet GEN_DELIMS;
+	static {
+		GEN_DELIMS = new BitSet(128);
+		GEN_DELIMS.set(':');
+		GEN_DELIMS.set('/');
+		GEN_DELIMS.set('?');
+		GEN_DELIMS.set('#');
+		GEN_DELIMS.set('[');
+		GEN_DELIMS.set(']');
+		GEN_DELIMS.set('@');
 	};
 
 	/**
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static boolean isGenDelim(char ch) {
-		switch(ch) {
-			case ':' :
-			case '/' :
-			case '?' :
-			case '#' :
-			case '[' :
-			case ']' :
-			case '@' :
-				return true;
-			default :
-				return false;
-		}
+		return GEN_DELIMS.get(ch);
 	}
 
 	/**
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
-	static final char[] SUB_DELIMS = {
-		'!' , '$' , '&' , '\'' , '(' , ')',
-		'*' , '+' , ',' , ';' , '='
+	static final BitSet SUB_DELIMS;
+	static {
+		SUB_DELIMS = new BitSet(128);
+		SUB_DELIMS.set('!');
+		SUB_DELIMS.set('$');
+		SUB_DELIMS.set('&');
+		SUB_DELIMS.set('\'');
+		SUB_DELIMS.set('(');
+		SUB_DELIMS.set(')');
+		SUB_DELIMS.set('*');
+		SUB_DELIMS.set('+');
+		SUB_DELIMS.set(',');
+		SUB_DELIMS.set(';');
+		SUB_DELIMS.set('=');
 	};
 
 	/**
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static boolean isSubDelim(char ch) {
-		switch(ch) {
-			case '!' :
-			case '$' :
-			case '&' :
-			case '\'' :
-			case '(' :
-			case ')' :
-			case '*' :
-			case '+' :
-			case ',' :
-			case ';' :
-			case '=' :
-				return true;
-			default :
-				return false;
-		}
+		return SUB_DELIMS.get(ch);
 	}
 
 	/**
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
-	static final char[] RESERVED;
+	static final BitSet RESERVED;
 	static {
-		RESERVED = new char[GEN_DELIMS.length + SUB_DELIMS.length];
-		System.arraycopy(GEN_DELIMS, 0, RESERVED, 0,                 GEN_DELIMS.length);
-		System.arraycopy(SUB_DELIMS, 0, RESERVED, GEN_DELIMS.length, SUB_DELIMS.length);
+		RESERVED = new BitSet(128);
+		RESERVED.or(GEN_DELIMS);
+		RESERVED.or(SUB_DELIMS);
 	}
 
 	/**
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static boolean isReserved(char ch) {
-		return isGenDelim(ch) || isSubDelim(ch);
+		return RESERVED.get(ch);
+	}
+
+	/**
+	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a>.
+	 */
+	static final BitSet UNRESERVED;
+	static {
+		UNRESERVED = new BitSet(128);
+		UNRESERVED.set('A', 'Z' + 1);
+		UNRESERVED.set('a', 'z' + 1);
+		UNRESERVED.set('0', '9' + 1);
+		UNRESERVED.set('-');
+		UNRESERVED.set('.');
+		UNRESERVED.set('_');
+		UNRESERVED.set('~');
 	}
 
 	/**
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a>.
 	 */
 	static boolean isUnreserved(char ch) {
-		return
-			(ch >= 'A' && ch <= 'Z')
-			|| (ch >= 'a' && ch <= 'z')
-			|| (ch >= '0' && ch <= '9')
-			|| ch == '-'
-			|| ch == '.'
-			|| ch == '_'
-			|| ch == '~';
+		return UNRESERVED.get(ch);
 	}
 
 	/**
