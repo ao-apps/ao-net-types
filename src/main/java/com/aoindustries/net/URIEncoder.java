@@ -263,6 +263,13 @@ public class URIEncoder {
 		assert assertEncodeRfc3986ReservedCharacters_and_percentConsistent();
 	}
 
+	private static final BitSet rfc3986ReservedCharacters_percent_and_space;
+	static {
+		rfc3986ReservedCharacters_percent_and_space = new BitSet(128);
+		rfc3986ReservedCharacters_percent_and_space.or(rfc3986ReservedCharacters_and_percent);
+		rfc3986ReservedCharacters_percent_and_space.set(' ');
+	}
+
 	/**
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
@@ -278,27 +285,53 @@ public class URIEncoder {
 	 */
 	public static void encodeURI(String uri, Appendable out, Encoder encoder) throws IOException {
 		if(uri != null) {
-			int len = uri.length();
-			int pos = 0;
-			while(pos < len) {
-				int nextPos = StringUtility.indexOf(uri, rfc3986ReservedCharacters_and_percent, pos);
-				if(nextPos == -1) {
-					// TODO: Avoid substring?
-					encodeURIComponent(uri.substring(pos), out, encoder);
-					pos = len;
-				} else {
-					if(nextPos != pos) {
+			try {
+				int len = uri.length();
+				int pos = 0;
+				while(pos < len) {
+					int nextPos = StringUtility.indexOf(uri, rfc3986ReservedCharacters_percent_and_space, pos);
+					if(nextPos == -1) {
 						// TODO: Avoid substring?
-						encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
-					}
-					char reserved = uri.charAt(nextPos++);
-					if(encoder == null) {
-						out.append(reserved);
+						String encoded = URLEncoder.encode(uri.substring(pos), IRI.ENCODING.name());
+						if(encoder == null) {
+							out.append(encoded);
+						} else {
+							encoder.append(encoded, out);
+						}
+						// Old with second check for space -> '+' -> "%20":
+						// encodeURIComponent(uri.substring(pos), out, encoder);
+						pos = len;
 					} else {
-						encoder.append(reserved, out);
+						if(nextPos != pos) {
+							// TODO: Avoid substring?
+							String encoded = URLEncoder.encode(uri.substring(pos, nextPos), IRI.ENCODING.name());
+							if(encoder == null) {
+								out.append(encoded);
+							} else {
+								encoder.append(encoded, out);
+							}
+							// Old with second check for space -> '+' -> "%20":
+							// encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
+						}
+						char reserved = uri.charAt(nextPos++);
+						if(reserved == ' ') {
+							if(encoder == null) {
+								out.append("%20");
+							} else {
+								encoder.append("%20", out);
+							}
+						} else {
+							if(encoder == null) {
+								out.append(reserved);
+							} else {
+								encoder.append(reserved, out);
+							}
+						}
+						pos = nextPos;
 					}
-					pos = nextPos;
 				}
+			} catch(UnsupportedEncodingException e) {
+				throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 			}
 		}
 	}
