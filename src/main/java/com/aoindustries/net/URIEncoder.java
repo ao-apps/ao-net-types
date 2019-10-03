@@ -169,7 +169,10 @@ public class URIEncoder {
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (and '%' for already percent-encoded).
+	 * (or '%' for already percent-encoded).
+	 * <p>
+	 * Any existing lower-case percent-encoded values are normalized to upper-case.
+	 * </p>
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
@@ -195,6 +198,9 @@ public class URIEncoder {
 	 * Encodes the characters in the URI, not including any characters defined in
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
 	 * (or '%' for already percent-encoded).
+	 * <p>
+	 * Any existing lower-case percent-encoded values are normalized to upper-case.
+	 * </p>
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
@@ -277,11 +283,26 @@ public class URIEncoder {
 			|| (ch >= 'A' && ch <= 'F');
 	}
 
+	private static boolean isLowerHex(char ch) {
+		return (ch >= 'a' && ch <= 'f');
+	}
+
+	private static char upperHex(char ch) {
+		if(isLowerHex(ch)) {
+			return (char)(ch - ('a' - 'A'));
+		} else {
+			return ch;
+		}
+	}
+
 	/**
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
 	 * (or '%' for already percent-encoded).
+	 * <p>
+	 * Any existing lower-case percent-encoded values are normalized to upper-case.
+	 * </p>
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
@@ -321,18 +342,32 @@ public class URIEncoder {
 							// encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
 						}
 						char reserved = uri.charAt(nextPos);
+						char ch2, ch3;
 						if(
 							reserved == '%'
 							&& (nextPos + 2) < len
-							&& isHex(uri.charAt(nextPos + 1))
-							&& isHex(uri.charAt(nextPos + 2))
+							&& isHex(ch2 = uri.charAt(nextPos + 1))
+							&& isHex(ch3 = uri.charAt(nextPos + 2))
 						) {
 							// Short-cut already percent-encoded
 							pos = nextPos + 3;
-							if(encoder == null) {
-								out.append(uri, nextPos, pos);
+							if(isLowerHex(ch2) || isLowerHex(ch3)) {
+								// Convert to uppercase hex
+								if(encoder == null) {
+									out.append(reserved);
+									out.append(upperHex(ch2));
+									out.append(upperHex(ch3));
+								} else {
+									encoder.append(reserved, out);
+									encoder.append(upperHex(ch2), out);
+									encoder.append(upperHex(ch3), out);
+								}
 							} else {
-								encoder.append(uri, nextPos, pos, out);
+								if(encoder == null) {
+									out.append(uri, nextPos, pos);
+								} else {
+									encoder.append(uri, nextPos, pos, out);
+								}
 							}
 						} else if(reserved == ' ') {
 							pos = nextPos + 1;
@@ -363,6 +398,9 @@ public class URIEncoder {
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
 	 * (or '%' for already percent-encoded).
 	 * <p>
+	 * Any existing lower-case percent-encoded values are normalized to upper-case.
+	 * </p>
+	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
 	 *
@@ -381,6 +419,9 @@ public class URIEncoder {
 	 * Encodes the characters in the URI, not including any characters defined in
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
 	 * (or '%' for already percent-encoded).
+	 * <p>
+	 * Any existing lower-case percent-encoded values are normalized to upper-case.
+	 * </p>
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
 	 * </p>
