@@ -139,7 +139,7 @@ import java.util.Objects;
  */
 public class AnyURI {
 
-	private final String uri;
+	final String uri;
 
 	/**
 	 * The length of the scheme or {@code -1} when there is no scheme.
@@ -185,7 +185,11 @@ public class AnyURI {
 		assert equals(new AnyURI(uri)) : "Split after mutations must be equal to splitting in public constructor";
 	}
 
-	AnyURI newAnyURI(String uri, int schemeLength, int queryIndex, int fragmentIndex) {
+	/**
+	 * Create a new object of this same type as this object.  This is used
+	 * by modifiers.
+	 */
+	AnyURI newAnyURI(String uri, boolean isEncodingNormalized, int schemeLength, int queryIndex, int fragmentIndex) {
 		return new AnyURI(uri, schemeLength, queryIndex, fragmentIndex);
 	}
 
@@ -373,7 +377,7 @@ public class AnyURI {
 		return sb;
 	}
 
-	// TODO: More details between scheme and path end
+	// TODO: More details between scheme and path end?
 
 	/**
 	 * Gets the path end within this URI.
@@ -766,33 +770,67 @@ public class AnyURI {
 	}
 
 	/**
-	 * @return  The new {@link URI} or {@code this} when unmodified.
+	 * Is this URI percent-encoding normalized?
+	 * Normalized percent encoding means it will have only the required percent encodings,
+	 * and the encodings are capitalized hexadecimal.
+	 * <p>
+	 * Note: This only refers to the percent encodings.  This is not related to
+	 * full {@linkplain java.net.URI#normalize() URI normalization}.
+	 * </p>
+	 */
+	public boolean isEncodingNormalized() {
+		return false;
+	}
+
+	volatile URI toURICache;
+
+	/**
+	 * Gets this URI encoded in <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
+	 * US-ASCII format.
+	 * <p>
+	 * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
+	 * Use {@link #toIRI()}.{@link IRI#toURI()} if consistent formatting is required.
+	 * </p>
+	 *
+	 * @return  The {@link URI} or {@code this} when unmodified.
 	 *
 	 * @see  URIEncoder#encodeURI(java.lang.String)
 	 */
 	public URI toURI() {
-		return new URI(uri);
+		URI toUri = toURICache;
+		if(toUri != null) return toUri;
+		toUri = new URI(uri, isEncodingNormalized());
+		toUri.toIRICache = toIRICache;
+		this.toURICache = toUri;
+		return toUri;
 	}
 
+	volatile IRI toIRICache;
+
 	/**
-	 * @return  The new {@link IRI} or {@code this} when unmodified.
+	 * Gets this URI encoded in <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>
+	 * Unicode format.
+	 *
+	 * @return  The {@link IRI} or {@code this} when unmodified.
 	 *
 	 * @see  URIDecoder#decodeURI(java.lang.String)
 	 */
 	public IRI toIRI() {
-		return new IRI(uri);
+		IRI toIri = toIRICache;
+		if(toIri != null) return toIri;
+		toIri = new IRI(uri);
+		// IRI.toURI() gives a more normalized output, which may be different than previously cached calls to AnyURI.toURI()
+		URI toUri = toURICache;
+		if(toUri != null && toUri.isEncodingNormalized()) {
+			toIri.toURICache = toUri;
+		}
+		this.toIRICache = toIri;
+		return toIri;
 	}
 
-	// TODO: setScheme
+	// TODO: setScheme?
 
-	/**
-	 * Replaces the hier-part.
-	 *
-	 * @param hierPart  The hier-part may not contain the query marker '?' or fragment marker '#'
-	 *
-	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
-	 */
-	public AnyURI setHierPart(String hierPart) {
+	AnyURI setHierPartImpl(String hierPart, boolean hierPartEncodingNormalized) {
 		final AnyURI newAnyURI;
 		int hierPartLen = hierPart.length();
 		int pathEnd = getPathEnd();
@@ -810,6 +848,7 @@ public class AnyURI {
 						// Hier-part only
 						newAnyURI = newAnyURI(
 							hierPart,
+							hierPartEncodingNormalized, // May promote to encoding normalized
 							-1,
 							-1,
 							-1
@@ -822,6 +861,7 @@ public class AnyURI {
 						assert newUri.length() == newUriLen;
 						newAnyURI = newAnyURI(
 							newUri.toString(),
+							hierPartEncodingNormalized, // May promote to encoding normalized; assuming schemas never percent-encoded
 							schemeLength,
 							-1,
 							-1
@@ -836,6 +876,7 @@ public class AnyURI {
 					assert newUri.length() == newUriLen;
 					newAnyURI = newAnyURI(
 						newUri.toString(),
+						hierPartEncodingNormalized && isEncodingNormalized(),
 						schemeLength,
 						-1,
 						schemeLength + 1 + hierPartLen
@@ -851,6 +892,7 @@ public class AnyURI {
 					// Query only
 					newAnyURI = newAnyURI(
 						newUri.toString(),
+						hierPartEncodingNormalized && isEncodingNormalized(),
 						schemeLength,
 						schemeLength + 1 + hierPartLen,
 						-1
@@ -859,6 +901,7 @@ public class AnyURI {
 					// Query and fragment
 					newAnyURI = newAnyURI(
 						newUri.toString(),
+						hierPartEncodingNormalized && isEncodingNormalized(),
 						schemeLength,
 						schemeLength + 1 + hierPartLen,
 						fragmentIndex + (schemeLength + 1 + hierPartLen - queryIndex)
@@ -871,15 +914,17 @@ public class AnyURI {
 	}
 
 	/**
-	 * Replaces the query string.
+	 * Replaces the hier-part.
 	 *
-	 * @param query  The query (not including the first '?') - it is added without additional encoding.
-	 *               The query is removed when the query is {@code null}.
-	 *               The query may not contain the fragment marker '#'
+	 * @param hierPart  The hier-part may not contain the query marker '?' or fragment marker '#'
 	 *
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
 	 */
-	public AnyURI setQueryString(String query) {
+	public AnyURI setHierPart(String hierPart) {
+		return setHierPartImpl(hierPart, false);
+	}
+
+	AnyURI setQueryStringImpl(String query, boolean queryEncodingNormalized) {
 		final AnyURI newAnyURI;
 		if(query == null) {
 			// Removing query
@@ -891,6 +936,7 @@ public class AnyURI {
 				if(fragmentIndex == -1) {
 					newAnyURI = newAnyURI(
 						uri.substring(0, queryIndex),
+						isEncodingNormalized(), // null query is always effectively normalized
 						schemeLength,
 						-1,
 						-1
@@ -903,6 +949,7 @@ public class AnyURI {
 					assert newUri.length() == newUriLen;
 					newAnyURI = newAnyURI(
 						newUri.toString(),
+						isEncodingNormalized(), // null query is always effectively normalized
 						schemeLength,
 						-1,
 						queryIndex
@@ -923,6 +970,7 @@ public class AnyURI {
 					assert newUri.length() == newUriLen;
 					newAnyURI = newAnyURI(
 						newUri.toString(),
+						queryEncodingNormalized && isEncodingNormalized(),
 						schemeLength,
 						uriLen,
 						-1
@@ -932,6 +980,7 @@ public class AnyURI {
 					assert newUri.length() == newUriLen;
 					newAnyURI = newAnyURI(
 						newUri.toString(),
+						queryEncodingNormalized && isEncodingNormalized(),
 						schemeLength,
 						fragmentIndex,
 						fragmentIndex + 1 + queryLen
@@ -957,6 +1006,7 @@ public class AnyURI {
 						assert newUri.length() == newUriLen;
 						newAnyURI = newAnyURI(
 							newUri.toString(),
+							queryEncodingNormalized && isEncodingNormalized(),
 							schemeLength,
 							queryIndex,
 							-1
@@ -966,6 +1016,7 @@ public class AnyURI {
 						assert newUri.length() == newUriLen;
 						newAnyURI = newAnyURI(
 							newUri.toString(),
+							queryEncodingNormalized && isEncodingNormalized(),
 							schemeLength,
 							queryIndex,
 							fragmentIndex - currentQueryLen + queryLen
@@ -978,7 +1029,20 @@ public class AnyURI {
 		return newAnyURI;
 	}
 
-	final AnyURI addQueryStringImpl(String query) {
+	/**
+	 * Replaces the query string.
+	 *
+	 * @param query  The query (not including the first '?') - it is added without additional encoding.
+	 *               The query is removed when the query is {@code null}.
+	 *               The query may not contain the fragment marker '#'
+	 *
+	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
+	 */
+	public AnyURI setQueryString(String query) {
+		return setQueryStringImpl(query, false);
+	}
+
+	final AnyURI addQueryStringImpl(String query, boolean queryEncodingNormalized) {
 		final AnyURI newAnyURI;
 		if(query == null) {
 			newAnyURI = this;
@@ -1017,6 +1081,7 @@ public class AnyURI {
 			assert newUri.length() == newUriLen;
 			newAnyURI = newAnyURI(
 				newUri.toString(),
+				queryEncodingNormalized && isEncodingNormalized(),
 				schemeLength,
 				newQueryIndex,
 				newFragmentIndex
@@ -1039,17 +1104,17 @@ public class AnyURI {
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
 	 */
 	public AnyURI addQueryString(String query) {
-		return addQueryStringImpl(query);
+		return addQueryStringImpl(query, false);
 	}
 
-	final AnyURI addEncodedParameterImpl(String encodedName, String encodedValue) {
+	final AnyURI addEncodedParameterImpl(String encodedName, String encodedValue, boolean queryEncodingNormalized) {
 		final AnyURI newAnyURI;
 		if(encodedName == null) {
 			if(encodedValue != null) throw new IllegalArgumentException("non-null value provided with null name: " + encodedValue);
 			newAnyURI = this;
 		} else {
 			if(encodedValue == null) {
-				newAnyURI = addQueryStringImpl(encodedName);
+				newAnyURI = addQueryStringImpl(encodedName, queryEncodingNormalized);
 			} else {
 				if(encodedName.indexOf('#') != -1) throw new IllegalArgumentException("name may not contain fragment marker (#): " + encodedName);
 				if(encodedValue.indexOf('#') != -1) throw new IllegalArgumentException("value may not contain fragment marker (#): " + encodedValue);
@@ -1087,6 +1152,7 @@ public class AnyURI {
 				assert newUri.length() == newUriLen;
 				newAnyURI = newAnyURI(
 					newUri.toString(),
+					queryEncodingNormalized && isEncodingNormalized(),
 					schemeLength,
 					newQueryIndex,
 					newFragmentIndex
@@ -1111,7 +1177,7 @@ public class AnyURI {
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
 	 */
 	public AnyURI addEncodedParameter(String encodedName, String encodedValue) {
-		return addEncodedParameterImpl(encodedName, encodedValue);
+		return addEncodedParameterImpl(encodedName, encodedValue, false);
 	}
 
 	/**
@@ -1130,7 +1196,8 @@ public class AnyURI {
 	public AnyURI addParameter(String name, String value) {
 		return addEncodedParameterImpl(
 			URIEncoder.encodeURIComponent(name),
-			URIEncoder.encodeURIComponent(value)
+			URIEncoder.encodeURIComponent(value),
+			true
 		);
 	}
 
@@ -1148,11 +1215,14 @@ public class AnyURI {
 		if(params == null) {
 			return this;
 		} else {
-			return addQueryStringImpl(URIParametersUtils.toQueryString(params));
+			return addQueryStringImpl(
+				URIParametersUtils.toQueryString(params),
+				true
+			);
 		}
 	}
 
-	final AnyURI setEncodedFragmentImpl(String encodedFragment) {
+	final AnyURI setEncodedFragmentImpl(String encodedFragment, boolean fragmentEncodingNormalized) {
 		final AnyURI newAnyURI;
 		if(encodedFragment == null) {
 			// Removing fragment
@@ -1163,6 +1233,7 @@ public class AnyURI {
 				// Remove the existing fragment
 				newAnyURI = newAnyURI(
 					uri.substring(0, fragmentIndex),
+					isEncodingNormalized(), // null fragment is always effectively normalized
 					schemeLength,
 					queryIndex,
 					-1
@@ -1179,6 +1250,7 @@ public class AnyURI {
 				assert newUri.length() == newUriLen;
 				newAnyURI = newAnyURI(
 					newUri.toString(),
+					fragmentEncodingNormalized && isEncodingNormalized(),
 					schemeLength,
 					queryIndex,
 					uriLen
@@ -1202,6 +1274,7 @@ public class AnyURI {
 					assert newUri.length() == newUriLen;
 					newAnyURI = newAnyURI(
 						newUri.toString(),
+						fragmentEncodingNormalized && isEncodingNormalized(),
 						schemeLength,
 						queryIndex,
 						fragmentIndex - currentFragmentLen + fragmentLen
@@ -1222,7 +1295,7 @@ public class AnyURI {
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
 	 */
 	public AnyURI setEncodedFragment(String encodedFragment) {
-		return setEncodedFragmentImpl(encodedFragment);
+		return setEncodedFragmentImpl(encodedFragment, false);
 	}
 
 	/**
@@ -1236,6 +1309,9 @@ public class AnyURI {
 	 * @return  The new {@link AnyURI} or {@code this} when unmodified.
 	 */
 	public AnyURI setFragment(String fragment) {
-		return setEncodedFragmentImpl(URIEncoder.encodeURIComponent(fragment));
+		return setEncodedFragmentImpl(
+			URIEncoder.encodeURIComponent(fragment),
+			true
+		);
 	}
 }

@@ -25,6 +25,16 @@ package com.aoindustries.net;
 /**
  * Implementation of {@link AnyURI} that is restricted to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a> only.
  * <p>
+ * This may have additional, unnecessary percent encodings, if they were present
+ * in the {@code anyUri} provided to the constructor.  If consistent formatting
+ * is required, use {@link IRI}.{@link IRI#toURI()}.  See {@link #isEncodingNormalized()}.
+ * </p>
+ * <p>
+ * Furthermore, there is no assumption about the query parameter encodings, and
+ * the query could, in theory, contain any arbitrary encoded data.  Existing
+ * encoded query data is maintained, as-is.
+ * </p>
+ * <p>
  * When a strict ASCII-only representation of a <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
  * is required, use {@link URI}.  When a Unicode representation of a <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>
  * is preferred, use {@link IRI}.  Otherwise, to support both, use {@link AnyURI}, which should also perform
@@ -36,18 +46,49 @@ package com.aoindustries.net;
 // TODO: Add tests
 public class URI extends AnyURI {
 
+	private final boolean isEncodingNormalized;
+
+	/**
+	 * {@linkplain URIEncoder#encodeURI(java.lang.String) Encodes} the given
+	 * {@code anyUri} for this {@link URI}.
+	 */
 	public URI(String anyUri) {
-		super(URIEncoder.encodeURI(anyUri));
+		this(anyUri, false);
 	}
 
-	private URI(String uri, int schemeLength, int queryIndex, int fragmentIndex) {
+	URI(String anyUri, boolean isEncodingNormalized) {
+		super(URIEncoder.encodeURI(anyUri));
+		this.isEncodingNormalized = isEncodingNormalized;
+		this.toURICache = this;
+		if(isEncodingNormalized) {
+			assert this.uri.equals(URIEncoder.encodeURI(URIDecoder.decodeURI(anyUri))) : "URI is not already percent-encoding normalized: " + anyUri;
+		}
+	}
+
+	private URI(String uri, boolean isEncodingNormalized, int schemeLength, int queryIndex, int fragmentIndex) {
 		super(uri, schemeLength, queryIndex, fragmentIndex);
+		this.isEncodingNormalized = isEncodingNormalized;
+		this.toURICache = this;
 		assert uri.equals(URIEncoder.encodeURI(uri)) : "uri is not already encoded: " + uri;
+		if(isEncodingNormalized) {
+			assert this.uri.equals(URIEncoder.encodeURI(URIDecoder.decodeURI(uri))) : "URI is not already percent-encoding normalized: " + uri;
+		}
 	}
 
 	@Override
-	URI newAnyURI(String uri, int schemeLength, int queryIndex, int fragmentIndex) {
-		return new URI(uri, schemeLength, queryIndex, fragmentIndex);
+	URI newAnyURI(String uri, boolean isEncodingNormalized, int schemeLength, int queryIndex, int fragmentIndex) {
+		return new URI(uri, isEncodingNormalized, schemeLength, queryIndex, fragmentIndex);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return  {@code true} when this was derived from an {@link IRI}, which are always encoding normalized.
+	 *          {@code false} otherwise, since the percent-encoding normalization status is unknown.
+	 */
+	@Override
+	public boolean isEncodingNormalized() {
+		return isEncodingNormalized;
 	}
 
 	/**
@@ -60,26 +101,37 @@ public class URI extends AnyURI {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return  The {@link IRI}.
+	 */
+	@Override
+	public IRI toIRI() {
+		return super.toIRI();
+	}
+
 	@Override
 	public URI setHierPart(String hierPart) {
-		return (URI)super.setHierPart(URIEncoder.encodeURI(hierPart));
+		return (URI)super.setHierPartImpl(URIEncoder.encodeURI(hierPart), false);
 	}
 
 	@Override
 	public URI setQueryString(String query) {
-		return (URI)super.setQueryString(URIEncoder.encodeURI(query));
+		return (URI)super.setQueryStringImpl(URIEncoder.encodeURI(query), false);
 	}
 
 	@Override
 	public URI addQueryString(String query) {
-		return (URI)super.addQueryStringImpl(URIEncoder.encodeURI(query));
+		return (URI)super.addQueryStringImpl(URIEncoder.encodeURI(query), false);
 	}
 
 	@Override
 	public URI addEncodedParameter(String encodedName, String encodedValue) {
 		return (URI)super.addEncodedParameterImpl(
 			URIEncoder.encodeURI(encodedName),
-			URIEncoder.encodeURI(encodedValue)
+			URIEncoder.encodeURI(encodedValue),
+			false
 		);
 	}
 
@@ -95,7 +147,7 @@ public class URI extends AnyURI {
 
 	@Override
 	public URI setEncodedFragment(String encodedFragment) {
-		return (URI)super.setEncodedFragmentImpl(URIEncoder.encodeURI(encodedFragment));
+		return (URI)super.setEncodedFragmentImpl(URIEncoder.encodeURI(encodedFragment), false);
 	}
 
 	@Override

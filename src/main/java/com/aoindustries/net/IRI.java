@@ -28,6 +28,14 @@ import java.nio.charset.StandardCharsets;
 /**
  * Implementation of {@link AnyURI} that prefers <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>.
  * <p>
+ * This has consistently formatted percent encodings.
+ * </p>
+ * <p>
+ * Furthermore, this assumes UTF-8 encoding for the query parameters.
+ * If the query parameters include any arbitrary encoded data, use
+ * {@link AnyURI} or {@link URI} instead.
+ * </p>
+ * <p>
  * When a strict ASCII-only representation of a <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
  * is required, use {@link URI}.  When a Unicode representation of a <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>
  * is preferred, use {@link IRI}.  Otherwise, to support both, use {@link AnyURI}, which should also perform
@@ -47,16 +55,44 @@ public class IRI extends AnyURI {
 
 	public IRI(String anyUri) {
 		super(URIDecoder.decodeURI(anyUri));
+		this.toIRICache = this;
 	}
 
 	private IRI(String iri, int schemeLength, int queryIndex, int fragmentIndex) {
 		super(iri, schemeLength, queryIndex, fragmentIndex);
+		this.toIRICache = this;
 		assert iri.equals(URIDecoder.decodeURI(iri)) : "iri is not already decoded: " + iri;
 	}
 
 	@Override
-	IRI newAnyURI(String uri, int schemeLength, int queryIndex, int fragmentIndex) {
+	IRI newAnyURI(String uri, boolean isEncodingNormalized, int schemeLength, int queryIndex, int fragmentIndex) {
+		assert isEncodingNormalized : IRI.class.getSimpleName() + " are always encoding normalized";
 		return new IRI(uri, schemeLength, queryIndex, fragmentIndex);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return  {@code true} - {@link IRI} are always encoding normalized.
+	 */
+	@Override
+	public boolean isEncodingNormalized() {
+		return true;
+	}
+
+	/**
+	 * Gets this URI encoded in <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
+	 * US-ASCII format.
+	 * <p>
+	 * This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+	 * and contain consistently formatted percent encodings.
+	 * </p>
+	 *
+	 * @return  The {@link URI}.
+	 */
+	@Override
+	public URI toURI() {
+		return super.toURI();
 	}
 
 	/**
@@ -71,24 +107,25 @@ public class IRI extends AnyURI {
 
 	@Override
 	public IRI setHierPart(String hierPart) {
-		return (IRI)super.setHierPart(URIDecoder.decodeURI(hierPart));
+		return (IRI)super.setHierPartImpl(URIDecoder.decodeURI(hierPart), true);
 	}
 
 	@Override
 	public IRI setQueryString(String query) {
-		return (IRI)super.setQueryString(URIDecoder.decodeURI(query));
+		return (IRI)super.setQueryStringImpl(URIDecoder.decodeURI(query), true);
 	}
 
 	@Override
 	public IRI addQueryString(String query) {
-		return (IRI)super.addQueryStringImpl(URIDecoder.decodeURI(query));
+		return (IRI)super.addQueryStringImpl(URIDecoder.decodeURI(query), true);
 	}
 
 	@Override
 	public IRI addEncodedParameter(String encodedName, String encodedValue) {
 		return (IRI)super.addEncodedParameterImpl(
 			URIDecoder.decodeURI(encodedName),
-			URIDecoder.decodeURI(encodedValue)
+			URIDecoder.decodeURI(encodedValue),
+			true
 		);
 	}
 
@@ -97,7 +134,8 @@ public class IRI extends AnyURI {
 		return (IRI)addEncodedParameterImpl(
 			// TODO: encodeIRIComponent to do this in one shot?
 			URIDecoder.decodeURI(URIEncoder.encodeURIComponent(name)),
-			URIDecoder.decodeURI(URIEncoder.encodeURIComponent(value))
+			URIDecoder.decodeURI(URIEncoder.encodeURIComponent(value)),
+			true
 		);
 	}
 
@@ -106,18 +144,24 @@ public class IRI extends AnyURI {
 		if(params == null) {
 			return this;
 		} else {
-			return (IRI)addQueryStringImpl(URIDecoder.decodeURI(URIParametersUtils.toQueryString(params)));
+			return (IRI)addQueryStringImpl(
+				URIDecoder.decodeURI(URIParametersUtils.toQueryString(params)),
+				true
+			);
 		}
 	}
 
 	@Override
 	public IRI setEncodedFragment(String encodedFragment) {
-		return (IRI)super.setEncodedFragmentImpl(URIDecoder.decodeURI(encodedFragment));
+		return (IRI)super.setEncodedFragmentImpl(URIDecoder.decodeURI(encodedFragment), true);
 	}
 
 	@Override
 	public IRI setFragment(String fragment) {
-		// TODO: encodeIRIComponent to do this in one shot?
-		return (IRI)setEncodedFragmentImpl(URIDecoder.decodeURI(URIEncoder.encodeURIComponent(fragment)));
+		return (IRI)setEncodedFragmentImpl(
+			// TODO: encodeIRIComponent to do this in one shot?
+			URIDecoder.decodeURI(URIEncoder.encodeURIComponent(fragment)),
+			true
+		);
 	}
 }
