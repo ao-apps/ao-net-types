@@ -111,6 +111,7 @@ public class URIEncoder {
 	 *
 	 * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
 	 */
+	// TODO: Swap order of out/encoder for cosistency with other APIs
 	public static void encodeURIComponent(String s, Appendable out, Encoder encoder) throws IOException {
 		try {
 			if(s != null) {
