@@ -22,6 +22,9 @@
  */
 package com.aoindustries.net;
 
+import com.aoindustries.io.Encoder;
+import java.io.IOException;
+
 /**
  * Implementation of {@link AnyURI} that is restricted to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a> only.
  * <p>
@@ -78,6 +81,54 @@ public class URI extends AnyURI {
 	@Override
 	URI newAnyURI(String uri, boolean isEncodingNormalized, int schemeLength, int queryIndex, int fragmentIndex) {
 		return new URI(uri, isEncodingNormalized, schemeLength, queryIndex, fragmentIndex);
+	}
+
+	@Override
+	public URI appendScheme(Appendable out) throws IOException {
+		super.appendScheme(out);
+		return this;
+	}
+
+	@Override
+	public URI appendScheme(Appendable out, Encoder encoder) throws IOException {
+		super.appendScheme(out, encoder);
+		return this;
+	}
+
+	@Override
+	public URI appendHierPart(Appendable out) throws IOException {
+		super.appendHierPart(out);
+		return this;
+	}
+
+	@Override
+	public URI appendHierPart(Appendable out, Encoder encoder) throws IOException {
+		super.appendHierPart(out, encoder);
+		return this;
+	}
+
+	@Override
+	public URI appendQueryString(Appendable out) throws IOException {
+		super.appendQueryString(out);
+		return this;
+	}
+
+	@Override
+	public URI appendQueryString(Appendable out, Encoder encoder) throws IOException {
+		super.appendQueryString(out, encoder);
+		return this;
+	}
+
+	@Override
+	public URI appendFragment(Appendable out) throws IOException {
+		super.appendFragment(out);
+		return this;
+	}
+
+	@Override
+	public URI appendFragment(Appendable out, Encoder encoder) throws IOException {
+		super.appendFragment(out, encoder);
+		return this;
 	}
 
 	/**

@@ -22,6 +22,8 @@
  */
 package com.aoindustries.net;
 
+import com.aoindustries.io.Encoder;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -68,6 +70,54 @@ public class IRI extends AnyURI {
 	IRI newAnyURI(String uri, boolean isEncodingNormalized, int schemeLength, int queryIndex, int fragmentIndex) {
 		assert isEncodingNormalized : IRI.class.getSimpleName() + " are always encoding normalized";
 		return new IRI(uri, schemeLength, queryIndex, fragmentIndex);
+	}
+
+	@Override
+	public IRI appendScheme(Appendable out) throws IOException {
+		super.appendScheme(out);
+		return this;
+	}
+
+	@Override
+	public IRI appendScheme(Appendable out, Encoder encoder) throws IOException {
+		super.appendScheme(out, encoder);
+		return this;
+	}
+
+	@Override
+	public IRI appendHierPart(Appendable out) throws IOException {
+		super.appendHierPart(out);
+		return this;
+	}
+
+	@Override
+	public IRI appendHierPart(Appendable out, Encoder encoder) throws IOException {
+		super.appendHierPart(out, encoder);
+		return this;
+	}
+
+	@Override
+	public IRI appendQueryString(Appendable out) throws IOException {
+		super.appendQueryString(out);
+		return this;
+	}
+
+	@Override
+	public IRI appendQueryString(Appendable out, Encoder encoder) throws IOException {
+		super.appendQueryString(out, encoder);
+		return this;
+	}
+
+	@Override
+	public IRI appendFragment(Appendable out) throws IOException {
+		super.appendFragment(out);
+		return this;
+	}
+
+	@Override
+	public IRI appendFragment(Appendable out, Encoder encoder) throws IOException {
+		super.appendFragment(out, encoder);
+		return this;
 	}
 
 	/**

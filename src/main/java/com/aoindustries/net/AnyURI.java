@@ -327,22 +327,21 @@ public class AnyURI {
 	/**
 	 * Appends the scheme (not including the ':').
 	 *
-	 * @return  The {@link Appendable} {@code out}
+	 * @return  {@code this}
 	 */
-	// TODO: Return "this" in all appendables?
-	public <A extends Appendable> A appendScheme(A out) throws IOException {
+	public AnyURI appendScheme(Appendable out) throws IOException {
 		if(schemeLength != -1) {
 			out.append(uri, 0, schemeLength);
 		}
-		return out;
+		return this;
 	}
 
 	/**
 	 * Appends the scheme (not including the ':').
 	 *
-	 * @return  The {@link Appendable} {@code out}
+	 * @return  {@code this}
 	 */
-	public <A extends Appendable> A appendScheme(A out, Encoder encoder) throws IOException {
+	public AnyURI appendScheme(Appendable out, Encoder encoder) throws IOException {
 		if(schemeLength != -1) {
 			if(encoder == null) {
 				appendScheme(out);
@@ -350,7 +349,7 @@ public class AnyURI {
 				encoder.append(uri, 0, schemeLength, out);
 			}
 		}
-		return out;
+		return this;
 	}
 
 	/**
@@ -476,22 +475,22 @@ public class AnyURI {
 	/**
 	 * Appends the part of the URI after the scheme and up to the first '?' or '#' (exclusive), or the full URI when neither found.
 	 *
-	 * @return  The {@link Appendable} {@code out}
+	 * @return  {@code this}
 	 */
-	public <A extends Appendable> A appendHierPart(A out) throws IOException {
+	public AnyURI appendHierPart(Appendable out) throws IOException {
 		if(queryIndex != -1) out.append(uri, schemeLength + 1, queryIndex);
 		else if(fragmentIndex != -1) out.append(uri, schemeLength + 1, fragmentIndex);
 		else if(schemeLength == -1) out.append(uri);
 		else out.append(uri, schemeLength + 1, uri.length());
-		return out;
+		return this;
 	}
 
 	/**
 	 * Appends the part of the URI after the scheme and up to the first '?' or '#' (exclusive), or the full URI when neither found.
 	 *
-	 * @return  The {@link Appendable} {@code out}
+	 * @return  {@code this}
 	 */
-	public <A extends Appendable> A appendHierPart(A out, Encoder encoder) throws IOException {
+	public AnyURI appendHierPart(Appendable out, Encoder encoder) throws IOException {
 		if(encoder == null) {
 			appendHierPart(out);
 		} else {
@@ -500,7 +499,7 @@ public class AnyURI {
 			else if(schemeLength == -1) encoder.append(uri, out);
 			else encoder.append(uri, schemeLength + 1, uri.length(), out);
 		}
-		return out;
+		return this;
 	}
 
 	/**
@@ -598,9 +597,9 @@ public class AnyURI {
 	/**
 	 * Appends the query string (not including the '?').
 	 *
-	 * @return  The {@link Appendable} {@code out}
+	 * @return  {@code this}
 	 */
-	public <A extends Appendable> A appendQueryString(A out) throws IOException {
+	public AnyURI appendQueryString(Appendable out) throws IOException {
 		if(queryIndex != -1) {
 			out.append(
 				uri,
@@ -608,15 +607,15 @@ public class AnyURI {
 				fragmentIndex == -1 ? uri.length() : fragmentIndex
 			);
 		}
-		return out;
+		return this;
 	}
 
 	/**
 	 * Appends the query string (not including the '?').
 	 *
-	 * @return  The {@link Appendable} {@code out}
+	 * @return  {@code this}
 	 */
-	public <A extends Appendable> A appendQueryString(A out, Encoder encoder) throws IOException {
+	public AnyURI appendQueryString(Appendable out, Encoder encoder) throws IOException {
 		if(queryIndex != -1) {
 			if(encoder == null) {
 				appendQueryString(out);
@@ -629,7 +628,7 @@ public class AnyURI {
 				);
 			}
 		}
-		return out;
+		return this;
 	}
 
 	/**
@@ -720,21 +719,21 @@ public class AnyURI {
 	/**
 	 * Appends the fragment (not including the '#').
 	 *
-	 * @return  The {@link Appendable} {@code out}
+	 * @return  {@code this}
 	 */
-	public <A extends Appendable> A appendFragment(A out) throws IOException {
+	public AnyURI appendFragment(Appendable out) throws IOException {
 		if(fragmentIndex != -1) {
 			out.append(uri, fragmentIndex + 1, uri.length());
 		}
-		return out;
+		return this;
 	}
 
 	/**
 	 * Appends the fragment (not including the '#').
 	 *
-	 * @return  The {@link Appendable} {@code out}
+	 * @return  {@code this}
 	 */
-	public <A extends Appendable> A appendFragment(A out, Encoder encoder) throws IOException {
+	public AnyURI appendFragment(Appendable out, Encoder encoder) throws IOException {
 		if(fragmentIndex != -1) {
 			if(encoder == null) {
 				AnyURI.this.appendFragment(out);
@@ -742,7 +741,7 @@ public class AnyURI {
 				encoder.append(uri, fragmentIndex + 1, uri.length(), out);
 			}
 		}
-		return out;
+		return this;
 	}
 
 	/**
