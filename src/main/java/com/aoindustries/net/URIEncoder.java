@@ -270,6 +270,13 @@ public class URIEncoder {
 		rfc3986ReservedCharacters_percent_and_space.set(' ');
 	}
 
+	private static boolean isHex(char ch) {
+		return
+			(ch >= '0' && ch <= '9')
+			|| (ch >= 'a' && ch <= 'f')
+			|| (ch >= 'A' && ch <= 'F');
+	}
+
 	/**
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
@@ -313,21 +320,35 @@ public class URIEncoder {
 							// Old with second check for space -> '+' -> "%20":
 							// encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
 						}
-						char reserved = uri.charAt(nextPos++);
-						if(reserved == ' ') {
+						char reserved = uri.charAt(nextPos);
+						if(
+							reserved == '%'
+							&& (nextPos + 2) < len
+							&& isHex(uri.charAt(nextPos + 1))
+							&& isHex(uri.charAt(nextPos + 2))
+						) {
+							// Short-cut already percent-encoded
+							pos = nextPos + 3;
+							if(encoder == null) {
+								out.append(uri, nextPos, pos);
+							} else {
+								encoder.append(uri, nextPos, pos, out);
+							}
+						} else if(reserved == ' ') {
+							pos = nextPos + 1;
 							if(encoder == null) {
 								out.append("%20");
 							} else {
 								encoder.append("%20", out);
 							}
 						} else {
+							pos = nextPos + 1;
 							if(encoder == null) {
 								out.append(reserved);
 							} else {
 								encoder.append(reserved, out);
 							}
 						}
-						pos = nextPos;
 					}
 				}
 			} catch(UnsupportedEncodingException e) {
