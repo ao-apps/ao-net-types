@@ -170,49 +170,4 @@ class RFC3986 {
 		if(ch >= 'A' && ch <= 'Z') ch += 'a' - 'A';
 		return ch;
 	}
-
-	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a>:
-	 * <blockquote>
-	 * […] when found in a URI, should be decoded to their
-	 * corresponding unreserved characters by URI normalizers.
-	 * </blockquote>
-	 *
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.4">When to Encode or Decode</a>:
-	 * <blockquote>
-	 * The only exception is for
-	 * percent-encoded octets corresponding to characters in the unreserved
-	 * set, which can be decoded at any time.
-	 * </blockquote>
-	 *
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-3.1">Scheme</a>:
-	 * <blockquote>
-	 * An implementation should accept uppercase letters as equivalent to
-	 * lowercase in scheme names […] but should only produce lowercase scheme
-	 * names for consistency.
-	 * </blockquote>
-	 *
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-3.2.2">Host</a>:
-	 * <blockquote>
-	 * Although host
-	 * is case-insensitive, producers and normalizers should use lowercase
-	 * for registered names and hexadecimal addresses for the sake of
-	 * uniformity, while only using uppercase letters for percent-encodings.
-	 * </blockquote>
-	 *
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-3.2.3">Port</a>:
-	 * <blockquote>
-	 * URI producers and
-	 * normalizers should omit the port component and its ":" delimiter if
-	 * port is empty or if its value would be the same as that of the
-	 * scheme's default.
-	 * </blockquote>
-	 */
-	@SuppressWarnings("deprecation")
-	static String normalize(String uri) {
-		throw new com.aoindustries.lang.NotImplementedException("TODO: We're probably not going to implement full normalization");
-	}
-
-	// TODO: https://tools.ietf.org/html/rfc3986#section-3.2.2: This is the only place where
-	// square bracket characters are allowed in the URI syntax.
 }
