@@ -30,7 +30,7 @@ import java.io.IOException;
  * <p>
  * This may have additional, unnecessary percent encodings, if they were present
  * in the {@code anyUri} provided to the constructor.  If consistent formatting
- * is required, use {@link IRI}.{@link IRI#toURI()}.  See {@link #isEncodingNormalized()}.
+ * is required, use {@link IRI}.{@link IRI#toURI() toURI()}.  See {@link #isEncodingNormalized()}.
  * </p>
  * <p>
  * Furthermore, there is no assumption about the query parameter encodings, and
@@ -55,6 +55,7 @@ public class URI extends AnyURI {
 	 * {@linkplain URIEncoder#encodeURI(java.lang.String) Encodes} the given
 	 * {@code anyUri} for this {@link URI}.
 	 */
+	// TODO: Thread-local AnyURI/URI/IRI LRU instance caches, getIRI(String) instead of constructor?
 	public URI(String anyUri) {
 		this(anyUri, false);
 	}
@@ -81,6 +82,20 @@ public class URI extends AnyURI {
 	@Override
 	URI newAnyURI(String uri, boolean isEncodingNormalized, int schemeLength, int queryIndex, int fragmentIndex) {
 		return new URI(uri, isEncodingNormalized, schemeLength, queryIndex, fragmentIndex);
+	}
+
+	/**
+	 * Gets the full URI in <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
+	 * US-ASCII format.
+	 * <p>
+	 * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
+	 * Use {@link #toIRI()}.{@link IRI#toString() toString()} or {@link #toIRI()}.{@link IRI#toURI() toURI()}.{@link URI#toString() toString()}
+	 * if consistent formatting is required.
+	 * </p>
+	 */
+	@Override
+	public String toString() {
+		return uri;
 	}
 
 	@Override

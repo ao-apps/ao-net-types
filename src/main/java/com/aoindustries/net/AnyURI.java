@@ -156,6 +156,7 @@ public class AnyURI {
 	 */
 	private final int fragmentIndex;
 
+	// TODO: Thread-local AnyURI/URI/IRI LRU instance caches, getIRI(String) instead of constructor?
 	public AnyURI(String uri) {
 		this.uri = uri;
 		schemeLength = URIParser.getSchemeLength(uri);
@@ -195,6 +196,16 @@ public class AnyURI {
 
 	/**
 	 * Gets the full URI.
+	 * <p>
+	 * This may be a mixture of <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
+	 * US-ASCII and <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a> Unicode
+	 * formats.
+	 * </p>
+	 * <p>
+	 * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
+	 * Use {@link #toIRI()}.{@link IRI#toString() toString()} or {@link #toIRI()}.{@link IRI#toURI() toURI()}.{@link URI#toString() toString()}
+	 * if consistent formatting is required.
+	 * </p>
 	 */
 	@Override
 	public String toString() {
@@ -788,7 +799,7 @@ public class AnyURI {
 	 * US-ASCII format.
 	 * <p>
 	 * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
-	 * Use {@link #toIRI()}.{@link IRI#toURI()} if consistent formatting is required.
+	 * Use {@link #toIRI()}.{@link IRI#toURI() toURI()} if consistent formatting is required.
 	 * </p>
 	 *
 	 * @return  The {@link URI} or {@code this} when unmodified.

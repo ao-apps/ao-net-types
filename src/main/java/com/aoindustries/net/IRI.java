@@ -55,6 +55,7 @@ public class IRI extends AnyURI {
 	 */
 	public static final Charset ENCODING = StandardCharsets.UTF_8;
 
+	// TODO: Thread-local AnyURI/URI/IRI LRU instance caches, getIRI(String) instead of constructor?
 	public IRI(String anyUri) {
 		super(URIDecoder.decodeURI(anyUri));
 		this.toIRICache = this;
@@ -70,6 +71,19 @@ public class IRI extends AnyURI {
 	IRI newAnyURI(String uri, boolean isEncodingNormalized, int schemeLength, int queryIndex, int fragmentIndex) {
 		assert isEncodingNormalized : IRI.class.getSimpleName() + " are always encoding normalized";
 		return new IRI(uri, schemeLength, queryIndex, fragmentIndex);
+	}
+
+	/**
+	 * Gets the full IRI in <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>
+	 * Unicode format.
+	 * <p>
+	 * This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+	 * and contain consistently formatted percent encodings.
+	 * </p>
+	 */
+	@Override
+	public String toString() {
+		return super.toString();
 	}
 
 	@Override
