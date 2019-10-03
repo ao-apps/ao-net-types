@@ -185,12 +185,9 @@ public class URIEncoder {
 		if(uri == null) return null;
 		StringBuilder sb = new StringBuilder(uri.length() + 16);
 		encodeURI(uri, sb);
-		if(sb.length() == uri.length()) {
-			assert uri.equals(sb.toString());
-			return uri;
-		} else {
-			return sb.toString();
-		}
+		String encoded = sb.toString();
+		// Hex case may have changed during encode, leaving altered but same length
+		return uri.equals(encoded) ? uri : encoded;
 	}
 
 	/**
