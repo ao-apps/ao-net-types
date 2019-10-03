@@ -99,6 +99,11 @@ public class URI extends AnyURI {
 	}
 
 	@Override
+	public String toASCIIString() {
+		return uri;
+	}
+
+	@Override
 	public URI appendScheme(Appendable out) throws IOException {
 		super.appendScheme(out);
 		return this;

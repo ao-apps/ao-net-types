@@ -86,6 +86,19 @@ public class IRI extends AnyURI {
 		return super.toString();
 	}
 
+	/**
+	 * Gets the full URI in <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
+	 * US-ASCII format.
+	 * <p>
+	 * This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+	 * and contain consistently formatted percent encodings.
+	 * </p>
+	 */
+	@Override
+	public String toASCIIString() {
+		return super.toASCIIString();
+	}
+
 	@Override
 	public IRI appendScheme(Appendable out) throws IOException {
 		super.appendScheme(out);

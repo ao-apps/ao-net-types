@@ -213,6 +213,19 @@ public class AnyURI {
 	}
 
 	/**
+	 * Gets the full URI in <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
+	 * US-ASCII format.
+	 * <p>
+	 * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
+	 * Use {@link #toIRI()}.{@link IRI#toASCIIString() toASCIIString()}
+	 * if consistent formatting is required.
+	 * </p>
+	 */
+	public String toASCIIString() {
+		return toURI().toASCIIString();
+	}
+
+	/**
 	 * Compares the {@link #uri URI} directly.  No encoding or decoding
 	 * is performed.  This does not compare URIs semantically.
 	 */
