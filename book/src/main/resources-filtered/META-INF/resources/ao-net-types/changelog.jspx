@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2019-10-04T05:53:41-0500"
+		dateModified="2019-10-04T08:35:08-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -88,7 +88,6 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				</li>
 				<li>All implementations of <code>URIParameters.toString()</code> now encode a query string in UTF-8.</li>
 				<li>New method <code>MutableURIParameters.addParameters(String, Iterable)</code> to add multiple values at once.</li>
-				<li>New enum <code>URIComponent</code> used to encode different types of URI components.</li>
 				<li>No longer URL rewriting <code>file:</code> and <code>data:</code> URLs.</li>
 			</ul>
 		</changelog:release>
