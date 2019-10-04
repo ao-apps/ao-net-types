@@ -38,7 +38,7 @@ public class URIResolver {
 	/**
 	 * Converts a possibly-relative path to a context-relative absolute path.
 	 * Resolves ./ and ../ at the beginning of the URL but not in the middle of the URL. (TODO: Resolve in middle, too)
-	 * If the URL begins with http:, https:, file:, javascript:, mailto:, telnet:, tel:, cid:, file:, or data:, (case-insensitive) it is not altered.
+	 * If the URL begins with http:, https:, javascript:, mailto:, telnet:, tel:, cid:, file:, or data:, (case-insensitive) it is not altered.
 	 *
 	 * @param  servletPath  Required when path might be altered.
 	 */
@@ -50,7 +50,6 @@ public class URIResolver {
 			&& firstChar != '#' // Skip anchor-only paths
 			&& !URIParser.isScheme(relativeUrlPath, "http")
 			&& !URIParser.isScheme(relativeUrlPath, "https")
-			&& !URIParser.isScheme(relativeUrlPath, "file")
 			&& !URIParser.isScheme(relativeUrlPath, "javascript")
 			&& !URIParser.isScheme(relativeUrlPath, "mailto")
 			&& !URIParser.isScheme(relativeUrlPath, "telnet")
