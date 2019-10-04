@@ -32,6 +32,9 @@ import java.util.BitSet;
  * <a href="https://github.com/xbib/net>org.xbib:net-url</a>?
  * <a href="https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/utils/URIBuilder.html">URIBuilder</a>?
  * </p>
+ * <p>
+ * TODO: Base on <a href="https://url.spec.whatwg.org/">URL Standard</a>, once stabilized and ubiquitous.
+ * </p>
  *
  * @author  AO Industries, Inc.
  */
