@@ -25,7 +25,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.5.0-POST-SNAPSHOT</version>
+		<groupId>com.aoindustries</groupId><artifactId>ao-oss-parent</artifactId><version>1.5.0<!-- -POST-SNAPSHOT --></version>
 		<relativePath>../ao-oss-parent/pom.xml</relativePath>
 	</parent>
 
@@ -117,14 +117,14 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>junit</groupId><artifactId>junit</artifactId><version>4.12</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-encoding</artifactId><version>2.0.0-POST-SNAPSHOT</version>
+				<groupId>com.aoindustries</groupId><artifactId>ao-encoding</artifactId><version>2.0.0<!-- -POST-SNAPSHOT --></version>
 			</dependency>
 			<!-- Direct -->
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>3.2.0-POST-SNAPSHOT</version>
+				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>3.2.0<!-- -POST-SNAPSHOT --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-tlds</artifactId><version>1.1.2-POST-SNAPSHOT</version>
+				<groupId>com.aoindustries</groupId><artifactId>ao-tlds</artifactId><version>1.1.2<!-- -POST-SNAPSHOT --></version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
