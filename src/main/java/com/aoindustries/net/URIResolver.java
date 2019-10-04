@@ -38,7 +38,7 @@ public class URIResolver {
 	/**
 	 * Converts a possibly-relative path to a context-relative absolute path.
 	 * Resolves ./ and ../ at the beginning of the URL but not in the middle of the URL. (TODO: Resolve in middle, too)
-	 * If the URL begins with http:, https:, file:, javascript:, mailto:, telnet:, tel:, or cid:, (case-insensitive) it is not altered.
+	 * If the URL begins with http:, https:, file:, javascript:, mailto:, telnet:, tel:, cid:, file:, or data:, (case-insensitive) it is not altered.
 	 *
 	 * @param  servletPath  Required when path might be altered.
 	 */
@@ -56,6 +56,8 @@ public class URIResolver {
 			&& !URIParser.isScheme(relativeUrlPath, "telnet")
 			&& !URIParser.isScheme(relativeUrlPath, "tel")
 			&& !URIParser.isScheme(relativeUrlPath, "cid")
+			&& !URIParser.isScheme(relativeUrlPath, "file")
+			&& !URIParser.isScheme(relativeUrlPath, "data")
 		) {
 			NullArgumentException.checkNotNull(servletPath, "servletPath");
 			int slashPos = servletPath.lastIndexOf('/');
