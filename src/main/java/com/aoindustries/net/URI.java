@@ -110,8 +110,8 @@ public class URI extends AnyURI {
 	}
 
 	@Override
-	public URI appendScheme(Appendable out, Encoder encoder) throws IOException {
-		super.appendScheme(out, encoder);
+	public URI appendScheme(Encoder encoder, Appendable out) throws IOException {
+		super.appendScheme(encoder, out);
 		return this;
 	}
 
@@ -122,8 +122,8 @@ public class URI extends AnyURI {
 	}
 
 	@Override
-	public URI appendHierPart(Appendable out, Encoder encoder) throws IOException {
-		super.appendHierPart(out, encoder);
+	public URI appendHierPart(Encoder encoder, Appendable out) throws IOException {
+		super.appendHierPart(encoder, out);
 		return this;
 	}
 
@@ -134,8 +134,8 @@ public class URI extends AnyURI {
 	}
 
 	@Override
-	public URI appendQueryString(Appendable out, Encoder encoder) throws IOException {
-		super.appendQueryString(out, encoder);
+	public URI appendQueryString(Encoder encoder, Appendable out) throws IOException {
+		super.appendQueryString(encoder, out);
 		return this;
 	}
 
@@ -146,8 +146,8 @@ public class URI extends AnyURI {
 	}
 
 	@Override
-	public URI appendFragment(Appendable out, Encoder encoder) throws IOException {
-		super.appendFragment(out, encoder);
+	public URI appendFragment(Encoder encoder, Appendable out) throws IOException {
+		super.appendFragment(encoder, out);
 		return this;
 	}
 

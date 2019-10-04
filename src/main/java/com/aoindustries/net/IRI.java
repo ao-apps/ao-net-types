@@ -106,8 +106,8 @@ public class IRI extends AnyURI {
 	}
 
 	@Override
-	public IRI appendScheme(Appendable out, Encoder encoder) throws IOException {
-		super.appendScheme(out, encoder);
+	public IRI appendScheme(Encoder encoder, Appendable out) throws IOException {
+		super.appendScheme(encoder, out);
 		return this;
 	}
 
@@ -118,8 +118,8 @@ public class IRI extends AnyURI {
 	}
 
 	@Override
-	public IRI appendHierPart(Appendable out, Encoder encoder) throws IOException {
-		super.appendHierPart(out, encoder);
+	public IRI appendHierPart(Encoder encoder, Appendable out) throws IOException {
+		super.appendHierPart(encoder, out);
 		return this;
 	}
 
@@ -130,8 +130,8 @@ public class IRI extends AnyURI {
 	}
 
 	@Override
-	public IRI appendQueryString(Appendable out, Encoder encoder) throws IOException {
-		super.appendQueryString(out, encoder);
+	public IRI appendQueryString(Encoder encoder, Appendable out) throws IOException {
+		super.appendQueryString(encoder, out);
 		return this;
 	}
 
@@ -142,8 +142,8 @@ public class IRI extends AnyURI {
 	}
 
 	@Override
-	public IRI appendFragment(Appendable out, Encoder encoder) throws IOException {
-		super.appendFragment(out, encoder);
+	public IRI appendFragment(Encoder encoder, Appendable out) throws IOException {
+		super.appendFragment(encoder, out);
 		return this;
 	}
 

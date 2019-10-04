@@ -103,11 +103,11 @@ public class URIDecoder {
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a>
 	 * </p>
 	 *
-	 * @param encoder  An optional encoder the output is applied through
+	 * @param encoder  An optional encoder the output is appthrough
 	 *
-	 * @see URIEncoder#encodeURIComponent(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
+	 * @see URIEncoder#encodeURIComponent(java.lang.String, com.aoindustries.io.Encoder, java.lang.Appendable)
 	 */
-	public static void decodeURIComponent(String s, Appendable out, Encoder encoder) throws IOException {
+	public static void decodeURIComponent(String s, Encoder encoder, Appendable out) throws IOException {
 		try {
 			if(s != null) {
 				if(encoder == null) {
@@ -164,7 +164,7 @@ public class URIDecoder {
 	 *
 	 * @param encoder  An optional encoder the output is applied through
 	 */
-	private static void encodeRfc3968ReservedCharacters_and_percent(String value, Appendable out, Encoder encoder) throws IOException {
+	private static void encodeRfc3968ReservedCharacters_and_percent(String value, Encoder encoder, Appendable out) throws IOException {
 		int len = value.length();
 		int pos = 0;
 		while(pos < len) {
@@ -231,7 +231,7 @@ public class URIDecoder {
 	 * @see URIEncoder#encodeURI(java.lang.String, java.lang.Appendable)
 	 */
 	public static void decodeURI(String uri, Appendable out) throws IOException {
-		decodeURI(uri, out, null);
+		decodeURI(uri, null, out);
 	}
 
 	/**
@@ -245,9 +245,9 @@ public class URIDecoder {
 	 *
 	 * @param encoder  An optional encoder the output is applied through
 	 *
-	 * @see URIEncoder#encodeURI(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
+	 * @see URIEncoder#encodeURI(java.lang.String, com.aoindustries.io.Encoder, java.lang.Appendable)
 	 */
-	public static void decodeURI(String uri, Appendable out, Encoder encoder) throws IOException {
+	public static void decodeURI(String uri, Encoder encoder, Appendable out) throws IOException {
 		if(uri != null) {
 			int len = uri.length();
 			int pos = 0;
@@ -255,12 +255,12 @@ public class URIDecoder {
 				int nextPos = StringUtility.indexOf(uri, RFC3986.RESERVED, pos);
 				if(nextPos == -1) {
 					// TODO: Avoid substring?
-					encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos)), out, encoder);
+					encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos)), encoder, out);
 					pos = len;
 				} else {
 					if(nextPos != pos) {
 						// TODO: Avoid substring?
-						encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos, nextPos)), out, encoder);
+						encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos, nextPos)), encoder, out);
 					}
 					char reserved = uri.charAt(nextPos++);
 					if(encoder == null) {
@@ -287,7 +287,7 @@ public class URIDecoder {
 	 */
 	public static void decodeURI(String uri, StringBuilder sb) {
 		try {
-			decodeURI(uri, sb, null);
+			decodeURI(uri, null, sb);
 		} catch(IOException e) {
 			throw new AssertionError("IOException should not occur on StringBuilder", e);
 		}
@@ -306,7 +306,7 @@ public class URIDecoder {
 	 */
 	public static void decodeURI(String uri, StringBuffer sb) {
 		try {
-			decodeURI(uri, sb, null);
+			decodeURI(uri, null, sb);
 		} catch(IOException e) {
 			throw new AssertionError("IOException should not occur on StringBuffer", e);
 		}

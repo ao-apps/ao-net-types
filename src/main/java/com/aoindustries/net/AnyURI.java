@@ -365,7 +365,7 @@ public class AnyURI {
 	 *
 	 * @return  {@code this}
 	 */
-	public AnyURI appendScheme(Appendable out, Encoder encoder) throws IOException {
+	public AnyURI appendScheme(Encoder encoder, Appendable out) throws IOException {
 		if(schemeLength != -1) {
 			if(encoder == null) {
 				appendScheme(out);
@@ -514,7 +514,7 @@ public class AnyURI {
 	 *
 	 * @return  {@code this}
 	 */
-	public AnyURI appendHierPart(Appendable out, Encoder encoder) throws IOException {
+	public AnyURI appendHierPart(Encoder encoder, Appendable out) throws IOException {
 		if(encoder == null) {
 			appendHierPart(out);
 		} else {
@@ -639,7 +639,7 @@ public class AnyURI {
 	 *
 	 * @return  {@code this}
 	 */
-	public AnyURI appendQueryString(Appendable out, Encoder encoder) throws IOException {
+	public AnyURI appendQueryString(Encoder encoder, Appendable out) throws IOException {
 		if(queryIndex != -1) {
 			if(encoder == null) {
 				appendQueryString(out);
@@ -757,7 +757,7 @@ public class AnyURI {
 	 *
 	 * @return  {@code this}
 	 */
-	public AnyURI appendFragment(Appendable out, Encoder encoder) throws IOException {
+	public AnyURI appendFragment(Encoder encoder, Appendable out) throws IOException {
 		if(fragmentIndex != -1) {
 			if(encoder == null) {
 				AnyURI.this.appendFragment(out);

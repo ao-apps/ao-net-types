@@ -267,7 +267,7 @@ public class AnyURITest {
 
 	private static String captureAppendHierPartOut(String url, Encoder encoder) throws IOException {
 		StringWriter out = new StringWriter(url.length());
-		new AnyURI(url).appendHierPart(out, encoder);
+		new AnyURI(url).appendHierPart(encoder, out);
 		return out.toString();
 	}
 
@@ -536,7 +536,7 @@ public class AnyURITest {
 
 	private static String captureAppendQueryStringOut(String url, Encoder encoder) throws IOException {
 		StringWriter out = new StringWriter(url.length());
-		new AnyURI(url).appendQueryString(out, encoder);
+		new AnyURI(url).appendQueryString(encoder, out);
 		return out.toString();
 	}
 
@@ -805,7 +805,7 @@ public class AnyURITest {
 
 	private static String captureAppendFragmentOut(String url, Encoder encoder) throws IOException {
 		StringWriter out = new StringWriter(url.length());
-		new AnyURI(url).appendFragment(out, encoder);
+		new AnyURI(url).appendFragment(encoder, out);
 		return out.toString();
 	}
 

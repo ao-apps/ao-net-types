@@ -109,10 +109,9 @@ public class URIEncoder {
 	 *
 	 * @param encoder  An optional encoder the output is applied through
 	 *
-	 * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
+	 * @see URIDecoder#decodeURIComponent(java.lang.String, com.aoindustries.io.Encoder, java.lang.Appendable)
 	 */
-	// TODO: Swap order of out/encoder for cosistency with other APIs
-	public static void encodeURIComponent(String s, Appendable out, Encoder encoder) throws IOException {
+	public static void encodeURIComponent(String s, Encoder encoder, Appendable out) throws IOException {
 		try {
 			if(s != null) {
 				if(encoder == null) {
@@ -206,7 +205,7 @@ public class URIEncoder {
 	 * @see URIDecoder#decodeURI(java.lang.String, java.lang.Appendable)
 	 */
 	public static void encodeURI(String uri, Appendable out) throws IOException {
-		encodeURI(uri, out, null);
+		encodeURI(uri, null, out);
 	}
 
 	static final BitSet rfc3986ReservedCharacters_and_percent;
@@ -307,9 +306,9 @@ public class URIEncoder {
 	 *
 	 * @param encoder  An optional encoder the output is applied through
 	 *
-	 * @see URIDecoder#decodeURI(java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
+	 * @see URIDecoder#decodeURI(java.lang.String, com.aoindustries.io.Encoder, java.lang.Appendable)
 	 */
-	public static void encodeURI(String uri, Appendable out, Encoder encoder) throws IOException {
+	public static void encodeURI(String uri, Encoder encoder, Appendable out) throws IOException {
 		if(uri != null) {
 			try {
 				int len = uri.length();
@@ -406,7 +405,7 @@ public class URIEncoder {
 	 */
 	public static void encodeURI(String uri, StringBuilder sb) {
 		try {
-			encodeURI(uri, sb, null);
+			encodeURI(uri, null, sb);
 		} catch(IOException e) {
 			throw new AssertionError("IOException should not occur on StringBuilder", e);
 		}
@@ -428,7 +427,7 @@ public class URIEncoder {
 	 */
 	public static void encodeURI(String uri, StringBuffer sb) {
 		try {
-			encodeURI(uri, sb, null);
+			encodeURI(uri, null, sb);
 		} catch(IOException e) {
 			throw new AssertionError("IOException should not occur on StringBuffer", e);
 		}
