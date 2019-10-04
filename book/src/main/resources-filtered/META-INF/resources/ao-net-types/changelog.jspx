@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2019-10-04T01:31:12-0500"
+		dateModified="2019-10-04T05:53:41-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -51,38 +51,47 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			>
-				<ul>
-					<li>Pulled networking utilities out of <core:link book="/aocode-public" page="/index.jspx" />.</li>
-					<li>
-						New class <ao:a href="apidocs/com/aoindustries/net/AnyURI.html">AnyURI</ao:a>
-						optimized for high performance manipulation of URL scheme, hier-part, query string, and fragment.
-					</li>
-					<li>
-						<code>UrlUtils.encodeUrlPath(String, String)</code> renamed to <code>URIEncoder.encodeURI(String)</code>
-						and now encodes the entire URL.  Also no longer does any URL transformations for <code>tel:</code> scheme.
-						Added streaming variants of <code>URIEncoder.encodeURI(…)</code>, too.
-					</li>
-					<li>
-						<code>UrlUtils.decodeUrlPath(String, String)</code> renamed to <code>URIDecoder.decodeURI(String)</code>
-						and now decodes the entire URL.
-						Added streaming variants of <code>URIDecoder.decodeURI(…)</code>, too.
-					</li>
-					<li>New methods <code>URIEncoder.encodeURIComponent(…)</code> for encoding URI path components or fragments.</li>
-					<li>New methods <code>URIDecoder.decodeURIComponent(…)</code> for decoding URI path components or fragments.</li>
-					<li>Renamed <code>HttpParameters*</code> to <code>URIParameters*</code>.</li>
-					<li><code>URIParametersUtils.addParams(…)</code> now returns the original string when no parameters added.</li>
-					<li>
-						Implementation changed from encoding URI in response encoding to <code>UTF-8</code> per
-						<ao:a href="https://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars">B.2.1 Non-ASCII characters in URI attribute values</ao:a>.
-					</li>
-					<li>All implementations of <code>URIParameters.toString()</code> now encode a query string in UTF-8.</li>
-					<li>New method <code>MutableURIParameters.addParameters(String, Iterable)</code> to add multiple values at once.</li>
-					<li>New enum <code>URIComponent</code> used to encode different types of URI components.</li>
-					<li>No longer URL rewriting <code>file:</code> and <code>data:</code> URLs.</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.2.0"
+			datePublished="2019-10-04T05:53:41-0500"
+			groupId="@{documented.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{documented.scm.url}"
+		>
+			<ul>
+				<li>Pulled networking utilities out of <core:link book="/aocode-public" page="/index.jspx" />.</li>
+				<li>
+					New class <ao:a href="apidocs/com/aoindustries/net/AnyURI.html">AnyURI</ao:a>
+					optimized for high performance manipulation of URL scheme, hier-part, query string, and fragment.
+				</li>
+				<li>
+					<code>UrlUtils.encodeUrlPath(String, String)</code> renamed to <code>URIEncoder.encodeURI(String)</code>
+					and now encodes the entire URL.  Also no longer does any URL transformations for <code>tel:</code> scheme.
+					Added streaming variants of <code>URIEncoder.encodeURI(…)</code>, too.
+				</li>
+				<li>
+					<code>UrlUtils.decodeUrlPath(String, String)</code> renamed to <code>URIDecoder.decodeURI(String)</code>
+					and now decodes the entire URL.
+					Added streaming variants of <code>URIDecoder.decodeURI(…)</code>, too.
+				</li>
+				<li>New methods <code>URIEncoder.encodeURIComponent(…)</code> for encoding URI path components or fragments.</li>
+				<li>New methods <code>URIDecoder.decodeURIComponent(…)</code> for decoding URI path components or fragments.</li>
+				<li>Renamed <code>HttpParameters*</code> to <code>URIParameters*</code>.</li>
+				<li><code>URIParametersUtils.addParams(…)</code> now returns the original string when no parameters added.</li>
+				<li>
+					Implementation changed from encoding URI in response encoding to <code>UTF-8</code> per
+					<ao:a href="https://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars">B.2.1 Non-ASCII characters in URI attribute values</ao:a>.
+				</li>
+				<li>All implementations of <code>URIParameters.toString()</code> now encode a query string in UTF-8.</li>
+				<li>New method <code>MutableURIParameters.addParameters(String, Iterable)</code> to add multiple values at once.</li>
+				<li>New enum <code>URIComponent</code> used to encode different types of URI components.</li>
+				<li>No longer URL rewriting <code>file:</code> and <code>data:</code> URLs.</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
