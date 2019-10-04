@@ -68,7 +68,6 @@ public class URIParser {
 	 *         Please note that this determination is not guaranteed as shortcuts may
 	 *         skip individual character comparisons.
 	 */
-	// TODO: Redundant with SplitUrl.isScheme
 	public static boolean isScheme(String uri, String scheme) throws IllegalArgumentException {
 		if(uri == null) return false;
 		int len = scheme.length();
