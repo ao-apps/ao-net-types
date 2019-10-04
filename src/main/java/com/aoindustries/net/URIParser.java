@@ -122,7 +122,6 @@ public class URIParser {
 	 * @return  The scheme, not including colon, or {@code null} when not found.
 	 *          For example {@code "http"}.
 	 */
-	// TODO: Redundant with SplitUrl.getScheme except SplitUrl doesn't normalize
 	public static final String getScheme(String uri) {
 		if(uri == null) return null;
 		int len = uri.length();
