@@ -117,7 +117,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>junit</groupId><artifactId>junit</artifactId><version>4.12</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-encoding</artifactId><version>2.1.0-SNAPSHOT</version>
+				<groupId>com.aoindustries</groupId><artifactId>ao-encoding</artifactId><version>2.1.0-POST-SNAPSHOT</version>
 			</dependency>
 			<!-- Direct -->
 			<dependency>
