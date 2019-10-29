@@ -60,10 +60,10 @@ final public class URIParametersUtils {
 						anchorStart = uri.indexOf('#', pathEnd + 1);
 						if(anchorStart == -1) {
 							// Additional parameter to end
-							newUri.append(uri);
+							newUri.append(uri).append('&');
 						} else {
 							// Additional parameter before anchor
-							newUri.append(uri, 0, anchorStart);
+							newUri.append(uri, 0, anchorStart).append('&');
 						}
 					} else {
 						// First parameter before anchor
