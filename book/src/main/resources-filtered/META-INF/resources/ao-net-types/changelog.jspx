@@ -36,7 +36,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2019-10-28T23:49:17-0500"
+		dateModified="2019-11-03T02:12:52-0600"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -53,6 +53,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				scmUrl="@{documented.scm.url}"
 			>
 				<ul>
+					<li>Minimum Java version changed from 1.7 to 1.8.</li>
 					<li>
 						Fixed bug in <code>URIParametersUtils.addParams(…)</code> that failed to separate existing
 						parameters from new parameters with a <code><![CDATA[&amp;]]></code>.
