@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -273,7 +273,8 @@ final public class Path implements
 	/**
 	 * Gets a prefix path of the given length.
 	 * <p>
-	 * Implementation Note: Calls {@link #subPath(int, int) subPath(0, len)}
+	 * <b>Implementation Note:</b><br />
+	 * Calls {@link #subPath(int, int) subPath(0, len)}
 	 * </p>
 	 *
 	 * @param  len  Must be greater than {@code 0}.
@@ -287,7 +288,8 @@ final public class Path implements
 	/**
 	 * Gets a suffix path starting at the given index.
 	 * <p>
-	 * Implementation Note: Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}
+	 * <b>Implementation Note:</b><br />
+	 * Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}
 	 * </p>
 	 *
 	 * @param  beginIndex  Must align with a {@link #SEPARATOR_CHAR}.
