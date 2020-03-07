@@ -44,7 +44,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				arg.projectStatus="current-stable"
 				arg.managementStatus="production"
 				arg.packagingStatus="active"
-				arg.javaVersion="@{documented.javaVersion}"
+				arg.javaseVersion="@{documented.javase.version}"
 				arg.semanticVersioning="2.0.0"
 				arg.license="lgpl-3.0"
 			/>
@@ -98,9 +98,9 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		<section:aside label="Evaluated Alternatives">
 			<p>
 				Admittedly, several features of this API are redundant with the
-				<ao:a rel="nofollow" href="@{javac.link.javaApi.jdk7}java/net/package-summary.html">standard Java API</ao:a>.
+				<ao:a rel="nofollow" href="@{javadoc.link.javase}java/net/package-summary.html">standard Java API</ao:a>.
 				This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient
-				for your needs, please prefer the <ao:a rel="nofollow" href="@{javac.link.javaApi.jdk7}java/net/package-summary.html">standard Java API</ao:a>.
+				for your needs, please prefer the <ao:a rel="nofollow" href="@{javadoc.link.javase}java/net/package-summary.html">standard Java API</ao:a>.
 			</p>
 		</section:aside>
 	</core:page>
