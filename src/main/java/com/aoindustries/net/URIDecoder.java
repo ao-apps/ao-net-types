@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019  AO Industries, Inc.
+ * Copyright (C) 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,7 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.io.Encoder;
-import com.aoindustries.util.StringUtility;
+import com.aoindustries.lang.Strings;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -168,7 +168,7 @@ public class URIDecoder {
 		int len = value.length();
 		int pos = 0;
 		while(pos < len) {
-			int nextPos = StringUtility.indexOf(value, URIEncoder.rfc3986ReservedCharacters_and_percent, pos);
+			int nextPos = Strings.indexOf(value, URIEncoder.rfc3986ReservedCharacters_and_percent, pos);
 			if(nextPos == -1) {
 				if(encoder == null) {
 					out.append(value, pos, len);
@@ -252,7 +252,7 @@ public class URIDecoder {
 			int len = uri.length();
 			int pos = 0;
 			while(pos < len) {
-				int nextPos = StringUtility.indexOf(uri, RFC3986.RESERVED, pos);
+				int nextPos = Strings.indexOf(uri, RFC3986.RESERVED, pos);
 				if(nextPos == -1) {
 					// TODO: Avoid substring?
 					encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos)), encoder, out);

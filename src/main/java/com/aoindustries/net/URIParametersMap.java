@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011, 2013, 2016, 2019  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,7 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.lang.NullArgumentException;
-import com.aoindustries.util.StringUtility;
+import com.aoindustries.lang.Strings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -55,7 +55,7 @@ public class URIParametersMap implements MutableURIParameters {
 	 */
 	public URIParametersMap(String queryString) {
 		if(queryString != null) {
-			for(String nameValue : StringUtility.splitString(queryString, '&')) {
+			for(String nameValue : Strings.splitString(queryString, '&')) {
 				int pos = nameValue.indexOf('=');
 				String name;
 				String value;

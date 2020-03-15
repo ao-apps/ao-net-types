@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019  AO Industries, Inc.
+ * Copyright (C) 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,7 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.io.Encoder;
-import com.aoindustries.util.StringUtility;
+import com.aoindustries.lang.Strings;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -71,7 +71,7 @@ public class URIEncoder {
 	 */
 	public static String encodeURIComponent(String s) {
 		try {
-			return (s == null) ? null : StringUtility.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20");
+			return (s == null) ? null : Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20");
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 		}
@@ -91,7 +91,7 @@ public class URIEncoder {
 	 */
 	public static void encodeURIComponent(String s, Appendable out) throws IOException {
 		try {
-			if(s != null) StringUtility.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out);
+			if(s != null) Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out);
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 		}
@@ -117,7 +117,7 @@ public class URIEncoder {
 				if(encoder == null) {
 					encodeURIComponent(s, out);
 				} else {
-					StringUtility.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out, encoder);
+					Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out, encoder);
 				}
 			}
 		} catch(UnsupportedEncodingException e) {
@@ -314,7 +314,7 @@ public class URIEncoder {
 				int len = uri.length();
 				int pos = 0;
 				while(pos < len) {
-					int nextPos = StringUtility.indexOf(uri, rfc3986ReservedCharacters_percent_and_space, pos);
+					int nextPos = Strings.indexOf(uri, rfc3986ReservedCharacters_percent_and_space, pos);
 					if(nextPos == -1) {
 						// TODO: Avoid substring?
 						String encoded = URLEncoder.encode(uri.substring(pos), IRI.ENCODING.name());
