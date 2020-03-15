@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2020-03-07T06:01:29-0600"
+		dateModified="2020-03-15T00:27:10-05:00"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-net-types:pom.version}" />
@@ -63,6 +63,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 						Fixed bug in <code>URIParametersUtils.addParams(…)</code> that failed to separate existing
 						parameters from new parameters with a <code><![CDATA[&amp;]]></code>.
 					</li>
+					<li>Updated dependencies.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
