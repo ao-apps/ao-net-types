@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -147,8 +147,8 @@ final public class PortRange extends IPortRange implements
 	}
 
 	/**
-	 * @return The port range and protocol, such as <samp>53/UDP</samp>
-	 * or <samp>8080-8087/TCP</samp>.
+	 * @return The port range and protocol, such as <code>53/UDP</code>
+	 * or <code>8080-8087/TCP</code>.
 	 */
 	@Override
 	public String toString() {

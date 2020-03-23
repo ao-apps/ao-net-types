@@ -52,7 +52,7 @@ import java.util.concurrent.ConcurrentMap;
  * <p>
  * Note, this concept of path is minimally restrictive and only represents a well-formed path.
  * The path may not be valid for some contexts, such as the path part of a URL.
- * This does not implement <ao:a href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</ao:a>.
+ * This does not implement <a href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a>.
  * </p>
  * <p>
  * TODO: Should we disallow any number path element that is all dots, such as "...." and not just "." and ".."?
@@ -273,7 +273,7 @@ final public class Path implements
 	/**
 	 * Gets a prefix path of the given length.
 	 * <p>
-	 * <b>Implementation Note:</b><br />
+	 * <b>Implementation Note:</b><br>
 	 * Calls {@link #subPath(int, int) subPath(0, len)}
 	 * </p>
 	 *
@@ -288,7 +288,7 @@ final public class Path implements
 	/**
 	 * Gets a suffix path starting at the given index.
 	 * <p>
-	 * <b>Implementation Note:</b><br />
+	 * <b>Implementation Note:</b><br>
 	 * Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}
 	 * </p>
 	 *

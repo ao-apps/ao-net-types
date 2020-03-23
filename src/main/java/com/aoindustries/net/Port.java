@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2001-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2001-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -206,7 +206,7 @@ final public class Port extends IPortRange implements
 	/**
 	 * Determines if this is a port that may be bound by non-root processes.
 	 *
-	 * @return {@code true} when the port is >= 1024.
+	 * @return {@code true} when the port is {@code >= 1024}.
 	 */
 	public boolean isUser() {
 		return port >= 1024;

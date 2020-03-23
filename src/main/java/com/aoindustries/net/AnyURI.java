@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019  AO Industries, Inc.
+ * Copyright (C) 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -44,7 +44,7 @@ import java.util.Objects;
  *   </li>
  *   <li>query - everything after the first '?' (exclusive) and the fragment '#' (exclusive)</li>
  *   <li>fragment - everything after the first '#' (exclusive)</li>
- * </p>
+ * </ol>
  * <p>
  * This class specifically:
  * </p>
@@ -64,7 +64,7 @@ import java.util.Objects;
  * is preferred, use {@link IRI}.  Otherwise, to support both, use {@link AnyURI}, which should also perform
  * the best since it performs fewer conversions.
  * </p>
- * <hr />
+ * <hr>
  * <p>
  * Encoding and decoding is always done in UTF-8.  This choice is supported by
  * <a href="https://www.w3.org/International/wiki/IRIStatus">IRIStatus - Query encoding</a>,
@@ -80,7 +80,7 @@ import java.util.Objects;
  * to avoid all the gray zones of the various protocol specifications, versions,
  * and implementations.
  * </p>
- * <hr />
+ * <hr>
  * <p>
  * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
  * They are not meant for general purpose URL manipulation, and are not trying to replace
@@ -95,9 +95,9 @@ import java.util.Objects;
  * <li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/util/UriUtils.html">UriUtils</a></li>
  * <li><a href="https://guava.dev/releases/19.0/api/docs/com/google/common/net/UrlEscapers.html">UrlEscapers</a></li>
  * <li><a href="https://jena.apache.org/documentation/notes/iri.html">jena-iri</a></li>
- * <li><a href="https://github.com/xbib/net>org.xbib:net-url</a></li>
+ * <li><a href="https://github.com/xbib/net">org.xbib:net-url</a></li>
  * </ol>
- * <hr />
+ * <hr>
  * <p>Further reading:</p>
  * <ol>
  * <li><a href="https://www.w3.org/International/wiki/IRIStatus">IRIStatus - Query encoding</a>:
@@ -118,14 +118,14 @@ import java.util.Objects;
  * </li>
  * <li><a href="https://dev.w3.org/html5/spec-LC/urls.html#terminology-0">HTML 5: 2.6.1 Terminology</a>:
  *   <blockquote>
- *     The URL is a valid IRI reference and its query component contains no unescaped non-ASCII characters. [RFC3987]<br />
+ *     The URL is a valid IRI reference and its query component contains no unescaped non-ASCII characters. [RFC3987]<br>
  *     The URL is a valid IRI reference and the character encoding of the URL's Document is UTF-8 or UTF-16. [RFC3987]
  *   </blockquote>
  * </li>
  * <li><a href="https://dev.w3.org/html5/spec-LC/urls.html#resolving-urls">HTML 5: 2.6.3 Resolving URLs</a>:
  *   <blockquote>
- *     Let encoding be determined as follows:<br />
- *     If the URL came from a DOM node (e.g. from an element)<br />
+ *     Let encoding be determined as follows:<br>
+ *     If the URL came from a DOM node (e.g. from an element)<br>
  *     The node has a Document, and the URL character encoding is the document's character encoding.
  *   </blockquote>
  * </li>
@@ -1120,7 +1120,7 @@ public class AnyURI {
 	/**
 	 * Adds a query string.
 	 *
-	 * @param query  The query (not including the first '?' / '&') - it is added without additional encoding.
+	 * @param query  The query (not including the first '?' / '&amp;') - it is added without additional encoding.
 	 *               Nothing is added when the query is {@code null}.
 	 *               The query may not contain the fragment marker '#'
 	 *

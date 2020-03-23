@@ -45,7 +45,7 @@ import java.net.URLDecoder;
  * <li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/util/UriUtils.html">UriUtils</a></li>
  * <li><a href="https://guava.dev/releases/19.0/api/docs/com/google/common/net/UrlEscapers.html">UrlEscapers</a></li>
  * <li><a href="https://jena.apache.org/documentation/notes/iri.html">jena-iri</a></li>
- * <li><a href="https://github.com/xbib/net>org.xbib:net-url</a></li>
+ * <li><a href="https://github.com/xbib/net">org.xbib:net-url</a></li>
  * </ol>
  *
  * @see  URLDecoder

@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -83,7 +83,7 @@ final public class InetAddressPrefix implements
 	/**
 	 * Parses an IP address with optional prefix.
 	 *
-	 * @param address  The address and optional prefix as <samp><i>address</i>[/<i>prefix</i>]</samp>.
+	 * @param address  The address and optional prefix as <code><i>address</i>[/<i>prefix</i>]</code>.
 	 *
 	 * @see  #toString()  for the inverse function
 	 */
@@ -181,7 +181,7 @@ final public class InetAddressPrefix implements
 	}
 
 	/**
-	 * @return  The address and optional prefix as <samp><i>address</i>[/<i>prefix</i>]</samp>.
+	 * @return  The address and optional prefix as <code><i>address</i>[/<i>prefix</i>]</code>.
 	 *
 	 * @see  #valueOf(String)  for the inverse function
 	 */
