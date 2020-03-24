@@ -27,7 +27,7 @@ Networking-related value types.
 * [Project Home](https://aoindustries.com/ao-net-types/)
 * [Changelog](https://aoindustries.com/ao-net-types/changelog)
 * [API Docs](https://aoindustries.com/ao-net-types/apidocs/)
-* [Maven Central Repository](https://search.maven.org/#search%7Cgav%7C1%7Cg:%22com.aoindustries%22%20AND%20a:%22ao-net-types%22)
+* [Maven Central Repository](https://search.maven.org/artifact/com.aoindustries/ao-net-types)
 * [GitHub](https://github.com/aoindustries/ao-net-types)
 
 ## Features
