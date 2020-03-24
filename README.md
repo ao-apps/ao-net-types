@@ -40,7 +40,7 @@ Networking-related value types.
 * [Fast serializable](https://aoindustries.com/ao-lang/apidocs/com/aoindustries/io/FastExternalizable.html) and self-validating objects.
 * [Internable](https://aoindustries.com/ao-lang/apidocs/com/aoindustries/util/Internable.html) for memory savings on large datasets.
 * Small footprint, minimal dependencies - not part of a big monolithic package.
-* Java 1.7 implementation:
+* Java 1.8 implementation:
     * Android compatible.
     * Java EE 6+ compatible.
 * Compatible [PostgreSQL](https://www.postgresql.org/) type implementations for database-level integrity.
