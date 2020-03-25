@@ -55,7 +55,7 @@ public class URIParametersMap implements MutableURIParameters {
 	 */
 	public URIParametersMap(String queryString) {
 		if(queryString != null) {
-			for(String nameValue : Strings.splitString(queryString, '&')) {
+			for(String nameValue : Strings.split(queryString, '&')) {
 				int pos = nameValue.indexOf('=');
 				String name;
 				String value;
