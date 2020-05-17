@@ -124,6 +124,9 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 								<link>https://aoindustries.com/ao-collections/apidocs/</link>
 								<link>https://aoindustries.com/ao-lang/apidocs/</link>
 								<link>https://aoindustries.com/ao-tlds/apidocs/</link>
+								<!-- Test Direct -->
+								<link>https://aoindustries.com/ao-encoding/apidocs/</link>
+								<link>https://junit.org/junit4/javadoc/latest/</link>
 							</links>
 						</configuration>
 					</plugin>
@@ -181,11 +184,11 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<!-- Test Direct -->
 		<dependency>
-			<groupId>junit</groupId><artifactId>junit</artifactId>
+			<groupId>com.aoindustries</groupId><artifactId>ao-encoding</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.aoindustries</groupId><artifactId>ao-encoding</artifactId>
+			<groupId>junit</groupId><artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
