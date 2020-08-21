@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019  AO Industries, Inc.
+ * Copyright (C) 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -42,6 +42,11 @@ public class URIResolver {
 	 *
 	 * @param  servletPath  Required when path might be altered.
 	 */
+	// TODO: new version of this method with a boolean "detectScheme", which would enable the detection of
+	// TODO: schemes in the URL prefix.  Some contexts may be expecting relative URLs that might also look
+	// TODO: like a scheme.  This could result in an external URL where one was otherwise not expected.
+	// TODO: One example could be user-provided upload filenames.
+	// TODO: Other versions of this method, such as in HttpServletUtil, would have the same change.
 	public static String getAbsolutePath(String servletPath, String relativeUrlPath) throws MalformedURLException {
 		char firstChar;
 		if(
