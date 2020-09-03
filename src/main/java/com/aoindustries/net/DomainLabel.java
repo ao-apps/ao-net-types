@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -173,6 +173,7 @@ final public class DomainLabel implements
 		if(existing==null) {
 			String internedLabel = label.intern();
 			String internedLowerLabel = lowerLabel.intern();
+			@SuppressWarnings("StringEquality")
 			DomainLabel addMe = (label == internedLabel) && (lowerLabel == internedLowerLabel) ? this : new DomainLabel(internedLabel, internedLowerLabel);
 			existing = interned.putIfAbsent(internedLabel, addMe);
 			if(existing==null) existing = addMe;

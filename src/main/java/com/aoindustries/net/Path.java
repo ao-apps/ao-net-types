@@ -225,6 +225,7 @@ final public class Path implements
 		Path existing = interned.get(path);
 		if(existing==null) {
 			String internedPath = path.intern();
+			@SuppressWarnings("StringEquality")
 			Path addMe = (path == internedPath) ? this : new Path(internedPath);
 			existing = interned.putIfAbsent(internedPath, addMe);
 			if(existing==null) existing = addMe;
@@ -267,7 +268,9 @@ final public class Path implements
 			return ROOT;
 		}
 		String subPath = path.substring(beginIndex, endIndex);
-		return (path == subPath) ? this : new Path(subPath);
+		@SuppressWarnings("StringEquality")
+		Path result = (path == subPath) ? this : new Path(subPath);
+		return result;
 	}
 
 	/**

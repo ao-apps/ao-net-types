@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019  AO Industries, Inc.
+ * Copyright (C) 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -45,6 +45,7 @@ public class AnyURITest {
 	}
 
 	@Test
+	@SuppressWarnings("RedundantStringConstructorCall") // Intentional for testing
 	public void testEquals() {
 		assertTrue(new AnyURI("test").equals(new AnyURI(new String("test"))));
 		assertTrue(new AnyURI("test").equals(new AnyURI("test")));

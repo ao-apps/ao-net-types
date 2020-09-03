@@ -153,6 +153,7 @@ final public class Port extends IPortRange implements
 	 * {@link Port Port} instances are cached and may be safely compared by identity.
 	 */
 	@Override
+	@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
 	public boolean equals(Object obj) {
 		// enum pattern, this is safe:
 		return (this == obj);

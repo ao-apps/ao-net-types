@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -28,8 +28,8 @@ package com.aoindustries.net;
  * @author  AO Industries, Inc.
  */
 import com.aoindustries.validation.ValidationException;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class PortTest {
 

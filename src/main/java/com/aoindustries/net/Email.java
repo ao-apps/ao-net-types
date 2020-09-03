@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -267,6 +267,7 @@ final public class Email implements
 		Email existing = domainMap.get(localPart);
 		if(existing==null) {
 			String internedLocalPart = localPart.intern();
+			@SuppressWarnings("StringEquality")
 			Email addMe = (localPart == internedLocalPart) && (domain == internedDomain) ? this : new Email(internedLocalPart, internedDomain);
 			existing = domainMap.putIfAbsent(internedLocalPart, addMe);
 			if(existing==null) existing = addMe;

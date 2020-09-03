@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2011-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -170,6 +170,7 @@ implements
 		if(existing==null) {
 			String internedLabels = labels.intern();
 			String internedLowerLabels = lowerLabels.intern();
+			@SuppressWarnings("StringEquality")
 			DomainLabels addMe = (labels == internedLabels) && (lowerLabels == internedLowerLabels) ? this : new DomainLabels(internedLabels, internedLowerLabels);
 			existing = interned.putIfAbsent(internedLabels, addMe);
 			if(existing==null) existing = addMe;

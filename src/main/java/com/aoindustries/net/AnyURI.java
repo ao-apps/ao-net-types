@@ -805,6 +805,7 @@ public class AnyURI {
 		return false;
 	}
 
+	@SuppressWarnings("PackageVisibleField")
 	volatile URI toURICache;
 
 	/**
@@ -828,6 +829,7 @@ public class AnyURI {
 		return toUri;
 	}
 
+	@SuppressWarnings("PackageVisibleField")
 	volatile IRI toIRICache;
 
 	/**
