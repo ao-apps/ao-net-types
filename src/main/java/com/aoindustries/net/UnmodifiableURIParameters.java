@@ -25,7 +25,6 @@ package com.aoindustries.net;
 import com.aoindustries.collections.AoCollections;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +83,7 @@ public class UnmodifiableURIParameters implements URIParameters {
 	@Override
 	public Map<String,List<String>> getParameterMap() {
 		Map<String,List<String>> wrappedMap = wrapped.getParameterMap();
-		Map<String,List<String>> map = new LinkedHashMap<>(wrappedMap.size()*4/3+1);
+		Map<String,List<String>> map = AoCollections.newLinkedHashMap(wrappedMap.size());
 		for(Map.Entry<String,List<String>> entry : wrappedMap.entrySet()) {
 			map.put(
 				entry.getKey(),
