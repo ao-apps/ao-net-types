@@ -42,7 +42,6 @@ Networking-related value types.
 * Small footprint, minimal dependencies - not part of a big monolithic package.
 * Java 1.8 implementation:
     * Android compatible.
-    * Java EE 6+ compatible.
 * Compatible [PostgreSQL](https://www.postgresql.org/) type implementations for database-level integrity.
 
 ## Motivation

@@ -34,7 +34,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2017-03-17T13:34:38-0500"
-		dateModified="2020-03-24T14:01:33-05:00"
+		dateModified="2020-11-16T20:30:46-06:00"
 	>
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
@@ -78,7 +78,6 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				<li>Java 1.8 implementation:
 					<ul>
 						<li>Android compatible.</li>
-						<li>Java EE 6+ compatible.</li>
 					</ul>
 				</li>
 				<li>Compatible <ao:a href="https://www.postgresql.org/">PostgreSQL</ao:a> type implementations for database-level integrity.</li>
