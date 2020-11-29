@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019  AO Industries, Inc.
+ * Copyright (C) 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -152,8 +152,6 @@ public class URI extends AnyURI {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
 	 * @return  {@code true} when this was derived from an {@link IRI}, which are always encoding normalized.
 	 *          {@code false} otherwise, since the percent-encoding normalization status is unknown.
 	 */
@@ -163,8 +161,6 @@ public class URI extends AnyURI {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
 	 * @return  {@code this}
 	 */
 	@Override
@@ -173,8 +169,6 @@ public class URI extends AnyURI {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
 	 * @return  The {@link IRI}.
 	 */
 	@Override
