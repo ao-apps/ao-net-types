@@ -355,7 +355,7 @@ final public class Email implements
 		try {
 			String email = stream.readString();
 			int atPos = email.indexOf('@');		
-			if(atPos == -1) throw new LocalizedSQLException(ApplicationResourcesAccessor.accessor, "Email.validate.noAt");
+			if(atPos == -1) throw new LocalizedSQLException("23000", ApplicationResourcesAccessor.accessor, "Email.validate.noAt");
 			localPart = email.substring(0, atPos);
 			domain = DomainName.valueOf(email.substring(atPos + 1));
 			validate();
