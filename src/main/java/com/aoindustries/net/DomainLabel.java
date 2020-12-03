@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
+import com.aoindustries.i18n.Resources;
 import com.aoindustries.io.FastExternalizable;
 import com.aoindustries.io.FastObjectInput;
 import com.aoindustries.io.FastObjectOutput;
@@ -62,31 +63,33 @@ final public class DomainLabel implements
 	Internable<DomainLabel>
 {
 
+	private static final Resources RESOURCES = Resources.getResources(DomainLabel.class.getPackage());
+
 	public static final int MAX_LENGTH = 63;
 
 	/**
 	 * Validates a domain name label.
 	 */
 	public static ValidationResult validate(String label) {
-		if(label==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.isNull");
+		if(label==null) return new InvalidResult(RESOURCES, "DomainLabel.validate.isNull");
 		return validate(label, 0, label.length());
 	}
 	// Matches src/main/sql/com/aoindustries/net/DomainLabel.validate-function.sql
 	public static ValidationResult validate(String label, int beginIndex, int endIndex) {
-		if(label==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.isNull");
+		if(label==null) return new InvalidResult(RESOURCES, "DomainLabel.validate.isNull");
 		int len = endIndex-beginIndex;
-		if(len==0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.empty");
-		if(len>MAX_LENGTH) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.tooLong", MAX_LENGTH, len);
+		if(len==0) return new InvalidResult(RESOURCES, "DomainLabel.validate.empty");
+		if(len>MAX_LENGTH) return new InvalidResult(RESOURCES, "DomainLabel.validate.tooLong", MAX_LENGTH, len);
 		for(int pos=beginIndex; pos<endIndex; pos++) {
 			char ch = label.charAt(pos);
 			if(ch=='-') {
-				if(pos==beginIndex) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.startsDash");
-				if(pos==(endIndex-1)) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.endsDash");
+				if(pos==beginIndex) return new InvalidResult(RESOURCES, "DomainLabel.validate.startsDash");
+				if(pos==(endIndex-1)) return new InvalidResult(RESOURCES, "DomainLabel.validate.endsDash");
 			} else if(
 				(ch<'a' || ch>'z')
 				&& (ch<'A' || ch>'Z')
 				&& (ch<'0' || ch>'9')
-			) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabel.validate.invalidCharacter", ch, pos-beginIndex);
+			) return new InvalidResult(RESOURCES, "DomainLabel.validate.invalidCharacter", ch, pos-beginIndex);
 		}
 		return ValidResult.getInstance();
 	}

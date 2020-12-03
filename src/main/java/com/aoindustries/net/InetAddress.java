@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
+import com.aoindustries.i18n.Resources;
 import com.aoindustries.io.IoUtils;
 import com.aoindustries.math.LongLong;
 import com.aoindustries.util.Internable;
@@ -57,6 +58,8 @@ final public class InetAddress implements
 	Internable<InetAddress>
 {
 
+	private static final Resources RESOURCES = Resources.getResources(InetAddress.class.getPackage());
+
 	static final long
 		// Bits for IPv4 representations
 		IPV4_HI                       = 0x0000000000000000L,
@@ -88,7 +91,7 @@ final public class InetAddress implements
 	 */
 	public static ValidationResult validate(String address) {
 		// Be non-null
-		if(address==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.validate.isNull");
+		if(address==null) return new InvalidResult(RESOURCES, "InetAddress.validate.isNull");
 		Object result = parse(address);
 		if(result instanceof InvalidResult) return (InvalidResult)result;
 		assert result instanceof LongLong;
@@ -163,18 +166,18 @@ final public class InetAddress implements
 			ch2 = '0';
 			ch3 = address.charAt(start);
 		} else {
-			if(len==0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.empty");
-			else return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.tooLong");
+			if(len==0) return new InvalidResult(RESOURCES, "InetAddress.parseOctet.empty");
+			else return new InvalidResult(RESOURCES, "InetAddress.parseOctet.tooLong");
 		}
 		// Must each be 0-9
-		if(ch1<'0' || ch1>'9') return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch1);
-		if(ch2<'0' || ch2>'9') return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch2);
-		if(ch3<'0' || ch3>'9') return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.nonDecimal", ch3);
+		if(ch1<'0' || ch1>'9') return new InvalidResult(RESOURCES, "InetAddress.parseOctet.nonDecimal", ch1);
+		if(ch2<'0' || ch2>'9') return new InvalidResult(RESOURCES, "InetAddress.parseOctet.nonDecimal", ch2);
+		if(ch3<'0' || ch3>'9') return new InvalidResult(RESOURCES, "InetAddress.parseOctet.nonDecimal", ch3);
 		int o =
 			(ch1-'0')*100
 			+ (ch2-'0')*10
 			+ (ch3-'0');
-		if(o > 255) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseOctet.tooBig");
+		if(o > 255) return new InvalidResult(RESOURCES, "InetAddress.parseOctet.tooBig");
 		octet[0] = o;
 		return null;
 	}
@@ -197,7 +200,7 @@ final public class InetAddress implements
 			value[0] = ch-'A'+10;
 			return null;
 		}
-		return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.getHexValue.badCharacter", ch);
+		return new InvalidResult(RESOURCES, "InetAddress.getHexValue.badCharacter", ch);
 	}
 
 	/**
@@ -256,9 +259,9 @@ final public class InetAddress implements
 		} else if(len == 1) {
 			return getHexValue(address.charAt(start), value);
 		} else if(len == 0) {
-			return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty");
+			return new InvalidResult(RESOURCES, "InetAddress.parseHexWord.empty");
 		} else {
-			return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.tooLong");
+			return new InvalidResult(RESOURCES, "InetAddress.parseHexWord.tooLong");
 		}
 	}
 
@@ -284,10 +287,10 @@ final public class InetAddress implements
 		{
 			// Be non-empty
 			int len = address.length();
-			if(len == 0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.empty");
+			if(len == 0) return new InvalidResult(RESOURCES, "InetAddress.parse.empty");
 			{
 				final int maxLen = "[hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd]".length();
-				if(len > maxLen) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooLong");
+				if(len > maxLen) return new InvalidResult(RESOURCES, "InetAddress.parse.tooLong");
 			}
 			if(
 				len >= 2
@@ -297,10 +300,10 @@ final public class InetAddress implements
 				requireIPv6 = true;
 				start = 1;
 				end = len - 1;
-				if(start == end) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.bracketsEmptyIPv6");
+				if(start == end) return new InvalidResult(RESOURCES, "InetAddress.parse.bracketsEmptyIPv6");
 				final int maxLen = "hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd".length();
 				assert (end - start) == (len - 2);
-				if((end - start) > maxLen) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooLong");
+				if((end - start) > maxLen) return new InvalidResult(RESOURCES, "InetAddress.parse.tooLong");
 			} else {
 				requireIPv6 = false;
 				start = 0;
@@ -323,9 +326,9 @@ final public class InetAddress implements
 		if(dot3Pos != -1) {
 			// May be either IPv4 or IPv6 with : and . mix
 			int dot2Pos = address.lastIndexOf('.', dot3Pos - 1);
-			if(dot2Pos == -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.oneDot");
+			if(dot2Pos == -1) return new InvalidResult(RESOURCES, "InetAddress.parse.oneDot");
 			int dot1Pos = address.lastIndexOf('.', dot2Pos - 1);
-			if(dot1Pos == -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.twoDots");
+			if(dot1Pos == -1) return new InvalidResult(RESOURCES, "InetAddress.parse.twoDots");
 			rightColonPos = address.lastIndexOf(':', dot1Pos - 1);
 			// Must be all [0-9] between dots and beginning/colon
 			InvalidResult result = parseOctet(address, (rightColonPos == -1) ? start : (rightColonPos + 1), dot1Pos, outValue);
@@ -347,7 +350,7 @@ final public class InetAddress implements
 				| (long)o4;
 			if(rightColonPos == -1) {
 				// IPv4
-				if(requireIPv6) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.bracketsNotIPv6");
+				if(requireIPv6) return new InvalidResult(RESOURCES, "InetAddress.parse.bracketsNotIPv6");
 				return LongLong.valueOf(
 					IPV4_HI,
 					IPV4_NET_MAPPED_LO | ipLow
@@ -366,9 +369,9 @@ final public class InetAddress implements
 		while(rightWord > 0) {
 			int prevColonPos = address.lastIndexOf(':', rightColonPos - 1);
 			if(prevColonPos == -1) {
-				if(rightWord != 1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.notEnoughColons");
+				if(rightWord != 1) return new InvalidResult(RESOURCES, "InetAddress.parse.notEnoughColons");
 			} else {
-				if(rightWord == 1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons");
+				if(rightWord == 1) return new InvalidResult(RESOURCES, "InetAddress.parse.tooManyColons");
 			}
 			// This address ends with :: - don't confuse with shortcut, just leave as zero
 			if(prevColonPos == (end - 1)) {
@@ -377,7 +380,7 @@ final public class InetAddress implements
 					break;
 				} else {
 					// Ends in : but doesn't end in ::
-					return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty");
+					return new InvalidResult(RESOURCES, "InetAddress.parseHexWord.empty");
 				}
 			} else {
 				// Check for shortcut
@@ -400,13 +403,13 @@ final public class InetAddress implements
 		int leftColonPos = start - 1;
 		int leftWord = 0;
 		while(leftColonPos < rightColonPos) {
-			if(leftWord >= rightWord) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons");
+			if(leftWord >= rightWord) return new InvalidResult(RESOURCES, "InetAddress.parse.tooManyColons");
 			int nextColonPos = address.indexOf(':', leftColonPos + 1);
 			if(nextColonPos == -1) {
-				if(leftWord != 7) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.notEnoughColons");
+				if(leftWord != 7) return new InvalidResult(RESOURCES, "InetAddress.parse.notEnoughColons");
 				nextColonPos = end;
 			} else {
-				if(leftWord == 7) return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parse.tooManyColons");
+				if(leftWord == 7) return new InvalidResult(RESOURCES, "InetAddress.parse.tooManyColons");
 			}
 			// Handle beginning ::
 			if(nextColonPos == start) {
@@ -415,7 +418,7 @@ final public class InetAddress implements
 					// OK - we match the scan from right
 					break;
 				} else {
-					return new InvalidResult(ApplicationResourcesAccessor.accessor, "InetAddress.parseHexWord.empty");
+					return new InvalidResult(RESOURCES, "InetAddress.parseHexWord.empty");
 				}
 			} else {
 				InvalidResult result = parseHexWord(address, leftColonPos + 1, nextColonPos, outValue);

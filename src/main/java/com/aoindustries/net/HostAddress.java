@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
+import com.aoindustries.i18n.Resources;
 import com.aoindustries.util.Internable;
 import com.aoindustries.validation.InvalidResult;
 import com.aoindustries.validation.ValidationException;
@@ -48,6 +49,8 @@ final public class HostAddress implements
 	DtoFactory<com.aoindustries.net.dto.HostAddress>,
 	Internable<HostAddress>
 {
+
+	private static final Resources RESOURCES = Resources.getResources(HostAddress.class.getPackage());
 
 	private static final long serialVersionUID = -6323326583709666966L;
 
@@ -144,8 +147,8 @@ final public class HostAddress implements
 	}
 
 	private void validate() throws ValidationException {
-		if(domainName==null && inetAddress==null) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "HostAddress.validate.bothNull"));
-		if(domainName!=null && inetAddress!=null) throw new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "HostAddress.validate.bothNonNull"));
+		if(domainName==null && inetAddress==null) throw new ValidationException(new InvalidResult(RESOURCES, "HostAddress.validate.bothNull"));
+		if(domainName!=null && inetAddress!=null) throw new ValidationException(new InvalidResult(RESOURCES, "HostAddress.validate.bothNonNull"));
 	}
 
 	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {

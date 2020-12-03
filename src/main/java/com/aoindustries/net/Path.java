@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
+import com.aoindustries.i18n.Resources;
 import com.aoindustries.lang.LocalizedIllegalArgumentException;
 import com.aoindustries.util.ComparatorUtils;
 import com.aoindustries.util.Internable;
@@ -73,6 +74,8 @@ final public class Path implements
 	Internable<Path>
 {
 
+	private static final Resources RESOURCES = Resources.getResources(Path.class.getPackage());
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -94,32 +97,32 @@ final public class Path implements
 	// Matches src/main/sql/com/aoindustries/net/Path.validate-function.sql
 	public static ValidationResult validate(String path) {
 		// Be non-null
-		if(path == null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.isNull");
+		if(path == null) return new InvalidResult(RESOURCES, "Path.validate.isNull");
 		// Be non-empty
-		if(path.length() == 0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.empty");
+		if(path.length() == 0) return new InvalidResult(RESOURCES, "Path.validate.empty");
 		// Start with a /
-		if(path.charAt(0) != SEPARATOR_CHAR) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.startWithNonSlash", path.charAt(0));
+		if(path.charAt(0) != SEPARATOR_CHAR) return new InvalidResult(RESOURCES, "Path.validate.startWithNonSlash", path.charAt(0));
 		// Not contain any null characters
 		{
 			int pos = path.indexOf('\0');
-			if(pos != -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsNullCharacter", pos);
+			if(pos != -1) return new InvalidResult(RESOURCES, "Path.validate.containsNullCharacter", pos);
 		}
 		// Not contain any /../ or /./ path elements
 		{
 			int pos = path.indexOf(SLASH_DOT_DOT_SLASH);
-			if(pos != -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDotDot", pos);
+			if(pos != -1) return new InvalidResult(RESOURCES, "Path.validate.containsDotDot", pos);
 		}
 		{
 			int pos = path.indexOf(SLASH_DOT_SLASH);
-			if(pos != -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDot", pos);
+			if(pos != -1) return new InvalidResult(RESOURCES, "Path.validate.containsDot", pos);
 		}
 		// Not end with /.. or /.
-		if(path.endsWith(SLASH_DOT)) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.endsSlashDot");
-		if(path.endsWith(SLASH_DOT_DOT)) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.endsSlashDotDot");
+		if(path.endsWith(SLASH_DOT)) return new InvalidResult(RESOURCES, "Path.validate.endsSlashDot");
+		if(path.endsWith(SLASH_DOT_DOT)) return new InvalidResult(RESOURCES, "Path.validate.endsSlashDotDot");
 		// Not contain any // in the path
 		{
 			int pos = path.indexOf(SLASH_SLASH);
-			if(pos != -1) return new InvalidResult(ApplicationResourcesAccessor.accessor, "Path.validate.containsDoubleSlash", pos);
+			if(pos != -1) return new InvalidResult(RESOURCES, "Path.validate.containsDoubleSlash", pos);
 		}
 		return ValidResult.getInstance();
 	}
@@ -250,14 +253,14 @@ final public class Path implements
 	public Path subPath(int beginIndex, int endIndex) throws IllegalArgumentException, IndexOutOfBoundsException {
 		if(path.charAt(beginIndex) != SEPARATOR_CHAR) {
 			throw new LocalizedIllegalArgumentException(
-				ApplicationResourcesAccessor.accessor,
+				RESOURCES,
 				"Path.subPath.beginIndexNotSlash",
 				beginIndex
 			);
 		}
 		if(beginIndex >= endIndex) {
 			throw new LocalizedIllegalArgumentException(
-				ApplicationResourcesAccessor.accessor,
+				RESOURCES,
 				"Path.subPath.beginIndexNotBeforeEndIndex",
 				beginIndex,
 				endIndex

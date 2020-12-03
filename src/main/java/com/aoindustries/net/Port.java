@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
+import com.aoindustries.i18n.Resources;
 import com.aoindustries.validation.InvalidResult;
 import com.aoindustries.validation.ValidResult;
 import com.aoindustries.validation.ValidationException;
@@ -45,17 +46,19 @@ final public class Port extends IPortRange implements
 	DtoFactory<com.aoindustries.net.dto.Port>
 {
 
+	private static final Resources RESOURCES = Resources.getResources(Port.class.getPackage());
+
 	private static final long serialVersionUID = 2L;
 
 	public static ValidationResult validate(int port, Protocol protocol) {
 		if(port < MIN_PORT) {
-			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.lessThanOne", port);
+			return new InvalidResult(RESOURCES, "Port.validate.lessThanOne", port);
 		}
 		if(port > MAX_PORT) {
-			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.greaterThan64k", port);
+			return new InvalidResult(RESOURCES, "Port.validate.greaterThan64k", port);
 		}
 		if(protocol != Protocol.TCP && protocol != Protocol.UDP && protocol != Protocol.SCTP) {
-			return new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol);
+			return new InvalidResult(RESOURCES, "Port.validate.unsupportedProtocol", protocol);
 		}
 		return ValidResult.getInstance();
 	}
@@ -88,7 +91,7 @@ final public class Port extends IPortRange implements
 				cache = sctpCache;
 				break;
 			default :
-				throw new AssertionError(new ValidationException(new InvalidResult(ApplicationResourcesAccessor.accessor, "Port.validate.unsupportedProtocol", protocol)));
+				throw new AssertionError(new ValidationException(new InvalidResult(RESOURCES, "Port.validate.unsupportedProtocol", protocol)));
 		}
 		int cacheIndex = port - MIN_PORT;
 		Port np = cache.get(cacheIndex);

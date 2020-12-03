@@ -23,6 +23,7 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
+import com.aoindustries.i18n.Resources;
 import com.aoindustries.io.FastExternalizable;
 import com.aoindustries.io.FastObjectInput;
 import com.aoindustries.io.FastObjectOutput;
@@ -61,16 +62,18 @@ implements
 	Internable<DomainLabels>
 {
 
+	private static final Resources RESOURCES = Resources.getResources(DomainLabels.class.getPackage());
+
 	/**
 	 * Validates a set of domain labels.
 	 *
 	 * @see DomainLabel#validate(java.lang.String)
 	 */
 	public static ValidationResult validate(String labels) {
-		if(labels==null) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabels.validate.isNull");
+		if(labels==null) return new InvalidResult(RESOURCES, "DomainLabels.validate.isNull");
 		int len = labels.length();
-		if(len==0) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabels.validate.empty");
-		if(len>DomainName.MAX_LENGTH) return new InvalidResult(ApplicationResourcesAccessor.accessor, "DomainLabels.validate.tooLong", DomainName.MAX_LENGTH, len);
+		if(len==0) return new InvalidResult(RESOURCES, "DomainLabels.validate.empty");
+		if(len>DomainName.MAX_LENGTH) return new InvalidResult(RESOURCES, "DomainLabels.validate.tooLong", DomainName.MAX_LENGTH, len);
 		int labelStart = 0;
 		for(int pos=0; pos<len; pos++) {
 			if(labels.charAt(pos)=='.') {
