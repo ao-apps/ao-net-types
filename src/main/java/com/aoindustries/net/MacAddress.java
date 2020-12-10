@@ -23,8 +23,8 @@
 package com.aoindustries.net;
 
 import com.aoindustries.dto.DtoFactory;
-import com.aoindustries.util.Internable;
 import com.aoindustries.i18n.Resources;
+import com.aoindustries.util.Internable;
 import com.aoindustries.validation.InvalidResult;
 import com.aoindustries.validation.ValidResult;
 import com.aoindustries.validation.ValidationException;
@@ -53,7 +53,7 @@ final public class MacAddress implements
 	Internable<MacAddress>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(MacAddress.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(MacAddress.class);
 
 	private static final long serialVersionUID = 893218935616001329L;
 
@@ -62,7 +62,7 @@ final public class MacAddress implements
 			(ch<'0' || ch>'9')
 			&& (ch<'A' || ch>'F')
 			&& (ch<'a' || ch>'f')
-		) return new InvalidResult(RESOURCES, "MacAddress.checkHexValue.badCharacter", ch);
+		) return new InvalidResult(RESOURCES, "checkHexValue.badCharacter", ch);
 		return ValidResult.getInstance();
 	}
 
@@ -71,35 +71,35 @@ final public class MacAddress implements
 	 */
 	public static ValidationResult validate(String address) {
 		// Be non-null
-		if(address==null) return new InvalidResult(RESOURCES, "MacAddress.validate.isNull");
+		if(address==null) return new InvalidResult(RESOURCES, "validate.isNull");
 		// Be non-empty
 		int len = address.length();
-		if(len!=17) return new InvalidResult(RESOURCES, "MacAddress.parse.incorrectLength", len);
+		if(len!=17) return new InvalidResult(RESOURCES, "parse.incorrectLength", len);
 		ValidationResult result = checkHexValue(address.charAt(0));
 		if(!result.isValid()) return result;
 		result = checkHexValue(address.charAt(1));
 		if(!result.isValid()) return result;
-		if(address.charAt(2)!=':') return new InvalidResult(RESOURCES, "MacAddress.parse.notColon", 2);
+		if(address.charAt(2)!=':') return new InvalidResult(RESOURCES, "parse.notColon", 2);
 		result = checkHexValue(address.charAt(3));
 		if(!result.isValid()) return result;
 		result = checkHexValue(address.charAt(4));
 		if(!result.isValid()) return result;
-		if(address.charAt(5)!=':') return new InvalidResult(RESOURCES, "MacAddress.parse.notColon", 5);
+		if(address.charAt(5)!=':') return new InvalidResult(RESOURCES, "parse.notColon", 5);
 		result = checkHexValue(address.charAt(6));
 		if(!result.isValid()) return result;
 		result = checkHexValue(address.charAt(7));
 		if(!result.isValid()) return result;
-		if(address.charAt(8)!=':') return new InvalidResult(RESOURCES, "MacAddress.parse.notColon", 8);
+		if(address.charAt(8)!=':') return new InvalidResult(RESOURCES, "parse.notColon", 8);
 		result = checkHexValue(address.charAt(9));
 		if(!result.isValid()) return result;
 		result = checkHexValue(address.charAt(10));
 		if(!result.isValid()) return result;
-		if(address.charAt(11)!=':') return new InvalidResult(RESOURCES, "MacAddress.parse.notColon", 11);
+		if(address.charAt(11)!=':') return new InvalidResult(RESOURCES, "parse.notColon", 11);
 		result = checkHexValue(address.charAt(12));
 		if(!result.isValid()) return result;
 		result = checkHexValue(address.charAt(13));
 		if(!result.isValid()) return result;
-		if(address.charAt(14)!=':') return new InvalidResult(RESOURCES, "MacAddress.parse.notColon", 14);
+		if(address.charAt(14)!=':') return new InvalidResult(RESOURCES, "parse.notColon", 14);
 		result = checkHexValue(address.charAt(15));
 		if(!result.isValid()) return result;
 		result = checkHexValue(address.charAt(16));

@@ -74,7 +74,7 @@ final public class Path implements
 	Internable<Path>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(Path.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(Path.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -97,32 +97,32 @@ final public class Path implements
 	// Matches src/main/sql/com/aoindustries/net/Path.validate-function.sql
 	public static ValidationResult validate(String path) {
 		// Be non-null
-		if(path == null) return new InvalidResult(RESOURCES, "Path.validate.isNull");
+		if(path == null) return new InvalidResult(RESOURCES, "validate.isNull");
 		// Be non-empty
-		if(path.length() == 0) return new InvalidResult(RESOURCES, "Path.validate.empty");
+		if(path.length() == 0) return new InvalidResult(RESOURCES, "validate.empty");
 		// Start with a /
-		if(path.charAt(0) != SEPARATOR_CHAR) return new InvalidResult(RESOURCES, "Path.validate.startWithNonSlash", path.charAt(0));
+		if(path.charAt(0) != SEPARATOR_CHAR) return new InvalidResult(RESOURCES, "validate.startWithNonSlash", path.charAt(0));
 		// Not contain any null characters
 		{
 			int pos = path.indexOf('\0');
-			if(pos != -1) return new InvalidResult(RESOURCES, "Path.validate.containsNullCharacter", pos);
+			if(pos != -1) return new InvalidResult(RESOURCES, "validate.containsNullCharacter", pos);
 		}
 		// Not contain any /../ or /./ path elements
 		{
 			int pos = path.indexOf(SLASH_DOT_DOT_SLASH);
-			if(pos != -1) return new InvalidResult(RESOURCES, "Path.validate.containsDotDot", pos);
+			if(pos != -1) return new InvalidResult(RESOURCES, "validate.containsDotDot", pos);
 		}
 		{
 			int pos = path.indexOf(SLASH_DOT_SLASH);
-			if(pos != -1) return new InvalidResult(RESOURCES, "Path.validate.containsDot", pos);
+			if(pos != -1) return new InvalidResult(RESOURCES, "validate.containsDot", pos);
 		}
 		// Not end with /.. or /.
-		if(path.endsWith(SLASH_DOT)) return new InvalidResult(RESOURCES, "Path.validate.endsSlashDot");
-		if(path.endsWith(SLASH_DOT_DOT)) return new InvalidResult(RESOURCES, "Path.validate.endsSlashDotDot");
+		if(path.endsWith(SLASH_DOT)) return new InvalidResult(RESOURCES, "validate.endsSlashDot");
+		if(path.endsWith(SLASH_DOT_DOT)) return new InvalidResult(RESOURCES, "validate.endsSlashDotDot");
 		// Not contain any // in the path
 		{
 			int pos = path.indexOf(SLASH_SLASH);
-			if(pos != -1) return new InvalidResult(RESOURCES, "Path.validate.containsDoubleSlash", pos);
+			if(pos != -1) return new InvalidResult(RESOURCES, "validate.containsDoubleSlash", pos);
 		}
 		return ValidResult.getInstance();
 	}
@@ -254,14 +254,14 @@ final public class Path implements
 		if(path.charAt(beginIndex) != SEPARATOR_CHAR) {
 			throw new LocalizedIllegalArgumentException(
 				RESOURCES,
-				"Path.subPath.beginIndexNotSlash",
+				"subPath.beginIndexNotSlash",
 				beginIndex
 			);
 		}
 		if(beginIndex >= endIndex) {
 			throw new LocalizedIllegalArgumentException(
 				RESOURCES,
-				"Path.subPath.beginIndexNotBeforeEndIndex",
+				"subPath.beginIndexNotBeforeEndIndex",
 				beginIndex,
 				endIndex
 			);

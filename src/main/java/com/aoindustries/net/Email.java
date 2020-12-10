@@ -68,7 +68,7 @@ final public class Email implements
 	SQLData
 {
 
-	private static final Resources RESOURCES = Resources.getResources(Email.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(Email.class);
 
 	public static final int MAX_LENGTH = 254;
 
@@ -82,11 +82,11 @@ final public class Email implements
 	// Matches src/main/sql/com/aoindustries/net/Email.validate-function.sql
 	public static ValidationResult validate(String email) {
 		// Be non-null
-		if(email==null) return new InvalidResult(RESOURCES, "Email.validate.isNull");
+		if(email==null) return new InvalidResult(RESOURCES, "validate.isNull");
 		// Be non-empty
-		if(email.length()==0) return new InvalidResult(RESOURCES, "Email.validate.empty");
+		if(email.length()==0) return new InvalidResult(RESOURCES, "validate.empty");
 		int atPos = email.indexOf('@');
-		if(atPos==-1) return new InvalidResult(RESOURCES, "Email.validate.noAt");
+		if(atPos==-1) return new InvalidResult(RESOURCES, "validate.noAt");
 		return validate(email.substring(0, atPos), email.substring(atPos+1));
 	}
 
@@ -146,23 +146,23 @@ final public class Email implements
 	 */
 	// Matches src/main/sql/com/aoindustries/net/Email.validate-function.sql
 	private static ValidationResult validateImpl(String localPart, String domain) {
-		if(localPart==null) return new InvalidResult(RESOURCES, "Email.validate.localePart.isNull");
-		if(domain==null) return new InvalidResult(RESOURCES, "Email.validate.domain.isNull");
-		if(domain.lastIndexOf('.')==-1) return new InvalidResult(RESOURCES, "Email.validate.domain.noDot");
-		if(DomainName.isArpa(domain)) return new InvalidResult(RESOURCES, "Email.validate.domain.isArpa");
+		if(localPart==null) return new InvalidResult(RESOURCES, "validate.localePart.isNull");
+		if(domain==null) return new InvalidResult(RESOURCES, "validate.domain.isNull");
+		if(domain.lastIndexOf('.')==-1) return new InvalidResult(RESOURCES, "validate.domain.noDot");
+		if(DomainName.isArpa(domain)) return new InvalidResult(RESOURCES, "validate.domain.isArpa");
 		int len = localPart.length();
 		int totalLen = len + 1 + domain.length();
-		if(totalLen>MAX_LENGTH) return new InvalidResult(RESOURCES, "Email.validate.tooLong", MAX_LENGTH, totalLen);
+		if(totalLen>MAX_LENGTH) return new InvalidResult(RESOURCES, "validate.tooLong", MAX_LENGTH, totalLen);
 
-		if(len==0) return new InvalidResult(RESOURCES, "Email.validate.localePart.empty");
-		if(len>MAX_LOCAL_PART_LENGTH) return new InvalidResult(RESOURCES, "Email.validate.localePart.tooLong", MAX_LOCAL_PART_LENGTH, len);
+		if(len==0) return new InvalidResult(RESOURCES, "validate.localePart.empty");
+		if(len>MAX_LOCAL_PART_LENGTH) return new InvalidResult(RESOURCES, "validate.localePart.tooLong", MAX_LOCAL_PART_LENGTH, len);
 		for(int pos=0; pos<len; pos++) {
 			char ch = localPart.charAt(pos);
 			if(ch=='.') {
-				if(pos==0) return new InvalidResult(RESOURCES, "Email.validate.localePart.startsDot");
-				if(pos==(len-1)) return new InvalidResult(RESOURCES, "Email.validate.localePart.endsDot");
-				if(localPart.charAt(pos-1)=='.') return new InvalidResult(RESOURCES, "Email.validate.localePart.doubleDot", pos-1);
-			} else if(ch>=128 || !validChars[ch]) return new InvalidResult(RESOURCES, "Email.validate.localePart.invalidCharacter", ch, pos);
+				if(pos==0) return new InvalidResult(RESOURCES, "validate.localePart.startsDot");
+				if(pos==(len-1)) return new InvalidResult(RESOURCES, "validate.localePart.endsDot");
+				if(localPart.charAt(pos-1)=='.') return new InvalidResult(RESOURCES, "validate.localePart.doubleDot", pos-1);
+			} else if(ch>=128 || !validChars[ch]) return new InvalidResult(RESOURCES, "validate.localePart.invalidCharacter", ch, pos);
 		}
 		return ValidResult.getInstance();
 	}
@@ -177,9 +177,9 @@ final public class Email implements
 	public static Email valueOf(String email) throws ValidationException {
 		if(email == null) return null;
 		// Be non-empty
-		if(email.length()==0) throw new ValidationException(new InvalidResult(RESOURCES, "Email.validate.empty"));
+		if(email.length()==0) throw new ValidationException(new InvalidResult(RESOURCES, "validate.empty"));
 		int atPos = email.indexOf('@');
-		if(atPos==-1) throw new ValidationException(new InvalidResult(RESOURCES, "Email.validate.noAt"));
+		if(atPos==-1) throw new ValidationException(new InvalidResult(RESOURCES, "validate.noAt"));
 		return valueOf(email.substring(0, atPos), DomainName.valueOf(email.substring(atPos+1)));
 	}
 
@@ -358,7 +358,7 @@ final public class Email implements
 		try {
 			String email = stream.readString();
 			int atPos = email.indexOf('@');		
-			if(atPos == -1) throw new LocalizedSQLException("23000", RESOURCES, "Email.validate.noAt");
+			if(atPos == -1) throw new LocalizedSQLException("23000", RESOURCES, "validate.noAt");
 			localPart = email.substring(0, atPos);
 			domain = DomainName.valueOf(email.substring(atPos + 1));
 			validate();

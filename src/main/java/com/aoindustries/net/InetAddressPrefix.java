@@ -47,7 +47,7 @@ final public class InetAddressPrefix implements
 	DtoFactory<com.aoindustries.net.dto.InetAddressPrefix>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(InetAddressPrefix.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(InetAddressPrefix.class);
 
 	/**
 	 * Checks if the address and prefix are valid.
@@ -57,11 +57,11 @@ final public class InetAddressPrefix implements
 	 */
 	public static ValidationResult validate(InetAddress address, int prefix) {
 		// Be non-null
-		if(address==null) return new InvalidResult(RESOURCES, "InetAddressPrefix.validate.address.isNull");
-		if(prefix < 0) return new InvalidResult(RESOURCES, "InetAddressPrefix.validate.prefix.lessThanZero", prefix);
+		if(address==null) return new InvalidResult(RESOURCES, "validate.address.isNull");
+		if(prefix < 0) return new InvalidResult(RESOURCES, "validate.prefix.lessThanZero", prefix);
 		@SuppressWarnings("deprecation")
 		int maxPrefix = address.getAddressFamily().getMaxPrefix();
-		if(prefix > maxPrefix) return new InvalidResult(RESOURCES, "InetAddressPrefix.validate.prefix.tooBig", prefix, maxPrefix);
+		if(prefix > maxPrefix) return new InvalidResult(RESOURCES, "validate.prefix.tooBig", prefix, maxPrefix);
 		// TODO: Special requirements for UNSPECIFIED, such as prefix forced to be zero?
 		return ValidResult.getInstance();
 	}
@@ -108,7 +108,7 @@ final public class InetAddressPrefix implements
 				} catch(NumberFormatException e) {
 					throw new ValidationException(
 						e,
-						new InvalidResult(RESOURCES, "InetAddressPrefix.valueOf.prefix.parseError", prefixStr)
+						new InvalidResult(RESOURCES, "valueOf.prefix.parseError", prefixStr)
 					);
 				}
 			}

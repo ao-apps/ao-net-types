@@ -44,31 +44,31 @@ final public class PortRange extends IPortRange implements
 	DtoFactory<com.aoindustries.net.dto.PortRange>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(PortRange.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(PortRange.class);
 
 	private static final long serialVersionUID = 1L;
 
 	public static ValidationResult validate(int from, int to, Protocol protocol) {
 		if(from < Port.MIN_PORT) {
-			return new InvalidResult(RESOURCES, "PortRange.validate.from.lessThanOne", from);
+			return new InvalidResult(RESOURCES, "validate.from.lessThanOne", from);
 		}
 		if(from > Port.MAX_PORT) {
-			return new InvalidResult(RESOURCES, "PortRange.validate.from.greaterThan64k", from);
+			return new InvalidResult(RESOURCES, "validate.from.greaterThan64k", from);
 		}
 		if(to < Port.MIN_PORT) {
-			return new InvalidResult(RESOURCES, "PortRange.validate.to.lessThanOne", to);
+			return new InvalidResult(RESOURCES, "validate.to.lessThanOne", to);
 		}
 		if(to > Port.MAX_PORT) {
-			return new InvalidResult(RESOURCES, "PortRange.validate.to.greaterThan64k", to);
+			return new InvalidResult(RESOURCES, "validate.to.greaterThan64k", to);
 		}
 		if(to < from) {
-			return new InvalidResult(RESOURCES, "PortRange.validate.toLessThanFrom", to, from);
+			return new InvalidResult(RESOURCES, "validate.toLessThanFrom", to, from);
 		}
 		if(from == to) {
-			return new InvalidResult(RESOURCES, "PortRange.validate.fromEqualsTo", from, to);
+			return new InvalidResult(RESOURCES, "validate.fromEqualsTo", from, to);
 		}
 		if(protocol != Protocol.TCP && protocol != Protocol.UDP && protocol != Protocol.SCTP) {
-			return new InvalidResult(RESOURCES, "Port.validate.unsupportedProtocol", protocol);
+			return new InvalidResult(Port.RESOURCES, "validate.unsupportedProtocol", protocol);
 		}
 		return ValidResult.getInstance();
 	}

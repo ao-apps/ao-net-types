@@ -71,7 +71,7 @@ final public class DomainName implements
 	Internable<DomainName>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(DomainName.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(DomainName.class);
 
 	public static final int MAX_LENGTH = 253;
 
@@ -202,9 +202,9 @@ final public class DomainName implements
 	 */
 	// Matches src/main/sql/com/aoindustries/net/DomainName.validate-function.sql
 	public static ValidationResult validate(String domain) {
-		if(domain==null) return new InvalidResult(RESOURCES, "DomainName.validate.isNull");
+		if(domain==null) return new InvalidResult(RESOURCES, "validate.isNull");
 		int len = domain.length();
-		if(len==0) return new InvalidResult(RESOURCES, "DomainName.validate.empty");
+		if(len==0) return new InvalidResult(RESOURCES, "validate.empty");
 		if(
 			!isLocalhost(domain)
 			&& !isLocalhostLocaldomain(domain)
@@ -220,8 +220,8 @@ final public class DomainName implements
 				&& ((ch=domain.charAt(4))=='u' || ch=='U')
 				&& ((ch=domain.charAt(5))=='l' || ch=='L')
 				&& ((ch=domain.charAt(6))=='t' || ch=='T')
-			) return new InvalidResult(RESOURCES, "DomainName.validate.isDefault");
-			if(len>MAX_LENGTH) return new InvalidResult(RESOURCES, "DomainName.validate.tooLong", MAX_LENGTH, len);
+			) return new InvalidResult(RESOURCES, "validate.isDefault");
+			if(len>MAX_LENGTH) return new InvalidResult(RESOURCES, "validate.tooLong", MAX_LENGTH, len);
 			boolean isArpa = isArpa(domain);
 			int labelStart = 0;
 			for(int pos=0; pos<len; pos++) {
@@ -237,10 +237,10 @@ final public class DomainName implements
 			ValidationResult result = DomainLabel.validate(domain, labelStart, len);
 			if(!result.isValid()) return result;
 			// Last domain label must be alphabetic (not be all numeric)
-			if(isNumeric(domain, labelStart, len)) return new InvalidResult(RESOURCES, "DomainName.validate.lastLabelAllDigits");
+			if(isNumeric(domain, labelStart, len)) return new InvalidResult(RESOURCES, "validate.lastLabelAllDigits");
 			// Last label must be a valid top level domain
 			String lastLabel = domain.substring(labelStart, len);
-			if(TopLevelDomain.getByLabel(lastLabel)==null) return new InvalidResult(RESOURCES, "DomainName.validate.notEndTopLevelDomain", lastLabel);
+			if(TopLevelDomain.getByLabel(lastLabel)==null) return new InvalidResult(RESOURCES, "validate.notEndTopLevelDomain", lastLabel);
 		}
 		return ValidResult.getInstance();
 	}

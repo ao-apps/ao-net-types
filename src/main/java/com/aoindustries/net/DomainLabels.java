@@ -62,7 +62,7 @@ implements
 	Internable<DomainLabels>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(DomainLabels.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(DomainLabels.class);
 
 	/**
 	 * Validates a set of domain labels.
@@ -70,10 +70,10 @@ implements
 	 * @see DomainLabel#validate(java.lang.String)
 	 */
 	public static ValidationResult validate(String labels) {
-		if(labels==null) return new InvalidResult(RESOURCES, "DomainLabels.validate.isNull");
+		if(labels==null) return new InvalidResult(RESOURCES, "validate.isNull");
 		int len = labels.length();
-		if(len==0) return new InvalidResult(RESOURCES, "DomainLabels.validate.empty");
-		if(len>DomainName.MAX_LENGTH) return new InvalidResult(RESOURCES, "DomainLabels.validate.tooLong", DomainName.MAX_LENGTH, len);
+		if(len==0) return new InvalidResult(RESOURCES, "validate.empty");
+		if(len>DomainName.MAX_LENGTH) return new InvalidResult(RESOURCES, "validate.tooLong", DomainName.MAX_LENGTH, len);
 		int labelStart = 0;
 		for(int pos=0; pos<len; pos++) {
 			if(labels.charAt(pos)=='.') {

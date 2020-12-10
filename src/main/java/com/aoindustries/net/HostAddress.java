@@ -50,7 +50,7 @@ final public class HostAddress implements
 	Internable<HostAddress>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(HostAddress.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(HostAddress.class);
 
 	private static final long serialVersionUID = -6323326583709666966L;
 
@@ -147,8 +147,8 @@ final public class HostAddress implements
 	}
 
 	private void validate() throws ValidationException {
-		if(domainName==null && inetAddress==null) throw new ValidationException(new InvalidResult(RESOURCES, "HostAddress.validate.bothNull"));
-		if(domainName!=null && inetAddress!=null) throw new ValidationException(new InvalidResult(RESOURCES, "HostAddress.validate.bothNonNull"));
+		if(domainName==null && inetAddress==null) throw new ValidationException(new InvalidResult(RESOURCES, "validate.bothNull"));
+		if(domainName!=null && inetAddress!=null) throw new ValidationException(new InvalidResult(RESOURCES, "validate.bothNonNull"));
 	}
 
 	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
