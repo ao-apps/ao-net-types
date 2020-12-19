@@ -483,9 +483,9 @@ final public class InetAddress implements
 	public int compareTo(InetAddress other) {
 		int diff = getAddressFamily().compareTo(other.getAddressFamily());
 		if(diff != 0) return diff;
-		diff = LongLong.compareUnsigned(hi, other.hi);
+		diff = Long.compareUnsigned(hi, other.hi);
 		if(diff != 0) return diff;
-		return LongLong.compareUnsigned(lo, other.lo);
+		return Long.compareUnsigned(lo, other.lo);
 	}
 
 	/**
