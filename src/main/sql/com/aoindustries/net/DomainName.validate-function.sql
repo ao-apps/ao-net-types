@@ -60,7 +60,10 @@ BEGIN
       RETURN 'DomainName.validate.lastLabelAllDigits';
     END IF;
     -- Last label must be a valid top level domain
-    IF NOT EXISTS (SELECT * FROM "com.aoindustries.tlds"."TopLevelDomain" WHERE label = _label) THEN
+    IF
+      user = 'postgres' -- Do not check while performing database dump/restore, since other table might not be populated
+      OR NOT EXISTS (SELECT * FROM "com.aoindustries.tlds"."TopLevelDomain" WHERE label = _label)
+    THEN
       RETURN 'DomainName.validate.notEndTopLevelDomain';
     END IF;
   END IF;
