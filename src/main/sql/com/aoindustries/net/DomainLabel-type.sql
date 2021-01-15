@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2018  AO Industries, Inc.
+ * Copyright (C) 2018, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-net-types.  If not, see <http://www.gnu.org/licenses/>.
  */
--- Must be done as "postgres" user:
+-- Must be done as "postgres" user in PostgreSQL < 13:
 CREATE EXTENSION IF NOT EXISTS citext;
 
 CREATE DOMAIN "com.aoindustries.net"."DomainLabel" AS citext
