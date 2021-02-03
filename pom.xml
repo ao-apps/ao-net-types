@@ -29,7 +29,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		<relativePath>../ao-oss-parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.aoindustries</groupId><artifactId>ao-net-types</artifactId><version>1.2.3-POST-SNAPSHOT</version>
+	<groupId>com.aoindustries</groupId><artifactId>ao-net-types</artifactId><version>1.2.4-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<name>AO Net Types</name>
@@ -215,7 +215,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				<groupId>com.aoindustries</groupId><artifactId>ao-collections</artifactId><version>1.2.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.12.1${POST-SNAPSHOT}</version>
+				<groupId>com.aoindustries</groupId><artifactId>ao-lang</artifactId><version>4.12.2-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoindustries</groupId><artifactId>ao-tlds</artifactId><version>1.2.0${POST-SNAPSHOT}</version>

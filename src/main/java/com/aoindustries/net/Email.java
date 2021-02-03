@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -37,7 +37,6 @@ import com.aoindustries.validation.ValidationResult;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInput;
-import java.io.ObjectInputValidation;
 import java.io.ObjectOutput;
 import java.sql.SQLData;
 import java.sql.SQLException;
@@ -62,7 +61,6 @@ import java.util.concurrent.ConcurrentMap;
 final public class Email implements
 	Comparable<Email>,
 	FastExternalizable,
-	ObjectInputValidation,
 	DtoFactory<com.aoindustries.net.dto.Email>,
 	Internable<Email>,
 	SQLData
@@ -323,10 +321,6 @@ final public class Email implements
 		} finally {
 			fastIn.unwrap();
 		}
-	}
-
-	@Override
-	public void validateObject() throws InvalidObjectException {
 		try {
 			validate();
 		} catch(ValidationException err) {

@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2015, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -37,7 +37,6 @@ import com.aoindustries.validation.ValidationResult;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInput;
-import java.io.ObjectInputValidation;
 import java.io.ObjectOutput;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
@@ -66,7 +65,6 @@ import java.util.concurrent.ConcurrentMap;
 final public class DomainName implements
 	Comparable<DomainName>,
 	FastExternalizable,
-	ObjectInputValidation,
 	DtoFactory<com.aoindustries.net.dto.DomainName>,
 	Internable<DomainName>
 {
@@ -310,6 +308,7 @@ final public class DomainName implements
 	/**
 	 * TODO: Should not be public once all classes using validator types.
 	 */
+	@SuppressWarnings("StringEquality")
 	public static int compareLabels(String labels1, String labels2) {
 		if(labels1==labels2) return 0; // Shortcut for interned
 		while(labels1.length()>0 && labels2.length()>0) {
@@ -377,6 +376,7 @@ final public class DomainName implements
 		if(existing==null) {
 			String internedDomain = domain.intern();
 			String internedLowerDomain = lowerDomain.intern();
+			@SuppressWarnings("StringEquality")
 			DomainName addMe = (domain == internedDomain) && (lowerDomain == internedLowerDomain) ? this : new DomainName(internedDomain, internedLowerDomain);
 			existing = interned.putIfAbsent(internedDomain, addMe);
 			if(existing==null) existing = addMe;
@@ -420,10 +420,6 @@ final public class DomainName implements
 		} finally {
 			fastIn.unwrap();
 		}
-	}
-
-	@Override
-	public void validateObject() throws InvalidObjectException {
 		try {
 			validate();
 		} catch(ValidationException err) {
