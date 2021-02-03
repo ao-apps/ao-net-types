@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2021-02-03T02:47:32-06:00"
+		dateModified="2021-02-03T04:44:46-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -46,15 +46,24 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>
-						Eliminated unnecessary uses of <code>java.io.ObjectInputValidation</code> where immediate
-						validation from <code>readObject(…)</code> or <code>readExternal(…)</code> is sufficient.
-					</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.2.4"
+			datePublished="2021-02-03T04:44:46-06:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>
+					Eliminated unnecessary uses of <code>java.io.ObjectInputValidation</code> where immediate
+					validation from <code>readObject(…)</code> or <code>readExternal(…)</code> is sufficient.
+				</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
