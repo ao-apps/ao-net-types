@@ -69,7 +69,7 @@ public interface MutableURIParameters extends URIParameters {
 	 * @deprecated  Please use {@link #add(java.lang.String, java.lang.String)} directly.
 	 */
 	@Deprecated
-	default void addParameter(String name, Object value) {
+	default void addParameter(String name, String value) {
 		NullArgumentException.checkNotNull(value, "value");
 		add(name, value);
 	}
