@@ -166,6 +166,8 @@ public class URIParametersMap implements MutableURIParameters {
 	 */
 	public URIParametersMap(String queryString) {
 		if(queryString != null) {
+			// TODO: We could defer this conversion until needed, which would mean wrapping then calling toString would
+			//       never need to perform full parsing
 			for(String nameValue : Strings.split(queryString, '&')) {
 				int pos = nameValue.indexOf('=');
 				String name;
@@ -202,6 +204,17 @@ public class URIParametersMap implements MutableURIParameters {
 		if(values==null) return null;
 		assert !values.isEmpty();
 		return values.get(0);
+		// TODO: Defer conversion to String
+		//Object value = values.get(0);
+		//String str;
+		//if(value instanceof String) {
+		//	str = (String)value;
+		//} else {
+		//	// Coerce to string now
+		//	str = Coercion.toString(value);
+		//	values.set(0, str);
+		//}
+		//return str;
 	}
 
 	@Override
@@ -222,6 +235,7 @@ public class URIParametersMap implements MutableURIParameters {
 		}
 	}
 
+	// TODO: Individual elements are modifiable when have more than one value
 	@Override
 	public Map<String, List<String>> getParameterMap() {
 		return unmodifiableMap;
