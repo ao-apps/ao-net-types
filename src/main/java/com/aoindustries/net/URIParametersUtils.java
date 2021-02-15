@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011, 2013, 2016, 2019  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2019, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,6 +22,8 @@
  */
 package com.aoindustries.net;
 
+import com.aoindustries.io.Encoder;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -72,7 +74,11 @@ final public class URIParametersUtils {
 						newUri.append(uri, 0, anchorStart).append('?');
 					}
 				}
-				appendQueryString(paramsMap.entrySet(), newUri);
+				try {
+					appendQueryString(paramsMap.entrySet(), newUri);
+				} catch(IOException e) {
+					throw new AssertionError("IOException should not occur on StringBuilder", e);
+				}
 				if(anchorStart != -1) newUri.append(uri, anchorStart, uriLen);
 				assert newUri.length() > uriLen : "Parameters must have been added";
 				uri = newUri.toString();
@@ -84,7 +90,7 @@ final public class URIParametersUtils {
 	/**
 	 * Appends the query string encoded, not including the '?' prefix.
 	 */
-	private static void appendQueryString(Iterable<Map.Entry<String,List<String>>> params, StringBuilder sb) {
+	private static void appendQueryString(Iterable<Map.Entry<String,List<String>>> params, Appendable out) throws IOException {
 		boolean didOne = false;
 		for(Map.Entry<String,List<String>> entry : params) {
 			String name = entry.getKey();
@@ -94,25 +100,25 @@ final public class URIParametersUtils {
 				String value = values.get(0);
 				assert value != null : "null values no longer supported to be consistent with servlet environment";
 				if(didOne) {
-					sb.append('&');
+					out.append('&');
 				} else {
 					didOne = true;
 				}
-				URIEncoder.encodeURIComponent(name, sb);
-				sb.append('=');
-				URIEncoder.encodeURIComponent(value, sb);
+				URIEncoder.encodeURIComponent(name, out);
+				out.append('=');
+				URIEncoder.encodeURIComponent(value, out);
 			} else {
 				String encodedName = URIEncoder.encodeURIComponent(name);
 				for(String value : values) {
 					assert value != null : "null values no longer supported to be consistent with servlet environment";
 					if(didOne) {
-						sb.append('&');
+						out.append('&');
 					} else {
 						didOne = true;
 					}
-					sb.append(encodedName);
-					sb.append('=');
-					URIEncoder.encodeURIComponent(value, sb);
+					out.append(encodedName);
+					out.append('=');
+					URIEncoder.encodeURIComponent(value, out);
 				}
 			}
 		}
@@ -122,24 +128,110 @@ final public class URIParametersUtils {
 	/**
 	 * Appends the query string encoded, not including the '?' prefix.
 	 */
-	public static void appendQueryString(URIParameters params, StringBuilder sb) {
+	private static void appendQueryString(Iterable<Map.Entry<String,List<String>>> params, Encoder encoder, Appendable out) throws IOException {
+		if(encoder == null) {
+			appendQueryString(params, out);
+		} else {
+			boolean didOne = false;
+			for(Map.Entry<String,List<String>> entry : params) {
+				String name = entry.getKey();
+				List<String> values = entry.getValue();
+				if(values.size() == 1) {
+					// Optimize common single-value case
+					String value = values.get(0);
+					assert value != null : "null values no longer supported to be consistent with servlet environment";
+					if(didOne) {
+						encoder.append('&', out);
+					} else {
+						didOne = true;
+					}
+					URIEncoder.encodeURIComponent(name, encoder, out);
+					encoder.append('=', out);
+					URIEncoder.encodeURIComponent(value, encoder, out);
+				} else {
+					String encodedName = URIEncoder.encodeURIComponent(name);
+					for(String value : values) {
+						assert value != null : "null values no longer supported to be consistent with servlet environment";
+						if(didOne) {
+							encoder.append('&', out);
+						} else {
+							didOne = true;
+						}
+						encoder.append(encodedName, out);
+						encoder.append('=', out);
+						URIEncoder.encodeURIComponent(value, encoder, out);
+					}
+				}
+			}
+			assert didOne;
+		}
+	}
+
+	/**
+	 * Appends the query string encoded, not including the '?' prefix.
+	 *
+	 * @see URIParameters#appendTo(java.lang.Appendable)
+	 */
+	public static void appendQueryString(URIParameters params, Appendable out) throws IOException {
 		if(params == null) return;
 		Map<String,List<String>> map = params.getParameterMap();
 		if(map.isEmpty()) return;
-		appendQueryString(map.entrySet(), sb);
+		appendQueryString(map.entrySet(), out);
+	}
+
+	/**
+	 * Appends the query string encoded, not including the '?' prefix.
+	 *
+	 * @see URIParameters#appendTo(com.aoindustries.io.Encoder, java.lang.Appendable)
+	 */
+	public static void appendQueryString(URIParameters params, Encoder encoder, Appendable out) throws IOException {
+		if(params == null) return;
+		Map<String,List<String>> map = params.getParameterMap();
+		if(map.isEmpty()) return;
+		appendQueryString(map.entrySet(), encoder, out);
+	}
+
+	/**
+	 * Appends the query string encoded, not including the '?' prefix.
+	 */
+	public static void appendQueryString(URIParameters params, StringBuilder sb) {
+		if(params == null) return;
+		try {
+			appendQueryString(params, (Appendable)sb);
+		} catch(IOException e) {
+			throw new AssertionError("IOException should not occur on StringBuilder", e);
+		}
+	}
+
+	/**
+	 * Appends the query string encoded, not including the '?' prefix.
+	 */
+	public static void appendQueryString(URIParameters params, StringBuffer sb) {
+		if(params == null) return;
+		try {
+			appendQueryString(params, (Appendable)sb);
+		} catch(IOException e) {
+			throw new AssertionError("IOException should not occur on StringBuffer", e);
+		}
 	}
 
 	/**
 	 * Gets the query string encoded, not including the '?' prefix.
 	 *
 	 * @return  The query string or {@code null} for none.
+	 *
+	 * @see URIParameters#toString()
 	 */
 	public static String toQueryString(URIParameters params) {
 		if(params == null) return null;
 		Map<String,List<String>> map = params.getParameterMap();
 		if(map.isEmpty()) return null;
 		StringBuilder sb = new StringBuilder();
-		appendQueryString(map.entrySet(), sb);
+		try {
+			appendQueryString(map.entrySet(), sb);
+		} catch(IOException e) {
+			throw new AssertionError("IOException should not occur on StringBuilder", e);
+		}
 		return sb.toString();
 	}
 

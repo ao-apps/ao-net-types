@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011, 2013, 2016, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -39,8 +39,119 @@ import java.util.TreeMap;
  */
 public class URIParametersMap implements MutableURIParameters {
 
+	public static URIParametersMap of() {
+		return new URIParametersMap();
+	}
+
+	public static URIParametersMap of(String name, String value) {
+		return new URIParametersMap()
+			.add(name, value);
+	}
+
+	public static URIParametersMap of(String name, Object value) {
+		return new URIParametersMap()
+			.add(name, value);
+	}
+
+	public static URIParametersMap of(
+		String name1, String value1,
+		String name2, String value2
+	) {
+		return new URIParametersMap()
+			.add(name1, value1)
+			.add(name2, value2);
+	}
+
+	public static URIParametersMap of(
+		String name1, Object value1,
+		String name2, Object value2
+	) {
+		return new URIParametersMap()
+			.add(name1, value1)
+			.add(name2, value2);
+	}
+
+	public static URIParametersMap of(
+		String name1, String value1,
+		String name2, String value2,
+		String name3, String value3
+	) {
+		return new URIParametersMap()
+			.add(name1, value1)
+			.add(name2, value2)
+			.add(name3, value3);
+	}
+
+	public static URIParametersMap of(
+		String name1, Object value1,
+		String name2, Object value2,
+		String name3, Object value3
+	) {
+		return new URIParametersMap()
+			.add(name1, value1)
+			.add(name2, value2)
+			.add(name3, value3);
+	}
+
+	public static URIParametersMap of(
+		String name1, String value1,
+		String name2, String value2,
+		String name3, String value3,
+		String name4, String value4
+	) {
+		return new URIParametersMap()
+			.add(name1, value1)
+			.add(name2, value2)
+			.add(name3, value3)
+			.add(name4, value4);
+	}
+
+	public static URIParametersMap of(
+		String name1, Object value1,
+		String name2, Object value2,
+		String name3, Object value3,
+		String name4, Object value4
+	) {
+		return new URIParametersMap()
+			.add(name1, value1)
+			.add(name2, value2)
+			.add(name3, value3)
+			.add(name4, value4);
+	}
+
+	public static URIParametersMap of(
+		String name1, String value1,
+		String name2, String value2,
+		String name3, String value3,
+		String name4, String value4,
+		String name5, String value5
+	) {
+		return new URIParametersMap()
+			.add(name1, value1)
+			.add(name2, value2)
+			.add(name3, value3)
+			.add(name4, value4)
+			.add(name5, value5);
+	}
+
+	public static URIParametersMap of(
+		String name1, Object value1,
+		String name2, Object value2,
+		String name3, Object value3,
+		String name4, Object value4,
+		String name5, Object value5
+	) {
+		return new URIParametersMap()
+			.add(name1, value1)
+			.add(name2, value2)
+			.add(name3, value3)
+			.add(name4, value4)
+			.add(name5, value5);
+	}
+
 	private final Map<String,List<String>> map = new TreeMap<>();
 	private final Map<String,List<String>> unmodifiableMap = Collections.unmodifiableMap(map);
+	private String toString;
 
 	/**
 	 * Creates an empty set of parameters.
@@ -67,14 +178,22 @@ public class URIParametersMap implements MutableURIParameters {
 					name = URIDecoder.decodeURIComponent(nameValue.substring(0, pos));
 					value = URIDecoder.decodeURIComponent(nameValue.substring(pos + 1));
 				}
-				addParameter(name, value);
+				assert name != null;
+				assert value != null;
+				add(name, value);
 			}
+			toString = queryString;
 		}
 	}
 
+	/**
+	 * @see  URIParameters#toString()
+	 */
 	@Override
 	public String toString() {
-		return Objects.toString(URIParametersUtils.toQueryString(this), "");
+		String s = toString;
+		if(s == null) toString = s = Objects.toString(URIParametersUtils.toQueryString(this), "");
+		return s;
 	}
 
 	@Override
@@ -92,7 +211,15 @@ public class URIParametersMap implements MutableURIParameters {
 
 	@Override
 	public List<String> getParameterValues(String name) {
-		return unmodifiableMap.get(name);
+		List<String> values = unmodifiableMap.get(name);
+		if(values == null) {
+			return null;
+		} else if(values.size() == 1) {
+			// Already unmodifiable from Collections.singletonList
+			return values;
+		} else {
+			return Collections.unmodifiableList(values);
+		}
 	}
 
 	@Override
@@ -101,20 +228,45 @@ public class URIParametersMap implements MutableURIParameters {
 	}
 
 	@Override
-	final public void addParameter(String name, String value) {
-		NullArgumentException.checkNotNull(name, "name");
-		NullArgumentException.checkNotNull(value, "value");
-		List<String> values = map.get(name);
-		if(values==null) map.put(name, values = new ArrayList<>());
-		values.add(value);
+	public boolean isFastToString() {
+		return toString != null;
 	}
 
 	@Override
-	public void addParameters(String name, Iterable<? extends String> values) {
-		if(values != null) {
-			for(String value : values) {
-				addParameter(name, value);
+	final public URIParametersMap add(String name, String value) {
+		if(value != null) {
+			NullArgumentException.checkNotNull(name, "name");
+			List<String> values = map.get(name);
+			if(values == null) {
+				map.put(name, Collections.singletonList(value));
+			} else if(values.size() == 1) {
+				List<String> newValues = new ArrayList<>();
+				newValues.add(values.get(0));
+				newValues.add(value);
+				map.put(name, newValues);
+			} else {
+				values.add(value);
 			}
+			toString = null;
 		}
+		return this;
+	}
+
+	@Override
+	public URIParametersMap add(String name, Object value) {
+		MutableURIParameters.super.add(name, value);
+		return this;
+	}
+
+	@Override
+	public URIParametersMap add(String name, Iterable<?> values) {
+		MutableURIParameters.super.add(name, values);
+		return this;
+	}
+
+	@Override
+	public URIParametersMap add(String name, Object ... values) {
+		MutableURIParameters.super.add(name, values);
+		return this;
 	}
 }

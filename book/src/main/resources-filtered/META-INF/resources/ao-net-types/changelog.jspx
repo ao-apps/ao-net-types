@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-0500"
-		dateModified="2021-02-03T04:44:46-06:00"
+		dateModified="2021-02-15T03:16:59-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -46,7 +46,40 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			/>
+			>
+				<ul>
+					<li>
+						<code>MutableURIParameters.addParameter(…)</code> and
+						<code>MutableURIParameters.addParametesr(…)</code>renamed to <code>add(…)</code>, and now
+						returns <code>MutableURIParameters</code> for method chaining.
+					</li>
+					<li>
+						Parameter values may now be provided as <code>Object</code>.
+						The conversion to string may be deferred, or the value may be streamed instead of being
+						converted to a string.
+					</li>
+					<li>
+						New overload of <code>MutableURIParameters.add(…)</code> that accepts <code>Object[]</code> for
+						multiple values.
+					</li>
+					<li>
+						New static methods <code>URIParametersMap.of(…)</code> for streamlined inline construction for
+						up to five parameters.
+					</li>
+					<li>
+						<code>URIParametersMap</code> optimized to store first value using <code>Collections.singletonList(…)</code>.
+						This should help in the most common case where a parameter has a single value.
+					</li>
+					<li>
+						<code>URIParametersUtils</code> now supports appending query string to <code>Appendable</code>
+						and out <code>StringBuffer</code>, in addition to the previous <code>StringBuilder</code>.
+					</li>
+					<li>
+						<code>URIParameters</code> now extends <code>Writable</code>, which allows for optimizing
+						streaming without building full intermediate strings.
+					</li>
+				</ul>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release

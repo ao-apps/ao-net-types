@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011, 2016, 2019  AO Industries, Inc.
+ * Copyright (C) 2011, 2016, 2019, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -43,6 +43,9 @@ final public class EmptyURIParameters implements URIParameters {
 	private EmptyURIParameters() {
 	}
 
+	/**
+	 * @see  URIParameters#toString()
+	 */
 	@Override
 	public String toString() {
 		return "";
@@ -66,5 +69,10 @@ final public class EmptyURIParameters implements URIParameters {
 	@Override
 	public Map<String, List<String>> getParameterMap() {
 		return Collections.emptyMap();
+	}
+
+	@Override
+	public boolean isFastToString() {
+		return true;
 	}
 }

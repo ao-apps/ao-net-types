@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2013, 2016, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2013, 2016, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,6 +23,9 @@
 package com.aoindustries.net;
 
 import com.aoindustries.collections.AoCollections;
+import com.aoindustries.io.Encoder;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -60,6 +63,9 @@ public class UnmodifiableURIParameters implements URIParameters {
 		this.wrapped = wrapped;
 	}
 
+	/**
+	 * @see  URIParameters#toString()
+	 */
 	@Override
 	public String toString() {
 		return wrapped.toString();
@@ -93,5 +99,55 @@ public class UnmodifiableURIParameters implements URIParameters {
 			);
 		}
 		return Collections.unmodifiableMap(map);
+	}
+
+	@Override
+	public long getLength() throws IOException {
+		return wrapped.getLength();
+	}
+
+	@Override
+	public boolean isFastToString() {
+		return wrapped.isFastToString();
+	}
+
+	@Override
+	public void writeTo(Writer out) throws IOException {
+		wrapped.writeTo(out);
+	}
+
+	@Override
+	public void writeTo(Writer out, long off, long len) throws IOException {
+		wrapped.writeTo(out, off, len);
+	}
+
+	@Override
+	public void writeTo(Encoder encoder, Writer out) throws IOException {
+		wrapped.writeTo(encoder, out);
+	}
+
+	@Override
+	public void writeTo(Encoder encoder, Writer out, long off, long len) throws IOException {
+		wrapped.writeTo(encoder, out, off, len);
+	}
+
+	@Override
+	public void appendTo(Appendable out) throws IOException {
+		wrapped.appendTo(out);
+	}
+
+	@Override
+	public void appendTo(Appendable out, long start, long end) throws IOException {
+		wrapped.appendTo(out, start, end);
+	}
+
+	@Override
+	public void appendTo(Encoder encoder, Appendable out) throws IOException {
+		wrapped.appendTo(encoder, out);
+	}
+
+	@Override
+	public void appendTo(Encoder encoder, Appendable out, long start, long end) throws IOException {
+		wrapped.appendTo(encoder, out, start, end);
 	}
 }

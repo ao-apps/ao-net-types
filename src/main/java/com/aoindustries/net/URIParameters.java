@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011, 2016, 2019  AO Industries, Inc.
+ * Copyright (C) 2011, 2016, 2019, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,6 +22,12 @@
  */
 package com.aoindustries.net;
 
+import com.aoindustries.io.Encoder;
+import com.aoindustries.io.Writable;
+import com.aoindustries.lang.Strings;
+import com.aoindustries.math.SafeMath;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +37,7 @@ import java.util.Map;
  *
  * @author  AO Industries, Inc.
  */
-public interface URIParameters {
+public interface URIParameters extends Writable {
 
 	/**
 	 * Gets the query string encoded in the default encoding {@link IRI#ENCODING},
@@ -62,4 +68,73 @@ public interface URIParameters {
 	 * Gets an unmodifiable map view of all parameters.
 	 */
 	Map<String,List<String>> getParameterMap();
+
+	@Override
+	default long getLength() throws IOException {
+		return toString().length();
+	}
+
+	// TODO: Remove this default in next major release
+	@Override
+	default boolean isFastToString() {
+		return false;
+	}
+
+	@Override
+	default void writeTo(Writer out) throws IOException {
+		appendTo(out);
+	}
+
+	@Override
+	default void writeTo(Writer out, long off, long len) throws IOException {
+		appendTo(out, off, off + len);
+	}
+
+	@Override
+	default void writeTo(Encoder encoder, Writer out) throws IOException {
+		appendTo(encoder, out);
+	}
+
+	@Override
+	default void writeTo(Encoder encoder, Writer out, long off, long len) throws IOException {
+		appendTo(encoder, out, off, off + len);
+	}
+
+	/**
+	 * @see URIParametersUtils#appendQueryString(com.aoindustries.net.URIParameters, java.lang.Appendable)
+	 */
+	@Override
+	default void appendTo(Appendable out) throws IOException {
+		URIParametersUtils.appendQueryString(this, out);
+	}
+
+	@Override
+	default void appendTo(Appendable out, long start, long end) throws IOException {
+		out.append(toString(), SafeMath.castInt(start), SafeMath.castInt(end));
+	}
+
+	/**
+	 * @see URIParametersUtils#appendQueryString(com.aoindustries.net.URIParameters, com.aoindustries.io.Encoder, java.lang.Appendable)
+	 */
+	@Override
+	default void appendTo(Encoder encoder, Appendable out) throws IOException {
+		URIParametersUtils.appendQueryString(this, encoder, out);
+	}
+
+	@Override
+	default void appendTo(Encoder encoder, Appendable out, long start, long end) throws IOException {
+		if(encoder == null) {
+			appendTo(out, start, end);
+		} else {
+			encoder.append(toString(), SafeMath.castInt(start), SafeMath.castInt(end), out);
+		}
+	}
+
+	@Override
+	@SuppressWarnings({"AssertWithSideEffects", "StringEquality"})
+	default URIParameters trim() {
+		String toString;
+		assert Strings.trim(toString = toString()) == toString : "query string should never have whitespace to trim";
+		return this;
+	}
 }
