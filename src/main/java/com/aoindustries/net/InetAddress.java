@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -98,8 +98,8 @@ final public class InetAddress implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<LongLong,InetAddress> interned = new ConcurrentHashMap<>();
-	private static final ConcurrentMap<String,InetAddress> internedByAddress = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<LongLong, InetAddress> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String, InetAddress> internedByAddress = new ConcurrentHashMap<>();
 
 	/**
 	 * Parses either an IPv4 or IPv6 address.

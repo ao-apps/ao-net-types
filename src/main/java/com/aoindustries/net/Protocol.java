@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -217,7 +217,7 @@ public enum Protocol {
 		return protocolsByDecimal[decimal];
 	}
 
-	private static final Map<String,Protocol> protocolsByUpperKeyword;
+	private static final Map<String, Protocol> protocolsByUpperKeyword;
 	static {
 		Protocol[] values = values();
 		protocolsByUpperKeyword = AoCollections.newHashMap(values.length);

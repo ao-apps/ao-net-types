@@ -125,7 +125,7 @@ final public class Path implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,Path> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String, Path> interned = new ConcurrentHashMap<>();
 
 	/**
 	 * @param path  when {@code null}, returns {@code null}

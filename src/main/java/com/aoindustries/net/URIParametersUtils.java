@@ -90,9 +90,9 @@ final public class URIParametersUtils {
 	/**
 	 * Appends the query string encoded, not including the '?' prefix.
 	 */
-	private static void appendQueryString(Iterable<Map.Entry<String,List<String>>> params, Appendable out) throws IOException {
+	private static void appendQueryString(Iterable<Map.Entry<String, List<String>>> params, Appendable out) throws IOException {
 		boolean didOne = false;
-		for(Map.Entry<String,List<String>> entry : params) {
+		for(Map.Entry<String, List<String>> entry : params) {
 			String name = entry.getKey();
 			List<String> values = entry.getValue();
 			if(values.size() == 1) {
@@ -128,12 +128,12 @@ final public class URIParametersUtils {
 	/**
 	 * Appends the query string encoded, not including the '?' prefix.
 	 */
-	private static void appendQueryString(Iterable<Map.Entry<String,List<String>>> params, Encoder encoder, Appendable out) throws IOException {
+	private static void appendQueryString(Iterable<Map.Entry<String, List<String>>> params, Encoder encoder, Appendable out) throws IOException {
 		if(encoder == null) {
 			appendQueryString(params, out);
 		} else {
 			boolean didOne = false;
-			for(Map.Entry<String,List<String>> entry : params) {
+			for(Map.Entry<String, List<String>> entry : params) {
 				String name = entry.getKey();
 				List<String> values = entry.getValue();
 				if(values.size() == 1) {
@@ -174,7 +174,7 @@ final public class URIParametersUtils {
 	 */
 	public static void appendQueryString(URIParameters params, Appendable out) throws IOException {
 		if(params == null) return;
-		Map<String,List<String>> map = params.getParameterMap();
+		Map<String, List<String>> map = params.getParameterMap();
 		if(map.isEmpty()) return;
 		appendQueryString(map.entrySet(), out);
 	}
@@ -186,7 +186,7 @@ final public class URIParametersUtils {
 	 */
 	public static void appendQueryString(URIParameters params, Encoder encoder, Appendable out) throws IOException {
 		if(params == null) return;
-		Map<String,List<String>> map = params.getParameterMap();
+		Map<String, List<String>> map = params.getParameterMap();
 		if(map.isEmpty()) return;
 		appendQueryString(map.entrySet(), encoder, out);
 	}
@@ -224,7 +224,7 @@ final public class URIParametersUtils {
 	 */
 	public static String toQueryString(URIParameters params) {
 		if(params == null) return null;
-		Map<String,List<String>> map = params.getParameterMap();
+		Map<String, List<String>> map = params.getParameterMap();
 		if(map.isEmpty()) return null;
 		StringBuilder sb = new StringBuilder();
 		try {

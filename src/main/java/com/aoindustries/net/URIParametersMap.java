@@ -149,8 +149,8 @@ public class URIParametersMap implements MutableURIParameters {
 			.add(name5, value5);
 	}
 
-	private final Map<String,List<String>> map = new TreeMap<>();
-	private final Map<String,List<String>> unmodifiableMap = Collections.unmodifiableMap(map);
+	private final Map<String, List<String>> map = new TreeMap<>();
+	private final Map<String, List<String>> unmodifiableMap = Collections.unmodifiableMap(map);
 	private String toString;
 
 	/**

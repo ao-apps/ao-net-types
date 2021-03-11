@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -94,9 +94,9 @@ final public class HostAddress implements
 		else return DomainName.validate(address);
 	}
 
-	private static final ConcurrentMap<DomainName,HostAddress> internedByDomainName = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<DomainName, HostAddress> internedByDomainName = new ConcurrentHashMap<>();
 
-	private static final ConcurrentMap<InetAddress,HostAddress> internedByInetAddress = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<InetAddress, HostAddress> internedByInetAddress = new ConcurrentHashMap<>();
 
 	/**
 	 * When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}

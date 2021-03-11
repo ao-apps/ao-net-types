@@ -87,10 +87,10 @@ public class UnmodifiableURIParameters implements URIParameters {
 	}
 
 	@Override
-	public Map<String,List<String>> getParameterMap() {
-		Map<String,List<String>> wrappedMap = wrapped.getParameterMap();
-		Map<String,List<String>> map = AoCollections.newLinkedHashMap(wrappedMap.size());
-		for(Map.Entry<String,List<String>> entry : wrappedMap.entrySet()) {
+	public Map<String, List<String>> getParameterMap() {
+		Map<String, List<String>> wrappedMap = wrapped.getParameterMap();
+		Map<String, List<String>> map = AoCollections.newLinkedHashMap(wrappedMap.size());
+		for(Map.Entry<String, List<String>> entry : wrappedMap.entrySet()) {
 			map.put(
 				entry.getKey(),
 				Collections.unmodifiableList(

@@ -92,7 +92,7 @@ final public class DomainLabel implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,DomainLabel> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String, DomainLabel> interned = new ConcurrentHashMap<>();
 
 	/**
 	 * @param label  when {@code null}, returns {@code null}

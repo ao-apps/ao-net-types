@@ -243,7 +243,7 @@ final public class DomainName implements
 		return ValidResult.getInstance();
 	}
 
-	private static final ConcurrentMap<String,DomainName> interned = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String, DomainName> interned = new ConcurrentHashMap<>();
 
 	/**
 	 * @param domain  when {@code null}, returns {@code null}

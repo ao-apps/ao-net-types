@@ -67,7 +67,7 @@ public interface URIParameters extends Writable {
 	/**
 	 * Gets an unmodifiable map view of all parameters.
 	 */
-	Map<String,List<String>> getParameterMap();
+	Map<String, List<String>> getParameterMap();
 
 	@Override
 	default long getLength() throws IOException {
