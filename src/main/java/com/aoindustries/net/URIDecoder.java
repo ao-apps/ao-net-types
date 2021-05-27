@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -69,7 +69,7 @@ public class URIDecoder {
 	 */
 	public static String decodeURIComponent(String s) {
 		try {
-			return (s == null) ? null : URLDecoder.decode(s, IRI.ENCODING.name());
+			return (s == null) ? null : URLDecoder.decode(s, IRI.ENCODING.name()); // Java 10: No .name()
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 		}
@@ -88,7 +88,7 @@ public class URIDecoder {
 	 */
 	public static void decodeURIComponent(String s, Appendable out) throws IOException {
 		try {
-			if(s != null) out.append(URLDecoder.decode(s, IRI.ENCODING.name()));
+			if(s != null) out.append(URLDecoder.decode(s, IRI.ENCODING.name())); // Java 10: No .name()
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 		}
@@ -113,7 +113,7 @@ public class URIDecoder {
 				if(encoder == null) {
 					decodeURIComponent(s, out);
 				} else {
-					encoder.append(URLDecoder.decode(s, IRI.ENCODING.name()), out);
+					encoder.append(URLDecoder.decode(s, IRI.ENCODING.name()), out); // Java 10: No .name()
 				}
 			}
 		} catch(UnsupportedEncodingException e) {

@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -71,7 +71,7 @@ public class URIEncoder {
 	 */
 	public static String encodeURIComponent(String s) {
 		try {
-			return (s == null) ? null : Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20");
+			return (s == null) ? null : Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20"); // Java 10: No .name()
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 		}
@@ -91,7 +91,7 @@ public class URIEncoder {
 	 */
 	public static void encodeURIComponent(String s, Appendable out) throws IOException {
 		try {
-			if(s != null) Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out);
+			if(s != null) Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out); // Java 10: No .name()
 		} catch(UnsupportedEncodingException e) {
 			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
 		}
@@ -117,7 +117,7 @@ public class URIEncoder {
 				if(encoder == null) {
 					encodeURIComponent(s, out);
 				} else {
-					Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out, encoder);
+					Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out, encoder); // Java 10: No .name()
 				}
 			}
 		} catch(UnsupportedEncodingException e) {
@@ -317,7 +317,7 @@ public class URIEncoder {
 					int nextPos = Strings.indexOf(uri, rfc3986ReservedCharacters_percent_and_space, pos);
 					if(nextPos == -1) {
 						// TODO: Avoid substring?
-						String encoded = URLEncoder.encode(uri.substring(pos), IRI.ENCODING.name());
+						String encoded = URLEncoder.encode(uri.substring(pos), IRI.ENCODING.name()); // Java 10: No .name()
 						if(encoder == null) {
 							out.append(encoded);
 						} else {
@@ -329,7 +329,7 @@ public class URIEncoder {
 					} else {
 						if(nextPos != pos) {
 							// TODO: Avoid substring?
-							String encoded = URLEncoder.encode(uri.substring(pos, nextPos), IRI.ENCODING.name());
+							String encoded = URLEncoder.encode(uri.substring(pos, nextPos), IRI.ENCODING.name()); // Java 10: No .name()
 							if(encoder == null) {
 								out.append(encoded);
 							} else {
