@@ -1,33 +1,33 @@
-# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AO Net Types](https://github.com/aoindustries/ao-net-types)
+# [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AO OSS](https://github.com/aoindustries/ao-oss) / [Net Types](https://github.com/aoindustries/ao-net-types)
 <p>
 	<a href="https://aoindustries.com/life-cycle#project-current-stable">
-		<img src="https://aoindustries.com/ao-badges/project-current-stable.svg" alt="project: current stable" />
+		<img src="https://oss.aoapps.com/ao-badges/project-current-stable.svg" alt="project: current stable" />
 	</a>
 	<a href="https://aoindustries.com/life-cycle#management-production">
-		<img src="https://aoindustries.com/ao-badges/management-production.svg" alt="management: production" />
+		<img src="https://oss.aoapps.com/ao-badges/management-production.svg" alt="management: production" />
 	</a>
 	<a href="https://aoindustries.com/life-cycle#packaging-active">
-		<img src="https://aoindustries.com/ao-badges/packaging-active.svg" alt="packaging: active" />
+		<img src="https://oss.aoapps.com/ao-badges/packaging-active.svg" alt="packaging: active" />
 	</a>
 	<br />
 	<a href="https://docs.oracle.com/javase/8/docs/api/">
-		<img src="https://aoindustries.com/ao-badges/java-8.svg" alt="java: &gt;= 8" />
+		<img src="https://oss.aoapps.com/ao-badges/java-8.svg" alt="java: &gt;= 8" />
 	</a>
 	<a href="http://semver.org/spec/v2.0.0.html">
-		<img src="https://aoindustries.com/ao-badges/semver-2.0.0.svg" alt="semantic versioning: 2.0.0" />
+		<img src="https://oss.aoapps.com/ao-badges/semver-2.0.0.svg" alt="semantic versioning: 2.0.0" />
 	</a>
 	<a href="https://www.gnu.org/licenses/lgpl-3.0">
-		<img src="https://aoindustries.com/ao-badges/license-lgpl-3.0.svg" alt="license: LGPL v3" />
+		<img src="https://oss.aoapps.com/ao-badges/license-lgpl-3.0.svg" alt="license: LGPL v3" />
 	</a>
 </p>
 
 Networking-related value types.
 
 ## Project Links
-* [Project Home](https://aoindustries.com/ao-net-types/)
-* [Changelog](https://aoindustries.com/ao-net-types/changelog)
-* [API Docs](https://aoindustries.com/ao-net-types/apidocs/)
-* [Maven Central Repository](https://search.maven.org/artifact/com.aoindustries/ao-net-types)
+* [Project Home](https://oss.aoapps.com/net-types/)
+* [Changelog](https://oss.aoapps.com/net-types/changelog)
+* [API Docs](https://oss.aoapps.com/net-types/apidocs/)
+* [Maven Central Repository](https://search.maven.org/artifact/com.aoapps/ao-net-types)
 * [GitHub](https://github.com/aoindustries/ao-net-types)
 
 ## Features
@@ -37,8 +37,8 @@ Networking-related value types.
 * Supports optimization through reduction of IP and port combinations through:
     * Coalescing of addresses and network ranges into fewer network ranges.
     * Coalescing of ports and port ranges into fewer port ranges.
-* [Fast serializable](https://aoindustries.com/ao-lang/apidocs/com/aoindustries/io/FastExternalizable.html) and self-validating objects.
-* [Internable](https://aoindustries.com/ao-lang/apidocs/com/aoindustries/util/Internable.html) for memory savings on large datasets.
+* [Fast serializable](https://oss.aoapps.com/lang/apidocs/com/aoindustries/io/FastExternalizable.html) and self-validating objects.
+* [Internable](https://oss.aoapps.com/lang/apidocs/com/aoindustries/util/Internable.html) for memory savings on large datasets.
 * Small footprint, minimal dependencies - not part of a big monolithic package.
 * Java 1.8 implementation:
     * Android compatible.

@@ -22,7 +22,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 -->
 <jsp:root
-	xmlns:ao="https://aoindustries.com/ao-taglib/"
+	xmlns:ao="https://oss.aoapps.com/taglib/"
 	xmlns:core="https://semanticcms.com/core/taglib/"
 	xmlns:jsp="http://java.sun.com/JSP/Page"
 	xmlns:section="https://semanticcms.com/section/taglib/"
@@ -34,7 +34,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2017-03-17T13:34:38-05:00"
-		dateModified="2020-11-16T20:30:46-06:00"
+		dateModified="2021-05-31T01:25:50-05:00"
 	>
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
@@ -72,8 +72,8 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 						<li>Coalescing of ports and port ranges into fewer port ranges.</li>
 					</ul>
 				</li>
-				<li><ao:a href="/ao-lang/apidocs/com/aoindustries/io/FastExternalizable.html">Fast serializable</ao:a> and self-validating objects.</li>
-				<li><ao:a href="/ao-lang/apidocs/com/aoindustries/util/Internable.html">Internable</ao:a> for memory savings on large datasets.</li>
+				<li><ao:a href="/lang/apidocs/com/aoindustries/io/FastExternalizable.html">Fast serializable</ao:a> and self-validating objects.</li>
+				<li><ao:a href="/lang/apidocs/com/aoindustries/util/Internable.html">Internable</ao:a> for memory savings on large datasets.</li>
 				<li>Small footprint, minimal dependencies - not part of a big monolithic package.</li>
 				<li>Java 1.8 implementation:
 					<ul>
@@ -85,9 +85,9 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		</section:section>
 		<section:section label="Motivation">
 			<p>
-				The <core:link book="/" page="/aoserv/index.jspx" /> allows configuration of services on a per-port and per-IP basis.
-				System configuration components like <core:link book="/ao-selinux" page="/index.jspx" /> and
-				<core:link book="/ao-firewalld" page="/index.jspx" /> support configurations over port ranges and network ranges.
+				The <ao:a href="https://aoindustries.com/aoserv/">AOServ Platform</ao:a> allows configuration of services on a per-port and per-IP basis.
+				System configuration components like <ao:a href="https://aoindustries.com/ao-selinux/">AO SELinux</ao:a> and
+				<ao:a href="https://aoindustries.com/ao-firewalld/">AO firewalld</ao:a> support configurations over port ranges and network ranges.
 			</p>
 			<p>
 				These value types are a common representation of networking configuration shared between various components.

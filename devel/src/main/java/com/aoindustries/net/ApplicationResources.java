@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2020  AO Industries, Inc.
+ * Copyright (C) 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -39,7 +39,7 @@ public final class ApplicationResources extends EditableResourceBundle {
 	);
 
 	static File getSourceFile(String filename) {
-		return new File(System.getProperty("user.home") + "/maven2/ao/ao-net-types/src/main/resources/com/aoindustries/net", filename);
+		return new File(System.getProperty("user.home") + "/maven2/ao/oss/net-types/src/main/resources/com/aoindustries/net", filename);
 	}
 
 	public ApplicationResources() {
