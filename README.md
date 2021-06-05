@@ -37,8 +37,8 @@ Networking-related value types.
 * Supports optimization through reduction of IP and port combinations through:
     * Coalescing of addresses and network ranges into fewer network ranges.
     * Coalescing of ports and port ranges into fewer port ranges.
-* [Fast serializable](https://oss.aoapps.com/lang/apidocs/com/aoindustries/io/FastExternalizable.html) and self-validating objects.
-* [Internable](https://oss.aoapps.com/lang/apidocs/com/aoindustries/util/Internable.html) for memory savings on large datasets.
+* [Fast serializable](https://oss.aoapps.com/lang/apidocs/com/aoapps/lang/io/FastExternalizable.html) and self-validating objects.
+* [Internable](https://oss.aoapps.com/lang/apidocs/com/aoapps/lang/util/Internable.html) for memory savings on large datasets.
 * Small footprint, minimal dependencies - not part of a big monolithic package.
 * Java 1.8 implementation:
     * Android compatible.
