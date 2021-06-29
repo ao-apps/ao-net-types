@@ -33,6 +33,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 	<packaging>bundle</packaging>
 
 	<properties>
+		<module.name>com.aoapps.net.types</module.name>
 		<!-- Java 1.8 -->
 		<javase.version>1.8</javase.version>
 		<javase.release>8</javase.release>
@@ -103,6 +104,51 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		</resources>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<ignoredUnusedDeclaredDependencies>
+						<dependency>com.aoapps:ao-tlds:jar</dependency><!-- Secondary artifact -->
+					</ignoredUnusedDeclaredDependencies>
+				</configuration>
+			</plugin>
+			<!-- Java 1.8: see https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<!-- compile everything to ensure module-info contains right entries -->
+					<execution>
+						<id>default-compile</id>
+						<configuration>
+							<release>9</release>
+						</configuration>
+					</execution>
+					<!-- recompile everything for target VM except the module-info.java -->
+					<execution>
+						<id>base-compile</id><goals><goal>compile</goal></goals>
+						<configuration>
+							<excludes>
+								<exclude>module-info.java</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<!-- Java 1.8: generate future-proof modular javadocs -->
+					<source>11</source>
+					<release>11</release>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- Cannot use module path due to additional test dependencies -->
+					<useModulePath>false</useModulePath>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
@@ -165,6 +211,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 											<includes>element-list, package-list</includes>
 											<outputDirectory>${project.build.directory}/offlineLinks/com.aoapps/ao-tlds</outputDirectory>
 										</artifactItem>
+										<!-- Secondary artifact: <groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><classifier>sql</classifier> -->
 										<!-- Test Direct -->
 										<artifactItem>
 											<groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId><classifier>javadoc</classifier>
@@ -198,6 +245,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 									<url>https://oss.aoapps.com/tlds/apidocs/</url>
 									<location>${project.build.directory}/offlineLinks/com.aoapps/ao-tlds</location>
 								</offlineLink>
+								<!-- Secondary artifact: <groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><classifier>sql</classifier> -->
 								<!-- Test Direct -->
 								<offlineLink>
 									<url>https://oss.aoapps.com/encoding/apidocs/</url>
@@ -231,6 +279,10 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+			</dependency>
+			<dependency>
+				<groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><version>2.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version><classifier>sql</classifier>
+				<scope>provided</scope>
 			</dependency>
 			<!-- Test Direct -->
 			<dependency>
@@ -266,6 +318,9 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<dependency>
 			<groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><classifier>sql</classifier>
 		</dependency>
 		<!-- Test Direct -->
 		<dependency>

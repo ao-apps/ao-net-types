@@ -34,6 +34,7 @@ import com.aoapps.lang.validation.ValidationResult;
 import java.io.Serializable;
 import java.net.ProtocolFamily;
 import java.net.StandardProtocolFamily;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -58,7 +59,7 @@ final public class InetAddress implements
 	Internable<InetAddress>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(InetAddress.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, InetAddress.class);
 
 	static final long
 		// Bits for IPv4 representations

@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-05:00"
-		dateModified="2021-06-03T22:53:21-05:00"
+		dateModified="2021-06-27T16:13:41-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -49,6 +49,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				scmUrl="@{project.scm.url}"
 			>
 				<ul>
+					<li>Now supports Java 9+ modules with included <code>module-info.class</code>.</li>
 					<li>Maven artifact relocated from <code>com.aoindustries:ao-net-types</code> to <code>com.aoapps:ao-net-types</code>.</li>
 					<li>Package renamed from <code>com.aoindustries.net</code> to <code>com.aoapps.net</code>.</li>
 					<li>SQL schema renamed from <code>com.aoindustries.net</code> to <code>com.aoapps.net</code>.</li>
@@ -193,7 +194,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 			<ul>
 				<li>Pulled networking utilities out of <core:link book="/hodgepodge" page="/index.jspx" />.</li>
 				<li>
-					New class <ao:a href="apidocs/com/aoapps/net/AnyURI.html">AnyURI</ao:a>
+					New class <ao:a href="apidocs/com.aoapps.net.types/com/aoapps/net/AnyURI.html">AnyURI</ao:a>
 					optimized for high performance manipulation of URL scheme, hier-part, query string, and fragment.
 				</li>
 				<li>
@@ -261,7 +262,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		>
 			<ol>
 				<li>Minimum Java version changed from 1.6 to 1.7.</li>
-				<li>New self-validating type <ao:a href="apidocs/com/aoapps/net/Path.html">Path</ao:a>.</li>
+				<li>New self-validating type <ao:a href="apidocs/com.aoapps.net.types/com/aoapps/net/Path.html">Path</ao:a>.</li>
 				<li>New <code>DomainName</code> constants:
 					<ol type="a">
 						<li><code>LOCALHOST</code></li>
@@ -270,11 +271,11 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				</li>
 				<li>
 					Bracketed IPv6 addresses <code>[…]</code> now supported in parsing and validating
-					both <ao:a href="apidocs/com/aoapps/net/InetAddress.html">InetAddress</ao:a>
-					and <ao:a href="apidocs/com/aoapps/net/HostAddress.html">HostAddress</ao:a>.
+					both <ao:a href="apidocs/com.aoapps.net.types/com/aoapps/net/InetAddress.html">InetAddress</ao:a>
+					and <ao:a href="apidocs/com.aoapps.net.types/com/aoapps/net/HostAddress.html">HostAddress</ao:a>.
 				</li>
 				<li>
-					Improved performance of <ao:a href="apidocs/com/aoapps/net/InetAddress.html#validate-java.lang.String-">InetAddress.validate(String)</ao:a>
+					Improved performance of <ao:a href="apidocs/com.aoapps.net.types/com/aoapps/net/InetAddress.html#validate-java.lang.String-">InetAddress.validate(String)</ao:a>
 					by no longer internally throwing and catching exceptions during parsing.
 				</li>
 				<li>SCTP also has ports in range 1-65535, like TCP and UDP.</li>

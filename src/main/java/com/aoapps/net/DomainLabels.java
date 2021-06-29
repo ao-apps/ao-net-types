@@ -37,6 +37,7 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -49,7 +50,7 @@ import java.util.concurrent.ConcurrentMap;
  *   <li>May not exceed DomainName.MAX_LENGTH</li>
  *   <li>Have at least one domain label, each label separated by dots.</li>
  * </ul>
- * 
+ *
  * @author  AO Industries, Inc.
  */
 final public class DomainLabels
@@ -60,7 +61,7 @@ implements
 	Internable<DomainLabels>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(DomainLabels.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabels.class);
 
 	/**
 	 * Validates a set of domain labels.

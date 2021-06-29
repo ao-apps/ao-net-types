@@ -43,6 +43,7 @@ import java.sql.SQLException;
 import java.sql.SQLInput;
 import java.sql.SQLOutput;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -54,7 +55,7 @@ import java.util.concurrent.ConcurrentMap;
  *   <li>Contain a single @, but not at the beginning or end</li>
  *   <li>Local part must adhere to <a href="https://wikipedia.org/wiki/E-mail_address#RFC_specification">RFC 5322</a>.</li>
  * </ul>
- * 
+ *
  * @author  AO Industries, Inc.
  */
 // Matches src/main/sql/com/aoapps/net/Email-type.sql
@@ -66,7 +67,7 @@ final public class Email implements
 	SQLData
 {
 
-	private static final Resources RESOURCES = Resources.getResources(Email.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Email.class);
 
 	public static final int MAX_LENGTH = 254;
 
@@ -351,7 +352,7 @@ final public class Email implements
 		//System.err.println("DEBUG: typeName = " + typeName);
 		try {
 			String email = stream.readString();
-			int atPos = email.indexOf('@');		
+			int atPos = email.indexOf('@');
 			if(atPos == -1) throw new LocalizedSQLException("23000", RESOURCES, "validate.noAt");
 			localPart = email.substring(0, atPos);
 			domain = DomainName.valueOf(email.substring(atPos + 1));

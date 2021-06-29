@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -72,7 +73,7 @@ final public class Path implements
 	Internable<Path>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(Path.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Path.class);
 
 	private static final long serialVersionUID = 1L;
 

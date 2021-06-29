@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 /**
  * Combines an {@link InetAddress} and an associated prefix.
@@ -47,7 +48,7 @@ final public class InetAddressPrefix implements
 	DtoFactory<com.aoapps.net.dto.InetAddressPrefix>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(InetAddressPrefix.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, InetAddressPrefix.class);
 
 	/**
 	 * Checks if the address and prefix are valid.

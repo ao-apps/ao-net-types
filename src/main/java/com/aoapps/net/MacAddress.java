@@ -34,6 +34,7 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -53,7 +54,7 @@ final public class MacAddress implements
 	Internable<MacAddress>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(MacAddress.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, MacAddress.class);
 
 	private static final long serialVersionUID = 893218935616001329L;
 

@@ -33,6 +33,7 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -40,7 +41,7 @@ import java.util.concurrent.ConcurrentMap;
  * Represents a host's address as either a <code>DomainName</code> or an <code>InetAddress</code>.
  * To not allow the IP address representation, use <code>DomainName</code> instead.
  * No DNS lookups are performed during validation.
- * 
+ *
  * @author  AO Industries, Inc.
  */
 final public class HostAddress implements
@@ -50,7 +51,7 @@ final public class HostAddress implements
 	Internable<HostAddress>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(HostAddress.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, HostAddress.class);
 
 	private static final long serialVersionUID = -6323326583709666966L;
 

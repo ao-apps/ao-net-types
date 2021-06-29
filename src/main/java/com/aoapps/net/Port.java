@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
@@ -46,7 +47,7 @@ final public class Port extends IPortRange implements
 	DtoFactory<com.aoapps.net.dto.Port>
 {
 
-	static final Resources RESOURCES = Resources.getResources(Port.class);
+	static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Port.class);
 
 	private static final long serialVersionUID = 2L;
 

@@ -38,6 +38,7 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -61,7 +62,7 @@ final public class DomainLabel implements
 	Internable<DomainLabel>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(DomainLabel.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabel.class);
 
 	public static final int MAX_LENGTH = 63;
 

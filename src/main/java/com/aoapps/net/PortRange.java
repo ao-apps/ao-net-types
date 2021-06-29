@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 /**
  * A port range and associated protocol.
@@ -44,7 +45,7 @@ final public class PortRange extends IPortRange implements
 	DtoFactory<com.aoapps.net.dto.PortRange>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(PortRange.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, PortRange.class);
 
 	private static final long serialVersionUID = 1L;
 
