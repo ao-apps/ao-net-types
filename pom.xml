@@ -286,7 +286,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<!-- Test Direct -->
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId><version>5.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
+				<groupId>com.aoapps</groupId><artifactId>ao-encoding</artifactId><version>5.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId><artifactId>junit</artifactId><version>4.13.2</version>
