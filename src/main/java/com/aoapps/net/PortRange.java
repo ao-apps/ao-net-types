@@ -45,7 +45,7 @@ final public class PortRange extends IPortRange implements
 	DtoFactory<com.aoapps.net.dto.PortRange>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, PortRange.class);
+	private static final Resources RESOURCES = Resources.getResources(PortRange.class, ResourceBundle::getBundle);
 
 	private static final long serialVersionUID = 1L;
 

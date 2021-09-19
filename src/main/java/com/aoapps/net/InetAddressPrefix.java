@@ -48,7 +48,7 @@ final public class InetAddressPrefix implements
 	DtoFactory<com.aoapps.net.dto.InetAddressPrefix>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, InetAddressPrefix.class);
+	private static final Resources RESOURCES = Resources.getResources(InetAddressPrefix.class, ResourceBundle::getBundle);
 
 	/**
 	 * Checks if the address and prefix are valid.

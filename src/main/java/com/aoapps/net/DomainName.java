@@ -70,7 +70,7 @@ final public class DomainName implements
 	Internable<DomainName>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainName.class);
+	private static final Resources RESOURCES = Resources.getResources(DomainName.class, ResourceBundle::getBundle);
 
 	public static final int MAX_LENGTH = 253;
 

@@ -59,7 +59,7 @@ final public class InetAddress implements
 	Internable<InetAddress>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, InetAddress.class);
+	private static final Resources RESOURCES = Resources.getResources(InetAddress.class, ResourceBundle::getBundle);
 
 	static final long
 		// Bits for IPv4 representations

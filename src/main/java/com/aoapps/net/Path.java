@@ -73,7 +73,7 @@ final public class Path implements
 	Internable<Path>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Path.class);
+	private static final Resources RESOURCES = Resources.getResources(Path.class, ResourceBundle::getBundle);
 
 	private static final long serialVersionUID = 1L;
 
