@@ -67,7 +67,7 @@ final public class Email implements
 	SQLData
 {
 
-	private static final Resources RESOURCES = Resources.getResources(Email.class, ResourceBundle::getBundle);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Email.class);
 
 	public static final int MAX_LENGTH = 254;
 

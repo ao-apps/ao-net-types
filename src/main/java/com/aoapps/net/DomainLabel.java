@@ -62,7 +62,7 @@ final public class DomainLabel implements
 	Internable<DomainLabel>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(DomainLabel.class, ResourceBundle::getBundle);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabel.class);
 
 	public static final int MAX_LENGTH = 63;
 

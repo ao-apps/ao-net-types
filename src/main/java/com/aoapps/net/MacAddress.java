@@ -54,7 +54,7 @@ final public class MacAddress implements
 	Internable<MacAddress>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(MacAddress.class, ResourceBundle::getBundle);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, MacAddress.class);
 
 	private static final long serialVersionUID = 893218935616001329L;
 

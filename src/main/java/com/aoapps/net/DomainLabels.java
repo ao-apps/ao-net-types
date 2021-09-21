@@ -61,7 +61,7 @@ implements
 	Internable<DomainLabels>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(DomainLabels.class, ResourceBundle::getBundle);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabels.class);
 
 	/**
 	 * Validates a set of domain labels.

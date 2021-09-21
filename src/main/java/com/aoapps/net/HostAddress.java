@@ -51,7 +51,7 @@ final public class HostAddress implements
 	Internable<HostAddress>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(HostAddress.class, ResourceBundle::getBundle);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, HostAddress.class);
 
 	private static final long serialVersionUID = -6323326583709666966L;
 
