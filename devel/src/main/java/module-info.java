@@ -24,4 +24,6 @@ module com.aoapps.net.types.devel {
 	exports com.aoapps.net.i18n;
 	// Direct
 	requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
+	// Java SE
+	requires java.logging;
 }
