@@ -27,7 +27,7 @@ import java.util.BitSet;
 /**
  * Java helper for <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 - Uniform Resource Identifier (URI): Generic Syntax</a>.
  * <p>
- * TODO: Find something that does this well already. 
+ * TODO: Find something that does this well already.
  * <a href="https://jena.apache.org/documentation/notes/iri.html">jena-iri</a>?
  * <a href="https://github.com/xbib/net>org.xbib:net-url</a>?
  * <a href="https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/utils/URIBuilder.html">URIBuilder</a>?
@@ -128,6 +128,65 @@ class RFC3986 {
 	 */
 	static boolean isUnreserved(char ch) {
 		return UNRESERVED.get(ch);
+	}
+
+	/**
+	 * The set of characters in US-ASCII that are valid in either URI or IRI.  Characters outside this set should never be in a URI or IRI:
+	 * <ul>
+	 * <li>'%' (for already percent-encoded)</li>
+	 * <li><a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a></li>
+	 * <li><a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a></li>
+	 * <li>Printable characters in US-ASCII that are not allowed in URIs, namely "&lt;", "&gt;", '"', space,
+	 *     "{", "}", "|", "\", "^", and "`".
+	 * </li>
+	 * </ul>
+	 */
+	static final BitSet VALID;
+	static {
+		VALID = new BitSet(128);
+		VALID.set('%');
+		VALID.or(RESERVED);
+		VALID.or(UNRESERVED);
+		// IRI-only US-ASCII
+		VALID.set('<');
+		VALID.set('>');
+		VALID.set('"');
+		VALID.set(' ');
+		VALID.set('{');
+		VALID.set('}');
+		VALID.set('|');
+		VALID.set('\\');
+		VALID.set('^');
+		VALID.set('`');
+	}
+
+	/**
+	 * The set of characters in US-ASCII that are valid in either URI or IRI.  Characters outside this set should never be in a URI or IRI:
+	 * <ul>
+	 * <li>'%' (for already percent-encoded)</li>
+	 * <li><a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a></li>
+	 * <li><a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a></li>
+	 * <li>Printable characters in US-ASCII that are not allowed in URIs, namely "&lt;", "&gt;", '"', space,
+	 *     "{", "}", "|", "\", "^", and "`".
+	 * </li>
+	 * </ul>
+	 */
+	static boolean isValid(char ch) {
+		return VALID.get(ch);
+	}
+
+	static final BitSet RESERVED_OR_INVALID;
+	static {
+		RESERVED_OR_INVALID = new BitSet(128);
+		RESERVED_OR_INVALID.or(RESERVED);
+		for(int i = 0; i < 128; i++) {
+			boolean invalid = !RFC3986.VALID.get(i);
+			if(invalid) RESERVED_OR_INVALID.set(i);
+		}
+	}
+
+	static boolean isReservedOrInvalid(char ch) {
+		return RESERVED_OR_INVALID.get(ch);
 	}
 
 	/**

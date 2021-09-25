@@ -160,15 +160,15 @@ public class URIDecoder {
 	}
 
 	/**
-	 * Percent-encodes reserved characters (and '%' for already percent-encoded) only.
+	 * Percent-encodes reserved characters, '%' (for already percent-encoded), and unprintable invalid only.
 	 *
 	 * @param encoder  An optional encoder the output is applied through
 	 */
-	private static void encodeRfc3968ReservedCharacters_and_percent(String value, Encoder encoder, Appendable out) throws IOException {
+	private static void encodeRfc3986ReservedCharacters_percent_and_invalid(String value, Encoder encoder, Appendable out) throws IOException {
 		int len = value.length();
 		int pos = 0;
 		while(pos < len) {
-			int nextPos = Strings.indexOf(value, URIEncoder.rfc3986ReservedCharacters_and_percent, pos);
+			int nextPos = Strings.indexOf(value, URIEncoder.rfc3986ReservedCharacters_percent_and_invalid, pos);
 			if(nextPos == -1) {
 				if(encoder == null) {
 					out.append(value, pos, len);
@@ -185,7 +185,7 @@ public class URIDecoder {
 					}
 				}
 				char ch = value.charAt(nextPos++);
-				String replacement = URIEncoder.encodeRfc3986ReservedCharacters_and_percent(ch);
+				String replacement = URIEncoder.encodeRfc3986ReservedCharacters_percent_and_invalid(ch);
 				if(replacement == null) throw new AssertionError("No replacement found for character: " + ch);
 				if(encoder == null) {
 					out.append(replacement);
@@ -238,7 +238,7 @@ public class URIDecoder {
 	 * Decodes a URI to <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Decodes the characters in the URI, not including any characters defined in
 	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
-	 * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
+	 * Furthermore, characters that would decode to a reserved or invalid character are left percent-encoded to avoid ambiguity.
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
 	 * </p>
@@ -252,21 +252,21 @@ public class URIDecoder {
 			int len = uri.length();
 			int pos = 0;
 			while(pos < len) {
-				int nextPos = Strings.indexOf(uri, RFC3986.RESERVED, pos);
+				int nextPos = Strings.indexOf(uri, RFC3986.RESERVED_OR_INVALID, pos);
 				if(nextPos == -1) {
 					// TODO: Avoid substring?
-					encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos)), encoder, out);
+					encodeRfc3986ReservedCharacters_percent_and_invalid(decodeURIComponent(uri.substring(pos)), encoder, out);
 					pos = len;
 				} else {
 					if(nextPos != pos) {
 						// TODO: Avoid substring?
-						encodeRfc3968ReservedCharacters_and_percent(decodeURIComponent(uri.substring(pos, nextPos)), encoder, out);
+						encodeRfc3986ReservedCharacters_percent_and_invalid(decodeURIComponent(uri.substring(pos, nextPos)), encoder, out);
 					}
-					char reserved = uri.charAt(nextPos++);
+					char reserved_or_invalid = uri.charAt(nextPos++);
 					if(encoder == null) {
-						out.append(reserved);
+						out.append(reserved_or_invalid);
 					} else {
-						encoder.append(reserved, out);
+						encoder.append(reserved_or_invalid, out);
 					}
 					pos = nextPos;
 				}

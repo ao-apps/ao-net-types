@@ -29,6 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.BitSet;
+import java.util.Locale;
 
 /**
  * URI encoding utilities.
@@ -168,8 +169,8 @@ public class URIEncoder {
 	/**
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
+	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
 	 * </p>
@@ -193,8 +194,8 @@ public class URIEncoder {
 	/**
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
+	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
 	 * </p>
@@ -208,54 +209,40 @@ public class URIEncoder {
 		encodeURI(uri, null, out);
 	}
 
-	static final BitSet rfc3986ReservedCharacters_and_percent;
+	static final BitSet rfc3986ReservedCharacters_percent_and_invalid;
 	static {
-		rfc3986ReservedCharacters_and_percent = new BitSet(128);
-		rfc3986ReservedCharacters_and_percent.or(RFC3986.RESERVED);
-		rfc3986ReservedCharacters_and_percent.set('%');
+		rfc3986ReservedCharacters_percent_and_invalid = new BitSet(128);
+		rfc3986ReservedCharacters_percent_and_invalid.or(RFC3986.RESERVED_OR_INVALID);
+		rfc3986ReservedCharacters_percent_and_invalid.set('%');
 	}
 
-	static String encodeRfc3986ReservedCharacters_and_percent(char ch) {
-		// TODO: Benchmark switch versus BitSet (this might help all encoders that are switch-based)
-		switch(ch) {
-			// gen-delims
-			case ':' : return "%3A";
-			case '/' : return "%2F";
-			case '?' : return "%3F";
-			case '#' : return "%23";
-			case '[' : return "%5B";
-			case ']' : return "%5D";
-			case '@' : return "%40";
-			// sub-delims
-			case '!' : return "%21";
-			case '$' : return "%24";
-			case '&' : return "%26";
-			case '\'' : return "%27";
-			case '(' : return "%28";
-			case ')' : return "%29";
-			case '*' : return "%2A";
-			case '+' : return "%2B";
-			case ',' : return "%2C";
-			case ';' : return "%3B";
-			case '=' : return "%3D";
-			// already percent-encoded
-			case '%' : return "%25";
-			default : return null;
+	private static final String[] encodedRfc3986ReservedCharacters_percent_and_invalid = new String[128];
+	static {
+		for(int i = 0; i < 128 ; i++) {
+			if(rfc3986ReservedCharacters_percent_and_invalid.get(i)) {
+				encodedRfc3986ReservedCharacters_percent_and_invalid[i] =
+					("%" + Integer.toHexString(i >>> 4) + Integer.toHexString(i & 0xf))
+						.toUpperCase(Locale.ROOT)
+						.intern();
+			}
 		}
 	}
+	static String encodeRfc3986ReservedCharacters_percent_and_invalid(char ch) {
+		return (ch < 128) ? encodedRfc3986ReservedCharacters_percent_and_invalid[ch] : null;
+	}
 
-	private static boolean assertEncodeRfc3986ReservedCharacters_and_percentConsistent() {
+	private static boolean assertEncodeRfc3986ReservedCharacters_percent_and_invalidConsistent() {
 		for(int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; i++) {
 			char ch = (char)i;
-			boolean isInBitSet = rfc3986ReservedCharacters_and_percent.get(ch);
-			String replacement = encodeRfc3986ReservedCharacters_and_percent(ch);
+			boolean isInBitSet = rfc3986ReservedCharacters_percent_and_invalid.get(ch);
+			String replacement = encodeRfc3986ReservedCharacters_percent_and_invalid(ch);
 			if(isInBitSet) {
 				if(replacement == null) {
-					throw new AssertionError("Character is in encodeRfc3986ReservedCharacters_and_percent but is not encoded: " + ch);
+					throw new AssertionError("Character is in rfc3986ReservedCharacters_percent_and_invalid, but is not encoded: " + ch);
 				}
 			} else {
 				if(replacement != null) {
-					throw new AssertionError("Character is not in encodeRfc3986ReservedCharacters_and_percent but is encoded: " + ch + " -> " + replacement);
+					throw new AssertionError("Character is not in rfc3986ReservedCharacters_percent_and_invalid but is encoded: " + ch + " -> " + replacement);
 				}
 			}
 		}
@@ -263,14 +250,14 @@ public class URIEncoder {
 	}
 
 	static {
-		assert assertEncodeRfc3986ReservedCharacters_and_percentConsistent();
+		assert assertEncodeRfc3986ReservedCharacters_percent_and_invalidConsistent();
 	}
 
-	private static final BitSet rfc3986ReservedCharacters_percent_and_space;
+	private static final BitSet rfc3986ReservedCharacters_percent_invalid_and_space;
 	static {
-		rfc3986ReservedCharacters_percent_and_space = new BitSet(128);
-		rfc3986ReservedCharacters_percent_and_space.or(rfc3986ReservedCharacters_and_percent);
-		rfc3986ReservedCharacters_percent_and_space.set(' ');
+		rfc3986ReservedCharacters_percent_invalid_and_space = new BitSet(128);
+		rfc3986ReservedCharacters_percent_invalid_and_space.or(rfc3986ReservedCharacters_percent_and_invalid);
+		rfc3986ReservedCharacters_percent_invalid_and_space.set(' ');
 	}
 
 	private static boolean isHex(char ch) {
@@ -295,8 +282,8 @@ public class URIEncoder {
 	/**
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
+	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
 	 * </p>
@@ -314,7 +301,7 @@ public class URIEncoder {
 				int len = uri.length();
 				int pos = 0;
 				while(pos < len) {
-					int nextPos = Strings.indexOf(uri, rfc3986ReservedCharacters_percent_and_space, pos);
+					int nextPos = Strings.indexOf(uri, rfc3986ReservedCharacters_percent_invalid_and_space, pos);
 					if(nextPos == -1) {
 						// TODO: Avoid substring?
 						String encoded = URLEncoder.encode(uri.substring(pos), IRI.ENCODING.name()); // Java 10: No .name()
@@ -338,10 +325,10 @@ public class URIEncoder {
 							// Old with second check for space -> '+' -> "%20":
 							// encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
 						}
-						char reserved = uri.charAt(nextPos);
+						char ch = uri.charAt(nextPos);
 						char ch2, ch3;
 						if(
-							reserved == '%'
+							ch == '%'
 							&& (nextPos + 2) < len
 							&& isHex(ch2 = uri.charAt(nextPos + 1))
 							&& isHex(ch3 = uri.charAt(nextPos + 2))
@@ -351,11 +338,11 @@ public class URIEncoder {
 							if(isLowerHex(ch2) || isLowerHex(ch3)) {
 								// Convert to uppercase hex
 								if(encoder == null) {
-									out.append(reserved);
+									out.append(ch);
 									out.append(upperHex(ch2));
 									out.append(upperHex(ch3));
 								} else {
-									encoder.append(reserved, out);
+									encoder.append(ch, out);
 									encoder.append(upperHex(ch2), out);
 									encoder.append(upperHex(ch3), out);
 								}
@@ -366,7 +353,7 @@ public class URIEncoder {
 									encoder.append(uri, nextPos, pos, out);
 								}
 							}
-						} else if(reserved == ' ') {
+						} else if(ch == ' ') {
 							pos = nextPos + 1;
 							if(encoder == null) {
 								out.append("%20");
@@ -376,9 +363,9 @@ public class URIEncoder {
 						} else {
 							pos = nextPos + 1;
 							if(encoder == null) {
-								out.append(reserved);
+								out.append(ch);
 							} else {
-								encoder.append(reserved, out);
+								encoder.append(ch, out);
 							}
 						}
 					}
@@ -392,8 +379,8 @@ public class URIEncoder {
 	/**
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
+	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
 	 * </p>
@@ -414,8 +401,8 @@ public class URIEncoder {
 	/**
 	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>
-	 * (or '%' for already percent-encoded).
+	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
 	 * </p>

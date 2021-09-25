@@ -105,8 +105,8 @@ public class AnyURITest {
 		assertEquals("htTP", new AnyURI("htTP:?param?&param2=value#anc?h&or").getScheme());
 		assertEquals("htTP", new AnyURI("htTP:#fragment#").getScheme());
 		assertEquals("htTP", new AnyURI("htTP:#fragment?notParam").getScheme());
-		
-		
+
+
 		assertNull(new AnyURI("htTP").getScheme());
 		assertNull(new AnyURI("htTPs").getScheme());
 
@@ -975,6 +975,11 @@ public class AnyURITest {
 			"",
 			""
 		);
+		testEncodeURI(
+			"Invalid US-ASCII characters must remain invalid",
+			"/\u000c",
+			"/\u000c"
+		);
 	}
 
 	private static void testDecodeURI(String message, String unicodeUrl, String asciiUrl) {
@@ -1052,6 +1057,16 @@ public class AnyURITest {
 			null,
 			"",
 			""
+		);
+		testDecodeURI(
+			"Invalid US-ASCII characters must not be decoded",
+			"/%0C",
+			"/%0C"
+		);
+		assertEquals(
+			"Invalid US-ASCII characters must remain invalid",
+			"/\u000c",
+			"/\u000c"
 		);
 	}
 	// </editor-fold>

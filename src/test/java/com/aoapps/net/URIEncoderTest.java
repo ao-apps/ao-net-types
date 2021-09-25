@@ -45,5 +45,10 @@ public class URIEncoderTest {
 			"https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22",
 			URIEncoder.encodeURI("https://search.maven.org/#search|gav|1|g:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22")
 		);
+		assertEquals(
+			"Invalid US-ASCII characters must remain invalid",
+			"https://aoapps.com/\u0000",
+			URIEncoder.encodeURI("https://aoapps.com/\u0000")
+		);
 	}
 }

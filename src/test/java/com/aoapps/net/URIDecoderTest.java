@@ -45,5 +45,15 @@ public class URIDecoderTest {
 			"https://search.maven.org/#search|gav|1|g:\"@com.aoapps\" AND a:\"@ao-hodgepodge\"",
 			URIDecoder.decodeURI("https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22")
 		);
+		assertEquals(
+			"Invalid US-ASCII characters must not be decoded",
+			"https://aoapps.com/%00",
+			URIDecoder.decodeURI("https://aoapps.com/%00")
+		);
+		assertEquals(
+			"Invalid US-ASCII characters must remain invalid",
+			"https://aoapps.com/\u0001",
+			URIDecoder.decodeURI("https://aoapps.com/\u0001")
+		);
 	}
 }
