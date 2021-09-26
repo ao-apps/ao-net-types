@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-05:00"
-		dateModified="2021-09-25T21:29:55-05:00"
+		dateModified="2021-09-25T23:27:50-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -352,7 +352,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 						<li>IPv4-compatibility addresses are deprecated.  They are no longer considered members of various IPv4-mapped network ranges.</li>
 					</ol>
 				</li>
-				<li>New <code>AddressType</code> enum corresponding to <ao:a href="https://tools.ietf.org/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</ao:a>.</li>
+				<li>New <code>AddressType</code> enum corresponding to <ao:a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</ao:a>.</li>
 				<li>New <code>InetAddressPrefix</code> that is a compound type of <code>InetAddress</code> and an associated prefix.</li>
 				<li>New <code>InetAddressPrefixes</code> constants of standard network prefixes.</li>
 				<li>New <code>Protocol.getProtocolByKeyword(String)</code> method to get protocols by their standard keyword.</li>

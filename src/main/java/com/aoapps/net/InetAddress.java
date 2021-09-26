@@ -683,7 +683,7 @@ final public class InetAddress implements
 	/**
 	 * The IPv4 Broadcast (<code>255.255.255.255/32</code>).
 	 * <p>
-	 * See <a href="https://tools.ietf.org/html/rfc922#section-7">RFC 922, Section 7</a>.
+	 * See <a href="https://datatracker.ietf.org/doc/html/rfc922#section-7">RFC 922, Section 7</a>.
 	 * </p>
 	 *
 	 * @see  #IPV4_BROADCAST_LO

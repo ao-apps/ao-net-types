@@ -198,9 +198,9 @@ public class URIDecoder {
 	}
 
 	/**
-	 * Decodes a URI to <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Decodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Decodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
 	 * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
@@ -220,9 +220,9 @@ public class URIDecoder {
 	}
 
 	/**
-	 * Decodes a URI to <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Decodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Decodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
 	 * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
@@ -235,9 +235,9 @@ public class URIDecoder {
 	}
 
 	/**
-	 * Decodes a URI to <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Decodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Decodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
 	 * Furthermore, characters that would decode to a reserved or invalid character are left percent-encoded to avoid ambiguity.
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
@@ -275,9 +275,9 @@ public class URIDecoder {
 	}
 
 	/**
-	 * Decodes a URI to <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Decodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Decodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
 	 * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
@@ -294,9 +294,9 @@ public class URIDecoder {
 	}
 
 	/**
-	 * Decodes a URI to <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Decodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 Unicode format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Decodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
 	 * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
 	 * <p>
 	 * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>

@@ -25,7 +25,7 @@ package com.aoapps.net;
 import java.util.BitSet;
 
 /**
- * Java helper for <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 - Uniform Resource Identifier (URI): Generic Syntax</a>.
+ * Java helper for <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 - Uniform Resource Identifier (URI): Generic Syntax</a>.
  * <p>
  * TODO: Find something that does this well already.
  * <a href="https://jena.apache.org/documentation/notes/iri.html">jena-iri</a>?
@@ -44,7 +44,7 @@ class RFC3986 {
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static final BitSet GEN_DELIMS;
 	static {
@@ -59,14 +59,14 @@ class RFC3986 {
 	};
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static boolean isGenDelim(char ch) {
 		return GEN_DELIMS.get(ch);
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static final BitSet SUB_DELIMS;
 	static {
@@ -85,14 +85,14 @@ class RFC3986 {
 	};
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static boolean isSubDelim(char ch) {
 		return SUB_DELIMS.get(ch);
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static final BitSet RESERVED;
 	static {
@@ -102,14 +102,14 @@ class RFC3986 {
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
 	 */
 	static boolean isReserved(char ch) {
 		return RESERVED.get(ch);
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a>.
 	 */
 	static final BitSet UNRESERVED;
 	static {
@@ -124,7 +124,7 @@ class RFC3986 {
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a>.
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a>.
 	 */
 	static boolean isUnreserved(char ch) {
 		return UNRESERVED.get(ch);
@@ -134,8 +134,8 @@ class RFC3986 {
 	 * The set of characters in US-ASCII that are valid in either URI or IRI.  Characters outside this set should never be in a URI or IRI:
 	 * <ul>
 	 * <li>'%' (for already percent-encoded)</li>
-	 * <li><a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a></li>
-	 * <li><a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a></li>
+	 * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a></li>
+	 * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a></li>
 	 * <li>Printable characters in US-ASCII that are not allowed in URIs, namely "&lt;", "&gt;", '"', space,
 	 *     "{", "}", "|", "\", "^", and "`".
 	 * </li>
@@ -164,8 +164,8 @@ class RFC3986 {
 	 * The set of characters in US-ASCII that are valid in either URI or IRI.  Characters outside this set should never be in a URI or IRI:
 	 * <ul>
 	 * <li>'%' (for already percent-encoded)</li>
-	 * <li><a href="https://tools.ietf.org/html/rfc3986#section-2.2">Reserved Characters</a></li>
-	 * <li><a href="https://tools.ietf.org/html/rfc3986#section-2.3">Unreserved Characters</a></li>
+	 * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a></li>
+	 * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a></li>
 	 * <li>Printable characters in US-ASCII that are not allowed in URIs, namely "&lt;", "&gt;", '"', space,
 	 *     "{", "}", "|", "\", "^", and "`".
 	 * </li>
@@ -190,7 +190,7 @@ class RFC3986 {
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-3.1">Scheme</a>:
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>:
 	 * <blockquote>
 	 * Scheme names consist of a sequence of characters beginning with a
 	 * letter […]
@@ -203,7 +203,7 @@ class RFC3986 {
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-3.1">Scheme</a>:
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>:
 	 * <blockquote>
 	 * Scheme names consist of a sequence of characters […]
 	 * followed by any combination of letters, digits, plus
@@ -221,7 +221,7 @@ class RFC3986 {
 	}
 
 	/**
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-3.1">Scheme</a>:
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>:
 	 * <blockquote>
 	 * An implementation should accept uppercase letters as equivalent to
 	 * lowercase in scheme names […] but should only produce lowercase scheme

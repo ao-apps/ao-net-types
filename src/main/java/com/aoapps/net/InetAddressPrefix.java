@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
 /**
  * Combines an {@link InetAddress} and an associated prefix.
  * <p>
- * See <a href="https://tools.ietf.org/html/rfc4291#section-2.3">RFC 4291, Section 2.3. Text Representation of Address Prefixes</a>.
+ * See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.3">RFC 4291, Section 2.3. Text Representation of Address Prefixes</a>.
  * </p>
  *
  * @author  AO Industries, Inc.

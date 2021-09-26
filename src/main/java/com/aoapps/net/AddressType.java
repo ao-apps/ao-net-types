@@ -23,35 +23,35 @@
 package com.aoapps.net;
 
 /**
- * See <a href="https://tools.ietf.org/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</a>.
+ * See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.4">RFC 4291, Section 2.4. Address Type Identification</a>.
  *
  * @author  AO Industries, Inc.
  */
 public enum AddressType {
 
 	/**
-	 * See <a href="https://tools.ietf.org/html/rfc4291#section-2.5.2">Section 2.5.2. The Unspecified Address</a>.
+	 * See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.2">Section 2.5.2. The Unspecified Address</a>.
 	 *
 	 * @see  InetAddress#isUnspecified()
 	 */
 	UNSPECIFIED,
 
 	/**
-	 * See <a href="https://tools.ietf.org/html/rfc4291#section-2.5.3">Section 2.5.3. The Loopback Address</a>.
+	 * See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.3">Section 2.5.3. The Loopback Address</a>.
 	 *
 	 * @see  InetAddress#isLoopback()
 	 */
 	LOOPBACK,
 
 	/**
-	 * See <a href="https://tools.ietf.org/html/rfc4291#section-2.7">Section 2.7. Multicast Addresses</a>.
+	 * See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.7">Section 2.7. Multicast Addresses</a>.
 	 *
 	 * @see  InetAddress#isMulticast()
 	 */
 	MULTICAST,
 
 	/**
-	 * See <a href="https://tools.ietf.org/html/rfc4291#section-2.5.6">Section 2.5.6. Link-Local IPv6 Unicast Addresses</a>.
+	 * See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.6">Section 2.5.6. Link-Local IPv6 Unicast Addresses</a>.
 	 *
 	 * @see  InetAddress#isLinkLocal()
 	 */

@@ -31,8 +31,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Extremely minimal representation of an <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
- * or <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>,
+ * Extremely minimal representation of an <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+ * or <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>,
  * optimized for altering the path, query, or fragment for URI rewriting.
  * <p>
  * This only deals with four parts of the URI:
@@ -59,8 +59,8 @@ import java.util.Objects;
  * operations return a new instance.
  * </p>
  * <p>
- * When a strict ASCII-only representation of a <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
- * is required, use {@link URI}.  When a Unicode representation of a <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>
+ * When a strict ASCII-only representation of a <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+ * is required, use {@link URI}.  When a Unicode representation of a <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>
  * is preferred, use {@link IRI}.  Otherwise, to support both, use {@link AnyURI}, which should also perform
  * the best since it performs fewer conversions.
  * </p>
@@ -109,7 +109,7 @@ import java.util.Objects;
  *     is: the receiver just has to know.
  *   </blockquote>
  * </li>
- * <li><a href="https://tools.ietf.org/html/rfc3987#section-6.4">RFC 3987: 6.4.  Use of UTF-8 for Encoding Original Characters</a>:
+ * <li><a href="https://datatracker.ietf.org/doc/html/rfc3987#section-6.4">RFC 3987: 6.4.  Use of UTF-8 for Encoding Original Characters</a>:
  *   <blockquote>
  *     Similar considerations apply to query parts.  The functionality of
  *     IRIs (namely, to be able to include non-ASCII characters) can only be
@@ -197,8 +197,8 @@ public class AnyURI {
 	/**
 	 * Gets the full URI.
 	 * <p>
-	 * This may be a mixture of <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
-	 * US-ASCII and <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a> Unicode
+	 * This may be a mixture of <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+	 * US-ASCII and <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a> Unicode
 	 * formats.
 	 * </p>
 	 * <p>
@@ -213,7 +213,7 @@ public class AnyURI {
 	}
 
 	/**
-	 * Gets the full URI in <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
+	 * Gets the full URI in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
 	 * US-ASCII format.
 	 * <p>
 	 * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
@@ -809,7 +809,7 @@ public class AnyURI {
 	volatile URI toURICache;
 
 	/**
-	 * Gets this URI encoded in <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</a>
+	 * Gets this URI encoded in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
 	 * US-ASCII format.
 	 * <p>
 	 * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
@@ -833,7 +833,7 @@ public class AnyURI {
 	volatile IRI toIRICache;
 
 	/**
-	 * Gets this URI encoded in <a href="https://tools.ietf.org/html/rfc3987">RFC 3987 IRI</a>
+	 * Gets this URI encoded in <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>
 	 * Unicode format.
 	 *
 	 * @return  The {@link IRI} or {@code this} when unmodified.

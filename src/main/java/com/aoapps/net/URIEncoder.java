@@ -167,9 +167,9 @@ public class URIEncoder {
 	}
 
 	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Encodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
 	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
@@ -192,9 +192,9 @@ public class URIEncoder {
 	}
 
 	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Encodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
 	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
@@ -280,9 +280,9 @@ public class URIEncoder {
 	}
 
 	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Encodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
 	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
@@ -377,9 +377,9 @@ public class URIEncoder {
 	}
 
 	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Encodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
 	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
@@ -399,9 +399,9 @@ public class URIEncoder {
 	}
 
 	/**
-	 * Encodes a URI to <a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
+	 * Encodes a URI to <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 ASCII format</a> in the default encoding <code>{@link IRI#ENCODING}</code>.
 	 * Encodes the characters in the URI, not including any characters defined in
-	 * <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
+	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
 	 * '%' (for already percent-encoded), and unprintable invalid.
 	 * <p>
 	 * Any existing lower-case percent-encoded values are normalized to upper-case.
