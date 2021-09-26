@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2017-03-17T22:44:47-05:00"
-		dateModified="2021-09-24T23:09:37-05:00"
+		dateModified="2021-09-25T21:29:55-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -47,16 +47,25 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 				artifactId="@{documented.artifactId}"
 				repository="@{nexusUrl}content/repositories/snapshots/"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>
-						Characters that are unprintable invalid within US-ASCII are no longer encoded or decoded during
-						URI to/from IRI conversions.  Previously, an invalid IRI could be encoded into a valid URI, and
-						a valid URI could be decoded to an invalid IRI.
-					</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="2.0.1"
+			datePublished="2021-09-25T21:29:55-05:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>
+					Characters that are unprintable invalid within US-ASCII are no longer encoded or decoded during
+					URI to/from IRI conversions.  Previously, an invalid IRI could be encoded into a valid URI, and
+					a valid URI could be decoded to an invalid IRI.
+				</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
