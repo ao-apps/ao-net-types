@@ -25,11 +25,11 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.2-POST-SNAPSHOT</version>
+		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.3-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.1-POST-SNAPSHOT</version>
+	<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.2-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<properties>
@@ -291,17 +291,16 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		<dependencies>
 			<!-- Direct -->
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.0.1${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><version>2.0.0${POST-SNAPSHOT}</version><classifier>sql</classifier>
-				<scope>provided</scope>
 			</dependency>
 			<!-- Test Direct -->
 			<dependency>
@@ -340,6 +339,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<dependency>
 			<groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId><classifier>sql</classifier>
+			<optional>true</optional>
 		</dependency>
 		<!-- Test Direct -->
 		<dependency>
