@@ -55,7 +55,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author  AO Industries, Inc.
  */
 // Matches src/main/sql/com/aoapps/net/DomainLabel-type.sql
-final public class DomainLabel implements
+public final class DomainLabel implements
 	Comparable<DomainLabel>,
 	FastExternalizable,
 	DtoFactory<com.aoapps.net.dto.DomainLabel>,

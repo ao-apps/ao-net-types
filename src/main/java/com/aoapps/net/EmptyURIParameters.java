@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * @author  AO Industries, Inc.
  */
-final public class EmptyURIParameters implements URIParameters {
+public final class EmptyURIParameters implements URIParameters {
 
 	private static final EmptyURIParameters instance = new EmptyURIParameters();
 

@@ -40,7 +40,7 @@ import java.util.ResourceBundle;
  *
  * @author  AO Industries, Inc.
  */
-final public class PortRange extends IPortRange implements
+public final class PortRange extends IPortRange implements
 	Serializable,
 	DtoFactory<com.aoapps.net.dto.PortRange>
 {
@@ -84,8 +84,8 @@ final public class PortRange extends IPortRange implements
 		return new PortRange(from, to, protocol);
 	}
 
-	final private int from;
-	final private int to;
+	private final int from;
+	private final int to;
 
 	/* Unused
 	private PortRange(int from, int to, Protocol protocol, boolean validate) throws ValidationException {

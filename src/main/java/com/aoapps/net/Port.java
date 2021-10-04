@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
  *
  * @author  AO Industries, Inc.
  */
-final public class Port extends IPortRange implements
+public final class Port extends IPortRange implements
 	Serializable,
 	DtoFactory<com.aoapps.net.dto.Port>
 {
@@ -103,7 +103,7 @@ final public class Port extends IPortRange implements
 		return np;
 	}
 
-	final private int port;
+	private final int port;
 
 	/* Unused
 	private Port(int port, Protocol protocol, boolean validate) throws ValidationException {

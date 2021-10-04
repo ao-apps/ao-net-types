@@ -230,7 +230,7 @@ public class AnyURI {
 	 * is performed.  This does not compare URIs semantically.
 	 */
 	@Override
-	final public boolean equals(Object obj) {
+	public final boolean equals(Object obj) {
 		if(!(obj instanceof AnyURI)) return false;
 		AnyURI other = (AnyURI)obj;
 		if(this == other) {
@@ -252,7 +252,7 @@ public class AnyURI {
 	 * @see  String#hashCode()
 	 */
 	@Override
-	final public int hashCode() {
+	public final int hashCode() {
 		return uri.hashCode();
 	}
 

@@ -25,7 +25,7 @@ package com.aoapps.net.dto;
 /**
  * @author  AO Industries, Inc.
  */
-abstract public class IPortRange {
+public abstract class IPortRange {
 
 	private String protocol;
 

@@ -247,7 +247,7 @@ public class URIParametersMap implements MutableURIParameters {
 	}
 
 	@Override
-	final public URIParametersMap add(String name, String value) {
+	public final URIParametersMap add(String name, String value) {
 		if(value != null) {
 			NullArgumentException.checkNotNull(name, "name");
 			List<String> values = map.get(name);

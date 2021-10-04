@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * @author  AO Industries, Inc.
  */
-final public class URIParametersUtils {
+public final class URIParametersUtils {
 
 	/**
 	 * Adds all of the parameters to a URI.

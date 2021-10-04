@@ -42,7 +42,7 @@ import java.io.Serializable;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class IPortRange implements
+public abstract class IPortRange implements
 	Comparable<IPortRange>,
 	Serializable
 {
@@ -99,10 +99,10 @@ abstract public class IPortRange implements
 	 * port range is forced to have a range larger than one port.
 	 */
 	@Override
-	abstract public boolean equals(Object obj);
+	public abstract boolean equals(Object obj);
 
 	@Override
-	abstract public int hashCode();
+	public abstract int hashCode();
 
 	/**
 	 * Ordered by from, to, protocol.
@@ -110,7 +110,7 @@ abstract public class IPortRange implements
 	 * must not be changed without adjusting other code.
 	 */
 	@Override
-	final public int compareTo(IPortRange other) {
+	public final int compareTo(IPortRange other) {
 		int diff = Integer.compare(getFrom(), other.getFrom());
 		if(diff != 0) return diff;
 		diff = Integer.compare(getTo(), other.getTo());
@@ -123,36 +123,36 @@ abstract public class IPortRange implements
 	 * @see  PortRange#toString()
 	 */
 	@Override
-	abstract public String toString();
+	public abstract String toString();
 
-	final public Protocol getProtocol() {
+	public final Protocol getProtocol() {
 		return protocol;
 	}
 
 	/**
 	 * Gets the first port number in the range.
 	 */
-	abstract public int getFrom();
+	public abstract int getFrom();
 
 	/**
 	 * Gets the first port number in the range as a {@link Port}.
 	 */
-	abstract public Port getFromPort();
+	public abstract Port getFromPort();
 
 	/**
 	 * Gets the last port number in the range.
 	 */
-	abstract public int getTo();
+	public abstract int getTo();
 
 	/**
 	 * Gets the last port number in the range as a {@link Port}.
 	 */
-	abstract public Port getToPort();
+	public abstract Port getToPort();
 
 	/**
 	 * Checks if this port range is of the same protocol and overlaps the given port range.
 	 */
-	final public boolean overlaps(IPortRange other) {
+	public final boolean overlaps(IPortRange other) {
 		// See http://stackoverflow.com/questions/3269434/whats-the-most-efficient-way-to-test-two-integer-ranges-for-overlap
 		return
 			protocol == other.protocol
@@ -164,12 +164,12 @@ abstract public class IPortRange implements
 	/**
 	 * @return  The part of this port range below, and not including, the given port or {@code null} if none.
 	 */
-	abstract public IPortRange splitBelow(int below);
+	public abstract IPortRange splitBelow(int below);
 
 	/**
 	 * @return  The part of this port range above, and not including, the given port or {@code null} if none.
 	 */
-	abstract public IPortRange splitAbove(int above);
+	public abstract IPortRange splitAbove(int above);
 
 	/**
 	 * Combines this port range with the given port range if possible.
@@ -184,7 +184,7 @@ abstract public class IPortRange implements
 	 *          returns a port range spanning both.
 	 *          {@code null} when they cannot be combined.
 	 */
-	final public IPortRange coalesce(IPortRange other) {
+	public final IPortRange coalesce(IPortRange other) {
 		if(protocol != other.protocol) {
 			// Different protocols
 			return null;

@@ -27,7 +27,7 @@ package com.aoapps.net;
  *
  * @author  AO Industries, Inc.
  */
-final public class InetAddressPrefixes {
+public final class InetAddressPrefixes {
 
 	/**
 	 * The IPv4 unspecified network (<code>0.0.0.0/0</code>).

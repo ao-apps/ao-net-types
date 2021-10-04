@@ -42,7 +42,7 @@ import java.util.ResourceBundle;
  *
  * @author  AO Industries, Inc.
  */
-final public class InetAddressPrefix implements
+public final class InetAddressPrefix implements
 	Comparable<InetAddressPrefix>,
 	Serializable,
 	DtoFactory<com.aoapps.net.dto.InetAddressPrefix>
@@ -122,8 +122,8 @@ final public class InetAddressPrefix implements
 
 	private static final long serialVersionUID = 1L;
 
-	final private InetAddress address;
-	final private int prefix;
+	private final InetAddress address;
+	private final int prefix;
 
 	private InetAddressPrefix(InetAddress address, int prefix, boolean validate) throws ValidationException {
 		this.address = address;

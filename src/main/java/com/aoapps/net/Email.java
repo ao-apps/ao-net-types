@@ -59,7 +59,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author  AO Industries, Inc.
  */
 // Matches src/main/sql/com/aoapps/net/Email-type.sql
-final public class Email implements
+public final class Email implements
 	Comparable<Email>,
 	FastExternalizable,
 	DtoFactory<com.aoapps.net.dto.Email>,

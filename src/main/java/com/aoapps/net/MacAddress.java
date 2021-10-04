@@ -47,7 +47,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author  AO Industries, Inc.
  */
-final public class MacAddress implements
+public final class MacAddress implements
 	Comparable<MacAddress>,
 	Serializable,
 	DtoFactory<com.aoapps.net.dto.MacAddress>,
@@ -120,7 +120,7 @@ final public class MacAddress implements
 		return new MacAddress(address, true);
 	}
 
-	final private String address;
+	private final String address;
 
 	private MacAddress(String address, boolean validate) throws ValidationException {
 		this.address = address.toUpperCase(Locale.ROOT);

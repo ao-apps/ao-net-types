@@ -52,7 +52,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author  AO Industries, Inc.
  */
-final public class InetAddress implements
+public final class InetAddress implements
 	Comparable<InetAddress>,
 	Serializable,
 	DtoFactory<com.aoapps.net.dto.InetAddress>,

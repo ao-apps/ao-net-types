@@ -44,7 +44,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author  AO Industries, Inc.
  */
-final public class HostAddress implements
+public final class HostAddress implements
 	Comparable<HostAddress>,
 	Serializable,
 	DtoFactory<com.aoapps.net.dto.HostAddress>,
@@ -134,8 +134,8 @@ final public class HostAddress implements
 		return new HostAddress(ip);
 	}
 
-	final private DomainName domainName;
-	final private InetAddress inetAddress;
+	private final DomainName domainName;
+	private final InetAddress inetAddress;
 
 	private HostAddress(DomainName domainName) {
 		this.domainName = domainName;

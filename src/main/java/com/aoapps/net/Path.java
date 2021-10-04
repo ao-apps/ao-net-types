@@ -66,7 +66,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author  AO Industries, Inc.
  */
 // Matches src/main/sql/com/aoapps/net/Path-type.sql
-final public class Path implements
+public final class Path implements
 	Comparable<Path>,
 	Serializable,
 	DtoFactory<com.aoapps.net.dto.Path>,
@@ -146,7 +146,7 @@ final public class Path implements
 	// Note: These constants must go below the static checks and interned due to class initialization order
 	public static final Path ROOT = new Path(SEPARATOR_STRING).intern();
 
-	final private String path;
+	private final String path;
 
 	private Path(String path, boolean validate) throws ValidationException {
 		this.path = path;

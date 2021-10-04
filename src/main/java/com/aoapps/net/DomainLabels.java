@@ -53,7 +53,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author  AO Industries, Inc.
  */
-final public class DomainLabels
+public final class DomainLabels
 implements
 	Comparable<DomainLabels>,
 	FastExternalizable,
