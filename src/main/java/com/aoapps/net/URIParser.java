@@ -155,7 +155,7 @@ public class URIParser {
 
 	/**
 	 * Find the first of '?' or '#' from the given starting index.
-	 * 
+	 *
 	 * @return  The index of the first '?' or '#' or {@code uri.length()} when not found.
 	 */
 	public static int getPathEnd(String uri, int fromIndex) {
@@ -169,7 +169,7 @@ public class URIParser {
 
 	/**
 	 * Find the first of '?' or '#'.
-	 * 
+	 *
 	 * @return  The index of the first '?' or '#' or {@code uri.length()} when not found.
 	 */
 	public static int getPathEnd(String uri) {
