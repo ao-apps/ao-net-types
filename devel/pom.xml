@@ -65,20 +65,20 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/aoindustries/ao-net-types.git</connection>
-		<developerConnection>scm:git:git@github.com:aoindustries/ao-net-types.git</developerConnection>
-		<url>https://github.com/aoindustries/ao-net-types</url>
+		<connection>scm:git:git://github.com/ao-apps/ao-net-types.git</connection>
+		<developerConnection>scm:git:git@github.com:ao-apps/ao-net-types.git</developerConnection>
+		<url>https://github.com/ao-apps/ao-net-types</url>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/aoindustries/ao-net-types/issues</url>
+		<url>https://github.com/ao-apps/ao-net-types/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/aoindustries/ao-net-types/actions</url>
+		<url>https://github.com/ao-apps/ao-net-types/actions</url>
 	</ciManagement>
 
 	<repositories>

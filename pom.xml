@@ -45,7 +45,7 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 / <a target="${javadoc.target}" href="${project.url}">Net Types</a>]]></javadoc.breadcrumbs>
 		<!-- SonarQube -->
 		<sonar.projectKey>${project.groupId}:${project.artifactId}</sonar.projectKey>
-		<sonar.organization>aoindustries</sonar.organization>
+		<sonar.organization>ao-apps</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
@@ -78,20 +78,20 @@ along with ao-net-types.  If not, see <http://www.gnu.org/licenses />.
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/aoindustries/ao-net-types.git</connection>
-		<developerConnection>scm:git:git@github.com:aoindustries/ao-net-types.git</developerConnection>
-		<url>https://github.com/aoindustries/ao-net-types</url>
+		<connection>scm:git:git://github.com/ao-apps/ao-net-types.git</connection>
+		<developerConnection>scm:git:git@github.com:ao-apps/ao-net-types.git</developerConnection>
+		<url>https://github.com/ao-apps/ao-net-types</url>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/aoindustries/ao-net-types/issues</url>
+		<url>https://github.com/ao-apps/ao-net-types/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/aoindustries/ao-net-types/actions</url>
+		<url>https://github.com/ao-apps/ao-net-types/actions</url>
 	</ciManagement>
 
 	<repositories>
