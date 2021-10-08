@@ -29,10 +29,10 @@ public abstract class IPortRange {
 
 	private String protocol;
 
-	public IPortRange() {
+	protected IPortRange() {
 	}
 
-	public IPortRange(String protocol) {
+	protected IPortRange(String protocol) {
 		this.protocol = protocol;
 	}
 
