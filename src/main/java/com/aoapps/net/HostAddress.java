@@ -164,9 +164,9 @@ public final class HostAddress implements
 	}
 
 	@Override
-	public boolean equals(Object O) {
-		if(!(O instanceof HostAddress)) return false;
-		HostAddress other = (HostAddress)O;
+	public boolean equals(Object obj) {
+		if(!(obj instanceof HostAddress)) return false;
+		HostAddress other = (HostAddress)obj;
 		return
 			Objects.equals(domainName, other.domainName)
 			&& Objects.equals(inetAddress, other.inetAddress)

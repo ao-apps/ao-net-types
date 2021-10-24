@@ -217,9 +217,9 @@ public final class Email implements
 	}
 
 	@Override
-	public boolean equals(Object O) {
-		if(!(O instanceof Email)) return false;
-		Email other = (Email)O;
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Email)) return false;
+		Email other = (Email)obj;
 		return
 			localPart.equals(other.localPart)
 			&& domain.equals(other.domain)

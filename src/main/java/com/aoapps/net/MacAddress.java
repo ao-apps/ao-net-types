@@ -157,10 +157,10 @@ public final class MacAddress implements
 	}
 
 	@Override
-	public boolean equals(Object O) {
+	public boolean equals(Object obj) {
 		return
-			(O instanceof MacAddress)
-			&& address.equals(((MacAddress)O).address)
+			(obj instanceof MacAddress)
+			&& address.equals(((MacAddress)obj).address)
 		;
 	}
 

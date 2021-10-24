@@ -463,9 +463,9 @@ public final class InetAddress implements
 	}
 
 	@Override
-	public boolean equals(Object O) {
-		if(!(O instanceof InetAddress)) return false;
-		InetAddress other = (InetAddress)O;
+	public boolean equals(Object obj) {
+		if(!(obj instanceof InetAddress)) return false;
+		InetAddress other = (InetAddress)obj;
 		return
 			hi == other.hi
 			&& lo == other.lo
@@ -554,39 +554,39 @@ public final class InetAddress implements
 			longestFirstZero = currentFirstZero;
 			longestNumZeros = currentNumZeros;
 		}
-		StringBuilder SB = new StringBuilder("aaaa:bbbb:cccc:dddd:eeee:ffff:gggg:hhhh".length());
+		StringBuilder sb = new StringBuilder("aaaa:bbbb:cccc:dddd:eeee:ffff:gggg:hhhh".length());
 		if(longestFirstZero == -1) {
-			for(int c=0; c<16; c+=2) {
-				if(c>0) SB.append(':');
-				SB.append(
+			for(int c = 0; c < 16; c += 2) {
+				if(c > 0) sb.append(':');
+				sb.append(
 					Integer.toHexString(
-						((bytes[c]&255)<<8)
-						| (bytes[c+1]&255)
+						((bytes[c] & 255) << 8)
+						| (bytes[c + 1] & 255)
 					)
 				);
 			}
 		} else {
-			for(int c=0; c<longestFirstZero; c+=2) {
-				if(c>0) SB.append(':');
-				SB.append(
+			for(int c = 0; c < longestFirstZero; c += 2) {
+				if(c > 0) sb.append(':');
+				sb.append(
 					Integer.toHexString(
-						((bytes[c]&255)<<8)
-						| (bytes[c+1]&255)
+						((bytes[c] & 255) << 8)
+						| (bytes[c + 1] & 255)
 					)
 				);
 			}
-			SB.append("::");
-			for(int c=longestFirstZero+longestNumZeros; c<16; c+=2) {
-				if(c>(longestFirstZero+longestNumZeros)) SB.append(':');
-				SB.append(
+			sb.append("::");
+			for(int c = longestFirstZero + longestNumZeros; c < 16; c += 2) {
+				if(c > (longestFirstZero + longestNumZeros)) sb.append(':');
+				sb.append(
 					Integer.toHexString(
-						((bytes[c]&255)<<8)
-						| (bytes[c+1]&255)
+						((bytes[c] & 255) << 8)
+						| (bytes[c + 1] & 255)
 					)
 				);
 			}
 		}
-		return SB.toString();
+		return sb.toString();
 	}
 
 	/**
