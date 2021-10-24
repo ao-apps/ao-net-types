@@ -132,11 +132,10 @@ public final class DomainLabel implements
 	}
 
 	@Override
-	public boolean equals(Object O) {
+	public boolean equals(Object obj) {
 		return
-			O!=null
-			&& O instanceof DomainLabel
-			&& lowerLabel.equals(((DomainLabel)O).lowerLabel)
+			(obj instanceof DomainLabel)
+			&& lowerLabel.equals(((DomainLabel)obj).lowerLabel)
 		;
 	}
 

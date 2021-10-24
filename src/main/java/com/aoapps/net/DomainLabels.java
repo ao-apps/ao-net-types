@@ -125,11 +125,10 @@ implements
 	}
 
 	@Override
-	public boolean equals(Object O) {
+	public boolean equals(Object obj) {
 		return
-			O!=null
-			&& O instanceof DomainLabels
-			&& lowerLabels.equals(((DomainLabels)O).lowerLabels)
+			(obj instanceof DomainLabels)
+			&& lowerLabels.equals(((DomainLabels)obj).lowerLabels)
 		;
 	}
 

@@ -187,11 +187,10 @@ public final class Path implements
 	}
 
 	@Override
-	public boolean equals(Object O) {
+	public boolean equals(Object obj) {
 		return
-			O!=null
-			&& O instanceof Path
-			&& path.equals(((Path)O).path)
+			(obj instanceof Path)
+			&& path.equals(((Path)obj).path)
 		;
 	}
 

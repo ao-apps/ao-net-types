@@ -218,7 +218,7 @@ public final class Email implements
 
 	@Override
 	public boolean equals(Object O) {
-		if(O==null || !(O instanceof Email)) return false;
+		if(!(O instanceof Email)) return false;
 		Email other = (Email)O;
 		return
 			localPart.equals(other.localPart)

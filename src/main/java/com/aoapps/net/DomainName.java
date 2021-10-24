@@ -293,11 +293,10 @@ public final class DomainName implements
 	}
 
 	@Override
-	public boolean equals(Object O) {
+	public boolean equals(Object obj) {
 		return
-			O!=null
-			&& O instanceof DomainName
-			&& lowerDomain.equals(((DomainName)O).lowerDomain)
+			(obj instanceof DomainName)
+			&& lowerDomain.equals(((DomainName)obj).lowerDomain)
 		;
 	}
 
