@@ -18,7 +18,7 @@
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with ao-net-types.  If not, see <http://www.gnu.org/licenses/>.
+ * along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
  */
 -- TODO: Should this be a composite type, combining port number and protocol like
 --       the Java objects?  How well do the current PostgreSQL JDBC drivers handle
