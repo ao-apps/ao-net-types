@@ -1063,7 +1063,7 @@ public class AnyURITest {
 			"/%0C",
 			"/%0C"
 		);
-		assertEquals(
+		testDecodeURI(
 			"Invalid US-ASCII characters must remain invalid",
 			"/\u000c",
 			"/\u000c"
