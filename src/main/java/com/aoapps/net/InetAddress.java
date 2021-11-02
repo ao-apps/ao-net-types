@@ -526,14 +526,14 @@ public final class InetAddress implements
 			}
 		}
 		// Find the longest string of zeros
-		byte[] bytes = new byte[16];
+		byte[] bytes = new byte[Long.BYTES * 2];
 		IoUtils.longToBuffer(hi, bytes);
-		IoUtils.longToBuffer(lo, bytes, 8);
+		IoUtils.longToBuffer(lo, bytes, Long.BYTES);
 		int longestFirstZero = -1;
 		int longestNumZeros = 0;
 		int currentFirstZero = -1;
 		int currentNumZeros = 0;
-		for(int c=0; c<16; c+=2) {
+		for(int c = 0; c < (Long.BYTES * 2); c += 2) {
 			if(bytes[c]==0 && bytes[c+1]==0) {
 				if(currentFirstZero==-1) {
 					currentFirstZero = c;
