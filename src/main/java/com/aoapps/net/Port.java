@@ -163,8 +163,7 @@ public final class Port extends IPortRange implements
 		return (this == obj);
 		/* enum pattern, don't need this:
 		return
-			obj != null
-			&& obj instanceof Port
+			obj instanceof Port
 			&& ((Port)obj).port == port
 			&& ((Port)obj).protocol == protocol
 		;
