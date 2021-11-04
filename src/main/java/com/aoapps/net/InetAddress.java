@@ -348,7 +348,7 @@ public final class InetAddress implements
 				(long)o1 << 24
 				| (long)o2 << 16
 				| (long)o3 << 8
-				| (long)o4;
+				| o4;
 			if(rightColonPos == -1) {
 				// IPv4
 				if(requireIPv6) return new InvalidResult(RESOURCES, "parse.bracketsNotIPv6");
