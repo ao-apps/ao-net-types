@@ -56,7 +56,7 @@ class RFC3986 {
 		GEN_DELIMS.set('[');
 		GEN_DELIMS.set(']');
 		GEN_DELIMS.set('@');
-	};
+	}
 
 	/**
 	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
@@ -82,7 +82,7 @@ class RFC3986 {
 		SUB_DELIMS.set(',');
 		SUB_DELIMS.set(';');
 		SUB_DELIMS.set('=');
-	};
+	}
 
 	/**
 	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
