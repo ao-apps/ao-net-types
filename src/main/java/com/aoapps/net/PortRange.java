@@ -50,16 +50,16 @@ public final class PortRange extends IPortRange implements
 	private static final long serialVersionUID = 1L;
 
 	public static ValidationResult validate(int from, int to, Protocol protocol) {
-		if(from < Port.MIN_PORT) {
+		if(from < MIN_PORT) {
 			return new InvalidResult(RESOURCES, "validate.from.lessThanOne", from);
 		}
-		if(from > Port.MAX_PORT) {
+		if(from > MAX_PORT) {
 			return new InvalidResult(RESOURCES, "validate.from.greaterThan64k", from);
 		}
-		if(to < Port.MIN_PORT) {
+		if(to < MIN_PORT) {
 			return new InvalidResult(RESOURCES, "validate.to.lessThanOne", to);
 		}
-		if(to > Port.MAX_PORT) {
+		if(to > MAX_PORT) {
 			return new InvalidResult(RESOURCES, "validate.to.greaterThan64k", to);
 		}
 		if(to < from) {
