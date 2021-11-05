@@ -35,9 +35,6 @@ import org.junit.Test;
 
 public class AnyURITest {
 
-	public AnyURITest() {
-	}
-
 	@Test
 	public void testToString() {
 		String href="test";

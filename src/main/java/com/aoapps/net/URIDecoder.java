@@ -52,9 +52,10 @@ import java.net.URLDecoder;
  *
  * @author  AO Industries, Inc.
  */
-public class URIDecoder {
+public abstract class URIDecoder {
 
-	private URIDecoder() {}
+	/** Make no instances. */
+	private URIDecoder() {throw new AssertionError();}
 
 	/**
 	 * Decodes a value from its use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.

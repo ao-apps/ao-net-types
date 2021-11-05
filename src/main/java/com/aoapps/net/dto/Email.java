@@ -31,6 +31,7 @@ public class Email {
 	private DomainName domain;
 
 	public Email() {
+		// Do nothing
 	}
 
 	public Email(String localPart, DomainName domain) {

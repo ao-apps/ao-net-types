@@ -30,6 +30,7 @@ public class HostAddress {
 	private String address;
 
 	public HostAddress() {
+		// Do nothing
 	}
 
 	public HostAddress(String address) {

@@ -37,10 +37,12 @@ public class URIResolverTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
+		// Do nothing
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
+		// Do nothing
 	}
 
 	public static Test suite() {

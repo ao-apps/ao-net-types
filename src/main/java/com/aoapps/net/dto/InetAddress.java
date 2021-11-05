@@ -30,6 +30,7 @@ public class InetAddress {
 	private String address;
 
 	public InetAddress() {
+		// Do nothing
 	}
 
 	public InetAddress(String address) {

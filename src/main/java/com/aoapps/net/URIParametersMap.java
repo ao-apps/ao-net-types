@@ -157,6 +157,7 @@ public class URIParametersMap implements MutableURIParameters {
 	 * Creates an empty set of parameters.
 	 */
 	public URIParametersMap() {
+		// Do nothing
 	}
 
 	/**

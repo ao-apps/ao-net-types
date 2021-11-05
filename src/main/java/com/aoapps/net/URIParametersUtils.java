@@ -32,7 +32,10 @@ import java.util.Map;
  *
  * @author  AO Industries, Inc.
  */
-public final class URIParametersUtils {
+public abstract class URIParametersUtils {
+
+	/** Make no instances. */
+	private URIParametersUtils() {throw new AssertionError();}
 
 	/**
 	 * Adds all of the parameters to a URI.
@@ -248,11 +251,5 @@ public final class URIParametersUtils {
 		} else {
 			return new URIParametersMap(queryString);
 		}
-	}
-
-	/**
-	 * Make no instances.
-	 */
-	private URIParametersUtils() {
 	}
 }

@@ -392,7 +392,14 @@ public final class DomainName implements
 	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">
 	private static final long serialVersionUID = 2384488670340662487L;
 
+	/**
+	 * @deprecated  Only required for implementation, do not use directly.
+	 *
+	 * @see  FastExternalizable
+	 */
+	@Deprecated/* Java 9: (forRemoval = true) */
 	public DomainName() {
+		// Do nothing
 	}
 
 	@Override

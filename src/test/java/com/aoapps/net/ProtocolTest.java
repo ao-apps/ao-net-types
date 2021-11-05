@@ -32,9 +32,6 @@ import org.junit.Test;
  * @author  AO Industries, Inc.
  */
 public class ProtocolTest {
-	
-	public ProtocolTest() {
-	}
 
 	@Test
 	public void testValueOfConsistentWithGetDecimal() {

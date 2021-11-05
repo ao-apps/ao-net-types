@@ -41,6 +41,7 @@ public final class EmptyURIParameters implements URIParameters {
 	}
 
 	private EmptyURIParameters() {
+		// Do nothing
 	}
 
 	/**

@@ -30,6 +30,7 @@ public class DomainLabels {
 	private String labels;
 
 	public DomainLabels() {
+		// Do nothing
 	}
 
 	public DomainLabels(String labels) {

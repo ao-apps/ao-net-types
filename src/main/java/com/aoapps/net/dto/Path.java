@@ -30,6 +30,7 @@ public class Path {
 	private String path;
 
 	public Path() {
+		// Do nothing
 	}
 
 	public Path(String path) {

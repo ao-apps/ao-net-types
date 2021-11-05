@@ -31,6 +31,7 @@ public class InetAddressPrefix {
 	private int prefix;
 
 	public InetAddressPrefix() {
+		// Do nothing
 	}
 
 	public InetAddressPrefix(InetAddress address, int prefix) {

@@ -30,6 +30,7 @@ public class DomainName {
 	private String domain;
 
 	public DomainName() {
+		// Do nothing
 	}
 
 	public DomainName(String domain) {

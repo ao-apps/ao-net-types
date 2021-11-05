@@ -190,7 +190,14 @@ public final class DomainLabel implements
 	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">
 	private static final long serialVersionUID = -3692661338685551188L;
 
+	/**
+	 * @deprecated  Only required for implementation, do not use directly.
+	 *
+	 * @see  FastExternalizable
+	 */
+	@Deprecated/* Java 9: (forRemoval = false) */
 	public DomainLabel() {
+		// Do nothing
 	}
 
 	@Override

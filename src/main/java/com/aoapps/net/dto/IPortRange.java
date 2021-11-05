@@ -30,6 +30,7 @@ public abstract class IPortRange {
 	private String protocol;
 
 	protected IPortRange() {
+		// Do nothing
 	}
 
 	protected IPortRange(String protocol) {

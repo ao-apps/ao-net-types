@@ -38,10 +38,10 @@ import java.util.BitSet;
  *
  * @author  AO Industries, Inc.
  */
-class RFC3986 {
+abstract class RFC3986 {
 
-	private RFC3986() {
-	}
+	/** Make no instances. */
+	private RFC3986() {throw new AssertionError();}
 
 	/**
 	 * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.

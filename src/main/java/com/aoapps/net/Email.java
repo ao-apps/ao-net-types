@@ -293,7 +293,14 @@ public final class Email implements
 	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">
 	private static final long serialVersionUID = 1812494521843295031L;
 
+	/**
+	 * @deprecated  Only required for implementation, do not use directly.
+	 *
+	 * @see  FastExternalizable
+	 */
+	@Deprecated/* Java 9: (forRemoval = false) */
 	public Email() {
+		// Do nothing
 	}
 
 	@Override

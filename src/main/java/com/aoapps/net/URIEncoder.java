@@ -54,9 +54,10 @@ import java.util.Locale;
  *
  * @author  AO Industries, Inc.
  */
-public class URIEncoder {
+public abstract class URIEncoder {
 
-	private URIEncoder() {}
+	/** Make no instances. */
+	private URIEncoder() {throw new AssertionError();}
 
 	/**
 	 * Encodes a value for use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.

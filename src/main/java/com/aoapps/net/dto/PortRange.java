@@ -31,6 +31,7 @@ public class PortRange extends IPortRange {
 	private int to;
 
 	public PortRange() {
+		// Do nothing
 	}
 
 	public PortRange(int from, int to, String protocol) {

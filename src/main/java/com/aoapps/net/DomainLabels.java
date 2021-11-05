@@ -187,7 +187,14 @@ implements
 	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">
 	private static final long serialVersionUID = -2681659044454796989L;
 
+	/**
+	 * @deprecated  Only required for implementation, do not use directly.
+	 *
+	 * @see  FastExternalizable
+	 */
+	@Deprecated/* Java 9: (forRemoval = true) */
 	public DomainLabels() {
+		// Do nothing
 	}
 
 	@Override

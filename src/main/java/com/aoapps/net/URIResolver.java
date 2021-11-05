@@ -31,9 +31,10 @@ import java.net.MalformedURLException;
  * @author  AO Industries, Inc.
  */
 // TODO: Add tests
-public class URIResolver {
+public abstract class URIResolver {
 
-	private URIResolver() {}
+	/** Make no instances. */
+	private URIResolver() {throw new AssertionError();}
 
 	/**
 	 * Resolves a possibly relative path to a context-absolute path.

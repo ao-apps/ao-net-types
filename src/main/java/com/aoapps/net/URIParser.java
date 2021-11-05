@@ -27,9 +27,10 @@ package com.aoapps.net;
  *
  * @author  AO Industries, Inc.
  */
-public class URIParser {
+public abstract class URIParser {
 
-	private URIParser() {}
+	/** Make no instances. */
+	private URIParser() {throw new AssertionError();}
 
 	/**
 	 * Gets the length of a scheme.

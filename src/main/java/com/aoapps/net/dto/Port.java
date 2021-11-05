@@ -30,6 +30,7 @@ public class Port extends IPortRange {
 	private int port;
 
 	public Port() {
+		// Do nothing
 	}
 
 	public Port(int port, String protocol) {

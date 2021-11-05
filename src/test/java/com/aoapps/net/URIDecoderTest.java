@@ -27,9 +27,6 @@ import org.junit.Test;
 
 public class URIDecoderTest {
 
-	public URIDecoderTest() {
-	}
-
 	@Test
 	public void testDecodeURI() {
 		assertEquals(

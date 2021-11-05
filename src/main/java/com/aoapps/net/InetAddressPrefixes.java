@@ -27,7 +27,10 @@ package com.aoapps.net;
  *
  * @author  AO Industries, Inc.
  */
-public final class InetAddressPrefixes {
+public abstract class InetAddressPrefixes {
+
+	/** Make no instances. */
+	private InetAddressPrefixes() {throw new AssertionError();}
 
 	/**
 	 * The IPv4 unspecified network (<code>0.0.0.0/0</code>).
@@ -318,6 +321,4 @@ public final class InetAddressPrefixes {
 		).intern(),
 		10
 	);
-
-	private InetAddressPrefixes() {}
 }

@@ -30,6 +30,7 @@ public class MacAddress {
 	private String address;
 
 	public MacAddress() {
+		// Do nothing
 	}
 
 	public MacAddress(String address) {

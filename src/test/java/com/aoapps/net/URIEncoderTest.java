@@ -27,9 +27,6 @@ import org.junit.Test;
 
 public class URIEncoderTest {
 
-	public URIEncoderTest() {
-	}
-
 	@Test
 	public void testEncodeURI() {
 		assertEquals(
