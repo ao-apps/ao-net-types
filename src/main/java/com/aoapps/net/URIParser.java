@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2021  AO Industries, Inc.
+ * Copyright (C) 2019, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,7 +27,7 @@ package com.aoapps.net;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class URIParser {
+public final class URIParser {
 
 	/** Make no instances. */
 	private URIParser() {throw new AssertionError();}

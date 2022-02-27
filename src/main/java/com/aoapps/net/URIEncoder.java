@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -54,7 +54,7 @@ import java.util.Locale;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class URIEncoder {
+public final class URIEncoder {
 
 	/** Make no instances. */
 	private URIEncoder() {throw new AssertionError();}

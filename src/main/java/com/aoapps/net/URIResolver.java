@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -31,7 +31,7 @@ import java.net.MalformedURLException;
  * @author  AO Industries, Inc.
  */
 // TODO: Add tests
-public abstract class URIResolver {
+public final class URIResolver {
 
 	/** Make no instances. */
 	private URIResolver() {throw new AssertionError();}
