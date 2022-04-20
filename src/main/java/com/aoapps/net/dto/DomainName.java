@@ -28,21 +28,21 @@ package com.aoapps.net.dto;
  */
 public class DomainName {
 
-	private String domain;
+  private String domain;
 
-	public DomainName() {
-		// Do nothing
-	}
+  public DomainName() {
+    // Do nothing
+  }
 
-	public DomainName(String domain) {
-		this.domain = domain;
-	}
+  public DomainName(String domain) {
+    this.domain = domain;
+  }
 
-	public String getDomain() {
-		return domain;
-	}
+  public String getDomain() {
+    return domain;
+  }
 
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
+  public void setDomain(String domain) {
+    this.domain = domain;
+  }
 }

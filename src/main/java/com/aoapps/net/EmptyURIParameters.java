@@ -35,46 +35,46 @@ import java.util.Map;
  */
 public final class EmptyURIParameters implements URIParameters {
 
-	private static final EmptyURIParameters instance = new EmptyURIParameters();
+  private static final EmptyURIParameters instance = new EmptyURIParameters();
 
-	public static EmptyURIParameters getInstance() {
-		return instance;
-	}
+  public static EmptyURIParameters getInstance() {
+    return instance;
+  }
 
-	private EmptyURIParameters() {
-		// Do nothing
-	}
+  private EmptyURIParameters() {
+    // Do nothing
+  }
 
-	/**
-	 * @see  URIParameters#toString()
-	 */
-	@Override
-	public String toString() {
-		return "";
-	}
+  /**
+   * @see  URIParameters#toString()
+   */
+  @Override
+  public String toString() {
+    return "";
+  }
 
-	@Override
-	public String getParameter(String name) {
-		return null;
-	}
+  @Override
+  public String getParameter(String name) {
+    return null;
+  }
 
-	@Override
-	public Iterator<String> getParameterNames() {
-		return Collections.emptyIterator();
-	}
+  @Override
+  public Iterator<String> getParameterNames() {
+    return Collections.emptyIterator();
+  }
 
-	@Override
-	public List<String> getParameterValues(String name) {
-		return null;
-	}
+  @Override
+  public List<String> getParameterValues(String name) {
+    return null;
+  }
 
-	@Override
-	public Map<String, List<String>> getParameterMap() {
-		return Collections.emptyMap();
-	}
+  @Override
+  public Map<String, List<String>> getParameterMap() {
+    return Collections.emptyMap();
+  }
 
-	@Override
-	public boolean isFastToString() {
-		return true;
-	}
+  @Override
+  public boolean isFastToString() {
+    return true;
+  }
 }

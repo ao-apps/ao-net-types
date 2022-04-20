@@ -28,21 +28,21 @@ package com.aoapps.net.dto;
  */
 public class MacAddress {
 
-	private String address;
+  private String address;
 
-	public MacAddress() {
-		// Do nothing
-	}
+  public MacAddress() {
+    // Do nothing
+  }
 
-	public MacAddress(String address) {
-		this.address = address;
-	}
+  public MacAddress(String address) {
+    this.address = address;
+  }
 
-	public String getAddress() {
-		return address;
-	}
+  public String getAddress() {
+    return address;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 }

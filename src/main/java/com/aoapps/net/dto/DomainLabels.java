@@ -28,21 +28,21 @@ package com.aoapps.net.dto;
  */
 public class DomainLabels {
 
-	private String labels;
+  private String labels;
 
-	public DomainLabels() {
-		// Do nothing
-	}
+  public DomainLabels() {
+    // Do nothing
+  }
 
-	public DomainLabels(String labels) {
-		this.labels = labels;
-	}
+  public DomainLabels(String labels) {
+    this.labels = labels;
+  }
 
-	public String getLabels() {
-		return labels;
-	}
+  public String getLabels() {
+    return labels;
+  }
 
-	public void setLabels(String labels) {
-		this.labels = labels;
-	}
+  public void setLabels(String labels) {
+    this.labels = labels;
+  }
 }

@@ -28,21 +28,21 @@ package com.aoapps.net.dto;
  */
 public class Path {
 
-	private String path;
+  private String path;
 
-	public Path() {
-		// Do nothing
-	}
+  public Path() {
+    // Do nothing
+  }
 
-	public Path(String path) {
-		this.path = path;
-	}
+  public Path(String path) {
+    this.path = path;
+  }
 
-	public String getPath() {
-		return path;
-	}
+  public String getPath() {
+    return path;
+  }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+  public void setPath(String path) {
+    this.path = path;
+  }
 }

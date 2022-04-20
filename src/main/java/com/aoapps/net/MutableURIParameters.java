@@ -33,113 +33,115 @@ import com.aoapps.lang.NullArgumentException;
  */
 public interface MutableURIParameters extends URIParameters {
 
-	/**
-	 * Adds a parameter with a single value.
-	 *
-	 * @param name   Required when {@code value} is not {@code null}.
-	 *
-	 * @param value  When {@code null}, no parameter is added.
-	 */
-	MutableURIParameters add(String name, String value);
+  /**
+   * Adds a parameter with a single value.
+   *
+   * @param name   Required when {@code value} is not {@code null}.
+   *
+   * @param value  When {@code null}, no parameter is added.
+   */
+  MutableURIParameters add(String name, String value);
 
-	/**
-	 * Adds a parameter with a single value.
-	 * <p>
-	 * The conversion to string may be deferred, or the value may be streamed instead of being
-	 * converted to a string.  It is incorrect to change the state of the provided value; doing
-	 * so may or may not affect the value of the resulting parameter.
-	 * </p>
-	 *
-	 * @param name   Required when {@code value} is not {@code null}.
-	 *
-	 * @param value  When {@code null}, no parameter is added.
-	 *
-	 * @see  Coercion
-	 */
-	default MutableURIParameters add(String name, Object value) {
-		if(value != null) add(name, Coercion.toString(value));
-		return this;
-	}
+  /**
+   * Adds a parameter with a single value.
+   * <p>
+   * The conversion to string may be deferred, or the value may be streamed instead of being
+   * converted to a string.  It is incorrect to change the state of the provided value; doing
+   * so may or may not affect the value of the resulting parameter.
+   * </p>
+   *
+   * @param name   Required when {@code value} is not {@code null}.
+   *
+   * @param value  When {@code null}, no parameter is added.
+   *
+   * @see  Coercion
+   */
+  default MutableURIParameters add(String name, Object value) {
+    if (value != null) {
+      add(name, Coercion.toString(value));
+    }
+    return this;
+  }
 
-	/**
-	 * Adds a parameter with a single value.
-	 *
-	 * @param name   May not be {@code null}.
-	 * @param value  May not be {@code null}.
-	 *
-	 * @deprecated  Please use {@link #add(java.lang.String, java.lang.String)} directly.
-	 */
-	@Deprecated
-	default void addParameter(String name, String value) {
-		NullArgumentException.checkNotNull(value, "value");
-		add(name, value);
-	}
+  /**
+   * Adds a parameter with a single value.
+   *
+   * @param name   May not be {@code null}.
+   * @param value  May not be {@code null}.
+   *
+   * @deprecated  Please use {@link #add(java.lang.String, java.lang.String)} directly.
+   */
+  @Deprecated
+  default void addParameter(String name, String value) {
+    NullArgumentException.checkNotNull(value, "value");
+    add(name, value);
+  }
 
-	/**
-	 * Adds a parameter with multiple values.
-	 * <p>
-	 * The iteration of values will be performed immediately, but
-	 * the conversion to string may be deferred, or the value may be streamed instead of being
-	 * converted to a string.  It is incorrect to change the state of the provided value; doing
-	 * so may or may not affect the value of the resulting parameter.
-	 * </p>
-	 *
-	 * @param name   Required when {@code value} has any element that is not {@code null}.
-	 *
-	 * @param values  When {@code null}, no parameters are added.
-	 *                When an element is {@code null}, no parameter is added.
-	 *
-	 * @see  Coercion
-	 */
-	default MutableURIParameters add(String name, Iterable<?> values) {
-		if(values != null) {
-			for(Object value : values) {
-				add(name, value);
-			}
-		}
-		return this;
-	}
+  /**
+   * Adds a parameter with multiple values.
+   * <p>
+   * The iteration of values will be performed immediately, but
+   * the conversion to string may be deferred, or the value may be streamed instead of being
+   * converted to a string.  It is incorrect to change the state of the provided value; doing
+   * so may or may not affect the value of the resulting parameter.
+   * </p>
+   *
+   * @param name   Required when {@code value} has any element that is not {@code null}.
+   *
+   * @param values  When {@code null}, no parameters are added.
+   *                When an element is {@code null}, no parameter is added.
+   *
+   * @see  Coercion
+   */
+  default MutableURIParameters add(String name, Iterable<?> values) {
+    if (values != null) {
+      for (Object value : values) {
+        add(name, value);
+      }
+    }
+    return this;
+  }
 
-	/**
-	 * Adds a parameter with multiple values.
-	 * <p>
-	 * The iteration of values will be performed immediately, but
-	 * the conversion to string may be deferred, or the value may be streamed instead of being
-	 * converted to a string.  It is incorrect to change the state of the provided value; doing
-	 * so may or may not affect the value of the resulting parameter.
-	 * </p>
-	 *
-	 * @param name   Required when {@code value} has any element that is not {@code null}.
-	 *
-	 * @param values  When {@code null}, no parameters are added.
-	 *                When an element is {@code null}, no parameter is added.
-	 *
-	 * @see  Coercion
-	 */
-	default MutableURIParameters add(String name, Object ... values) {
-		if(values != null) {
-			for(Object value : values) {
-				add(name, value);
-			}
-		}
-		return this;
-	}
+  /**
+   * Adds a parameter with multiple values.
+   * <p>
+   * The iteration of values will be performed immediately, but
+   * the conversion to string may be deferred, or the value may be streamed instead of being
+   * converted to a string.  It is incorrect to change the state of the provided value; doing
+   * so may or may not affect the value of the resulting parameter.
+   * </p>
+   *
+   * @param name   Required when {@code value} has any element that is not {@code null}.
+   *
+   * @param values  When {@code null}, no parameters are added.
+   *                When an element is {@code null}, no parameter is added.
+   *
+   * @see  Coercion
+   */
+  default MutableURIParameters add(String name, Object ... values) {
+    if (values != null) {
+      for (Object value : values) {
+        add(name, value);
+      }
+    }
+    return this;
+  }
 
-	/**
-	 * Adds a parameter with multiple values.
-	 *
-	 * @param name    Required when {@code values} is not {@code null}.
-	 * @param values  When {@code null}, no parameters are added.
-	 *                May not contain any {@code null} elements.
-	 *
-	 * @deprecated  Please use {@link #add(java.lang.String, java.lang.Iterable)} directly.
-	 */
-	@Deprecated
-	default void addParameters(String name, Iterable<? extends String> values) {
-		if(values != null) {
-			for(String value : values) {
-				addParameter(name, value);
-			}
-		}
-	}
+  /**
+   * Adds a parameter with multiple values.
+   *
+   * @param name    Required when {@code values} is not {@code null}.
+   * @param values  When {@code null}, no parameters are added.
+   *                May not contain any {@code null} elements.
+   *
+   * @deprecated  Please use {@link #add(java.lang.String, java.lang.Iterable)} directly.
+   */
+  @Deprecated
+  default void addParameters(String name, Iterable<? extends String> values) {
+    if (values != null) {
+      for (String value : values) {
+        addParameter(name, value);
+      }
+    }
+  }
 }

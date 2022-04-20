@@ -28,32 +28,32 @@ package com.aoapps.net.dto;
  */
 public class PortRange extends IPortRange {
 
-	private int from;
-	private int to;
+  private int from;
+  private int to;
 
-	public PortRange() {
-		// Do nothing
-	}
+  public PortRange() {
+    // Do nothing
+  }
 
-	public PortRange(int from, int to, String protocol) {
-		super(protocol);
-		this.from = from;
-		this.to = to;
-	}
+  public PortRange(int from, int to, String protocol) {
+    super(protocol);
+    this.from = from;
+    this.to = to;
+  }
 
-	public int getFrom() {
-		return from;
-	}
+  public int getFrom() {
+    return from;
+  }
 
-	public void setFrom(int from) {
-		this.from = from;
-	}
+  public void setFrom(int from) {
+    this.from = from;
+  }
 
-	public int getTo() {
-		return to;
-	}
+  public int getTo() {
+    return to;
+  }
 
-	public void setTo(int to) {
-		this.to = to;
-	}
+  public void setTo(int to) {
+    this.to = to;
+  }
 }

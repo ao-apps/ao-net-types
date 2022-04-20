@@ -42,167 +42,175 @@ import java.util.ResourceBundle;
  * @author  AO Industries, Inc.
  */
 public final class PortRange extends IPortRange implements
-	Serializable,
-	DtoFactory<com.aoapps.net.dto.PortRange>
+  Serializable,
+  DtoFactory<com.aoapps.net.dto.PortRange>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, PortRange.class);
+  private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, PortRange.class);
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public static ValidationResult validate(int from, int to, Protocol protocol) {
-		if(from < MIN_PORT) {
-			return new InvalidResult(RESOURCES, "validate.from.lessThanOne", from);
-		}
-		if(from > MAX_PORT) {
-			return new InvalidResult(RESOURCES, "validate.from.greaterThan64k", from);
-		}
-		if(to < MIN_PORT) {
-			return new InvalidResult(RESOURCES, "validate.to.lessThanOne", to);
-		}
-		if(to > MAX_PORT) {
-			return new InvalidResult(RESOURCES, "validate.to.greaterThan64k", to);
-		}
-		if(to < from) {
-			return new InvalidResult(RESOURCES, "validate.toLessThanFrom", to, from);
-		}
-		if(from == to) {
-			return new InvalidResult(RESOURCES, "validate.fromEqualsTo", from, to);
-		}
-		if(protocol != Protocol.TCP && protocol != Protocol.UDP && protocol != Protocol.SCTP) {
-			return new InvalidResult(Port.RESOURCES, "validate.unsupportedProtocol", protocol);
-		}
-		return ValidResult.getInstance();
-	}
+  public static ValidationResult validate(int from, int to, Protocol protocol) {
+    if (from < MIN_PORT) {
+      return new InvalidResult(RESOURCES, "validate.from.lessThanOne", from);
+    }
+    if (from > MAX_PORT) {
+      return new InvalidResult(RESOURCES, "validate.from.greaterThan64k", from);
+    }
+    if (to < MIN_PORT) {
+      return new InvalidResult(RESOURCES, "validate.to.lessThanOne", to);
+    }
+    if (to > MAX_PORT) {
+      return new InvalidResult(RESOURCES, "validate.to.greaterThan64k", to);
+    }
+    if (to < from) {
+      return new InvalidResult(RESOURCES, "validate.toLessThanFrom", to, from);
+    }
+    if (from == to) {
+      return new InvalidResult(RESOURCES, "validate.fromEqualsTo", from, to);
+    }
+    if (protocol != Protocol.TCP && protocol != Protocol.UDP && protocol != Protocol.SCTP) {
+      return new InvalidResult(Port.RESOURCES, "validate.unsupportedProtocol", protocol);
+    }
+    return ValidResult.getInstance();
+  }
 
-	public static PortRange valueOf(int from, int to, Protocol protocol) throws ValidationException {
-		ValidationResult result = validate(from, to, protocol);
-		if(!result.isValid()) throw new ValidationException(result);
-		return valueOfNoValidate(from, to, protocol);
-	}
+  public static PortRange valueOf(int from, int to, Protocol protocol) throws ValidationException {
+    ValidationResult result = validate(from, to, protocol);
+    if (!result.isValid()) {
+      throw new ValidationException(result);
+    }
+    return valueOfNoValidate(from, to, protocol);
+  }
 
-	static PortRange valueOfNoValidate(int from, int to, Protocol protocol) {
-		return new PortRange(from, to, protocol);
-	}
+  static PortRange valueOfNoValidate(int from, int to, Protocol protocol) {
+    return new PortRange(from, to, protocol);
+  }
 
-	private final int from;
-	private final int to;
+  private final int from;
+  private final int to;
 
-	/* Unused
-	private PortRange(int from, int to, Protocol protocol, boolean validate) throws ValidationException {
-		super(protocol);
-		this.from = from;
-		this.to = to;
-		if(validate) validate();
-	}
-	 */
+  /* Unused
+  private PortRange(int from, int to, Protocol protocol, boolean validate) throws ValidationException {
+    super(protocol);
+    this.from = from;
+    this.to = to;
+    if (validate) {
+      validate();
+    }
+  }
+   */
 
-	/**
-	 * @param  from  Does not validate, should only be used with a known valid value.
-	 * @param  to  Does not validate, should only be used with a known valid value.
-	 * @param  protocol  Does not validate, should only be used with a known valid value.
-	 */
-	private PortRange(int from, int to, Protocol protocol) {
-		super(protocol);
-		ValidationResult result;
-		assert (result = validate(from, to, protocol)).isValid() : result.toString();
-		this.from = from;
-		this.to = to;
-	}
+  /**
+   * @param  from  Does not validate, should only be used with a known valid value.
+   * @param  to  Does not validate, should only be used with a known valid value.
+   * @param  protocol  Does not validate, should only be used with a known valid value.
+   */
+  private PortRange(int from, int to, Protocol protocol) {
+    super(protocol);
+    ValidationResult result;
+    assert (result = validate(from, to, protocol)).isValid() : result.toString();
+    this.from = from;
+    this.to = to;
+  }
 
-	private void validate() throws ValidationException {
-		ValidationResult result = validate(from, to, protocol);
-		if(!result.isValid()) throw new ValidationException(result);
-	}
+  private void validate() throws ValidationException {
+    ValidationResult result = validate(from, to, protocol);
+    if (!result.isValid()) {
+      throw new ValidationException(result);
+    }
+  }
 
-	/**
-	 * Perform same validation as constructor on readObject.
-	 */
-	private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
-		ois.defaultReadObject();
-		try {
-			validate();
-		} catch(ValidationException err) {
-			InvalidObjectException newErr = new InvalidObjectException(err.getMessage());
-			newErr.initCause(err);
-			throw newErr;
-		}
-	}
+  /**
+   * Perform same validation as constructor on readObject.
+   */
+  private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
+    ois.defaultReadObject();
+    try {
+      validate();
+    } catch (ValidationException err) {
+      InvalidObjectException newErr = new InvalidObjectException(err.getMessage());
+      newErr.initCause(err);
+      throw newErr;
+    }
+  }
 
-	/**
-	 * Unlike {@link Port}, port ranges are not cached and may not be safely compared by identity.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof PortRange)) return false;
-		PortRange other = (PortRange)obj;
-		return
-			protocol == other.protocol
-			&& from == other.from
-			&& to == other.to
-		;
-	}
+  /**
+   * Unlike {@link Port}, port ranges are not cached and may not be safely compared by identity.
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof PortRange)) {
+      return false;
+    }
+    PortRange other = (PortRange)obj;
+    return
+      protocol == other.protocol
+      && from == other.from
+      && to == other.to
+    ;
+  }
 
-	@Override
-	public int hashCode() {
-		int hash = protocol.getDecimal();
-		hash = hash * 31 + from;
-		hash = hash * 31 + to;
-		return hash;
-	}
+  @Override
+  public int hashCode() {
+    int hash = protocol.getDecimal();
+    hash = hash * 31 + from;
+    hash = hash * 31 + to;
+    return hash;
+  }
 
-	/**
-	 * @return The port range and protocol, such as <code>53/UDP</code>
-	 * or <code>8080-8087/TCP</code>.
-	 */
-	@Override
-	public String toString() {
-		assert to > from;
-		return Integer.toString(from) + '-' + Integer.toString(to) + '/' + protocol;
-	}
+  /**
+   * @return The port range and protocol, such as <code>53/UDP</code>
+   * or <code>8080-8087/TCP</code>.
+   */
+  @Override
+  public String toString() {
+    assert to > from;
+    return Integer.toString(from) + '-' + Integer.toString(to) + '/' + protocol;
+  }
 
-	@Override
-	public int getFrom() {
-		return from;
-	}
+  @Override
+  public int getFrom() {
+    return from;
+  }
 
-	@Override
-	public Port getFromPort() {
-		return Port.valueOfNoValidate(from, protocol);
-	}
+  @Override
+  public Port getFromPort() {
+    return Port.valueOfNoValidate(from, protocol);
+  }
 
-	@Override
-	public int getTo() {
-		return to;
-	}
+  @Override
+  public int getTo() {
+    return to;
+  }
 
-	@Override
-	public Port getToPort() {
-		return Port.valueOfNoValidate(to, protocol);
-	}
+  @Override
+  public Port getToPort() {
+    return Port.valueOfNoValidate(to, protocol);
+  }
 
-	@Override
-	public com.aoapps.net.dto.PortRange getDto() {
-		return new com.aoapps.net.dto.PortRange(from, to, protocol.name());
-	}
+  @Override
+  public com.aoapps.net.dto.PortRange getDto() {
+    return new com.aoapps.net.dto.PortRange(from, to, protocol.name());
+  }
 
-	@Override
-	public IPortRange splitBelow(int below) {
-		int newTo = Math.min(to, below - 1);
-		if(newTo >= from) {
-			return IPortRange.valueOfNoValidate(from, newTo, protocol);
-		} else {
-			return null;
-		}
-	}
+  @Override
+  public IPortRange splitBelow(int below) {
+    int newTo = Math.min(to, below - 1);
+    if (newTo >= from) {
+      return IPortRange.valueOfNoValidate(from, newTo, protocol);
+    } else {
+      return null;
+    }
+  }
 
-	@Override
-	public IPortRange splitAbove(int above) {
-		int newFrom = Math.max(from, above + 1);
-		if(newFrom <= to) {
-			return IPortRange.valueOfNoValidate(newFrom, to, protocol);
-		} else {
-			return null;
-		}
-	}
+  @Override
+  public IPortRange splitAbove(int above) {
+    int newFrom = Math.max(from, above + 1);
+    if (newFrom <= to) {
+      return IPortRange.valueOfNoValidate(newFrom, to, protocol);
+    } else {
+      return null;
+    }
+  }
 }

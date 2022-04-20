@@ -32,33 +32,33 @@ import junit.framework.TestSuite;
  */
 public class URIResolverTest extends TestCase {
 
-	public URIResolverTest(String testName) {
-		super(testName);
-	}
+  public URIResolverTest(String testName) {
+    super(testName);
+  }
 
-	@Override
-	protected void setUp() throws Exception {
-		// Do nothing
-	}
+  @Override
+  protected void setUp() throws Exception {
+    // Do nothing
+  }
 
-	@Override
-	protected void tearDown() throws Exception {
-		// Do nothing
-	}
+  @Override
+  protected void tearDown() throws Exception {
+    // Do nothing
+  }
 
-	public static Test suite() {
-		TestSuite suite = new TestSuite(URIResolverTest.class);
-		return suite;
-	}
+  public static Test suite() {
+    TestSuite suite = new TestSuite(URIResolverTest.class);
+    return suite;
+  }
 
-	public void testGetAbsolutePath() throws Exception {
-		// TODO: Test /./ and /../ in middle of URL
-		assertEquals("/test/", URIResolver.getAbsolutePath("/test/page.jsp", "./"));
-		assertEquals("/test/other.jsp", URIResolver.getAbsolutePath("/test/subdir/page.jsp", "/test/other.jsp"));
-		assertEquals("/test/other.jsp", URIResolver.getAbsolutePath("/test/subdir/page.jsp", "../other.jsp"));
-		assertEquals("/test/other.jsp", URIResolver.getAbsolutePath("/test/subdir/page.jsp", "./.././other.jsp"));
-		assertEquals("/test/subdir/other.jsp", URIResolver.getAbsolutePath("/test/page.jsp", "subdir/other.jsp"));
-		assertEquals("/test/other.jsp", URIResolver.getAbsolutePath("/test/page.jsp", "other.jsp"));
-		assertEquals("/other.jsp", URIResolver.getAbsolutePath("/page.jsp", "other.jsp"));
-	}
+  public void testGetAbsolutePath() throws Exception {
+    // TODO: Test /./ and /../ in middle of URL
+    assertEquals("/test/", URIResolver.getAbsolutePath("/test/page.jsp", "./"));
+    assertEquals("/test/other.jsp", URIResolver.getAbsolutePath("/test/subdir/page.jsp", "/test/other.jsp"));
+    assertEquals("/test/other.jsp", URIResolver.getAbsolutePath("/test/subdir/page.jsp", "../other.jsp"));
+    assertEquals("/test/other.jsp", URIResolver.getAbsolutePath("/test/subdir/page.jsp", "./.././other.jsp"));
+    assertEquals("/test/subdir/other.jsp", URIResolver.getAbsolutePath("/test/page.jsp", "subdir/other.jsp"));
+    assertEquals("/test/other.jsp", URIResolver.getAbsolutePath("/test/page.jsp", "other.jsp"));
+    assertEquals("/other.jsp", URIResolver.getAbsolutePath("/page.jsp", "other.jsp"));
+  }
 }

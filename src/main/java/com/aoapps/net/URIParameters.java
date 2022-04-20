@@ -40,102 +40,102 @@ import java.util.Map;
  */
 public interface URIParameters extends Writable {
 
-	/**
-	 * Gets the query string encoded in the default encoding {@link IRI#ENCODING},
-	 * not including the '?' prefix.
-	 *
-	 * @see URIParametersUtils#toQueryString(com.aoapps.net.URIParameters)
-	 */
-	@Override
-	String toString();
+  /**
+   * Gets the query string encoded in the default encoding {@link IRI#ENCODING},
+   * not including the '?' prefix.
+   *
+   * @see URIParametersUtils#toQueryString(com.aoapps.net.URIParameters)
+   */
+  @Override
+  String toString();
 
-	/**
-	 * Gets the value for the provided parameter name or <code>null</code> if doesn't exist.
-	 * If the parameter has multiple values, the first value is returned.
-	 */
-	String getParameter(String name);
+  /**
+   * Gets the value for the provided parameter name or <code>null</code> if doesn't exist.
+   * If the parameter has multiple values, the first value is returned.
+   */
+  String getParameter(String name);
 
-	/**
-	 * Gets an unmodifiable iterator of the parameter names.
-	 */
-	Iterator<String> getParameterNames();
+  /**
+   * Gets an unmodifiable iterator of the parameter names.
+   */
+  Iterator<String> getParameterNames();
 
-	/**
-	 * Gets an unmodifiable view of all values for a multi-value parameter or <code>null</code> if has no values.
-	 */
-	List<String> getParameterValues(String name);
+  /**
+   * Gets an unmodifiable view of all values for a multi-value parameter or <code>null</code> if has no values.
+   */
+  List<String> getParameterValues(String name);
 
-	/**
-	 * Gets an unmodifiable map view of all parameters.
-	 */
-	Map<String, List<String>> getParameterMap();
+  /**
+   * Gets an unmodifiable map view of all parameters.
+   */
+  Map<String, List<String>> getParameterMap();
 
-	@Override
-	default long getLength() throws IOException {
-		return toString().length();
-	}
+  @Override
+  default long getLength() throws IOException {
+    return toString().length();
+  }
 
-	// TODO: Remove this default in next major release
-	@Override
-	default boolean isFastToString() {
-		return false;
-	}
+  // TODO: Remove this default in next major release
+  @Override
+  default boolean isFastToString() {
+    return false;
+  }
 
-	@Override
-	default void writeTo(Writer out) throws IOException {
-		appendTo(out);
-	}
+  @Override
+  default void writeTo(Writer out) throws IOException {
+    appendTo(out);
+  }
 
-	@Override
-	default void writeTo(Writer out, long off, long len) throws IOException {
-		appendTo(out, off, off + len);
-	}
+  @Override
+  default void writeTo(Writer out, long off, long len) throws IOException {
+    appendTo(out, off, off + len);
+  }
 
-	@Override
-	default void writeTo(Encoder encoder, Writer out) throws IOException {
-		appendTo(encoder, out);
-	}
+  @Override
+  default void writeTo(Encoder encoder, Writer out) throws IOException {
+    appendTo(encoder, out);
+  }
 
-	@Override
-	default void writeTo(Encoder encoder, Writer out, long off, long len) throws IOException {
-		appendTo(encoder, out, off, off + len);
-	}
+  @Override
+  default void writeTo(Encoder encoder, Writer out, long off, long len) throws IOException {
+    appendTo(encoder, out, off, off + len);
+  }
 
-	/**
-	 * @see URIParametersUtils#appendQueryString(com.aoapps.net.URIParameters, java.lang.Appendable)
-	 */
-	@Override
-	default void appendTo(Appendable out) throws IOException {
-		URIParametersUtils.appendQueryString(this, out);
-	}
+  /**
+   * @see URIParametersUtils#appendQueryString(com.aoapps.net.URIParameters, java.lang.Appendable)
+   */
+  @Override
+  default void appendTo(Appendable out) throws IOException {
+    URIParametersUtils.appendQueryString(this, out);
+  }
 
-	@Override
-	default void appendTo(Appendable out, long start, long end) throws IOException {
-		out.append(toString(), SafeMath.castInt(start), SafeMath.castInt(end));
-	}
+  @Override
+  default void appendTo(Appendable out, long start, long end) throws IOException {
+    out.append(toString(), SafeMath.castInt(start), SafeMath.castInt(end));
+  }
 
-	/**
-	 * @see URIParametersUtils#appendQueryString(com.aoapps.net.URIParameters, com.aoapps.lang.io.Encoder, java.lang.Appendable)
-	 */
-	@Override
-	default void appendTo(Encoder encoder, Appendable out) throws IOException {
-		URIParametersUtils.appendQueryString(this, encoder, out);
-	}
+  /**
+   * @see URIParametersUtils#appendQueryString(com.aoapps.net.URIParameters, com.aoapps.lang.io.Encoder, java.lang.Appendable)
+   */
+  @Override
+  default void appendTo(Encoder encoder, Appendable out) throws IOException {
+    URIParametersUtils.appendQueryString(this, encoder, out);
+  }
 
-	@Override
-	default void appendTo(Encoder encoder, Appendable out, long start, long end) throws IOException {
-		if(encoder == null) {
-			appendTo(out, start, end);
-		} else {
-			encoder.append(toString(), SafeMath.castInt(start), SafeMath.castInt(end), out);
-		}
-	}
+  @Override
+  default void appendTo(Encoder encoder, Appendable out, long start, long end) throws IOException {
+    if (encoder == null) {
+      appendTo(out, start, end);
+    } else {
+      encoder.append(toString(), SafeMath.castInt(start), SafeMath.castInt(end), out);
+    }
+  }
 
-	@Override
-	@SuppressWarnings({"AssertWithSideEffects", "StringEquality"})
-	default URIParameters trim() {
-		String toString;
-		assert Strings.trim(toString = toString()) == toString : "query string should never have whitespace to trim";
-		return this;
-	}
+  @Override
+  @SuppressWarnings({"AssertWithSideEffects", "StringEquality"})
+  default URIParameters trim() {
+    String toString;
+    assert Strings.trim(toString = toString()) == toString : "query string should never have whitespace to trim";
+    return this;
+  }
 }

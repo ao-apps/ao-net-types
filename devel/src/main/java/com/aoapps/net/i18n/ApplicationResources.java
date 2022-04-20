@@ -37,26 +37,26 @@ import javax.annotation.concurrent.ThreadSafe;
 @ThreadSafe
 public final class ApplicationResources extends EditableResourceBundle {
 
-	static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
-		ApplicationResources.class,
-		Locale.ROOT,
-		Locale.JAPANESE
-	);
+  static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
+    ApplicationResources.class,
+    Locale.ROOT,
+    Locale.JAPANESE
+  );
 
-	static File getSourceFile(String filename) {
-		try {
-			return new File(System.getProperty("user.home") + "/maven2/ao/oss/net-types/src/main/resources/com/aoapps/net/i18n", filename);
-		} catch(SecurityException e) {
-			Logger.getLogger(ApplicationResources.class.getName()).log(
-				Level.WARNING,
-				"Unable to locate source file: " + filename,
-				e
-			);
-			return null;
-		}
-	}
+  static File getSourceFile(String filename) {
+    try {
+      return new File(System.getProperty("user.home") + "/maven2/ao/oss/net-types/src/main/resources/com/aoapps/net/i18n", filename);
+    } catch (SecurityException e) {
+      Logger.getLogger(ApplicationResources.class.getName()).log(
+        Level.WARNING,
+        "Unable to locate source file: " + filename,
+        e
+      );
+      return null;
+    }
+  }
 
-	public ApplicationResources() {
-		super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
-	}
+  public ApplicationResources() {
+    super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
+  }
 }

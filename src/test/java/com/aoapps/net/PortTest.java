@@ -34,33 +34,33 @@ import org.junit.Test;
 
 public class PortTest {
 
-	@Test
-	public void testToString2() throws ValidationException {
-		assertEquals(
-			"167/TCP",
-			Port.valueOf(167, Protocol.TCP).toString()
-		);
-	}
+  @Test
+  public void testToString2() throws ValidationException {
+    assertEquals(
+      "167/TCP",
+      Port.valueOf(167, Protocol.TCP).toString()
+    );
+  }
 
-	@Test
-	public void testToString3() throws ValidationException {
-		assertEquals(
-			"67/UDP",
-			Port.valueOf(67, Protocol.UDP).toString()
-		);
-	}
+  @Test
+  public void testToString3() throws ValidationException {
+    assertEquals(
+      "67/UDP",
+      Port.valueOf(67, Protocol.UDP).toString()
+    );
+  }
 
-	@Test
-	public void testMaxFrom() throws ValidationException {
-		assertNotNull( // Using this assertion to avoid editor warnings about return value not used
-			Port.valueOf(65535, Protocol.TCP)
-		);
-	}
+  @Test
+  public void testMaxFrom() throws ValidationException {
+    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+      Port.valueOf(65535, Protocol.TCP)
+    );
+  }
 
-	@Test
-	public void testMinTo() throws ValidationException {
-		assertNotNull( // Using this assertion to avoid editor warnings about return value not used
-			Port.valueOf(1, Protocol.TCP)
-		);
-	}
+  @Test
+  public void testMinTo() throws ValidationException {
+    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+      Port.valueOf(1, Protocol.TCP)
+    );
+  }
 }

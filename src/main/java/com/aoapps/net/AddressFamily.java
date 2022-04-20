@@ -35,32 +35,32 @@ import java.net.StandardProtocolFamily;
 @Deprecated
 public enum AddressFamily {
 
-	/**
-	 * Internet Protocol Version 4 (IPv4).
-	 *
-	 * @deprecated  Please use {@link StandardProtocolFamily#INET} as of Java 1.7.
-	 */
-	@Deprecated
-	INET(32),
+  /**
+   * Internet Protocol Version 4 (IPv4).
+   *
+   * @deprecated  Please use {@link StandardProtocolFamily#INET} as of Java 1.7.
+   */
+  @Deprecated
+  INET(32),
 
-	/**
-	 * Internet Protocol Version 6 (IPv6).
-	 *
-	 * @deprecated  Please use {@link StandardProtocolFamily#INET6} as of Java 1.7.
-	 */
-	@Deprecated
-	INET6(128);
+  /**
+   * Internet Protocol Version 6 (IPv6).
+   *
+   * @deprecated  Please use {@link StandardProtocolFamily#INET6} as of Java 1.7.
+   */
+  @Deprecated
+  INET6(128);
 
-	private final int maxPrefix;
+  private final int maxPrefix;
 
-	private AddressFamily(int maxPrefix) {
-		this.maxPrefix = maxPrefix;
-	}
+  private AddressFamily(int maxPrefix) {
+    this.maxPrefix = maxPrefix;
+  }
 
-	/**
-	 * Gets the maximum size of a prefix for addresses in this family.
-	 */
-	public int getMaxPrefix() {
-		return maxPrefix;
-	}
+  /**
+   * Gets the maximum size of a prefix for addresses in this family.
+   */
+  public int getMaxPrefix() {
+    return maxPrefix;
+  }
 }

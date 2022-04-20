@@ -57,182 +57,206 @@ import java.util.concurrent.ConcurrentMap;
  */
 // Matches src/main/sql/com/aoapps/net/DomainLabel-type.sql
 public final class DomainLabel implements
-	Comparable<DomainLabel>,
-	FastExternalizable,
-	DtoFactory<com.aoapps.net.dto.DomainLabel>,
-	Internable<DomainLabel>
+  Comparable<DomainLabel>,
+  FastExternalizable,
+  DtoFactory<com.aoapps.net.dto.DomainLabel>,
+  Internable<DomainLabel>
 {
 
-	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabel.class);
+  private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabel.class);
 
-	public static final int MAX_LENGTH = 63;
+  public static final int MAX_LENGTH = 63;
 
-	/**
-	 * Validates a domain name label.
-	 */
-	public static ValidationResult validate(String label) {
-		if(label==null) return new InvalidResult(RESOURCES, "validate.isNull");
-		return validate(label, 0, label.length());
-	}
-	// Matches src/main/sql/com/aoapps/net/DomainLabel.validate-function.sql
-	public static ValidationResult validate(String label, int beginIndex, int endIndex) {
-		if(label==null) return new InvalidResult(RESOURCES, "validate.isNull");
-		int len = endIndex-beginIndex;
-		if(len==0) return new InvalidResult(RESOURCES, "validate.empty");
-		if(len>MAX_LENGTH) return new InvalidResult(RESOURCES, "validate.tooLong", MAX_LENGTH, len);
-		for(int pos=beginIndex; pos<endIndex; pos++) {
-			char ch = label.charAt(pos);
-			if(ch=='-') {
-				if(pos==beginIndex) return new InvalidResult(RESOURCES, "validate.startsDash");
-				if(pos==(endIndex-1)) return new InvalidResult(RESOURCES, "validate.endsDash");
-			} else if(
-				(ch<'a' || ch>'z')
-				&& (ch<'A' || ch>'Z')
-				&& (ch<'0' || ch>'9')
-			) return new InvalidResult(RESOURCES, "validate.invalidCharacter", ch, pos-beginIndex);
-		}
-		return ValidResult.getInstance();
-	}
+  /**
+   * Validates a domain name label.
+   */
+  public static ValidationResult validate(String label) {
+    if (label == null) {
+      return new InvalidResult(RESOURCES, "validate.isNull");
+    }
+    return validate(label, 0, label.length());
+  }
+  // Matches src/main/sql/com/aoapps/net/DomainLabel.validate-function.sql
+  public static ValidationResult validate(String label, int beginIndex, int endIndex) {
+    if (label == null) {
+      return new InvalidResult(RESOURCES, "validate.isNull");
+    }
+    int len = endIndex-beginIndex;
+    if (len == 0) {
+      return new InvalidResult(RESOURCES, "validate.empty");
+    }
+    if (len>MAX_LENGTH) {
+      return new InvalidResult(RESOURCES, "validate.tooLong", MAX_LENGTH, len);
+    }
+    for (int pos=beginIndex; pos<endIndex; pos++) {
+      char ch = label.charAt(pos);
+      if (ch == '-') {
+        if (pos == beginIndex) {
+          return new InvalidResult(RESOURCES, "validate.startsDash");
+        }
+        if (pos == (endIndex-1)) {
+          return new InvalidResult(RESOURCES, "validate.endsDash");
+        }
+      } else if (
+        (ch<'a' || ch>'z')
+        && (ch<'A' || ch>'Z')
+        && (ch<'0' || ch>'9')
+      ) {
+        return new InvalidResult(RESOURCES, "validate.invalidCharacter", ch, pos-beginIndex);
+      }
+    }
+    return ValidResult.getInstance();
+  }
 
-	private static final ConcurrentMap<String, DomainLabel> interned = new ConcurrentHashMap<>();
+  private static final ConcurrentMap<String, DomainLabel> interned = new ConcurrentHashMap<>();
 
-	/**
-	 * @param label  when {@code null}, returns {@code null}
-	 */
-	public static DomainLabel valueOf(String label) throws ValidationException {
-		if(label == null) return null;
-		//DomainLabel existing = interned.get(label);
-		//return existing!=null ? existing : new DomainLabel(label);
-		return new DomainLabel(label, true);
-	}
+  /**
+   * @param label  when {@code null}, returns {@code null}
+   */
+  public static DomainLabel valueOf(String label) throws ValidationException {
+    if (label == null) {
+      return null;
+    }
+    //DomainLabel existing = interned.get(label);
+    //return existing != null ? existing : new DomainLabel(label);
+    return new DomainLabel(label, true);
+  }
 
-	private String label;
-	private String lowerLabel;
+  private String label;
+  private String lowerLabel;
 
-	private DomainLabel(String label, boolean validate) throws ValidationException {
-		this.label = label;
-		this.lowerLabel = label.toLowerCase(Locale.ROOT);
-		if(validate) validate();
-	}
+  private DomainLabel(String label, boolean validate) throws ValidationException {
+    this.label = label;
+    this.lowerLabel = label.toLowerCase(Locale.ROOT);
+    if (validate) {
+      validate();
+    }
+  }
 
-	/**
-	 * @param  label  Does not validate, should only be used with a known valid value.
-	 * @param  lowerLabel  Does not validate, should only be used with a known valid value.
-	 */
-	private DomainLabel(String label, String lowerLabel) {
-		ValidationResult result;
-		assert (result = validate(label)).isValid() : result.toString();
-		assert label.toLowerCase(Locale.ROOT).equals(lowerLabel);
-		this.label = label;
-		this.lowerLabel = lowerLabel;
-	}
+  /**
+   * @param  label  Does not validate, should only be used with a known valid value.
+   * @param  lowerLabel  Does not validate, should only be used with a known valid value.
+   */
+  private DomainLabel(String label, String lowerLabel) {
+    ValidationResult result;
+    assert (result = validate(label)).isValid() : result.toString();
+    assert label.toLowerCase(Locale.ROOT).equals(lowerLabel);
+    this.label = label;
+    this.lowerLabel = lowerLabel;
+  }
 
-	private void validate() throws ValidationException {
-		ValidationResult result = validate(label);
-		if(!result.isValid()) throw new ValidationException(result);
-	}
+  private void validate() throws ValidationException {
+    ValidationResult result = validate(label);
+    if (!result.isValid()) {
+      throw new ValidationException(result);
+    }
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		return
-			(obj instanceof DomainLabel)
-			&& lowerLabel.equals(((DomainLabel)obj).lowerLabel)
-		;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    return
+      (obj instanceof DomainLabel)
+      && lowerLabel.equals(((DomainLabel)obj).lowerLabel)
+    ;
+  }
 
-	@Override
-	public int hashCode() {
-		return lowerLabel.hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return lowerLabel.hashCode();
+  }
 
-	@Override
-	public int compareTo(DomainLabel other) {
-		return this==other ? 0 : ComparatorUtils.compareIgnoreCaseConsistentWithEquals(label, other.label);
-	}
+  @Override
+  public int compareTo(DomainLabel other) {
+    return this == other ? 0 : ComparatorUtils.compareIgnoreCaseConsistentWithEquals(label, other.label);
+  }
 
-	@Override
-	public String toString() {
-		return label;
-	}
+  @Override
+  public String toString() {
+    return label;
+  }
 
-	/**
-	 * Gets the lower-case form of the label.  If two different domain labels are
-	 * interned and their toLowerCase is the same String instance, then they are
-	 * equal in case-insensitive manner.
-	 */
-	public String toLowerCase() {
-		return lowerLabel;
-	}
+  /**
+   * Gets the lower-case form of the label.  If two different domain labels are
+   * interned and their toLowerCase is the same String instance, then they are
+   * equal in case-insensitive manner.
+   */
+  public String toLowerCase() {
+    return lowerLabel;
+  }
 
-	/**
-	 * Interns this label much in the same fashion as <code>String.intern()</code>.
-	 *
-	 * @see  String#intern()
-	 */
-	@Override
-	public DomainLabel intern() {
-		DomainLabel existing = interned.get(label);
-		if(existing==null) {
-			String internedLabel = label.intern();
-			String internedLowerLabel = lowerLabel.intern();
-			@SuppressWarnings("StringEquality")
-			DomainLabel addMe = (label == internedLabel) && (lowerLabel == internedLowerLabel) ? this : new DomainLabel(internedLabel, internedLowerLabel);
-			existing = interned.putIfAbsent(internedLabel, addMe);
-			if(existing==null) existing = addMe;
-		}
-		return existing;
-	}
+  /**
+   * Interns this label much in the same fashion as <code>String.intern()</code>.
+   *
+   * @see  String#intern()
+   */
+  @Override
+  public DomainLabel intern() {
+    DomainLabel existing = interned.get(label);
+    if (existing == null) {
+      String internedLabel = label.intern();
+      String internedLowerLabel = lowerLabel.intern();
+      @SuppressWarnings("StringEquality")
+      DomainLabel addMe = (label == internedLabel) && (lowerLabel == internedLowerLabel) ? this : new DomainLabel(internedLabel, internedLowerLabel);
+      existing = interned.putIfAbsent(internedLabel, addMe);
+      if (existing == null) {
+        existing = addMe;
+      }
+    }
+    return existing;
+  }
 
-	@Override
-	public com.aoapps.net.dto.DomainLabel getDto() {
-		return new com.aoapps.net.dto.DomainLabel(label);
-	}
+  @Override
+  public com.aoapps.net.dto.DomainLabel getDto() {
+    return new com.aoapps.net.dto.DomainLabel(label);
+  }
 
-	// <editor-fold defaultstate="collapsed" desc="FastExternalizable">
-	private static final long serialVersionUID = -3692661338685551188L;
+  // <editor-fold defaultstate="collapsed" desc="FastExternalizable">
+  private static final long serialVersionUID = -3692661338685551188L;
 
-	/**
-	 * @deprecated  Only required for implementation, do not use directly.
-	 *
-	 * @see  FastExternalizable
-	 */
-	@Deprecated/* Java 9: (forRemoval = false) */
-	public DomainLabel() {
-		// Do nothing
-	}
+  /**
+   * @deprecated  Only required for implementation, do not use directly.
+   *
+   * @see  FastExternalizable
+   */
+  @Deprecated/* Java 9: (forRemoval = false) */
+  public DomainLabel() {
+    // Do nothing
+  }
 
-	@Override
-	public long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+  @Override
+  public long getSerialVersionUID() {
+    return serialVersionUID;
+  }
 
-	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		FastObjectOutput fastOut = FastObjectOutput.wrap(out);
-		try {
-			fastOut.writeFastUTF(label);
-		} finally {
-			fastOut.unwrap();
-		}
-	}
+  @Override
+  public void writeExternal(ObjectOutput out) throws IOException {
+    FastObjectOutput fastOut = FastObjectOutput.wrap(out);
+    try {
+      fastOut.writeFastUTF(label);
+    } finally {
+      fastOut.unwrap();
+    }
+  }
 
-	@Override
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		if(label!=null) throw new IllegalStateException();
-		FastObjectInput fastIn = FastObjectInput.wrap(in);
-		try {
-			label = fastIn.readFastUTF();
-			lowerLabel = label.toLowerCase(Locale.ROOT);
-		} finally {
-			fastIn.unwrap();
-		}
-		try {
-			validate();
-		} catch(ValidationException err) {
-			InvalidObjectException newErr = new InvalidObjectException(err.getMessage());
-			newErr.initCause(err);
-			throw newErr;
-		}
-	}
-	// </editor-fold>
+  @Override
+  public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    if (label != null) {
+      throw new IllegalStateException();
+    }
+    FastObjectInput fastIn = FastObjectInput.wrap(in);
+    try {
+      label = fastIn.readFastUTF();
+      lowerLabel = label.toLowerCase(Locale.ROOT);
+    } finally {
+      fastIn.unwrap();
+    }
+    try {
+      validate();
+    } catch (ValidationException err) {
+      InvalidObjectException newErr = new InvalidObjectException(err.getMessage());
+      newErr.initCause(err);
+      throw newErr;
+    }
+  }
+  // </editor-fold>
 }

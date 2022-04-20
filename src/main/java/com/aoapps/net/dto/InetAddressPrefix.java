@@ -28,31 +28,31 @@ package com.aoapps.net.dto;
  */
 public class InetAddressPrefix {
 
-	private InetAddress address;
-	private int prefix;
+  private InetAddress address;
+  private int prefix;
 
-	public InetAddressPrefix() {
-		// Do nothing
-	}
+  public InetAddressPrefix() {
+    // Do nothing
+  }
 
-	public InetAddressPrefix(InetAddress address, int prefix) {
-		this.address = address;
-		this.prefix = prefix;
-	}
+  public InetAddressPrefix(InetAddress address, int prefix) {
+    this.address = address;
+    this.prefix = prefix;
+  }
 
-	public InetAddress getAddress() {
-		return address;
-	}
+  public InetAddress getAddress() {
+    return address;
+  }
 
-	public void setAddress(InetAddress address) {
-		this.address = address;
-	}
+  public void setAddress(InetAddress address) {
+    this.address = address;
+  }
 
-	public int getPrefix() {
-		return prefix;
-	}
+  public int getPrefix() {
+    return prefix;
+  }
 
-	public void setPrefix(int prefix) {
-		this.prefix = prefix;
-	}
+  public void setPrefix(int prefix) {
+    this.prefix = prefix;
+  }
 }

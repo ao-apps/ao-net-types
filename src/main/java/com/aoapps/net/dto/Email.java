@@ -28,31 +28,31 @@ package com.aoapps.net.dto;
  */
 public class Email {
 
-	private String localPart;
-	private DomainName domain;
+  private String localPart;
+  private DomainName domain;
 
-	public Email() {
-		// Do nothing
-	}
+  public Email() {
+    // Do nothing
+  }
 
-	public Email(String localPart, DomainName domain) {
-		this.localPart = localPart;
-		this.domain = domain;
-	}
+  public Email(String localPart, DomainName domain) {
+    this.localPart = localPart;
+    this.domain = domain;
+  }
 
-	public String getLocalPart() {
-		return localPart;
-	}
+  public String getLocalPart() {
+    return localPart;
+  }
 
-	public void setLocalPart(String localPart) {
-		this.localPart = localPart;
-	}
+  public void setLocalPart(String localPart) {
+    this.localPart = localPart;
+  }
 
-	public DomainName getDomain() {
-		return domain;
-	}
+  public DomainName getDomain() {
+    return domain;
+  }
 
-	public void setDomain(DomainName domain) {
-		this.domain = domain;
-	}
+  public void setDomain(DomainName domain) {
+    this.domain = domain;
+  }
 }

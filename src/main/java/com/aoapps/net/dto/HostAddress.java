@@ -28,21 +28,21 @@ package com.aoapps.net.dto;
  */
 public class HostAddress {
 
-	private String address;
+  private String address;
 
-	public HostAddress() {
-		// Do nothing
-	}
+  public HostAddress() {
+    // Do nothing
+  }
 
-	public HostAddress(String address) {
-		this.address = address;
-	}
+  public HostAddress(String address) {
+    this.address = address;
+  }
 
-	public String getAddress() {
-		return address;
-	}
+  public String getAddress() {
+    return address;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 }

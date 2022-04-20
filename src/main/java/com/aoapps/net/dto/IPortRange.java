@@ -28,21 +28,21 @@ package com.aoapps.net.dto;
  */
 public abstract class IPortRange {
 
-	private String protocol;
+  private String protocol;
 
-	protected IPortRange() {
-		// Do nothing
-	}
+  protected IPortRange() {
+    // Do nothing
+  }
 
-	protected IPortRange(String protocol) {
-		this.protocol = protocol;
-	}
+  protected IPortRange(String protocol) {
+    this.protocol = protocol;
+  }
 
-	public String getProtocol() {
-		return protocol;
-	}
+  public String getProtocol() {
+    return protocol;
+  }
 
-	public void setProtocol(String protocol) {
-		this.protocol = protocol;
-	}
+  public void setProtocol(String protocol) {
+    this.protocol = protocol;
+  }
 }

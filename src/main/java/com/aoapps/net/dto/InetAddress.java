@@ -28,21 +28,21 @@ package com.aoapps.net.dto;
  */
 public class InetAddress {
 
-	private String address;
+  private String address;
 
-	public InetAddress() {
-		// Do nothing
-	}
+  public InetAddress() {
+    // Do nothing
+  }
 
-	public InetAddress(String address) {
-		this.address = address;
-	}
+  public InetAddress(String address) {
+    this.address = address;
+  }
 
-	public String getAddress() {
-		return address;
-	}
+  public String getAddress() {
+    return address;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 }

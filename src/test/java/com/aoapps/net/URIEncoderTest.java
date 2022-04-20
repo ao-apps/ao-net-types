@@ -28,25 +28,25 @@ import org.junit.Test;
 
 public class URIEncoderTest {
 
-	@Test
-	public void testEncodeURI() {
-		assertEquals(
-			"https://aointernet.net/shared/%E3%83%9B%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.do?%E8%8A%B1=true",
-			URIEncoder.encodeURI("https://aointernet.net/shared/ホスティング.do?花=true")
-		);
-		assertEquals(
-			"https://aointernet.net/shared/%E3%83%9B%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.do?param=%E8%8A%B1",
-			URIEncoder.encodeURI("https://aointernet.net/shared/ホスティング.do?param=花")
-		);
-		assertEquals(
-			"Checking not double-encoding after #",
-			"https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22",
-			URIEncoder.encodeURI("https://search.maven.org/#search|gav|1|g:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22")
-		);
-		assertEquals(
-			"Invalid US-ASCII characters must remain invalid",
-			"https://aoapps.com/\u0000",
-			URIEncoder.encodeURI("https://aoapps.com/\u0000")
-		);
-	}
+  @Test
+  public void testEncodeURI() {
+    assertEquals(
+      "https://aointernet.net/shared/%E3%83%9B%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.do?%E8%8A%B1=true",
+      URIEncoder.encodeURI("https://aointernet.net/shared/ホスティング.do?花=true")
+    );
+    assertEquals(
+      "https://aointernet.net/shared/%E3%83%9B%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.do?param=%E8%8A%B1",
+      URIEncoder.encodeURI("https://aointernet.net/shared/ホスティング.do?param=花")
+    );
+    assertEquals(
+      "Checking not double-encoding after #",
+      "https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22",
+      URIEncoder.encodeURI("https://search.maven.org/#search|gav|1|g:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22")
+    );
+    assertEquals(
+      "Invalid US-ASCII characters must remain invalid",
+      "https://aoapps.com/\u0000",
+      URIEncoder.encodeURI("https://aoapps.com/\u0000")
+    );
+  }
 }
