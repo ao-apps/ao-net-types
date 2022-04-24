@@ -44,8 +44,8 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
  * @author  AO Industries, Inc.
  */
 public final class Port extends IPortRange implements
-  Serializable,
-  DtoFactory<com.aoapps.net.dto.Port>
+    Serializable,
+    DtoFactory<com.aoapps.net.dto.Port>
 {
 
   static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Port.class);

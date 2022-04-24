@@ -54,23 +54,23 @@ public final class URIResolver {
   public static String getAbsolutePath(String servletPath, String relativeUrlPath) throws MalformedURLException {
     char firstChar;
     if (
-      relativeUrlPath.length() > 0
-      && (firstChar=relativeUrlPath.charAt(0)) != '/'
-      && firstChar != '#' // Skip anchor-only paths
-      && !URIParser.isScheme(relativeUrlPath, "http")
-      && !URIParser.isScheme(relativeUrlPath, "https")
-      && !URIParser.isScheme(relativeUrlPath, "javascript")
-      && !URIParser.isScheme(relativeUrlPath, "mailto")
-      && !URIParser.isScheme(relativeUrlPath, "telnet")
-      && !URIParser.isScheme(relativeUrlPath, "tel")
-      && !URIParser.isScheme(relativeUrlPath, "cid")
-      && !URIParser.isScheme(relativeUrlPath, "file")
-      && !URIParser.isScheme(relativeUrlPath, "data")
+        relativeUrlPath.length() > 0
+            && (firstChar = relativeUrlPath.charAt(0)) != '/'
+            && firstChar != '#' // Skip anchor-only paths
+            && !URIParser.isScheme(relativeUrlPath, "http")
+            && !URIParser.isScheme(relativeUrlPath, "https")
+            && !URIParser.isScheme(relativeUrlPath, "javascript")
+            && !URIParser.isScheme(relativeUrlPath, "mailto")
+            && !URIParser.isScheme(relativeUrlPath, "telnet")
+            && !URIParser.isScheme(relativeUrlPath, "tel")
+            && !URIParser.isScheme(relativeUrlPath, "cid")
+            && !URIParser.isScheme(relativeUrlPath, "file")
+            && !URIParser.isScheme(relativeUrlPath, "data")
     ) {
       NullArgumentException.checkNotNull(servletPath, "servletPath");
       int slashPos = servletPath.lastIndexOf('/');
       if (slashPos == -1) {
-        throw new MalformedURLException("No slash found in servlet path: "+servletPath);
+        throw new MalformedURLException("No slash found in servlet path: " + servletPath);
       }
       final String newPath = relativeUrlPath;
       final int newPathLen = newPath.length();
@@ -79,19 +79,19 @@ public final class URIResolver {
       do {
         modified = false;
         if (
-          newPathLen >= (newPathStart+2)
-          && newPath.regionMatches(newPathStart, "./", 0, 2)
+            newPathLen >= (newPathStart + 2)
+                && newPath.regionMatches(newPathStart, "./", 0, 2)
         ) {
           newPathStart += 2;
           modified = true;
         }
         if (
-          newPathLen >= (newPathStart+3)
-          && newPath.regionMatches(newPathStart, "../", 0, 3)
+            newPathLen >= (newPathStart + 3)
+                && newPath.regionMatches(newPathStart, "../", 0, 3)
         ) {
-          slashPos = servletPath.lastIndexOf('/', slashPos-1);
+          slashPos = servletPath.lastIndexOf('/', slashPos - 1);
           if (slashPos == -1) {
-            throw new MalformedURLException("Too many ../ in relativeUrlPath: "+relativeUrlPath);
+            throw new MalformedURLException("Too many ../ in relativeUrlPath: " + relativeUrlPath);
           }
 
           newPathStart += 3;
@@ -99,10 +99,10 @@ public final class URIResolver {
         }
       } while (modified);
       relativeUrlPath =
-        new StringBuilder((slashPos+1) + (newPathLen-newPathStart))
-        .append(servletPath, 0, slashPos+1)
-        .append(newPath, newPathStart, newPathLen)
-        .toString();
+          new StringBuilder((slashPos + 1) + (newPathLen - newPathStart))
+              .append(servletPath, 0, slashPos + 1)
+              .append(newPath, newPathStart, newPathLen)
+              .toString();
     }
     return relativeUrlPath;
   }

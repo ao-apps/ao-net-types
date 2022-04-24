@@ -44,9 +44,9 @@ import java.util.ResourceBundle;
  * @author  AO Industries, Inc.
  */
 public final class InetAddressPrefix implements
-  Comparable<InetAddressPrefix>,
-  Serializable,
-  DtoFactory<com.aoapps.net.dto.InetAddressPrefix>
+    Comparable<InetAddressPrefix>,
+    Serializable,
+    DtoFactory<com.aoapps.net.dto.InetAddressPrefix>
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, InetAddressPrefix.class);
@@ -108,8 +108,8 @@ public final class InetAddressPrefix implements
     if (slashPos == -1) {
       InetAddress ia = InetAddress.valueOf(address);
       return InetAddressPrefix.valueOf(
-        ia,
-        ia.getAddressFamily().getMaxPrefix()
+          ia,
+          ia.getAddressFamily().getMaxPrefix()
       );
     } else {
       int prefix;
@@ -119,14 +119,14 @@ public final class InetAddressPrefix implements
           prefix = Integer.parseInt(prefixStr);
         } catch (NumberFormatException e) {
           throw new ValidationException(
-            e,
-            new InvalidResult(RESOURCES, "valueOf.prefix.parseError", prefixStr)
+              e,
+              new InvalidResult(RESOURCES, "valueOf.prefix.parseError", prefixStr)
           );
         }
       }
       return InetAddressPrefix.valueOf(
-        InetAddress.valueOf(address.substring(0, slashPos)),
-        prefix
+          InetAddress.valueOf(address.substring(0, slashPos)),
+          prefix
       );
     }
   }
@@ -189,10 +189,10 @@ public final class InetAddressPrefix implements
     if (!(obj instanceof InetAddressPrefix)) {
       return false;
     }
-    InetAddressPrefix other = (InetAddressPrefix)obj;
+    InetAddressPrefix other = (InetAddressPrefix) obj;
     return
-      address.equals(other.address)
-      && prefix == other.prefix
+        address.equals(other.address)
+            && prefix == other.prefix
     ;
   }
 
@@ -261,8 +261,8 @@ public final class InetAddressPrefix implements
           return address;
         } else {
           return InetAddress.valueOf(
-            InetAddress.IPV4_HI,
-            fromLo
+              InetAddress.IPV4_HI,
+              fromLo
           );
         }
       }
@@ -288,14 +288,14 @@ public final class InetAddressPrefix implements
           fromLo = address.lo & netmask;
         }
         if (
-          fromHi == address.hi
-          && fromLo == address.lo
+            fromHi == address.hi
+                && fromLo == address.lo
         ) {
           return address;
         } else {
           return InetAddress.valueOf(
-            fromHi,
-            fromLo
+              fromHi,
+              fromLo
           );
         }
       }
@@ -322,8 +322,8 @@ public final class InetAddressPrefix implements
           return address;
         } else {
           return InetAddress.valueOf(
-            InetAddress.IPV4_HI,
-            toLo
+              InetAddress.IPV4_HI,
+              toLo
           );
         }
       }
@@ -349,14 +349,14 @@ public final class InetAddressPrefix implements
           toLo = (address.lo & netmask) | (0xffffffffffffffffL ^ netmask);
         }
         if (
-          toHi == address.hi
-          && toLo == address.lo
+            toHi == address.hi
+                && toLo == address.lo
         ) {
           return address;
         } else {
           return InetAddress.valueOf(
-            toHi,
-            toLo
+              toHi,
+              toLo
           );
         }
       }
@@ -385,12 +385,12 @@ public final class InetAddressPrefix implements
    */
   @SuppressWarnings("deprecation")
   private static boolean containsInetAddress(
-    AddressFamily addressFamily,
-    long thisHi,
-    long thisLo,
-    int thisPrefix,
-    long otherHi,
-    long otherLo
+      AddressFamily addressFamily,
+      long thisHi,
+      long thisLo,
+      int thisPrefix,
+      long otherHi,
+      long otherLo
   ) {
     switch (addressFamily) {
       case INET : {
@@ -435,12 +435,12 @@ public final class InetAddressPrefix implements
       return false;
     }
     return containsInetAddress(
-      addressFamily,
-      address.hi,
-      address.lo,
-      prefix,
-      other.hi,
-      other.lo
+        addressFamily,
+        address.hi,
+        address.lo,
+        prefix,
+        other.hi,
+        other.lo
     );
   }
 
@@ -450,24 +450,24 @@ public final class InetAddressPrefix implements
    */
   @SuppressWarnings("deprecation")
   private static boolean containsInetAddressPrefix(
-    AddressFamily addressFamily,
-    long thisHi,
-    long thisLo,
-    int thisPrefix,
-    long otherHi,
-    long otherLo,
-    int otherPrefix
+      AddressFamily addressFamily,
+      long thisHi,
+      long thisLo,
+      int thisPrefix,
+      long otherHi,
+      long otherLo,
+      int otherPrefix
   ) {
     return
-      thisPrefix <= otherPrefix
-      && containsInetAddress(
-        addressFamily,
-        thisHi,
-        thisLo,
-        thisPrefix,
-        otherHi,
-        otherLo
-      )
+        thisPrefix <= otherPrefix
+            && containsInetAddress(
+            addressFamily,
+            thisHi,
+            thisLo,
+            thisPrefix,
+            otherHi,
+            otherLo
+        )
     ;
   }
 
@@ -482,13 +482,13 @@ public final class InetAddressPrefix implements
       return false;
     }
     return containsInetAddressPrefix(
-      addressFamily,
-      address.hi,
-      address.lo,
-      prefix,
-      other.address.hi,
-      other.address.lo,
-      other.prefix
+        addressFamily,
+        address.hi,
+        address.lo,
+        prefix,
+        other.address.hi,
+        other.address.lo,
+        other.prefix
     );
   }
 
@@ -524,15 +524,15 @@ public final class InetAddressPrefix implements
     if (this.prefix == other.prefix) {
       // If the network of prefix - 1 contains both, they are successfully combined
       if (
-        containsInetAddressPrefix(
-          addressFamily,
-          address.hi,
-          address.lo,
-          prefix - 1,
-          other.address.hi,
-          other.address.lo,
-          other.prefix
-        )
+          containsInetAddressPrefix(
+              addressFamily,
+              address.hi,
+              address.lo,
+              prefix - 1,
+              other.address.hi,
+              other.address.lo,
+              other.prefix
+          )
       ) {
         InetAddressPrefix biggerPrefix = valueOfNoValidate(address, prefix - 1).normalize();
         assert biggerPrefix.contains(this);

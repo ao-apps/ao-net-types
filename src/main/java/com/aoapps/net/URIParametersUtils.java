@@ -52,9 +52,9 @@ public final class URIParametersUtils {
       if (mapSize != 0) {
         int uriLen = uri.length();
         StringBuilder newUri = new StringBuilder(
-          uriLen
-          // 20 is arbitrary, just some default size scaled to number of parameters as a starting point
-          + mapSize * 20
+            uriLen
+                // 20 is arbitrary, just some default size scaled to number of parameters as a starting point
+                + mapSize * 20
         );
         int anchorStart;
         {
@@ -215,7 +215,7 @@ public final class URIParametersUtils {
       return;
     }
     try {
-      appendQueryString(params, (Appendable)sb);
+      appendQueryString(params, (Appendable) sb);
     } catch (IOException e) {
       throw new AssertionError("IOException should not occur on StringBuilder", e);
     }
@@ -229,7 +229,7 @@ public final class URIParametersUtils {
       return;
     }
     try {
-      appendQueryString(params, (Appendable)sb);
+      appendQueryString(params, (Appendable) sb);
     } catch (IOException e) {
       throw new AssertionError("IOException should not occur on StringBuffer", e);
     }

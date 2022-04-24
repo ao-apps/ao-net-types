@@ -40,11 +40,11 @@ public class ProtocolTest {
       if (p1 != Protocol.UNASSIGNED) {
         Protocol p2 = Protocol.valueOf(p1.getDecimal());
         if (
-          // TTP is only allowed duplicate
-          !(
-            p1 == Protocol.TTP
-            && p2 == Protocol.IPTM
-          )
+            // TTP is only allowed duplicate
+            !(
+                p1 == Protocol.TTP
+                    && p2 == Protocol.IPTM
+            )
         ) {
           assertEquals(p1, p2);
         }
@@ -64,9 +64,9 @@ public class ProtocolTest {
     for (Protocol p : Protocol.values()) {
       String name = p.name();
       assertEquals(
-        "Protocol enum names must be all upper-case in root locale",
-        name,
-        name.toUpperCase(Locale.ROOT)
+          "Protocol enum names must be all upper-case in root locale",
+          name,
+          name.toUpperCase(Locale.ROOT)
       );
     }
   }
@@ -75,9 +75,9 @@ public class ProtocolTest {
   public void testGetProtocolByKeyword() {
     for (Protocol p : Protocol.values()) {
       assertEquals(
-        "Protocol toString() must be found in getProtocolByKeyword(String)",
-        p,
-        Protocol.getProtocolByKeyword(p.toString())
+          "Protocol toString() must be found in getProtocolByKeyword(String)",
+          p,
+          Protocol.getProtocolByKeyword(p.toString())
       );
     }
   }

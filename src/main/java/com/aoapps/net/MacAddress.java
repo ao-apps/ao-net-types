@@ -49,10 +49,10 @@ import java.util.concurrent.ConcurrentMap;
  * @author  AO Industries, Inc.
  */
 public final class MacAddress implements
-  Comparable<MacAddress>,
-  Serializable,
-  DtoFactory<com.aoapps.net.dto.MacAddress>,
-  Internable<MacAddress>
+    Comparable<MacAddress>,
+    Serializable,
+    DtoFactory<com.aoapps.net.dto.MacAddress>,
+    Internable<MacAddress>
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, MacAddress.class);
@@ -61,9 +61,9 @@ public final class MacAddress implements
 
   private static ValidationResult checkHexValue(char ch) {
     if (
-      (ch<'0' || ch>'9')
-      && (ch<'A' || ch>'F')
-      && (ch<'a' || ch>'f')
+        (ch < '0' || ch > '9')
+            && (ch < 'A' || ch > 'F')
+            && (ch < 'a' || ch > 'f')
     ) {
       return new InvalidResult(RESOURCES, "checkHexValue.badCharacter", ch);
     }
@@ -206,8 +206,8 @@ public final class MacAddress implements
   @Override
   public boolean equals(Object obj) {
     return
-      (obj instanceof MacAddress)
-      && address.equals(((MacAddress)obj).address)
+        (obj instanceof MacAddress)
+            && address.equals(((MacAddress) obj).address)
     ;
   }
 

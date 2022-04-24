@@ -101,10 +101,10 @@ public class UnmodifiableURIParameters implements URIParameters {
     Map<String, List<String>> map = AoCollections.newLinkedHashMap(wrappedMap.size());
     for (Map.Entry<String, List<String>> entry : wrappedMap.entrySet()) {
       map.put(
-        entry.getKey(),
-        Collections.unmodifiableList(
-          entry.getValue()
-        )
+          entry.getKey(),
+          Collections.unmodifiableList(
+              entry.getValue()
+          )
       );
     }
     return Collections.unmodifiableMap(map);

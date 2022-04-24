@@ -50,6 +50,7 @@ final class RFC3986 {
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
    */
   static final BitSet GEN_DELIMS;
+
   static {
     GEN_DELIMS = new BitSet(128);
     GEN_DELIMS.set(':');
@@ -72,6 +73,7 @@ final class RFC3986 {
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
    */
   static final BitSet SUB_DELIMS;
+
   static {
     SUB_DELIMS = new BitSet(128);
     SUB_DELIMS.set('!');
@@ -98,6 +100,7 @@ final class RFC3986 {
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
    */
   static final BitSet RESERVED;
+
   static {
     RESERVED = new BitSet(128);
     RESERVED.or(GEN_DELIMS);
@@ -115,6 +118,7 @@ final class RFC3986 {
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a>.
    */
   static final BitSet UNRESERVED;
+
   static {
     UNRESERVED = new BitSet(128);
     UNRESERVED.set('A', 'Z' + 1);
@@ -145,6 +149,7 @@ final class RFC3986 {
    * </ul>
    */
   static final BitSet VALID;
+
   static {
     VALID = new BitSet(128);
     VALID.set('%');
@@ -179,6 +184,7 @@ final class RFC3986 {
   }
 
   static final BitSet RESERVED_OR_INVALID;
+
   static {
     RESERVED_OR_INVALID = new BitSet(128);
     RESERVED_OR_INVALID.or(RESERVED);
@@ -203,8 +209,8 @@ final class RFC3986 {
    */
   static boolean isSchemeBeginning(char ch) {
     return
-      (ch >= 'A' && ch <= 'Z')
-      || (ch >= 'a' && ch <= 'z');
+        (ch >= 'A' && ch <= 'Z')
+            || (ch >= 'a' && ch <= 'z');
   }
 
   /**
@@ -217,12 +223,12 @@ final class RFC3986 {
    */
   static boolean isSchemeRemaining(char ch) {
     return
-      (ch >= 'A' && ch <= 'Z')
-      || (ch >= 'a' && ch <= 'z')
-      || (ch >= '0' && ch <= '9')
-      || ch == '+'
-      || ch == '-'
-      || ch == '.';
+        (ch >= 'A' && ch <= 'Z')
+            || (ch >= 'a' && ch <= 'z')
+            || (ch >= '0' && ch <= '9')
+            || ch == '+'
+            || ch == '-'
+            || ch == '.';
   }
 
   /**

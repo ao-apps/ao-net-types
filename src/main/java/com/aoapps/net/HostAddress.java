@@ -46,10 +46,10 @@ import java.util.concurrent.ConcurrentMap;
  * @author  AO Industries, Inc.
  */
 public final class HostAddress implements
-  Comparable<HostAddress>,
-  Serializable,
-  DtoFactory<com.aoapps.net.dto.HostAddress>,
-  Internable<HostAddress>
+    Comparable<HostAddress>,
+    Serializable,
+    DtoFactory<com.aoapps.net.dto.HostAddress>,
+    Internable<HostAddress>
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, HostAddress.class);
@@ -65,22 +65,22 @@ public final class HostAddress implements
       return false;
     }
     if (
-      len >= 2
-      && address.charAt(0) == '['
-      && address.charAt(len - 1) == ']'
+        len >= 2
+            && address.charAt(0) == '['
+            && address.charAt(len - 1) == ']'
     ) {
       return true;
     }
     // If contains all digits and periods, or contains any colon, then is an IP
     boolean allDigitsAndPeriods = true;
-    for (int c=0;c<len;c++) {
+    for (int c = 0; c < len; c++) {
       char ch = address.charAt(c);
       if (ch == ':') {
         return true;
       }
       if (
-        (ch<'0' || ch>'9')
-        && ch != '.'
+          (ch < '0' || ch > '9')
+              && ch != '.'
       ) {
         allDigitsAndPeriods = false;
         // Still need to look for any colons
@@ -122,9 +122,9 @@ public final class HostAddress implements
       return null;
     }
     return
-      isIp(address)
-      ? valueOf(InetAddress.valueOf(address))
-      : valueOf(DomainName.valueOf(address))
+        isIp(address)
+            ? valueOf(InetAddress.valueOf(address))
+            : valueOf(DomainName.valueOf(address))
     ;
   }
 
@@ -190,10 +190,10 @@ public final class HostAddress implements
     if (!(obj instanceof HostAddress)) {
       return false;
     }
-    HostAddress other = (HostAddress)obj;
+    HostAddress other = (HostAddress) obj;
     return
-      Objects.equals(domainName, other.domainName)
-      && Objects.equals(inetAddress, other.inetAddress)
+        Objects.equals(domainName, other.domainName)
+            && Objects.equals(inetAddress, other.inetAddress)
     ;
   }
 

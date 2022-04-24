@@ -163,8 +163,8 @@ public class AnyURI {
     schemeLength = URIParser.getSchemeLength(uri);
     // Find first of '?' or '#'
     int pathEnd = URIParser.getPathEnd(
-      uri,
-      schemeLength + 1 // Works for -1 (no colon) or index of colon itself
+        uri,
+        schemeLength + 1 // Works for -1 (no colon) or index of colon itself
     );
     if (pathEnd >= uri.length()) {
       queryIndex = -1;
@@ -235,7 +235,7 @@ public class AnyURI {
     if (!(obj instanceof AnyURI)) {
       return false;
     }
-    AnyURI other = (AnyURI)obj;
+    AnyURI other = (AnyURI) obj;
     if (this == other) {
       return true;
     } else if (uri.equals(other.uri)) {
@@ -433,8 +433,8 @@ public class AnyURI {
     int suffixLen = suffix.length();
     int pathStart = getPathEnd() - suffixLen;
     return
-      pathStart > schemeLength // Handles both -1 and colon position
-      && uri.regionMatches(pathStart, suffix, 0, suffixLen);
+        pathStart > schemeLength // Handles both -1 and colon position
+            && uri.regionMatches(pathStart, suffix, 0, suffixLen);
   }
 
   /**
@@ -446,8 +446,8 @@ public class AnyURI {
     int suffixLen = suffix.length();
     int pathStart = getPathEnd() - suffixLen;
     return
-      pathStart > schemeLength // Handles both -1 and colon position
-      && uri.regionMatches(true, pathStart, suffix, 0, suffixLen);
+        pathStart > schemeLength // Handles both -1 and colon position
+            && uri.regionMatches(true, pathStart, suffix, 0, suffixLen);
   }
 
   /**
@@ -630,9 +630,9 @@ public class AnyURI {
     if (queryIndex != -1) {
       int queryStart = queryIndex + 1;
       out.write(
-        uri,
-        queryStart,
-        (fragmentIndex == -1 ? uri.length() : fragmentIndex) - queryStart
+          uri,
+          queryStart,
+          (fragmentIndex == -1 ? uri.length() : fragmentIndex) - queryStart
       );
     }
   }
@@ -647,10 +647,10 @@ public class AnyURI {
       } else {
         int queryStart = queryIndex + 1;
         encoder.write(
-          uri,
-          queryStart,
-          (fragmentIndex == -1 ? uri.length() : fragmentIndex) - queryStart,
-          out
+            uri,
+            queryStart,
+            (fragmentIndex == -1 ? uri.length() : fragmentIndex) - queryStart,
+            out
         );
       }
     }
@@ -664,9 +664,9 @@ public class AnyURI {
   public AnyURI appendQueryString(Appendable out) throws IOException {
     if (queryIndex != -1) {
       out.append(
-        uri,
-        queryIndex + 1,
-        fragmentIndex == -1 ? uri.length() : fragmentIndex
+          uri,
+          queryIndex + 1,
+          fragmentIndex == -1 ? uri.length() : fragmentIndex
       );
     }
     return this;
@@ -683,10 +683,10 @@ public class AnyURI {
         appendQueryString(out);
       } else {
         encoder.append(
-          uri,
-          queryIndex + 1,
-          fragmentIndex == -1 ? uri.length() : fragmentIndex,
-          out
+            uri,
+            queryIndex + 1,
+            fragmentIndex == -1 ? uri.length() : fragmentIndex,
+            out
         );
       }
     }
@@ -701,9 +701,9 @@ public class AnyURI {
   public StringBuilder appendQueryString(StringBuilder sb) {
     if (queryIndex != -1) {
       sb.append(
-        uri,
-        queryIndex + 1,
-        fragmentIndex == -1 ? uri.length() : fragmentIndex
+          uri,
+          queryIndex + 1,
+          fragmentIndex == -1 ? uri.length() : fragmentIndex
       );
     }
     return sb;
@@ -717,9 +717,9 @@ public class AnyURI {
   public StringBuffer appendQueryString(StringBuffer sb) {
     if (queryIndex != -1) {
       sb.append(
-        uri,
-        queryIndex + 1,
-        fragmentIndex == -1 ? uri.length() : fragmentIndex
+          uri,
+          queryIndex + 1,
+          fragmentIndex == -1 ? uri.length() : fragmentIndex
       );
     }
     return sb;
@@ -903,8 +903,8 @@ public class AnyURI {
     int pathEnd = getPathEnd();
     // Look for not changed
     if (
-      hierPartLen == (pathEnd - (schemeLength + 1))
-      && uri.regionMatches(schemeLength + 1, hierPart, 0, hierPartLen)
+        hierPartLen == (pathEnd - (schemeLength + 1))
+            && uri.regionMatches(schemeLength + 1, hierPart, 0, hierPartLen)
     ) {
       // Not changed
       newAnyURI = this;
@@ -914,11 +914,11 @@ public class AnyURI {
           if (schemeLength == -1) {
             // Hier-part only
             newAnyURI = newAnyURI(
-              hierPart,
-              hierPartEncodingNormalized, // May promote to encoding normalized
-              -1,
-              -1,
-              -1
+                hierPart,
+                hierPartEncodingNormalized, // May promote to encoding normalized
+                -1,
+                -1,
+                -1
             );
           } else {
             // Schema and hier-part
@@ -927,11 +927,11 @@ public class AnyURI {
             newUri.append(uri, 0, schemeLength + 1).append(hierPart);
             assert newUri.length() == newUriLen;
             newAnyURI = newAnyURI(
-              newUri.toString(),
-              hierPartEncodingNormalized, // May promote to encoding normalized; assuming schemas never percent-encoded
-              schemeLength,
-              -1,
-              -1
+                newUri.toString(),
+                hierPartEncodingNormalized, // May promote to encoding normalized; assuming schemas never percent-encoded
+                schemeLength,
+                -1,
+                -1
             );
           }
         } else {
@@ -942,11 +942,11 @@ public class AnyURI {
           newUri.append(uri, 0, schemeLength + 1).append(hierPart).append(uri, fragmentIndex, uriLen);
           assert newUri.length() == newUriLen;
           newAnyURI = newAnyURI(
-            newUri.toString(),
-            hierPartEncodingNormalized && isEncodingNormalized(),
-            schemeLength,
-            -1,
-            schemeLength + 1 + hierPartLen
+              newUri.toString(),
+              hierPartEncodingNormalized && isEncodingNormalized(),
+              schemeLength,
+              -1,
+              schemeLength + 1 + hierPartLen
           );
         }
       } else {
@@ -958,20 +958,20 @@ public class AnyURI {
         if (fragmentIndex == -1) {
           // Query only
           newAnyURI = newAnyURI(
-            newUri.toString(),
-            hierPartEncodingNormalized && isEncodingNormalized(),
-            schemeLength,
-            schemeLength + 1 + hierPartLen,
-            -1
+              newUri.toString(),
+              hierPartEncodingNormalized && isEncodingNormalized(),
+              schemeLength,
+              schemeLength + 1 + hierPartLen,
+              -1
           );
         } else {
           // Query and fragment
           newAnyURI = newAnyURI(
-            newUri.toString(),
-            hierPartEncodingNormalized && isEncodingNormalized(),
-            schemeLength,
-            schemeLength + 1 + hierPartLen,
-            fragmentIndex + (schemeLength + 1 + hierPartLen - queryIndex)
+              newUri.toString(),
+              hierPartEncodingNormalized && isEncodingNormalized(),
+              schemeLength,
+              schemeLength + 1 + hierPartLen,
+              fragmentIndex + (schemeLength + 1 + hierPartLen - queryIndex)
           );
         }
       }
@@ -1002,11 +1002,11 @@ public class AnyURI {
         // Remove the existing query
         if (fragmentIndex == -1) {
           newAnyURI = newAnyURI(
-            uri.substring(0, queryIndex),
-            isEncodingNormalized(), // null query is always effectively normalized
-            schemeLength,
-            -1,
-            -1
+              uri.substring(0, queryIndex),
+              isEncodingNormalized(), // null query is always effectively normalized
+              schemeLength,
+              -1,
+              -1
           );
         } else {
           int uriLen = uri.length();
@@ -1015,11 +1015,11 @@ public class AnyURI {
           newUri.append(uri, 0, queryIndex).append(uri, fragmentIndex, uriLen);
           assert newUri.length() == newUriLen;
           newAnyURI = newAnyURI(
-            newUri.toString(),
-            isEncodingNormalized(), // null query is always effectively normalized
-            schemeLength,
-            -1,
-            queryIndex
+              newUri.toString(),
+              isEncodingNormalized(), // null query is always effectively normalized
+              schemeLength,
+              -1,
+              queryIndex
           );
         }
       }
@@ -1038,21 +1038,21 @@ public class AnyURI {
           newUri.append(uri).append('?').append(query);
           assert newUri.length() == newUriLen;
           newAnyURI = newAnyURI(
-            newUri.toString(),
-            queryEncodingNormalized && isEncodingNormalized(),
-            schemeLength,
-            uriLen,
-            -1
+              newUri.toString(),
+              queryEncodingNormalized && isEncodingNormalized(),
+              schemeLength,
+              uriLen,
+              -1
           );
         } else {
           newUri.append(uri, 0, fragmentIndex).append('?').append(query).append(uri, fragmentIndex, uriLen);
           assert newUri.length() == newUriLen;
           newAnyURI = newAnyURI(
-            newUri.toString(),
-            queryEncodingNormalized && isEncodingNormalized(),
-            schemeLength,
-            fragmentIndex,
-            fragmentIndex + 1 + queryLen
+              newUri.toString(),
+              queryEncodingNormalized && isEncodingNormalized(),
+              schemeLength,
+              fragmentIndex,
+              fragmentIndex + 1 + queryLen
           );
         }
       } else {
@@ -1062,8 +1062,8 @@ public class AnyURI {
         int queryStart = queryIndex + 1;
         int currentQueryLen = (fragmentIndex == -1 ? uriLen : fragmentIndex) - queryStart;
         if (
-          currentQueryLen == queryLen
-          && uri.regionMatches(queryStart, query, 0, queryLen)
+            currentQueryLen == queryLen
+                && uri.regionMatches(queryStart, query, 0, queryLen)
         ) {
           // Already has this query
           newAnyURI = this;
@@ -1074,21 +1074,21 @@ public class AnyURI {
           if (fragmentIndex == -1) {
             assert newUri.length() == newUriLen;
             newAnyURI = newAnyURI(
-              newUri.toString(),
-              queryEncodingNormalized && isEncodingNormalized(),
-              schemeLength,
-              queryIndex,
-              -1
+                newUri.toString(),
+                queryEncodingNormalized && isEncodingNormalized(),
+                schemeLength,
+                queryIndex,
+                -1
             );
           } else {
             newUri.append(uri, fragmentIndex, uriLen);
             assert newUri.length() == newUriLen;
             newAnyURI = newAnyURI(
-              newUri.toString(),
-              queryEncodingNormalized && isEncodingNormalized(),
-              schemeLength,
-              queryIndex,
-              fragmentIndex - currentQueryLen + queryLen
+                newUri.toString(),
+                queryEncodingNormalized && isEncodingNormalized(),
+                schemeLength,
+                queryIndex,
+                fragmentIndex - currentQueryLen + queryLen
             );
           }
         }
@@ -1151,17 +1151,17 @@ public class AnyURI {
       }
       assert newUri.length() == newUriLen;
       newAnyURI = newAnyURI(
-        newUri.toString(),
-        queryEncodingNormalized && isEncodingNormalized(),
-        schemeLength,
-        newQueryIndex,
-        newFragmentIndex
+          newUri.toString(),
+          queryEncodingNormalized && isEncodingNormalized(),
+          schemeLength,
+          newQueryIndex,
+          newFragmentIndex
       );
     }
     assert
-      (query == null) ? Objects.equals(this.getQueryString(), newAnyURI.getQueryString())
-      : hasQuery() ? newAnyURI.getQueryString().endsWith('&' + query)
-      : newAnyURI.getQueryString().equals(query);
+        (query == null) ? Objects.equals(this.getQueryString(), newAnyURI.getQueryString())
+            : hasQuery() ? newAnyURI.getQueryString().endsWith('&' + query)
+            : newAnyURI.getQueryString().equals(query);
     return newAnyURI;
   }
 
@@ -1228,11 +1228,11 @@ public class AnyURI {
         }
         assert newUri.length() == newUriLen;
         newAnyURI = newAnyURI(
-          newUri.toString(),
-          queryEncodingNormalized && isEncodingNormalized(),
-          schemeLength,
-          newQueryIndex,
-          newFragmentIndex
+            newUri.toString(),
+            queryEncodingNormalized && isEncodingNormalized(),
+            schemeLength,
+            newQueryIndex,
+            newFragmentIndex
         );
       }
     }
@@ -1272,9 +1272,9 @@ public class AnyURI {
    */
   public AnyURI addParameter(String name, String value) {
     return addEncodedParameterImpl(
-      URIEncoder.encodeURIComponent(name),
-      URIEncoder.encodeURIComponent(value),
-      true
+        URIEncoder.encodeURIComponent(name),
+        URIEncoder.encodeURIComponent(value),
+        true
     );
   }
 
@@ -1293,8 +1293,8 @@ public class AnyURI {
       return this;
     } else {
       return addQueryStringImpl(
-        URIParametersUtils.toQueryString(params),
-        true
+          URIParametersUtils.toQueryString(params),
+          true
       );
     }
   }
@@ -1309,11 +1309,11 @@ public class AnyURI {
       } else {
         // Remove the existing fragment
         newAnyURI = newAnyURI(
-          uri.substring(0, fragmentIndex),
-          isEncodingNormalized(), // null fragment is always effectively normalized
-          schemeLength,
-          queryIndex,
-          -1
+            uri.substring(0, fragmentIndex),
+            isEncodingNormalized(), // null fragment is always effectively normalized
+            schemeLength,
+            queryIndex,
+            -1
         );
       }
     } else {
@@ -1326,11 +1326,11 @@ public class AnyURI {
         newUri.append(uri).append('#').append(encodedFragment);
         assert newUri.length() == newUriLen;
         newAnyURI = newAnyURI(
-          newUri.toString(),
-          fragmentEncodingNormalized && isEncodingNormalized(),
-          schemeLength,
-          queryIndex,
-          uriLen
+            newUri.toString(),
+            fragmentEncodingNormalized && isEncodingNormalized(),
+            schemeLength,
+            queryIndex,
+            uriLen
         );
       } else {
         // Replace fragment
@@ -1339,8 +1339,8 @@ public class AnyURI {
         int fragmentStart = fragmentIndex + 1;
         int currentFragmentLen = uriLen - fragmentStart;
         if (
-          currentFragmentLen == fragmentLen
-          && uri.regionMatches(fragmentStart, encodedFragment, 0, fragmentLen)
+            currentFragmentLen == fragmentLen
+                && uri.regionMatches(fragmentStart, encodedFragment, 0, fragmentLen)
         ) {
           // Already has this fragment
           newAnyURI = this;
@@ -1350,11 +1350,11 @@ public class AnyURI {
           newUri.append(uri, 0, fragmentStart).append(encodedFragment);
           assert newUri.length() == newUriLen;
           newAnyURI = newAnyURI(
-            newUri.toString(),
-            fragmentEncodingNormalized && isEncodingNormalized(),
-            schemeLength,
-            queryIndex,
-            fragmentIndex - currentFragmentLen + fragmentLen
+              newUri.toString(),
+              fragmentEncodingNormalized && isEncodingNormalized(),
+              schemeLength,
+              queryIndex,
+              fragmentIndex - currentFragmentLen + fragmentLen
           );
         }
       }
@@ -1387,8 +1387,8 @@ public class AnyURI {
    */
   public AnyURI setFragment(String fragment) {
     return setEncodedFragmentImpl(
-      URIEncoder.encodeURIComponent(fragment),
-      true
+        URIEncoder.encodeURIComponent(fragment),
+        true
     );
   }
 }

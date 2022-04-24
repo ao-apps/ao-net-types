@@ -39,8 +39,8 @@ public class PathTest {
   @Test
   public void testSubPath() throws ValidationException {
     assertSame(
-      Path.ROOT,
-      Path.valueOf("/test").subPath(0, 1)
+        Path.ROOT,
+        Path.valueOf("/test").subPath(0, 1)
     );
   }
 
@@ -48,8 +48,8 @@ public class PathTest {
   public void testSubPathTestIsSelf() throws ValidationException {
     Path testPath = Path.valueOf("/test");
     assertSame(
-      testPath,
-      testPath.subPath(0, 5)
+        testPath,
+        testPath.subPath(0, 5)
     );
   }
 
@@ -78,16 +78,16 @@ public class PathTest {
   @Test
   public void testPrefix() throws ValidationException {
     assertSame(
-      Path.ROOT,
-      Path.valueOf("/test").prefix(1)
+        Path.ROOT,
+        Path.valueOf("/test").prefix(1)
     );
     assertEquals(
-      Path.valueOf("/t"),
-      Path.valueOf("/test").prefix(2)
+        Path.valueOf("/t"),
+        Path.valueOf("/test").prefix(2)
     );
     assertEquals(
-      Path.valueOf("/test/"),
-      Path.valueOf("/test/path").prefix(6)
+        Path.valueOf("/test/"),
+        Path.valueOf("/test/path").prefix(6)
     );
   }
 

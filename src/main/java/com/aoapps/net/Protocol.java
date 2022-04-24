@@ -185,6 +185,7 @@ public enum Protocol {
   RESERVED(255, "Reserved", "");
 
   private static final Protocol[] protocolsByDecimal = new Protocol[256];
+
   static {
     for (Protocol p : values()) {
       // Skip TTP duplicated
@@ -225,6 +226,7 @@ public enum Protocol {
   }
 
   private static final Map<String, Protocol> protocolsByUpperKeyword;
+
   static {
     Protocol[] values = values();
     protocolsByUpperKeyword = AoCollections.newHashMap(values.length);
@@ -254,21 +256,21 @@ public enum Protocol {
   private final boolean ipv6ExtensionHeader;
 
   private Protocol(
-    int decimal,
-    String keyword,
-    String protocol,
-    boolean ipv6ExtensionHeader
+      int decimal,
+      String keyword,
+      String protocol,
+      boolean ipv6ExtensionHeader
   ) {
-    this.decimal = (short)decimal;
+    this.decimal = (short) decimal;
     this.keyword = keyword;
     this.protocol = protocol;
     this.ipv6ExtensionHeader = ipv6ExtensionHeader;
   }
 
   private Protocol(
-    int decimal,
-    String keyword,
-    String protocol
+      int decimal,
+      String keyword,
+      String protocol
   ) {
     this(decimal, keyword, protocol, false);
   }

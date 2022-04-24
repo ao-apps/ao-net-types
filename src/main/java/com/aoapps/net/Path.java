@@ -68,10 +68,10 @@ import java.util.concurrent.ConcurrentMap;
  */
 // Matches src/main/sql/com/aoapps/net/Path-type.sql
 public final class Path implements
-  Comparable<Path>,
-  Serializable,
-  DtoFactory<com.aoapps.net.dto.Path>,
-  Internable<Path>
+    Comparable<Path>,
+    Serializable,
+    DtoFactory<com.aoapps.net.dto.Path>,
+    Internable<Path>
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Path.class);
@@ -218,8 +218,8 @@ public final class Path implements
   @Override
   public boolean equals(Object obj) {
     return
-      (obj instanceof Path)
-      && path.equals(((Path)obj).path)
+        (obj instanceof Path)
+            && path.equals(((Path) obj).path)
     ;
   }
 
@@ -277,17 +277,17 @@ public final class Path implements
   public Path subPath(int beginIndex, int endIndex) throws IllegalArgumentException, IndexOutOfBoundsException {
     if (path.charAt(beginIndex) != SEPARATOR_CHAR) {
       throw new LocalizedIllegalArgumentException(
-        RESOURCES,
-        "subPath.beginIndexNotSlash",
-        beginIndex
+          RESOURCES,
+          "subPath.beginIndexNotSlash",
+          beginIndex
       );
     }
     if (beginIndex >= endIndex) {
       throw new LocalizedIllegalArgumentException(
-        RESOURCES,
-        "subPath.beginIndexNotBeforeEndIndex",
-        beginIndex,
-        endIndex
+          RESOURCES,
+          "subPath.beginIndexNotBeforeEndIndex",
+          beginIndex,
+          endIndex
       );
     }
     if (endIndex == (beginIndex + 1)) {

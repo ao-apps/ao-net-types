@@ -44,8 +44,8 @@ import java.io.Serializable;
  * @author  AO Industries, Inc.
  */
 public abstract class IPortRange implements
-  Comparable<IPortRange>,
-  Serializable
+    Comparable<IPortRange>,
+    Serializable
 {
 
   private static final long serialVersionUID = 1L;
@@ -160,9 +160,9 @@ public abstract class IPortRange implements
   public final boolean overlaps(IPortRange other) {
     // See http://stackoverflow.com/questions/3269434/whats-the-most-efficient-way-to-test-two-integer-ranges-for-overlap
     return
-      protocol == other.protocol
-      && getFrom() <= other.getTo()
-      && other.getFrom() <= getTo()
+        protocol == other.protocol
+            && getFrom() <= other.getTo()
+            && other.getFrom() <= getTo()
     ;
   }
 

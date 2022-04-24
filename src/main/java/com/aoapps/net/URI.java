@@ -179,45 +179,45 @@ public class URI extends AnyURI {
 
   @Override
   public URI setHierPart(String hierPart) {
-    return (URI)super.setHierPartImpl(URIEncoder.encodeURI(hierPart), false);
+    return (URI) super.setHierPartImpl(URIEncoder.encodeURI(hierPart), false);
   }
 
   @Override
   public URI setQueryString(String query) {
-    return (URI)super.setQueryStringImpl(URIEncoder.encodeURI(query), false);
+    return (URI) super.setQueryStringImpl(URIEncoder.encodeURI(query), false);
   }
 
   @Override
   public URI addQueryString(String query) {
-    return (URI)super.addQueryStringImpl(URIEncoder.encodeURI(query), false);
+    return (URI) super.addQueryStringImpl(URIEncoder.encodeURI(query), false);
   }
 
   @Override
   public URI addEncodedParameter(String encodedName, String encodedValue) {
-    return (URI)super.addEncodedParameterImpl(
-      URIEncoder.encodeURI(encodedName),
-      URIEncoder.encodeURI(encodedValue),
-      false
+    return (URI) super.addEncodedParameterImpl(
+        URIEncoder.encodeURI(encodedName),
+        URIEncoder.encodeURI(encodedValue),
+        false
     );
   }
 
   @Override
   public URI addParameter(String name, String value) {
-    return (URI)super.addParameter(name, value);
+    return (URI) super.addParameter(name, value);
   }
 
   @Override
   public URI addParameters(URIParameters params) {
-    return (URI)super.addParameters(params);
+    return (URI) super.addParameters(params);
   }
 
   @Override
   public URI setEncodedFragment(String encodedFragment) {
-    return (URI)super.setEncodedFragmentImpl(URIEncoder.encodeURI(encodedFragment), false);
+    return (URI) super.setEncodedFragmentImpl(URIEncoder.encodeURI(encodedFragment), false);
   }
 
   @Override
   public URI setFragment(String fragment) {
-    return (URI)super.setFragment(fragment);
+    return (URI) super.setFragment(fragment);
   }
 }

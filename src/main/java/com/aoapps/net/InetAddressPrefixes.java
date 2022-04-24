@@ -52,11 +52,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix LOOPBACK_IPV4 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffff7f000000L
-    ).intern(),
-    8
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffff7f000000L
+      ).intern(),
+      8
   );
 
   /**
@@ -66,11 +66,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix LINK_LOCAL_IPV4 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffa9fe0000L
-    ).intern(),
-    16
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffa9fe0000L
+      ).intern(),
+      16
   );
 
   /**
@@ -80,11 +80,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix LINK_LOCAL_IPV6 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0xfe80000000000000L,
-      0x0000000000000000L
-    ).intern(),
-    10
+      InetAddress.valueOf(
+          0xfe80000000000000L,
+          0x0000000000000000L
+      ).intern(),
+      10
   );
 
   /**
@@ -94,11 +94,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix MULTICAST_IPV4 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffe0000000L
-    ).intern(),
-    4
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffe0000000L
+      ).intern(),
+      4
   );
 
   /**
@@ -108,11 +108,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix MULTICAST_IPV6 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0xff00000000000000L,
-      0x0000000000000000L
-    ).intern(),
-    8
+      InetAddress.valueOf(
+          0xff00000000000000L,
+          0x0000000000000000L
+      ).intern(),
+      8
   );
 
   /**
@@ -122,11 +122,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix UNIQUE_LOCAL_IPV4_8 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffff0a000000L
-    ).intern(),
-    8
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffff0a000000L
+      ).intern(),
+      8
   );
 
   /**
@@ -136,11 +136,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix UNIQUE_LOCAL_IPV4_12 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffac100000L
-    ).intern(),
-    12
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffac100000L
+      ).intern(),
+      12
   );
 
   /**
@@ -150,11 +150,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix UNIQUE_LOCAL_IPV4_16 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffc0a80000L
-    ).intern(),
-    16
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffc0a80000L
+      ).intern(),
+      16
   );
 
   /**
@@ -164,11 +164,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix UNIQUE_LOCAL_IPV6 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0xfc00000000000000L,
-      0x0000000000000000L
-    ).intern(),
-    7
+      InetAddress.valueOf(
+          0xfc00000000000000L,
+          0x0000000000000000L
+      ).intern(),
+      7
   );
 
   /**
@@ -178,11 +178,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix _6TO4_IPV4 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffc0586300L
-    ).intern(),
-    24
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffc0586300L
+      ).intern(),
+      24
   );
 
   /**
@@ -192,11 +192,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix _6TO4_IPV6 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x2002000000000000L,
-      0x0000000000000000L
-    ).intern(),
-    16
+      InetAddress.valueOf(
+          0x2002000000000000L,
+          0x0000000000000000L
+      ).intern(),
+      16
   );
 
   /**
@@ -206,11 +206,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix TEREDO_IPV6 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x2001000000000000L,
-      0x0000000000000000L
-    ).intern(),
-    32
+      InetAddress.valueOf(
+          0x2001000000000000L,
+          0x0000000000000000L
+      ).intern(),
+      32
   );
 
   /**
@@ -220,11 +220,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix DOCUMENTATION_IPV4_1 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffc0000200L
-    ).intern(),
-    24
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffc0000200L
+      ).intern(),
+      24
   );
 
   /**
@@ -234,11 +234,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix DOCUMENTATION_IPV4_2 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffc6336400L
-    ).intern(),
-    24
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffc6336400L
+      ).intern(),
+      24
   );
 
   /**
@@ -248,11 +248,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix DOCUMENTATION_IPV4_3 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffcb007100L
-    ).intern(),
-    24
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffcb007100L
+      ).intern(),
+      24
   );
 
   /**
@@ -262,11 +262,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix DOCUMENTATION_IPV6 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x20010db800000000L,
-      0x0000000000000000L
-    ),
-    32
+      InetAddress.valueOf(
+          0x20010db800000000L,
+          0x0000000000000000L
+      ),
+      32
   );
 
   /**
@@ -276,11 +276,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix BENCHMARK_IPV4 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffffc6120000L
-    ).intern(),
-    15
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffffc6120000L
+      ).intern(),
+      15
   );
 
   /**
@@ -290,11 +290,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix BENCHMARK_IPV6 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x2001000200000000L,
-      0x0000000000000000L
-    ).intern(),
-    48
+      InetAddress.valueOf(
+          0x2001000200000000L,
+          0x0000000000000000L
+      ).intern(),
+      48
   );
 
   /**
@@ -304,11 +304,11 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix ORCHID_IPV6 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x2001002000000000L,
-      0x0000000000000000L
-    ).intern(),
-    28
+      InetAddress.valueOf(
+          0x2001002000000000L,
+          0x0000000000000000L
+      ).intern(),
+      28
   );
 
   /**
@@ -318,10 +318,10 @@ public final class InetAddressPrefixes {
    * </p>
    */
   public static final InetAddressPrefix CARRIER_GRADE_NAT_IPV4 = InetAddressPrefix.valueOfNoValidate(
-    InetAddress.valueOf(
-      0x0000000000000000L,
-      0x0000ffff64400000L
-    ).intern(),
-    10
+      InetAddress.valueOf(
+          0x0000000000000000L,
+          0x0000ffff64400000L
+      ).intern(),
+      10
   );
 }

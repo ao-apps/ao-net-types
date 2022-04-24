@@ -146,7 +146,7 @@ public final class URIEncoder {
    */
   public static void encodeURIComponent(String s, StringBuilder sb) {
     try {
-      encodeURIComponent(s, (Appendable)sb);
+      encodeURIComponent(s, (Appendable) sb);
     } catch (IOException e) {
       throw new AssertionError("IOException should not occur on StringBuilder", e);
     }
@@ -166,7 +166,7 @@ public final class URIEncoder {
    */
   public static void encodeURIComponent(String s, StringBuffer sb) {
     try {
-      encodeURIComponent(s, (Appendable)sb);
+      encodeURIComponent(s, (Appendable) sb);
     } catch (IOException e) {
       throw new AssertionError("IOException should not occur on StringBuffer", e);
     }
@@ -218,6 +218,7 @@ public final class URIEncoder {
   }
 
   static final BitSet rfc3986ReservedCharacters_percent_and_invalid;
+
   static {
     rfc3986ReservedCharacters_percent_and_invalid = new BitSet(128);
     rfc3986ReservedCharacters_percent_and_invalid.or(RFC3986.RESERVED_OR_INVALID);
@@ -225,23 +226,25 @@ public final class URIEncoder {
   }
 
   private static final String[] encodedRfc3986ReservedCharacters_percent_and_invalid = new String[128];
+
   static {
-    for (int i = 0; i < 128 ; i++) {
+    for (int i = 0; i < 128; i++) {
       if (rfc3986ReservedCharacters_percent_and_invalid.get(i)) {
         encodedRfc3986ReservedCharacters_percent_and_invalid[i] =
-          ("%" + Integer.toHexString(i >>> 4) + Integer.toHexString(i & 0xf))
-            .toUpperCase(Locale.ROOT)
-            .intern();
+            ("%" + Integer.toHexString(i >>> 4) + Integer.toHexString(i & 0xf))
+                .toUpperCase(Locale.ROOT)
+                .intern();
       }
     }
   }
+
   static String encodeRfc3986ReservedCharacters_percent_and_invalid(char ch) {
     return (ch < 128) ? encodedRfc3986ReservedCharacters_percent_and_invalid[ch] : null;
   }
 
   private static boolean assertEncodeRfc3986ReservedCharacters_percent_and_invalidConsistent() {
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; i++) {
-      char ch = (char)i;
+      char ch = (char) i;
       boolean isInBitSet = rfc3986ReservedCharacters_percent_and_invalid.get(ch);
       String replacement = encodeRfc3986ReservedCharacters_percent_and_invalid(ch);
       if (isInBitSet) {
@@ -262,6 +265,7 @@ public final class URIEncoder {
   }
 
   private static final BitSet rfc3986ReservedCharacters_percent_invalid_and_space;
+
   static {
     rfc3986ReservedCharacters_percent_invalid_and_space = new BitSet(128);
     rfc3986ReservedCharacters_percent_invalid_and_space.or(rfc3986ReservedCharacters_percent_and_invalid);
@@ -270,9 +274,9 @@ public final class URIEncoder {
 
   private static boolean isHex(char ch) {
     return
-      (ch >= '0' && ch <= '9')
-      || (ch >= 'a' && ch <= 'f')
-      || (ch >= 'A' && ch <= 'F');
+        (ch >= '0' && ch <= '9')
+            || (ch >= 'a' && ch <= 'f')
+            || (ch >= 'A' && ch <= 'F');
   }
 
   private static boolean isLowerHex(char ch) {
@@ -281,7 +285,7 @@ public final class URIEncoder {
 
   private static char upperHex(char ch) {
     if (isLowerHex(ch)) {
-      return (char)(ch - ('a' - 'A'));
+      return (char) (ch - ('a' - 'A'));
     } else {
       return ch;
     }
@@ -336,10 +340,10 @@ public final class URIEncoder {
             char ch = uri.charAt(nextPos);
             char ch2, ch3;
             if (
-              ch == '%'
-              && (nextPos + 2) < len
-              && isHex(ch2 = uri.charAt(nextPos + 1))
-              && isHex(ch3 = uri.charAt(nextPos + 2))
+                ch == '%'
+                    && (nextPos + 2) < len
+                    && isHex(ch2 = uri.charAt(nextPos + 1))
+                    && isHex(ch3 = uri.charAt(nextPos + 2))
             ) {
               // Short-cut already percent-encoded
               pos = nextPos + 3;

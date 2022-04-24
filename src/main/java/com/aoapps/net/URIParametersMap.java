@@ -46,108 +46,108 @@ public class URIParametersMap implements MutableURIParameters {
 
   public static URIParametersMap of(String name, String value) {
     return new URIParametersMap()
-      .add(name, value);
+        .add(name, value);
   }
 
   public static URIParametersMap of(String name, Object value) {
     return new URIParametersMap()
-      .add(name, value);
+        .add(name, value);
   }
 
   public static URIParametersMap of(
-    String name1, String value1,
-    String name2, String value2
+      String name1, String value1,
+      String name2, String value2
   ) {
     return new URIParametersMap()
-      .add(name1, value1)
-      .add(name2, value2);
+        .add(name1, value1)
+        .add(name2, value2);
   }
 
   public static URIParametersMap of(
-    String name1, Object value1,
-    String name2, Object value2
+      String name1, Object value1,
+      String name2, Object value2
   ) {
     return new URIParametersMap()
-      .add(name1, value1)
-      .add(name2, value2);
+        .add(name1, value1)
+        .add(name2, value2);
   }
 
   public static URIParametersMap of(
-    String name1, String value1,
-    String name2, String value2,
-    String name3, String value3
+      String name1, String value1,
+      String name2, String value2,
+      String name3, String value3
   ) {
     return new URIParametersMap()
-      .add(name1, value1)
-      .add(name2, value2)
-      .add(name3, value3);
+        .add(name1, value1)
+        .add(name2, value2)
+        .add(name3, value3);
   }
 
   public static URIParametersMap of(
-    String name1, Object value1,
-    String name2, Object value2,
-    String name3, Object value3
+      String name1, Object value1,
+      String name2, Object value2,
+      String name3, Object value3
   ) {
     return new URIParametersMap()
-      .add(name1, value1)
-      .add(name2, value2)
-      .add(name3, value3);
+        .add(name1, value1)
+        .add(name2, value2)
+        .add(name3, value3);
   }
 
   public static URIParametersMap of(
-    String name1, String value1,
-    String name2, String value2,
-    String name3, String value3,
-    String name4, String value4
+      String name1, String value1,
+      String name2, String value2,
+      String name3, String value3,
+      String name4, String value4
   ) {
     return new URIParametersMap()
-      .add(name1, value1)
-      .add(name2, value2)
-      .add(name3, value3)
-      .add(name4, value4);
+        .add(name1, value1)
+        .add(name2, value2)
+        .add(name3, value3)
+        .add(name4, value4);
   }
 
   public static URIParametersMap of(
-    String name1, Object value1,
-    String name2, Object value2,
-    String name3, Object value3,
-    String name4, Object value4
+      String name1, Object value1,
+      String name2, Object value2,
+      String name3, Object value3,
+      String name4, Object value4
   ) {
     return new URIParametersMap()
-      .add(name1, value1)
-      .add(name2, value2)
-      .add(name3, value3)
-      .add(name4, value4);
+        .add(name1, value1)
+        .add(name2, value2)
+        .add(name3, value3)
+        .add(name4, value4);
   }
 
   public static URIParametersMap of(
-    String name1, String value1,
-    String name2, String value2,
-    String name3, String value3,
-    String name4, String value4,
-    String name5, String value5
+      String name1, String value1,
+      String name2, String value2,
+      String name3, String value3,
+      String name4, String value4,
+      String name5, String value5
   ) {
     return new URIParametersMap()
-      .add(name1, value1)
-      .add(name2, value2)
-      .add(name3, value3)
-      .add(name4, value4)
-      .add(name5, value5);
+        .add(name1, value1)
+        .add(name2, value2)
+        .add(name3, value3)
+        .add(name4, value4)
+        .add(name5, value5);
   }
 
   public static URIParametersMap of(
-    String name1, Object value1,
-    String name2, Object value2,
-    String name3, Object value3,
-    String name4, Object value4,
-    String name5, Object value5
+      String name1, Object value1,
+      String name2, Object value2,
+      String name3, Object value3,
+      String name4, Object value4,
+      String name5, Object value5
   ) {
     return new URIParametersMap()
-      .add(name1, value1)
-      .add(name2, value2)
-      .add(name3, value3)
-      .add(name4, value4)
-      .add(name5, value5);
+        .add(name1, value1)
+        .add(name2, value2)
+        .add(name3, value3)
+        .add(name4, value4)
+        .add(name5, value5);
   }
 
   private final Map<String, List<String>> map = new TreeMap<>();

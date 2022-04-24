@@ -41,7 +41,7 @@ public enum AddressFamily {
    * @deprecated  Please use {@link StandardProtocolFamily#INET} as of Java 1.7.
    */
   @Deprecated
-  INET(32),
+    INET(32),
 
   /**
    * Internet Protocol Version 6 (IPv6).
@@ -49,7 +49,7 @@ public enum AddressFamily {
    * @deprecated  Please use {@link StandardProtocolFamily#INET6} as of Java 1.7.
    */
   @Deprecated
-  INET6(128);
+      INET6(128);
 
   private final int maxPrefix;
 

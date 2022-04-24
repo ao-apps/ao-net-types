@@ -55,11 +55,11 @@ import java.util.concurrent.ConcurrentMap;
  * @author  AO Industries, Inc.
  */
 public final class DomainLabels
-implements
-  Comparable<DomainLabels>,
-  FastExternalizable,
-  DtoFactory<com.aoapps.net.dto.DomainLabels>,
-  Internable<DomainLabels>
+    implements
+    Comparable<DomainLabels>,
+    FastExternalizable,
+    DtoFactory<com.aoapps.net.dto.DomainLabels>,
+    Internable<DomainLabels>
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabels.class);
@@ -77,17 +77,17 @@ implements
     if (len == 0) {
       return new InvalidResult(RESOURCES, "validate.empty");
     }
-    if (len>DomainName.MAX_LENGTH) {
+    if (len > DomainName.MAX_LENGTH) {
       return new InvalidResult(RESOURCES, "validate.tooLong", DomainName.MAX_LENGTH, len);
     }
     int labelStart = 0;
-    for (int pos=0; pos<len; pos++) {
+    for (int pos = 0; pos < len; pos++) {
       if (labels.charAt(pos) == '.') {
         ValidationResult result = DomainLabel.validate(labels, labelStart, pos);
         if (!result.isValid()) {
           return result;
         }
-        labelStart = pos+1;
+        labelStart = pos + 1;
       }
     }
     ValidationResult result = DomainLabel.validate(labels, labelStart, len);
@@ -144,8 +144,8 @@ implements
   @Override
   public boolean equals(Object obj) {
     return
-      (obj instanceof DomainLabels)
-      && lowerLabels.equals(((DomainLabels)obj).lowerLabels)
+        (obj instanceof DomainLabels)
+            && lowerLabels.equals(((DomainLabels) obj).lowerLabels)
     ;
   }
 
@@ -213,7 +213,7 @@ implements
    *
    * @see  FastExternalizable
    */
-  @Deprecated/* Java 9: (forRemoval = true) */
+  @Deprecated // Java 9: (forRemoval = true)
   public DomainLabels() {
     // Do nothing
   }

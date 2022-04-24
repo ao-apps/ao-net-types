@@ -140,7 +140,7 @@ public final class URIDecoder {
    */
   public static void decodeURIComponent(String s, StringBuilder sb) {
     try {
-      decodeURIComponent(s, (Appendable)sb);
+      decodeURIComponent(s, (Appendable) sb);
     } catch (IOException e) {
       throw new AssertionError("IOException should not occur on StringBuilder", e);
     }
@@ -159,7 +159,7 @@ public final class URIDecoder {
    */
   public static void decodeURIComponent(String s, StringBuffer sb) {
     try {
-      decodeURIComponent(s, (Appendable)sb);
+      decodeURIComponent(s, (Appendable) sb);
     } catch (IOException e) {
       throw new AssertionError("IOException should not occur on StringBuffer", e);
     }

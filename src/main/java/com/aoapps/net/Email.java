@@ -61,11 +61,11 @@ import java.util.concurrent.ConcurrentMap;
  */
 // Matches src/main/sql/com/aoapps/net/Email-type.sql
 public final class Email implements
-  Comparable<Email>,
-  FastExternalizable,
-  DtoFactory<com.aoapps.net.dto.Email>,
-  Internable<Email>,
-  SQLData
+    Comparable<Email>,
+    FastExternalizable,
+    DtoFactory<com.aoapps.net.dto.Email>,
+    Internable<Email>,
+    SQLData
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Email.class);
@@ -93,7 +93,7 @@ public final class Email implements
     if (atPos == -1) {
       return new InvalidResult(RESOURCES, "validate.noAt");
     }
-    return validate(email.substring(0, atPos), email.substring(atPos+1));
+    return validate(email.substring(0, atPos), email.substring(atPos + 1));
   }
 
   /**
@@ -119,32 +119,33 @@ public final class Email implements
   }
 
   private static final boolean[] validChars = new boolean[128];
+
   static {
-    for (int ch=0; ch<128; ch++) {
+    for (int ch = 0; ch < 128; ch++) {
       validChars[ch] =
-        (ch >= 'A' && ch <= 'Z')
-        || (ch >= 'a' && ch <= 'z')
-        || (ch >= '0' && ch <= '9')
-        || ch == '!'
-        || ch == '#'
-        || ch == '$'
-        || ch == '%'
-        || ch == '&'
-        || ch == '\''
-        || ch == '*'
-        || ch == '+'
-        || ch == '-'
-        || ch == '/'
-        || ch == '='
-        || ch == '?'
-        || ch == '^'
-        || ch == '_'
-        || ch == '`'
-        || ch == '{'
-        || ch == '|'
-        || ch == '}'
-        || ch == '~'
-        || ch == '.' // Dot here for completeness, but algorithm below will not use it
+          (ch >= 'A' && ch <= 'Z')
+              || (ch >= 'a' && ch <= 'z')
+              || (ch >= '0' && ch <= '9')
+              || ch == '!'
+              || ch == '#'
+              || ch == '$'
+              || ch == '%'
+              || ch == '&'
+              || ch == '\''
+              || ch == '*'
+              || ch == '+'
+              || ch == '-'
+              || ch == '/'
+              || ch == '='
+              || ch == '?'
+              || ch == '^'
+              || ch == '_'
+              || ch == '`'
+              || ch == '{'
+              || ch == '|'
+              || ch == '}'
+              || ch == '~'
+              || ch == '.' // Dot here for completeness, but algorithm below will not use it
       ;
     }
   }
@@ -168,27 +169,27 @@ public final class Email implements
     }
     int len = localPart.length();
     int totalLen = len + 1 + domain.length();
-    if (totalLen>MAX_LENGTH) {
+    if (totalLen > MAX_LENGTH) {
       return new InvalidResult(RESOURCES, "validate.tooLong", MAX_LENGTH, totalLen);
     }
 
     if (len == 0) {
       return new InvalidResult(RESOURCES, "validate.localePart.empty");
     }
-    if (len>MAX_LOCAL_PART_LENGTH) {
+    if (len > MAX_LOCAL_PART_LENGTH) {
       return new InvalidResult(RESOURCES, "validate.localePart.tooLong", MAX_LOCAL_PART_LENGTH, len);
     }
-    for (int pos=0; pos<len; pos++) {
+    for (int pos = 0; pos < len; pos++) {
       char ch = localPart.charAt(pos);
       if (ch == '.') {
         if (pos == 0) {
           return new InvalidResult(RESOURCES, "validate.localePart.startsDot");
         }
-        if (pos == (len-1)) {
+        if (pos == (len - 1)) {
           return new InvalidResult(RESOURCES, "validate.localePart.endsDot");
         }
-        if (localPart.charAt(pos-1) == '.') {
-          return new InvalidResult(RESOURCES, "validate.localePart.doubleDot", pos-1);
+        if (localPart.charAt(pos - 1) == '.') {
+          return new InvalidResult(RESOURCES, "validate.localePart.doubleDot", pos - 1);
         }
       } else if (ch >= 128 || !validChars[ch]) {
         return new InvalidResult(RESOURCES, "validate.localePart.invalidCharacter", ch, pos);
@@ -216,7 +217,7 @@ public final class Email implements
     if (atPos == -1) {
       throw new ValidationException(new InvalidResult(RESOURCES, "validate.noAt"));
     }
-    return valueOf(email.substring(0, atPos), DomainName.valueOf(email.substring(atPos+1)));
+    return valueOf(email.substring(0, atPos), DomainName.valueOf(email.substring(atPos + 1)));
   }
 
   public static Email valueOf(String localPart, DomainName domain) throws ValidationException {
@@ -264,10 +265,10 @@ public final class Email implements
     if (!(obj instanceof Email)) {
       return false;
     }
-    Email other = (Email)obj;
+    Email other = (Email) obj;
     return
-      localPart.equals(other.localPart)
-      && domain.equals(other.domain)
+        localPart.equals(other.localPart)
+            && domain.equals(other.domain)
     ;
   }
 
@@ -351,7 +352,7 @@ public final class Email implements
    *
    * @see  FastExternalizable
    */
-  @Deprecated/* Java 9: (forRemoval = false) */
+  @Deprecated // Java 9: (forRemoval = false)
   public Email() {
     // Do nothing
   }
@@ -380,7 +381,7 @@ public final class Email implements
     FastObjectInput fastIn = FastObjectInput.wrap(in);
     try {
       localPart = fastIn.readFastUTF();
-      domain = (DomainName)fastIn.readObject();
+      domain = (DomainName) fastIn.readObject();
     } finally {
       fastIn.unwrap();
     }

@@ -42,8 +42,8 @@ import java.util.ResourceBundle;
  * @author  AO Industries, Inc.
  */
 public final class PortRange extends IPortRange implements
-  Serializable,
-  DtoFactory<com.aoapps.net.dto.PortRange>
+    Serializable,
+    DtoFactory<com.aoapps.net.dto.PortRange>
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, PortRange.class);
@@ -143,11 +143,11 @@ public final class PortRange extends IPortRange implements
     if (!(obj instanceof PortRange)) {
       return false;
     }
-    PortRange other = (PortRange)obj;
+    PortRange other = (PortRange) obj;
     return
-      protocol == other.protocol
-      && from == other.from
-      && to == other.to
+        protocol == other.protocol
+            && from == other.from
+            && to == other.to
     ;
   }
 

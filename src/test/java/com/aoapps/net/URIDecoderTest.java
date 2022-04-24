@@ -31,27 +31,27 @@ public class URIDecoderTest {
   @Test
   public void testDecodeURI() {
     assertEquals(
-      "https://aointernet.net/shared/ホスティング.do?花=true",
-      URIDecoder.decodeURI("https://aointernet.net/shared/%E3%83%9B%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.do?%E8%8A%B1=true")
+        "https://aointernet.net/shared/ホスティング.do?花=true",
+        URIDecoder.decodeURI("https://aointernet.net/shared/%E3%83%9B%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.do?%E8%8A%B1=true")
     );
     assertEquals(
-      "https://aointernet.net/shared/ホスティング.do?param=花",
-      URIDecoder.decodeURI("https://aointernet.net/shared/%E3%83%9B%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.do?param=%E8%8A%B1")
+        "https://aointernet.net/shared/ホスティング.do?param=花",
+        URIDecoder.decodeURI("https://aointernet.net/shared/%E3%83%9B%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0.do?param=%E8%8A%B1")
     );
     assertEquals(
-      "Checking not double-encoding after #",
-      "https://search.maven.org/#search|gav|1|g:\"@com.aoapps\" AND a:\"@ao-hodgepodge\"",
-      URIDecoder.decodeURI("https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22")
+        "Checking not double-encoding after #",
+        "https://search.maven.org/#search|gav|1|g:\"@com.aoapps\" AND a:\"@ao-hodgepodge\"",
+        URIDecoder.decodeURI("https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22")
     );
     assertEquals(
-      "Invalid US-ASCII characters must not be decoded",
-      "https://aoapps.com/%00",
-      URIDecoder.decodeURI("https://aoapps.com/%00")
+        "Invalid US-ASCII characters must not be decoded",
+        "https://aoapps.com/%00",
+        URIDecoder.decodeURI("https://aoapps.com/%00")
     );
     assertEquals(
-      "Invalid US-ASCII characters must remain invalid",
-      "https://aoapps.com/\u0001",
-      URIDecoder.decodeURI("https://aoapps.com/\u0001")
+        "Invalid US-ASCII characters must remain invalid",
+        "https://aoapps.com/\u0001",
+        URIDecoder.decodeURI("https://aoapps.com/\u0001")
     );
   }
 }

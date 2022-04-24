@@ -181,35 +181,35 @@ public class IRI extends AnyURI {
 
   @Override
   public IRI setHierPart(String hierPart) {
-    return (IRI)super.setHierPartImpl(URIDecoder.decodeURI(hierPart), true);
+    return (IRI) super.setHierPartImpl(URIDecoder.decodeURI(hierPart), true);
   }
 
   @Override
   public IRI setQueryString(String query) {
-    return (IRI)super.setQueryStringImpl(URIDecoder.decodeURI(query), true);
+    return (IRI) super.setQueryStringImpl(URIDecoder.decodeURI(query), true);
   }
 
   @Override
   public IRI addQueryString(String query) {
-    return (IRI)super.addQueryStringImpl(URIDecoder.decodeURI(query), true);
+    return (IRI) super.addQueryStringImpl(URIDecoder.decodeURI(query), true);
   }
 
   @Override
   public IRI addEncodedParameter(String encodedName, String encodedValue) {
-    return (IRI)super.addEncodedParameterImpl(
-      URIDecoder.decodeURI(encodedName),
-      URIDecoder.decodeURI(encodedValue),
-      true
+    return (IRI) super.addEncodedParameterImpl(
+        URIDecoder.decodeURI(encodedName),
+        URIDecoder.decodeURI(encodedValue),
+        true
     );
   }
 
   @Override
   public IRI addParameter(String name, String value) {
-    return (IRI)addEncodedParameterImpl(
-      // TODO: encodeIRIComponent to do this in one shot?
-      URIDecoder.decodeURI(URIEncoder.encodeURIComponent(name)),
-      URIDecoder.decodeURI(URIEncoder.encodeURIComponent(value)),
-      true
+    return (IRI) addEncodedParameterImpl(
+        // TODO: encodeIRIComponent to do this in one shot?
+        URIDecoder.decodeURI(URIEncoder.encodeURIComponent(name)),
+        URIDecoder.decodeURI(URIEncoder.encodeURIComponent(value)),
+        true
     );
   }
 
@@ -218,24 +218,24 @@ public class IRI extends AnyURI {
     if (params == null) {
       return this;
     } else {
-      return (IRI)addQueryStringImpl(
-        URIDecoder.decodeURI(URIParametersUtils.toQueryString(params)),
-        true
+      return (IRI) addQueryStringImpl(
+          URIDecoder.decodeURI(URIParametersUtils.toQueryString(params)),
+          true
       );
     }
   }
 
   @Override
   public IRI setEncodedFragment(String encodedFragment) {
-    return (IRI)super.setEncodedFragmentImpl(URIDecoder.decodeURI(encodedFragment), true);
+    return (IRI) super.setEncodedFragmentImpl(URIDecoder.decodeURI(encodedFragment), true);
   }
 
   @Override
   public IRI setFragment(String fragment) {
-    return (IRI)setEncodedFragmentImpl(
-      // TODO: encodeIRIComponent to do this in one shot?
-      URIDecoder.decodeURI(URIEncoder.encodeURIComponent(fragment)),
-      true
+    return (IRI) setEncodedFragmentImpl(
+        // TODO: encodeIRIComponent to do this in one shot?
+        URIDecoder.decodeURI(URIEncoder.encodeURIComponent(fragment)),
+        true
     );
   }
 }

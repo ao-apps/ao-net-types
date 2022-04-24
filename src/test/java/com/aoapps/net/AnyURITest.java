@@ -38,7 +38,7 @@ public class AnyURITest {
 
   @Test
   public void testToString() {
-    String href="test";
+    String href = "test";
     assertSame(href, new AnyURI(href).toString());
   }
 
@@ -52,7 +52,7 @@ public class AnyURITest {
 
   @Test
   public void testHashCode() {
-    for (String url : new String[] {"test", "", "BLARG", "http://", "test?", "blarg?test", "blarg?test=sdf"}) {
+    for (String url : new String[]{"test", "", "BLARG", "http://", "test?", "blarg?test", "blarg?test=sdf"}) {
       assertEquals(url.hashCode(), new AnyURI(url).hashCode());
     }
   }
@@ -90,8 +90,8 @@ public class AnyURITest {
 
   public void testIsSchemeInvalidSchemeTooLongToValidate() {
     assertFalse(
-      "Scheme will not validate when longer than possible value, due to short-cut",
-      new AnyURI("http:").isScheme("<<.>>")
+        "Scheme will not validate when longer than possible value, due to short-cut",
+        new AnyURI("http:").isScheme("<<.>>")
     );
   }
 
@@ -365,6 +365,7 @@ public class AnyURITest {
     assertEquals("", captureAppendHierPartStringBuffer("#fragment#"));
     assertEquals("", captureAppendHierPartStringBuffer("#fragment?notParam"));
   }
+
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc="Test Query">
@@ -634,6 +635,7 @@ public class AnyURITest {
     assertEquals("", captureAppendQueryStringStringBuffer("#fragment#"));
     assertEquals("", captureAppendQueryStringStringBuffer("#fragment?notParam"));
   }
+
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc="Test Fragment">
@@ -903,6 +905,7 @@ public class AnyURITest {
     assertEquals("fragment#", captureAppendFragmentStringBuffer("#fragment#"));
     assertEquals("fragment?notParam", captureAppendFragmentStringBuffer("#fragment?notParam"));
   }
+
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc="Test Encode/Decode URI">
@@ -914,69 +917,69 @@ public class AnyURITest {
   @Test
   public void testEncodeURI() {
     testEncodeURI(
-      null,
-      "http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A",
-      "http://localhost/かおり"
+        null,
+        "http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A",
+        "http://localhost/かおり"
     );
     testEncodeURI(
-      null,
-      "http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A?",
-      "http://localhost/かおり?"
+        null,
+        "http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A?",
+        "http://localhost/かおり?"
     );
     testEncodeURI(
-      null,
-      "://localhost/%E3%81%8B%E3%81%8A%E3%82%8A?param?&param2=value#anc?h&or",
-      "://localhost/かおり?param?&param2=value#anc?h&or"
+        null,
+        "://localhost/%E3%81%8B%E3%81%8A%E3%82%8A?param?&param2=value#anc?h&or",
+        "://localhost/かおり?param?&param2=value#anc?h&or"
     );
     testEncodeURI(
-      null,
-      "//localhost/%E3%81%8B%E3%81%8A%E3%82%8A#fragment#",
-      "//localhost/かおり#fragment#"
+        null,
+        "//localhost/%E3%81%8B%E3%81%8A%E3%82%8A#fragment#",
+        "//localhost/かおり#fragment#"
     );
     testEncodeURI(
-      null,
-      "/%E3%81%8B%E3%81%8A%E3%82%8A#fragment?notParam",
-      "/かおり#fragment?notParam"
+        null,
+        "/%E3%81%8B%E3%81%8A%E3%82%8A#fragment?notParam",
+        "/かおり#fragment?notParam"
     );
     testEncodeURI(
-      null,
-      "%E3%81%8B%E3%81%8A%E3%82%8A%20BBB#fragment?notParam%%%",
-      "かおり BBB#fragment?notParam%%%"
+        null,
+        "%E3%81%8B%E3%81%8A%E3%82%8A%20BBB#fragment?notParam%%%",
+        "かおり BBB#fragment?notParam%%%"
     );
     testEncodeURI(
-      "Plus (+) in hier-part must be left intact to avoid ambiguity between encode/decode",
-      "%E3%81%8B%E3%81%8A%E3%82%8A+BBB#fragment?notParam%%%",
-      "かおり+BBB#fragment?notParam%%%"
+        "Plus (+) in hier-part must be left intact to avoid ambiguity between encode/decode",
+        "%E3%81%8B%E3%81%8A%E3%82%8A+BBB#fragment?notParam%%%",
+        "かおり+BBB#fragment?notParam%%%"
     );
     testEncodeURI(
-      "Encoded plus (%2B) in hier-part must be left intact to avoid ambiguity between encode/decode",
-      "%E3%81%8B%E3%81%8A%E3%82%8A%2BBBB#fragment?notParam%%%",
-      "かおり%2BBBB#fragment?notParam%%%"
+        "Encoded plus (%2B) in hier-part must be left intact to avoid ambiguity between encode/decode",
+        "%E3%81%8B%E3%81%8A%E3%82%8A%2BBBB#fragment?notParam%%%",
+        "かおり%2BBBB#fragment?notParam%%%"
     );
     testEncodeURI(
-      "Encoded slash (%2F) in hier-part must be left intact to avoid ambiguity between encode/decode",
-      "%E3%81%8B%E3%81%8A%E3%82%8A%2FBBB#fragment?notParam%%%",
-      "かおり%2FBBB#fragment?notParam%%%"
+        "Encoded slash (%2F) in hier-part must be left intact to avoid ambiguity between encode/decode",
+        "%E3%81%8B%E3%81%8A%E3%82%8A%2FBBB#fragment?notParam%%%",
+        "かおり%2FBBB#fragment?notParam%%%"
     );
     testEncodeURI(
-      null,
-      "?",
-      "?"
+        null,
+        "?",
+        "?"
     );
     testEncodeURI(
-      null,
-      "#",
-      "#"
+        null,
+        "#",
+        "#"
     );
     testEncodeURI(
-      null,
-      "",
-      ""
+        null,
+        "",
+        ""
     );
     testEncodeURI(
-      "Invalid US-ASCII characters must remain invalid",
-      "/\u000c",
-      "/\u000c"
+        "Invalid US-ASCII characters must remain invalid",
+        "/\u000c",
+        "/\u000c"
     );
   }
 
@@ -988,85 +991,86 @@ public class AnyURITest {
   @Test(expected = IllegalArgumentException.class)
   public void testDecodeURIInvalidEncoded() {
     testDecodeURI(
-      null,
-      "かおり BBB#fragment?notParam%%%",
-      "%E3%81%8B%E3%81%8A%E3%82%8A%20BBB#fragment?notParam%%%"
+        null,
+        "かおり BBB#fragment?notParam%%%",
+        "%E3%81%8B%E3%81%8A%E3%82%8A%20BBB#fragment?notParam%%%"
     );
   }
 
   @Test
   public void testDecodeURI() {
     testDecodeURI(
-      null,
-      "http://localhost/かおり",
-      "http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A"
+        null,
+        "http://localhost/かおり",
+        "http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A"
     );
     testDecodeURI(
-      null,
-      "http://localhost/かおり?",
-      "http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A?"
+        null,
+        "http://localhost/かおり?",
+        "http://localhost/%E3%81%8B%E3%81%8A%E3%82%8A?"
     );
     testDecodeURI(
-      null,
-      "://localhost/かおり?param?&param2=value#anc?h&or",
-      "://localhost/%E3%81%8B%E3%81%8A%E3%82%8A?param?&param2=value#anc?h&or"
+        null,
+        "://localhost/かおり?param?&param2=value#anc?h&or",
+        "://localhost/%E3%81%8B%E3%81%8A%E3%82%8A?param?&param2=value#anc?h&or"
     );
     testDecodeURI(
-      null,
-      "//localhost/かおり#fragment#",
-      "//localhost/%E3%81%8B%E3%81%8A%E3%82%8A#fragment#"
+        null,
+        "//localhost/かおり#fragment#",
+        "//localhost/%E3%81%8B%E3%81%8A%E3%82%8A#fragment#"
     );
     testDecodeURI(
-      null,
-      "/かおり#fragment?notParam",
-      "/%E3%81%8B%E3%81%8A%E3%82%8A#fragment?notParam"
+        null,
+        "/かおり#fragment?notParam",
+        "/%E3%81%8B%E3%81%8A%E3%82%8A#fragment?notParam"
     );
     testDecodeURI(
-      null,
-      "かおり BBB#fragment?notParam%25%25%25",
-      "%E3%81%8B%E3%81%8A%E3%82%8A%20BBB#fragment?notParam%25%25%25"
+        null,
+        "かおり BBB#fragment?notParam%25%25%25",
+        "%E3%81%8B%E3%81%8A%E3%82%8A%20BBB#fragment?notParam%25%25%25"
     );
     testDecodeURI(
-      "Plus (+) in hier-part must be left intact to avoid ambiguity between encode/decode",
-      "かおり+BBB#fragment?notParam%25%25%25",
-      "%E3%81%8B%E3%81%8A%E3%82%8A+BBB#fragment?notParam%25%25%25"
+        "Plus (+) in hier-part must be left intact to avoid ambiguity between encode/decode",
+        "かおり+BBB#fragment?notParam%25%25%25",
+        "%E3%81%8B%E3%81%8A%E3%82%8A+BBB#fragment?notParam%25%25%25"
     );
     testDecodeURI(
-      "Encoded plus (%2B) in hier-part must be left intact to avoid ambiguity between encode/decode",
-      "かおり%2BBBB#fragment?notParam%25%25%25",
-      "%E3%81%8B%E3%81%8A%E3%82%8A%2BBBB#fragment?notParam%25%25%25"
+        "Encoded plus (%2B) in hier-part must be left intact to avoid ambiguity between encode/decode",
+        "かおり%2BBBB#fragment?notParam%25%25%25",
+        "%E3%81%8B%E3%81%8A%E3%82%8A%2BBBB#fragment?notParam%25%25%25"
     );
     testDecodeURI(
-      "Encoded slash (%2F) in hier-part must be left intact to avoid ambiguity between encode/decode",
-      "かおり%2FBBB#fragment?notParam%25%25%25",
-      "%E3%81%8B%E3%81%8A%E3%82%8A%2FBBB#fragment?notParam%25%25%25"
+        "Encoded slash (%2F) in hier-part must be left intact to avoid ambiguity between encode/decode",
+        "かおり%2FBBB#fragment?notParam%25%25%25",
+        "%E3%81%8B%E3%81%8A%E3%82%8A%2FBBB#fragment?notParam%25%25%25"
     );
     testDecodeURI(
-      null,
-      "?",
-      "?"
+        null,
+        "?",
+        "?"
     );
     testDecodeURI(
-      null,
-      "#",
-      "#"
+        null,
+        "#",
+        "#"
     );
     testDecodeURI(
-      null,
-      "",
-      ""
+        null,
+        "",
+        ""
     );
     testDecodeURI(
-      "Invalid US-ASCII characters must not be decoded",
-      "/%0C",
-      "/%0C"
+        "Invalid US-ASCII characters must not be decoded",
+        "/%0C",
+        "/%0C"
     );
     testDecodeURI(
-      "Invalid US-ASCII characters must remain invalid",
-      "/\u000c",
-      "/\u000c"
+        "Invalid US-ASCII characters must remain invalid",
+        "/\u000c",
+        "/\u000c"
     );
   }
+
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc="Test Query String Mutators">

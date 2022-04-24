@@ -57,10 +57,10 @@ import java.util.concurrent.ConcurrentMap;
  */
 // Matches src/main/sql/com/aoapps/net/DomainLabel-type.sql
 public final class DomainLabel implements
-  Comparable<DomainLabel>,
-  FastExternalizable,
-  DtoFactory<com.aoapps.net.dto.DomainLabel>,
-  Internable<DomainLabel>
+    Comparable<DomainLabel>,
+    FastExternalizable,
+    DtoFactory<com.aoapps.net.dto.DomainLabel>,
+    Internable<DomainLabel>
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabel.class);
@@ -76,33 +76,34 @@ public final class DomainLabel implements
     }
     return validate(label, 0, label.length());
   }
+
   // Matches src/main/sql/com/aoapps/net/DomainLabel.validate-function.sql
   public static ValidationResult validate(String label, int beginIndex, int endIndex) {
     if (label == null) {
       return new InvalidResult(RESOURCES, "validate.isNull");
     }
-    int len = endIndex-beginIndex;
+    int len = endIndex - beginIndex;
     if (len == 0) {
       return new InvalidResult(RESOURCES, "validate.empty");
     }
-    if (len>MAX_LENGTH) {
+    if (len > MAX_LENGTH) {
       return new InvalidResult(RESOURCES, "validate.tooLong", MAX_LENGTH, len);
     }
-    for (int pos=beginIndex; pos<endIndex; pos++) {
+    for (int pos = beginIndex; pos < endIndex; pos++) {
       char ch = label.charAt(pos);
       if (ch == '-') {
         if (pos == beginIndex) {
           return new InvalidResult(RESOURCES, "validate.startsDash");
         }
-        if (pos == (endIndex-1)) {
+        if (pos == (endIndex - 1)) {
           return new InvalidResult(RESOURCES, "validate.endsDash");
         }
       } else if (
-        (ch<'a' || ch>'z')
-        && (ch<'A' || ch>'Z')
-        && (ch<'0' || ch>'9')
+          (ch < 'a' || ch > 'z')
+              && (ch < 'A' || ch > 'Z')
+              && (ch < '0' || ch > '9')
       ) {
-        return new InvalidResult(RESOURCES, "validate.invalidCharacter", ch, pos-beginIndex);
+        return new InvalidResult(RESOURCES, "validate.invalidCharacter", ch, pos - beginIndex);
       }
     }
     return ValidResult.getInstance();
@@ -155,8 +156,8 @@ public final class DomainLabel implements
   @Override
   public boolean equals(Object obj) {
     return
-      (obj instanceof DomainLabel)
-      && lowerLabel.equals(((DomainLabel)obj).lowerLabel)
+        (obj instanceof DomainLabel)
+            && lowerLabel.equals(((DomainLabel) obj).lowerLabel)
     ;
   }
 
@@ -218,7 +219,7 @@ public final class DomainLabel implements
    *
    * @see  FastExternalizable
    */
-  @Deprecated/* Java 9: (forRemoval = false) */
+  @Deprecated // Java 9: (forRemoval = false)
   public DomainLabel() {
     // Do nothing
   }

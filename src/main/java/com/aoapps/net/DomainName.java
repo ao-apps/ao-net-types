@@ -65,10 +65,10 @@ import java.util.concurrent.ConcurrentMap;
  */
 // Matches src/main/sql/com/aoapps/net/DomainName-type.sql
 public final class DomainName implements
-  Comparable<DomainName>,
-  FastExternalizable,
-  DtoFactory<com.aoapps.net.dto.DomainName>,
-  Internable<DomainName>
+    Comparable<DomainName>,
+    FastExternalizable,
+    DtoFactory<com.aoapps.net.dto.DomainName>,
+    Internable<DomainName>
 {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainName.class);
@@ -81,12 +81,12 @@ public final class DomainName implements
   }*/
 
   private static boolean isNumeric(String label, int start, int end) {
-    if ((end-start) <= 0) {
+    if ((end - start) <= 0) {
       throw new IllegalArgumentException("empty label");
     }
-    for (int i=start; i<end; i++) {
+    for (int i = start; i < end; i++) {
       char ch = label.charAt(i);
-      if (ch<'0' || ch>'9') {
+      if (ch < '0' || ch > '9') {
         return false;
       }
     }
@@ -98,16 +98,16 @@ public final class DomainName implements
    */
   private static boolean isArpaDelegationFirstLabel(String label, int beginIndex, int endIndex) {
     int slashPos = -1;
-    for (int i=beginIndex; i<endIndex; i++) {
+    for (int i = beginIndex; i < endIndex; i++) {
       if (label.charAt(i) == '/') {
         slashPos = i;
         break;
       }
     }
     return
-      slashPos != -1
-      && isNumeric(label, beginIndex, slashPos)
-      && isNumeric(label, slashPos+1, endIndex)
+        slashPos != -1
+            && isNumeric(label, beginIndex, slashPos)
+            && isNumeric(label, slashPos + 1, endIndex)
     ;
   }
 
@@ -130,23 +130,23 @@ public final class DomainName implements
    */
   public static boolean isArpa(String domain) {
     // Stupid-fast implementation - performance vs. complexity gone too far?
-    int pos = domain.length()-13;
+    int pos = domain.length() - 13;
     char ch;
     return
-      pos >= 0
-      &&      domain.charAt(pos++) == '.'
-      && ((ch=domain.charAt(pos++)) == 'i' || ch == 'I')
-      && ((ch=domain.charAt(pos++)) == 'n' || ch == 'N')
-      &&      domain.charAt(pos++) == '-'
-      && ((ch=domain.charAt(pos++)) == 'a' || ch == 'A')
-      && ((ch=domain.charAt(pos++)) == 'd' || ch == 'D')
-      && ((ch=domain.charAt(pos++)) == 'd' || ch == 'D')
-      && ((ch=domain.charAt(pos++)) == 'r' || ch == 'R')
-      &&      domain.charAt(pos++) == '.'
-      && ((ch=domain.charAt(pos++)) == 'a' || ch == 'A')
-      && ((ch=domain.charAt(pos++)) == 'r' || ch == 'R')
-      && ((ch=domain.charAt(pos++)) == 'p' || ch == 'P')
-      && ((ch=domain.charAt(pos  )) == 'a' || ch == 'A')
+        pos >= 0
+            &&      domain.charAt(pos++) == '.'
+            && ((ch = domain.charAt(pos++)) == 'i' || ch == 'I')
+            && ((ch = domain.charAt(pos++)) == 'n' || ch == 'N')
+            &&      domain.charAt(pos++) == '-'
+            && ((ch = domain.charAt(pos++)) == 'a' || ch == 'A')
+            && ((ch = domain.charAt(pos++)) == 'd' || ch == 'D')
+            && ((ch = domain.charAt(pos++)) == 'd' || ch == 'D')
+            && ((ch = domain.charAt(pos++)) == 'r' || ch == 'R')
+            &&      domain.charAt(pos++) == '.'
+            && ((ch = domain.charAt(pos++)) == 'a' || ch == 'A')
+            && ((ch = domain.charAt(pos++)) == 'r' || ch == 'R')
+            && ((ch = domain.charAt(pos++)) == 'p' || ch == 'P')
+            && ((ch = domain.charAt(pos  )) == 'a' || ch == 'A')
     ;
     //return domain.toLowerCase(Locale.ENGLISH).endsWith(".in-addr.arpa");
   }
@@ -175,13 +175,14 @@ public final class DomainName implements
 
   private static final char[] localhostCharsLower = "localhost".toCharArray();
   private static final char[] localhostCharsUpper = "LOCALHOST".toCharArray();
+
   private static boolean isLocalhost(String domain) {
     assert localhostCharsLower.length == localhostCharsUpper.length;
     int len = localhostCharsUpper.length;
     if (domain.length() != len) {
       return false;
     }
-    for (int i=0; i<len; i++) {
+    for (int i = 0; i < len; i++) {
       char ch = domain.charAt(i);
       if (ch != localhostCharsLower[i] && ch != localhostCharsUpper[i]) {
         return false;
@@ -192,13 +193,14 @@ public final class DomainName implements
 
   private static final char[] localhostLocaldomainCharsLower = "localhost.localdomain".toCharArray();
   private static final char[] localhostLocaldomainCharsUpper = "LOCALHOST.LOCALDOMAIN".toCharArray();
+
   private static boolean isLocalhostLocaldomain(String domain) {
     assert localhostLocaldomainCharsLower.length == localhostLocaldomainCharsUpper.length;
     int len = localhostLocaldomainCharsUpper.length;
     if (domain.length() != len) {
       return false;
     }
-    for (int i=0; i<len; i++) {
+    for (int i = 0; i < len; i++) {
       char ch = domain.charAt(i);
       if (ch != localhostLocaldomainCharsLower[i] && ch != localhostLocaldomainCharsUpper[i]) {
         return false;
@@ -222,29 +224,29 @@ public final class DomainName implements
       return new InvalidResult(RESOURCES, "validate.empty");
     }
     if (
-      !isLocalhost(domain)
-      && !isLocalhostLocaldomain(domain)
+        !isLocalhost(domain)
+            && !isLocalhostLocaldomain(domain)
     ) {
       char ch;
       if (
-        // "default".equalsIgnoreCase(domain)
-        domain.length() == 7
-        && ((ch=domain.charAt(0)) == 'd' || ch == 'D')
-        && ((ch=domain.charAt(1)) == 'e' || ch == 'E')
-        && ((ch=domain.charAt(2)) == 'f' || ch == 'F')
-        && ((ch=domain.charAt(3)) == 'a' || ch == 'A')
-        && ((ch=domain.charAt(4)) == 'u' || ch == 'U')
-        && ((ch=domain.charAt(5)) == 'l' || ch == 'L')
-        && ((ch=domain.charAt(6)) == 't' || ch == 'T')
+          // "default".equalsIgnoreCase(domain)
+          domain.length() == 7
+              && ((ch = domain.charAt(0)) == 'd' || ch == 'D')
+              && ((ch = domain.charAt(1)) == 'e' || ch == 'E')
+              && ((ch = domain.charAt(2)) == 'f' || ch == 'F')
+              && ((ch = domain.charAt(3)) == 'a' || ch == 'A')
+              && ((ch = domain.charAt(4)) == 'u' || ch == 'U')
+              && ((ch = domain.charAt(5)) == 'l' || ch == 'L')
+              && ((ch = domain.charAt(6)) == 't' || ch == 'T')
       ) {
         return new InvalidResult(RESOURCES, "validate.isDefault");
       }
-      if (len>MAX_LENGTH) {
+      if (len > MAX_LENGTH) {
         return new InvalidResult(RESOURCES, "validate.tooLong", MAX_LENGTH, len);
       }
       boolean isArpa = isArpa(domain);
       int labelStart = 0;
-      for (int pos=0; pos<len; pos++) {
+      for (int pos = 0; pos < len; pos++) {
         if (domain.charAt(pos) == '.') {
           // For reverse IP address delegation, if the domain ends with ".in-addr.arpa", the first label may also be in the format "##/##".
           if (!isArpa || labelStart != 0 || !isArpaDelegationFirstLabel(domain, labelStart, pos)) {
@@ -253,7 +255,7 @@ public final class DomainName implements
               return result;
             }
           }
-          labelStart = pos+1;
+          labelStart = pos + 1;
         }
       }
       ValidationResult result = DomainLabel.validate(domain, labelStart, len);
@@ -289,9 +291,10 @@ public final class DomainName implements
 
   // Note: These constants must go below the static checks due to class initialization order
   public static final DomainName
-    LOCALHOST,
-    LOCALHOST_LOCALDOMAIN
+      LOCALHOST,
+      LOCALHOST_LOCALDOMAIN
   ;
+
   static {
     LOCALHOST = new DomainName("localhost", "localhost").intern();
     LOCALHOST_LOCALDOMAIN = new DomainName("localhost.localdomain", "localhost.localdomain").intern();
@@ -330,8 +333,8 @@ public final class DomainName implements
   @Override
   public boolean equals(Object obj) {
     return
-      (obj instanceof DomainName)
-      && lowerDomain.equals(((DomainName)obj).lowerDomain)
+        (obj instanceof DomainName)
+            && lowerDomain.equals(((DomainName) obj).lowerDomain)
     ;
   }
 
@@ -348,28 +351,28 @@ public final class DomainName implements
     if (labels1 == labels2) {
       return 0; // Shortcut for interned
     }
-    while (labels1.length()>0 && labels2.length()>0) {
-      int pos=labels1.lastIndexOf('.');
+    while (labels1.length() > 0 && labels2.length() > 0) {
+      int pos = labels1.lastIndexOf('.');
       String section1;
       if (pos == -1) {
-        section1=labels1;
-        labels1="";
+        section1 = labels1;
+        labels1 = "";
       } else {
-        section1=labels1.substring(pos+1);
-        labels1=labels1.substring(0, pos);
+        section1 = labels1.substring(pos + 1);
+        labels1 = labels1.substring(0, pos);
       }
 
-      pos=labels2.lastIndexOf('.');
+      pos = labels2.lastIndexOf('.');
       String section2;
       if (pos == -1) {
-        section2=labels2;
-        labels2="";
+        section2 = labels2;
+        labels2 = "";
       } else {
-        section2=labels2.substring(pos+1);
-        labels2=labels2.substring(0, pos);
+        section2 = labels2.substring(pos + 1);
+        labels2 = labels2.substring(0, pos);
       }
 
-      int diff=ComparatorUtils.compareIgnoreCaseConsistentWithEquals(section1, section2);
+      int diff = ComparatorUtils.compareIgnoreCaseConsistentWithEquals(section1, section2);
       if (diff != 0) {
         return diff;
       }
@@ -440,7 +443,7 @@ public final class DomainName implements
    *
    * @see  FastExternalizable
    */
-  @Deprecated/* Java 9: (forRemoval = true) */
+  @Deprecated // Java 9: (forRemoval = true)
   public DomainName() {
     // Do nothing
   }
