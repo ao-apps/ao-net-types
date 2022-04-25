@@ -19,3 +19,6 @@ f69810a57d78e72401e0443f9e5ef7051ecd6b59
 
 # Aligned whitespace.
 3d82d8e9869af02e8d5bb9250e227481e7e849ad
+
+# Performed automatic source code clean-up with rewrite-maven-plugin
+ca8f63f00ec993d3f0db352258ab7a8f4ddecb12
