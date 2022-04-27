@@ -252,6 +252,6 @@ public final class MacAddress implements
   }
 
   public boolean isBroadcast() {
-    return address.equals("FF:FF:FF:FF:FF:FF");
+    return "FF:FF:FF:FF:FF:FF".equals(address);
   }
 }

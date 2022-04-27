@@ -280,7 +280,7 @@ public final class URIEncoder {
   }
 
   private static boolean isLowerHex(char ch) {
-    return (ch >= 'a' && ch <= 'f');
+    return ch >= 'a' && ch <= 'f';
   }
 
   private static char upperHex(char ch) {

@@ -169,7 +169,7 @@ public final class Port extends IPortRange implements
   @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
   public boolean equals(Object obj) {
     // enum pattern, this is safe:
-    return (this == obj);
+    return this == obj;
     /* enum pattern, don't need this:
     return
       obj instanceof Port

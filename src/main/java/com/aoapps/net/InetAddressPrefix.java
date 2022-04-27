@@ -275,7 +275,7 @@ public final class InetAddressPrefix implements
         if (prefix == 0) {
           fromHi = fromLo = 0;
         } else if (prefix < 64) {
-          long netmask = (0xffffffffffffffffL << (64 - prefix));
+          long netmask = 0xffffffffffffffffL << (64 - prefix);
           fromHi = address.hi & netmask;
           fromLo = 0x0000000000000000L;
         } else if (prefix == 64) {
@@ -283,7 +283,7 @@ public final class InetAddressPrefix implements
           fromLo = 0;
         } else {
           assert prefix > 64 && prefix < 128;
-          long netmask = (0xffffffffffffffffL << (128 - prefix));
+          long netmask = 0xffffffffffffffffL << (128 - prefix);
           fromHi = address.hi;
           fromLo = address.lo & netmask;
         }
@@ -336,7 +336,7 @@ public final class InetAddressPrefix implements
         if (prefix == 0) {
           toHi = toLo = 0xffffffffffffffffL;
         } else if (prefix < 64) {
-          long netmask = (0xffffffffffffffffL << (64 - prefix));
+          long netmask = 0xffffffffffffffffL << (64 - prefix);
           toHi = (address.hi & netmask) | (0xffffffffffffffffL ^ netmask);
           toLo = 0xffffffffffffffffL;
         } else if (prefix == 64) {
@@ -344,7 +344,7 @@ public final class InetAddressPrefix implements
           toLo = 0xffffffffffffffffL;
         } else {
           assert prefix > 64 && prefix < 128;
-          long netmask = (0xffffffffffffffffL << (128 - prefix));
+          long netmask = 0xffffffffffffffffL << (128 - prefix);
           toHi = address.hi;
           toLo = (address.lo & netmask) | (0xffffffffffffffffL ^ netmask);
         }
@@ -406,7 +406,7 @@ public final class InetAddressPrefix implements
         if (thisPrefix == 0) {
           return true;
         } else if (thisPrefix < 64) {
-          long netmask = (0xffffffffffffffffL << (64 - thisPrefix));
+          long netmask = 0xffffffffffffffffL << (64 - thisPrefix);
           return (thisHi & netmask) == (otherHi & netmask);
         } else if (thisPrefix == 64) {
           return thisHi == otherHi;
@@ -415,7 +415,7 @@ public final class InetAddressPrefix implements
           if (thisHi != otherHi) {
             return false;
           }
-          long netmask = (0xffffffffffffffffL << (128 - thisPrefix));
+          long netmask = 0xffffffffffffffffL << (128 - thisPrefix);
           return (thisLo & netmask) == (otherLo & netmask);
         }
       }
