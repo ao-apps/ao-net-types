@@ -30,4 +30,4 @@ module com.aoapps.net.types {
   requires com.aoapps.tlds; // <groupId>com.aoapps</groupId><artifactId>ao-tlds</artifactId>
   // Java SE
   requires java.sql;
-}
+} // TODO: Avoiding rewrite-maven-plugin-4.22.2 truncation
