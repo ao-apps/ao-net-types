@@ -60,8 +60,7 @@ public final class DomainLabel implements
     Comparable<DomainLabel>,
     FastExternalizable,
     DtoFactory<com.aoapps.net.dto.DomainLabel>,
-    Internable<DomainLabel>
-{
+    Internable<DomainLabel> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabel.class);
 
@@ -157,8 +156,7 @@ public final class DomainLabel implements
   public boolean equals(Object obj) {
     return
         (obj instanceof DomainLabel)
-            && lowerLabel.equals(((DomainLabel) obj).lowerLabel)
-    ;
+            && lowerLabel.equals(((DomainLabel) obj).lowerLabel);
   }
 
   @Override

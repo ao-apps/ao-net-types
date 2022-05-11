@@ -201,7 +201,7 @@ final class RFC3986 {
   }
 
   /**
-   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>:
+   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>.
    * <blockquote>
    * Scheme names consist of a sequence of characters beginning with a
    * letter […]
@@ -214,7 +214,7 @@ final class RFC3986 {
   }
 
   /**
-   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>:
+   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>.
    * <blockquote>
    * Scheme names consist of a sequence of characters […]
    * followed by any combination of letters, digits, plus
@@ -232,7 +232,7 @@ final class RFC3986 {
   }
 
   /**
-   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>:
+   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">Scheme</a>.
    * <blockquote>
    * An implementation should accept uppercase letters as equivalent to
    * lowercase in scheme names […] but should only produce lowercase scheme

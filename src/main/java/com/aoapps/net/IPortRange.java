@@ -38,15 +38,15 @@ import java.io.Serializable;
  * {@link #equals(java.lang.Object)}, {@link #hashCode()},
  * and {@link #compareTo(com.aoapps.net.IPortRange)}.
  * </p>
- *
+ * <p>
  * Java 1.8: Make this an interface with default methods.
+ * </p>
  *
  * @author  AO Industries, Inc.
  */
 public abstract class IPortRange implements
     Comparable<IPortRange>,
-    Serializable
-{
+    Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -124,6 +124,8 @@ public abstract class IPortRange implements
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see  Port#toString()
    * @see  PortRange#toString()
    */
@@ -162,8 +164,7 @@ public abstract class IPortRange implements
     return
         protocol == other.protocol
             && getFrom() <= other.getTo()
-            && other.getFrom() <= getTo()
-    ;
+            && other.getFrom() <= getTo();
   }
 
   /**
@@ -194,7 +195,8 @@ public abstract class IPortRange implements
       // Different protocols
       return null;
     }
-    int from, to;
+    int from;
+    int to;
     if (this.overlaps(other)) {
       // Some overlap range
       from = Math.min(this.getFrom(), other.getFrom());

@@ -102,7 +102,7 @@ public final class URIParser {
   }
 
   /**
-   * Checks if a URI has a scheme, not including any empty scheme (starts with ':')
+   * Checks if a URI has a scheme, not including any empty scheme (starts with ':').
    */
   public static boolean hasScheme(String uri) {
     if (uri == null) {

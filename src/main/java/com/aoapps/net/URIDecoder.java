@@ -36,6 +36,7 @@ import java.net.URLDecoder;
  * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
  * They are not meant for general purpose URL manipulation, and are not trying to replace
  * any full-featured URI tools.
+ * </p>
  * <p>
  * Consider the following if needing more than what this provides (in no particular order):
  * </p>
@@ -170,7 +171,7 @@ public final class URIDecoder {
    *
    * @param encoder  An optional encoder the output is applied through
    */
-  private static void encodeRfc3986ReservedCharacters_percent_and_invalid(String value, Encoder encoder, Appendable out) throws IOException {
+  private static void encodeRfc3986ReservedCharactersPercentAndInvalid(String value, Encoder encoder, Appendable out) throws IOException {
     int len = value.length();
     int pos = 0;
     while (pos < len) {
@@ -265,18 +266,18 @@ public final class URIDecoder {
         int nextPos = Strings.indexOf(uri, RFC3986.RESERVED_OR_INVALID, pos);
         if (nextPos == -1) {
           // TODO: Avoid substring?
-          encodeRfc3986ReservedCharacters_percent_and_invalid(decodeURIComponent(uri.substring(pos)), encoder, out);
+          encodeRfc3986ReservedCharactersPercentAndInvalid(decodeURIComponent(uri.substring(pos)), encoder, out);
           pos = len;
         } else {
           if (nextPos != pos) {
             // TODO: Avoid substring?
-            encodeRfc3986ReservedCharacters_percent_and_invalid(decodeURIComponent(uri.substring(pos, nextPos)), encoder, out);
+            encodeRfc3986ReservedCharactersPercentAndInvalid(decodeURIComponent(uri.substring(pos, nextPos)), encoder, out);
           }
-          char reserved_or_invalid = uri.charAt(nextPos++);
+          char reservedOrInvalid = uri.charAt(nextPos++);
           if (encoder == null) {
-            out.append(reserved_or_invalid);
+            out.append(reservedOrInvalid);
           } else {
-            encoder.append(reserved_or_invalid, out);
+            encoder.append(reservedOrInvalid, out);
           }
           pos = nextPos;
         }

@@ -23,8 +23,10 @@
 
 package com.aoapps.net;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.aoapps.lang.validation.ValidationException;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -44,49 +46,56 @@ public class PortRangeTest {
 
   @Test
   public void testMinFrom() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         PortRange.valueOf(1, 10, Protocol.TCP)
     );
   }
 
   @Test(expected = ValidationException.class)
   public void testLowFrom() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         PortRange.valueOf(0, 10, Protocol.TCP)
     );
   }
 
   @Test(expected = ValidationException.class)
   public void testHighFrom() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         PortRange.valueOf(65536, 10, Protocol.TCP)
     );
   }
 
   @Test
   public void testMaxTo() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         PortRange.valueOf(10, 65535, Protocol.TCP)
     );
   }
 
   @Test(expected = ValidationException.class)
   public void testLowTo() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         PortRange.valueOf(10, 0, Protocol.TCP)
     );
   }
 
   @Test(expected = ValidationException.class)
   public void testHighTo() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         PortRange.valueOf(10, 65536, Protocol.TCP)
     );
   }
 
   @Test(expected = ValidationException.class)
   public void testFromBiggerTo() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         PortRange.valueOf(10, 1, Protocol.TCP)
     );
   }

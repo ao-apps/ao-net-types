@@ -24,14 +24,15 @@
 package com.aoapps.net;
 
 import static com.aoapps.encoding.TextInXhtmlEncoder.textInXhtmlEncoder;
-import com.aoapps.lang.io.Encoder;
-import java.io.IOException;
-import java.io.StringWriter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+
+import com.aoapps.lang.io.Encoder;
+import java.io.IOException;
+import java.io.StringWriter;
 import org.junit.Test;
 
 public class AnyURITest {
@@ -978,8 +979,8 @@ public class AnyURITest {
     );
     testEncodeURI(
         "Invalid US-ASCII characters must remain invalid",
-        "/\u000c",
-        "/\u000c"
+        "/\f",
+        "/\f"
     );
   }
 
@@ -1066,8 +1067,8 @@ public class AnyURITest {
     );
     testDecodeURI(
         "Invalid US-ASCII characters must remain invalid",
-        "/\u000c",
-        "/\u000c"
+        "/\f",
+        "/\f"
     );
   }
 

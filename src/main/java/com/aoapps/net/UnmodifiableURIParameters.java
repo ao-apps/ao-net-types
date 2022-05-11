@@ -73,6 +73,8 @@ public class UnmodifiableURIParameters implements URIParameters {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see  URIParameters#toString()
    */
   @Override

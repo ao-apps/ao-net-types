@@ -71,8 +71,7 @@ public final class Path implements
     Comparable<Path>,
     Serializable,
     DtoFactory<com.aoapps.net.dto.Path>,
-    Internable<Path>
-{
+    Internable<Path> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Path.class);
 
@@ -108,26 +107,26 @@ public final class Path implements
     if (path.charAt(0) != SEPARATOR_CHAR) {
       return new InvalidResult(RESOURCES, "validate.startWithNonSlash", path.charAt(0));
     }
-    // Not contain any null characters
-    {
-      int pos = path.indexOf('\0');
-      if (pos != -1) {
-        return new InvalidResult(RESOURCES, "validate.containsNullCharacter", pos);
+      // Not contain any null characters
+      {
+        int pos = path.indexOf('\0');
+        if (pos != -1) {
+          return new InvalidResult(RESOURCES, "validate.containsNullCharacter", pos);
+        }
       }
-    }
-    // Not contain any /../ or /./ path elements
-    {
-      int pos = path.indexOf(SLASH_DOT_DOT_SLASH);
-      if (pos != -1) {
-        return new InvalidResult(RESOURCES, "validate.containsDotDot", pos);
+      // Not contain any /../ or /./ path elements
+      {
+        int pos = path.indexOf(SLASH_DOT_DOT_SLASH);
+        if (pos != -1) {
+          return new InvalidResult(RESOURCES, "validate.containsDotDot", pos);
+        }
       }
-    }
-    {
-      int pos = path.indexOf(SLASH_DOT_SLASH);
-      if (pos != -1) {
-        return new InvalidResult(RESOURCES, "validate.containsDot", pos);
+      {
+        int pos = path.indexOf(SLASH_DOT_SLASH);
+        if (pos != -1) {
+          return new InvalidResult(RESOURCES, "validate.containsDot", pos);
+        }
       }
-    }
     // Not end with /.. or /.
     if (path.endsWith(SLASH_DOT)) {
       return new InvalidResult(RESOURCES, "validate.endsSlashDot");
@@ -135,13 +134,13 @@ public final class Path implements
     if (path.endsWith(SLASH_DOT_DOT)) {
       return new InvalidResult(RESOURCES, "validate.endsSlashDotDot");
     }
-    // Not contain any // in the path
-    {
-      int pos = path.indexOf(SLASH_SLASH);
-      if (pos != -1) {
-        return new InvalidResult(RESOURCES, "validate.containsDoubleSlash", pos);
+      // Not contain any // in the path
+      {
+        int pos = path.indexOf(SLASH_SLASH);
+        if (pos != -1) {
+          return new InvalidResult(RESOURCES, "validate.containsDoubleSlash", pos);
+        }
       }
-    }
     return ValidResult.getInstance();
   }
 
@@ -219,8 +218,7 @@ public final class Path implements
   public boolean equals(Object obj) {
     return
         (obj instanceof Path)
-            && path.equals(((Path) obj).path)
-    ;
+            && path.equals(((Path) obj).path);
   }
 
   @Override

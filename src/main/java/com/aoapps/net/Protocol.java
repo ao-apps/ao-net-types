@@ -191,7 +191,7 @@ public enum Protocol {
       // Skip TTP duplicated
       if (p != TTP && p != UNASSIGNED) {
         int decimal = p.getDecimal();
-        assert protocolsByDecimal[decimal] == null: "Duplicate value for decimal (" + decimal + "): " + protocolsByDecimal[decimal] + " and " + p;
+        assert protocolsByDecimal[decimal] == null : "Duplicate value for decimal (" + decimal + "): " + protocolsByDecimal[decimal] + " and " + p;
         protocolsByDecimal[decimal] = p;
       }
     }
@@ -276,6 +276,8 @@ public enum Protocol {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return The keyword, if present, or enum name when no keyword.
    *
    * @see #getProtocolByKeyword(java.lang.String)

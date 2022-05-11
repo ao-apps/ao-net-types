@@ -59,7 +59,7 @@ public enum AddressType {
   LINK_LOCAL_UNICAST,
 
   /**
-   * (everything else)
+   * (everything else).
    */
   GLOBAL_UNICAST
 }

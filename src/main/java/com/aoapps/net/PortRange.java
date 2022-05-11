@@ -43,8 +43,7 @@ import java.util.ResourceBundle;
  */
 public final class PortRange extends IPortRange implements
     Serializable,
-    DtoFactory<com.aoapps.net.dto.PortRange>
-{
+    DtoFactory<com.aoapps.net.dto.PortRange> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, PortRange.class);
 
@@ -147,8 +146,7 @@ public final class PortRange extends IPortRange implements
     return
         protocol == other.protocol
             && from == other.from
-            && to == other.to
-    ;
+            && to == other.to;
   }
 
   @Override
@@ -160,8 +158,10 @@ public final class PortRange extends IPortRange implements
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return The port range and protocol, such as <code>53/UDP</code>
-   * or <code>8080-8087/TCP</code>.
+   *         or <code>8080-8087/TCP</code>.
    */
   @Override
   public String toString() {

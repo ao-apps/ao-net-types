@@ -57,30 +57,64 @@ public final class InetAddress implements
     Comparable<InetAddress>,
     Serializable,
     DtoFactory<com.aoapps.net.dto.InetAddress>,
-    Internable<InetAddress>
-{
+    Internable<InetAddress> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, InetAddress.class);
 
-  static final long
-      // Bits for IPv4 representations
-      IPV4_HI                       = 0x0000000000000000L,
-      IPV4_NET_MAPPED_LO            = 0x0000ffff00000000L;  // ::ffff:a.b.c.d
-  private static final long
-      IPV4_NET_COMPAT_LO            = 0x0000000000000000L, // ::a.b.c.d
-      // Network prefix masks
-      IPV6_NET_MASK_96_LO           = 0xffffffff00000000L, // IPv6 /96
-      // Unspecified
-      UNSPECIFIED_HI                = 0x0000000000000000L,
-      IPV4_UNSPECIFIED_LO           = 0x0000ffff00000000L, // 0.0.0.0/32
-      IPV6_UNSPECIFIED_LO           = 0x0000000000000000L, // ::
-      // Bits for loopback
-      LOOPBACK_HI                   = 0x0000000000000000L,
-      IPV4_LOOPBACK_LO              = 0x0000ffff7f000001L, // 127.0.0.1
-      IPV6_LOOPBACK_LO              = 0x0000000000000001L, // ::1
-      // IPv4 Broadcast
-      IPV4_BROADCAST_LO             = 0x0000ffffffffffffL  // 255.255.255.255/32
-  ;
+  /**
+   * Bits for IPv4 representations.
+   */
+  static final long IPV4_HI                     = 0x0000000000000000L;
+
+  /**
+   * Bits for IPv4 representations: <code>::ffff:a.b.c.d</code>.
+   */
+  static final long IPV4_NET_MAPPED_LO          = 0x0000ffff00000000L;
+
+  /**
+   * Bits for IPv4 representations: <code>::a.b.c.d</code>.
+   */
+  private static final long IPV4_NET_COMPAT_LO  = 0x0000000000000000L;
+
+  /**
+   * Network prefix mask: IPv6 /96.
+   */
+  private static final long IPV6_NET_MASK_96_LO = 0xffffffff00000000L;
+
+  /**
+   * Unspecified.
+   */
+  private static final long UNSPECIFIED_HI      = 0x0000000000000000L;
+
+  /**
+   * Unspecified: <code>0.0.0.0/32</code>.
+   */
+  private static final long IPV4_UNSPECIFIED_LO = 0x0000ffff00000000L;
+
+  /**
+   * Unspecified: <code>::</code>.
+   */
+  private static final long IPV6_UNSPECIFIED_LO = 0x0000000000000000L;
+
+  /**
+   * Bits for loopback.
+   */
+  private static final long LOOPBACK_HI         = 0x0000000000000000L;
+
+  /**
+   * Bits for loopback: <code>127.0.0.1</code>.
+   */
+  private static final long IPV4_LOOPBACK_LO    = 0x0000ffff7f000001L;
+
+  /**
+   * Bits for loopback: <code>::1</code>.
+   */
+  private static final long IPV6_LOOPBACK_LO    = 0x0000000000000001L;
+
+  /**
+   * IPv4 Broadcast: <code>255.255.255.255/32</code>.
+   */
+  private static final long IPV4_BROADCAST_LO   = 0x0000ffffffffffffL;
 
   /**
    * Checks if the address is valid by calling <code>parse(String)</code> and discarding the result.
@@ -164,7 +198,9 @@ public final class InetAddress implements
    */
   private static InvalidResult parseOctet(String address, int start, int end, int[] octet) {
     int len = end - start;
-    char ch1, ch2, ch3;
+    char ch1;
+    char ch2;
+    char ch3;
     if (len == 3) {
       ch1 = address.charAt(start);
       ch2 = address.charAt(start + 1);
@@ -239,22 +275,22 @@ public final class InetAddress implements
       if (result != null) {
         return result;
       }
-      int h1 = value[0];
+      final int h1 = value[0];
       result = getHexValue(address.charAt(start + 1), value);
       if (result != null) {
         return result;
       }
-      int h2 = value[0];
+      final int h2 = value[0];
       result = getHexValue(address.charAt(start + 2), value);
       if (result != null) {
         return result;
       }
-      int h3 = value[0];
+      final int h3 = value[0];
       result = getHexValue(address.charAt(start + 3), value);
       if (result != null) {
         return result;
       }
-      int h4 = value[0];
+      final int h4 = value[0];
       value[0] =
           (h1 << 12)
               | (h2 << 8)
@@ -266,17 +302,17 @@ public final class InetAddress implements
       if (result != null) {
         return result;
       }
-      int h1 = value[0];
+      final int h1 = value[0];
       result = getHexValue(address.charAt(start + 1), value);
       if (result != null) {
         return result;
       }
-      int h2 = value[0];
+      final int h2 = value[0];
       result = getHexValue(address.charAt(start + 2), value);
       if (result != null) {
         return result;
       }
-      int h3 = value[0];
+      final int h3 = value[0];
       value[0] =
           (h1 << 8)
               | (h2 << 4)
@@ -287,12 +323,12 @@ public final class InetAddress implements
       if (result != null) {
         return result;
       }
-      int h1 = value[0];
+      final int h1 = value[0];
       result = getHexValue(address.charAt(start + 1), value);
       if (result != null) {
         return result;
       }
-      int h2 = value[0];
+      final int h2 = value[0];
       value[0] =
           (h1 << 4)
               |  h2;
@@ -307,7 +343,7 @@ public final class InetAddress implements
   }
 
   /**
-   * Supports the following formats:
+   * Supports the following formats.
    * <ol>
    *   <li><code>ddd.ddd.ddd.ddd</code> - IPv4</li>
    *   <li><code>hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:hhhh</code> (with single :: shortcut) - IPv6</li>
@@ -322,43 +358,43 @@ public final class InetAddress implements
    */
   private static Object parse(String address) {
     int[] outValue = new int[1];
-    boolean requireIPv6;
+    boolean requireIpv6;
     int start;
     int end;
-    {
-      // Be non-empty
-      int len = address.length();
-      if (len == 0) {
-        return new InvalidResult(RESOURCES, "parse.empty");
-      }
       {
-        final int maxLen = "[hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd]".length();
-        if (len > maxLen) {
-          return new InvalidResult(RESOURCES, "parse.tooLong");
+        // Be non-empty
+        int len = address.length();
+        if (len == 0) {
+          return new InvalidResult(RESOURCES, "parse.empty");
+        }
+          {
+            final int maxLen = "[hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd]".length();
+            if (len > maxLen) {
+              return new InvalidResult(RESOURCES, "parse.tooLong");
+            }
+          }
+        if (
+            len >= 2
+                && address.charAt(0) == '['
+                && address.charAt(len - 1) == ']'
+        ) {
+          requireIpv6 = true;
+          start = 1;
+          end = len - 1;
+          if (start == end) {
+            return new InvalidResult(RESOURCES, "parse.bracketsEmptyIPv6");
+          }
+          final int maxLen = "hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd".length();
+          assert (end - start) == (len - 2);
+          if ((end - start) > maxLen) {
+            return new InvalidResult(RESOURCES, "parse.tooLong");
+          }
+        } else {
+          requireIpv6 = false;
+          start = 0;
+          end = len;
         }
       }
-      if (
-          len >= 2
-              && address.charAt(0) == '['
-              && address.charAt(len - 1) == ']'
-      ) {
-        requireIPv6 = true;
-        start = 1;
-        end = len - 1;
-        if (start == end) {
-          return new InvalidResult(RESOURCES, "parse.bracketsEmptyIPv6");
-        }
-        final int maxLen = "hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd".length();
-        assert (end - start) == (len - 2);
-        if ((end - start) > maxLen) {
-          return new InvalidResult(RESOURCES, "parse.tooLong");
-        }
-      } else {
-        requireIPv6 = false;
-        start = 0;
-        end = len;
-      }
-    }
     // Look for any dot, stopping at a colon
     int dot3Pos = -1;
     for (int c = end - 1; c >= start; c--) {
@@ -390,22 +426,22 @@ public final class InetAddress implements
       if (result != null) {
         return result;
       }
-      int o1 = outValue[0];
+      final int o1 = outValue[0];
       result = parseOctet(address, dot1Pos + 1, dot2Pos, outValue);
       if (result != null) {
         return result;
       }
-      int o2 = outValue[0];
+      final int o2 = outValue[0];
       result = parseOctet(address, dot2Pos + 1, dot3Pos, outValue);
       if (result != null) {
         return result;
       }
-      int o3 = outValue[0];
+      final int o3 = outValue[0];
       result = parseOctet(address, dot3Pos + 1, end, outValue);
       if (result != null) {
         return result;
       }
-      int o4 = outValue[0];
+      final int o4 = outValue[0];
       ipLow =
           (long) o1 << 24
               | (long) o2 << 16
@@ -413,7 +449,7 @@ public final class InetAddress implements
               | o4;
       if (rightColonPos == -1) {
         // IPv4
-        if (requireIPv6) {
+        if (requireIpv6) {
           return new InvalidResult(RESOURCES, "parse.bracketsNotIPv6");
         }
         return LongLong.valueOf(
@@ -533,7 +569,8 @@ public final class InetAddress implements
 
   private static final long serialVersionUID = 2L;
 
-  final long hi, lo;
+  final long hi;
+  final long lo;
 
   private InetAddress(long hi, long lo) {
     this.hi = hi;
@@ -548,8 +585,7 @@ public final class InetAddress implements
     InetAddress other = (InetAddress) obj;
     return
         hi == other.hi
-            && lo == other.lo
-    ;
+            && lo == other.lo;
   }
 
   @Override
@@ -581,7 +617,7 @@ public final class InetAddress implements
     if (hi == UNSPECIFIED_HI && lo == IPV6_UNSPECIFIED_LO) {
       return "::";
     }
-    if (hi == LOOPBACK_HI    && lo == IPV6_LOOPBACK_LO   ) {
+    if (hi == LOOPBACK_HI    && lo == IPV6_LOOPBACK_LO) {
       return "::1";
     }
     if (hi == IPV4_HI) {
@@ -691,11 +727,11 @@ public final class InetAddress implements
     @SuppressWarnings("deprecation")
     AddressFamily family = getAddressFamily();
     switch (family) {
-      case INET6 :
+      case INET6:
         return '[' + toString() + ']';
-      case INET :
+      case INET:
         return toString();
-      default :
+      default:
         throw new AssertionError("Unexpected address family: " + family);
     }
   }
@@ -763,8 +799,7 @@ public final class InetAddress implements
             && (
             lo == IPV6_UNSPECIFIED_LO
                 || lo == IPV4_UNSPECIFIED_LO
-        )
-    ;
+        );
   }
 
   /**
@@ -774,8 +809,7 @@ public final class InetAddress implements
   public boolean isLoopback() {
     return
         (hi == LOOPBACK_HI && lo == IPV6_LOOPBACK_LO)
-            || InetAddressPrefixes.LOOPBACK_IPV4.contains(this)
-    ;
+            || InetAddressPrefixes.LOOPBACK_IPV4.contains(this);
   }
 
   /**
@@ -797,8 +831,7 @@ public final class InetAddress implements
   public boolean isLinkLocal() {
     return
         InetAddressPrefixes.LINK_LOCAL_IPV4.contains(this)
-            || InetAddressPrefixes.LINK_LOCAL_IPV6.contains(this)
-    ;
+            || InetAddressPrefixes.LINK_LOCAL_IPV6.contains(this);
   }
 
   /**
@@ -808,8 +841,7 @@ public final class InetAddress implements
   public boolean isMulticast() {
     return
         InetAddressPrefixes.MULTICAST_IPV4.contains(this)
-            || InetAddressPrefixes.MULTICAST_IPV6.contains(this)
-    ;
+            || InetAddressPrefixes.MULTICAST_IPV6.contains(this);
   }
 
   /**
@@ -823,8 +855,7 @@ public final class InetAddress implements
         InetAddressPrefixes.UNIQUE_LOCAL_IPV4_8.contains(this)
             || InetAddressPrefixes.UNIQUE_LOCAL_IPV4_12.contains(this)
             || InetAddressPrefixes.UNIQUE_LOCAL_IPV4_16.contains(this)
-            || InetAddressPrefixes.UNIQUE_LOCAL_IPV6.contains(this)
-    ;
+            || InetAddressPrefixes.UNIQUE_LOCAL_IPV6.contains(this);
   }
 
   /**
@@ -834,8 +865,7 @@ public final class InetAddress implements
   public boolean is6to4() {
     return
         InetAddressPrefixes._6TO4_IPV4.contains(this)
-            || InetAddressPrefixes._6TO4_IPV6.contains(this)
-    ;
+            || InetAddressPrefixes._6TO4_IPV6.contains(this);
   }
 
   /**
@@ -856,8 +886,7 @@ public final class InetAddress implements
         InetAddressPrefixes.DOCUMENTATION_IPV4_1.contains(this)
             || InetAddressPrefixes.DOCUMENTATION_IPV4_2.contains(this)
             || InetAddressPrefixes.DOCUMENTATION_IPV4_3.contains(this)
-            || InetAddressPrefixes.DOCUMENTATION_IPV6.contains(this)
-    ;
+            || InetAddressPrefixes.DOCUMENTATION_IPV6.contains(this);
   }
 
   /**
@@ -867,8 +896,7 @@ public final class InetAddress implements
   public boolean isNetworkBenchmark() {
     return
         InetAddressPrefixes.BENCHMARK_IPV4.contains(this)
-            || InetAddressPrefixes.BENCHMARK_IPV6.contains(this)
-    ;
+            || InetAddressPrefixes.BENCHMARK_IPV6.contains(this);
   }
 
   /**
@@ -934,6 +962,7 @@ public final class InetAddress implements
   /**
    * @deprecated  Please use {@link #getProtocolFamily()}
    */
+  // TODO: Remove in 3.0.0 release
   @Deprecated
   public boolean isIPv4() {
     return getAddressFamily() == AddressFamily.INET;
@@ -942,6 +971,7 @@ public final class InetAddress implements
   /**
    * @deprecated  Please use {@link #getProtocolFamily()}
    */
+  // TODO: Remove in 3.0.0 release
   @Deprecated
   public boolean isIPv6() {
     return getAddressFamily() == AddressFamily.INET6;

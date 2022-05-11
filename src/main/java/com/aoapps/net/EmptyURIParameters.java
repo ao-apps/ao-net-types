@@ -46,6 +46,8 @@ public final class EmptyURIParameters implements URIParameters {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see  URIParameters#toString()
    */
   @Override

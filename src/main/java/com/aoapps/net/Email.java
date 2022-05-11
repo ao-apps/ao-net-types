@@ -65,8 +65,7 @@ public final class Email implements
     FastExternalizable,
     DtoFactory<com.aoapps.net.dto.Email>,
     Internable<Email>,
-    SQLData
-{
+    SQLData {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Email.class);
 
@@ -145,8 +144,7 @@ public final class Email implements
               || ch == '|'
               || ch == '}'
               || ch == '~'
-              || ch == '.' // Dot here for completeness, but algorithm below will not use it
-      ;
+              || ch == '.'; // Dot here for completeness, but algorithm below will not use it
     }
   }
 
@@ -268,8 +266,7 @@ public final class Email implements
     Email other = (Email) obj;
     return
         localPart.equals(other.localPart)
-            && domain.equals(other.domain)
-    ;
+            && domain.equals(other.domain);
   }
 
   @Override

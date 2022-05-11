@@ -191,6 +191,8 @@ public class URIParametersMap implements MutableURIParameters {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see  URIParameters#toString()
    */
   @Override

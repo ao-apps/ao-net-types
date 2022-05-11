@@ -23,8 +23,12 @@
 
 package com.aoapps.net;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import com.aoapps.lang.validation.ValidationException;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**

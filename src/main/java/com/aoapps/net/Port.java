@@ -45,8 +45,7 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
  */
 public final class Port extends IPortRange implements
     Serializable,
-    DtoFactory<com.aoapps.net.dto.Port>
-{
+    DtoFactory<com.aoapps.net.dto.Port> {
 
   static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Port.class);
 
@@ -85,16 +84,16 @@ public final class Port extends IPortRange implements
   static Port valueOfNoValidate(int port, Protocol protocol) {
     AtomicReferenceArray<Port> cache;
     switch (protocol) {
-      case TCP :
+      case TCP:
         cache = tcpCache;
         break;
-      case UDP :
+      case UDP:
         cache = udpCache;
         break;
-      case SCTP :
+      case SCTP:
         cache = sctpCache;
         break;
-      default :
+      default:
         throw new AssertionError(new ValidationException(new InvalidResult(RESOURCES, "validate.unsupportedProtocol", protocol)));
     }
     int cacheIndex = port - MIN_PORT;
@@ -174,8 +173,7 @@ public final class Port extends IPortRange implements
     return
       obj instanceof Port
       && ((Port)obj).port == port
-      && ((Port)obj).protocol == protocol
-    ;
+      && ((Port)obj).protocol == protocol;
      */
   }
 
@@ -185,6 +183,8 @@ public final class Port extends IPortRange implements
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return The port and protocol, such as 110/TCP.
    */
   @Override

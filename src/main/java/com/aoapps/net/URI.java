@@ -153,6 +153,8 @@ public class URI extends AnyURI {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  {@code true} when this was derived from an {@link IRI}, which are always encoding normalized.
    *          {@code false} otherwise, since the percent-encoding normalization status is unknown.
    */
@@ -162,6 +164,8 @@ public class URI extends AnyURI {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  {@code this}
    */
   @Override
@@ -170,6 +174,8 @@ public class URI extends AnyURI {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  The {@link IRI}.
    */
   @Override

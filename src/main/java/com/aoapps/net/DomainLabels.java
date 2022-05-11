@@ -59,8 +59,7 @@ public final class DomainLabels
     Comparable<DomainLabels>,
     FastExternalizable,
     DtoFactory<com.aoapps.net.dto.DomainLabels>,
-    Internable<DomainLabels>
-{
+    Internable<DomainLabels> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainLabels.class);
 
@@ -145,8 +144,7 @@ public final class DomainLabels
   public boolean equals(Object obj) {
     return
         (obj instanceof DomainLabels)
-            && lowerLabels.equals(((DomainLabels) obj).lowerLabels)
-    ;
+            && lowerLabels.equals(((DomainLabels) obj).lowerLabels);
   }
 
   @Override

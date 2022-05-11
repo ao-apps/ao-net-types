@@ -57,29 +57,29 @@ public final class URIParametersUtils {
                 + mapSize * 20
         );
         int anchorStart;
-        {
-          // Find first of '?' or '#'
-          int pathEnd = URIParser.getPathEnd(uri);
-          if (pathEnd >= uriLen) {
-            // First parameter to end
-            newUri.append(uri).append('?');
-            anchorStart = -1;
-          } else if (uri.charAt(pathEnd) == '?') {
-            anchorStart = uri.indexOf('#', pathEnd + 1);
-            if (anchorStart == -1) {
-              // Additional parameter to end
-              newUri.append(uri).append('&');
+          {
+            // Find first of '?' or '#'
+            int pathEnd = URIParser.getPathEnd(uri);
+            if (pathEnd >= uriLen) {
+              // First parameter to end
+              newUri.append(uri).append('?');
+              anchorStart = -1;
+            } else if (uri.charAt(pathEnd) == '?') {
+              anchorStart = uri.indexOf('#', pathEnd + 1);
+              if (anchorStart == -1) {
+                // Additional parameter to end
+                newUri.append(uri).append('&');
+              } else {
+                // Additional parameter before anchor
+                newUri.append(uri, 0, anchorStart).append('&');
+              }
             } else {
-              // Additional parameter before anchor
-              newUri.append(uri, 0, anchorStart).append('&');
+              // First parameter before anchor
+              assert uri.charAt(pathEnd) == '#';
+              anchorStart = pathEnd;
+              newUri.append(uri, 0, anchorStart).append('?');
             }
-          } else {
-            // First parameter before anchor
-            assert uri.charAt(pathEnd) == '#';
-            anchorStart = pathEnd;
-            newUri.append(uri, 0, anchorStart).append('?');
           }
-        }
         try {
           appendQueryString(paramsMap.entrySet(), newUri);
         } catch (IOException e) {

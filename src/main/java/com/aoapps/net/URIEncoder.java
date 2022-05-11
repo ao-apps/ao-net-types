@@ -38,6 +38,7 @@ import java.util.Locale;
  * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
  * They are not meant for general purpose URL manipulation, and are not trying to replace
  * any full-featured URI tools.
+ * </p>
  * <p>
  * Consider the following if needing more than what this provides (in no particular order):
  * </p>
@@ -338,7 +339,8 @@ public final class URIEncoder {
               // encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
             }
             char ch = uri.charAt(nextPos);
-            char ch2, ch3;
+            char ch2;
+            char ch3;
             if (
                 ch == '%'
                     && (nextPos + 2) < len

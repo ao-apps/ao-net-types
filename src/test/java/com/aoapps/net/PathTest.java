@@ -23,17 +23,18 @@
 
 package com.aoapps.net;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
+import com.aoapps.lang.LocalizedIllegalArgumentException;
+import com.aoapps.lang.validation.ValidationException;
+import org.junit.Test;
+
 /**
  * @see Path
  *
  * @author  AO Industries, Inc.
  */
-import com.aoapps.lang.LocalizedIllegalArgumentException;
-import com.aoapps.lang.validation.ValidationException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import org.junit.Test;
-
 public class PathTest {
 
   @Test

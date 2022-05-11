@@ -149,6 +149,8 @@ public class IRI extends AnyURI {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  {@code true} - {@link IRI} are always encoding normalized.
    */
   @Override
@@ -172,6 +174,8 @@ public class IRI extends AnyURI {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  {@code this}
    */
   @Override

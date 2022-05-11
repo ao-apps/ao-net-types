@@ -46,8 +46,7 @@ import java.util.ResourceBundle;
 public final class InetAddressPrefix implements
     Comparable<InetAddressPrefix>,
     Serializable,
-    DtoFactory<com.aoapps.net.dto.InetAddressPrefix>
-{
+    DtoFactory<com.aoapps.net.dto.InetAddressPrefix> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, InetAddressPrefix.class);
 
@@ -113,17 +112,17 @@ public final class InetAddressPrefix implements
       );
     } else {
       int prefix;
-      {
-        String prefixStr = address.substring(slashPos + 1);
-        try {
-          prefix = Integer.parseInt(prefixStr);
-        } catch (NumberFormatException e) {
-          throw new ValidationException(
-              e,
-              new InvalidResult(RESOURCES, "valueOf.prefix.parseError", prefixStr)
-          );
+        {
+          String prefixStr = address.substring(slashPos + 1);
+          try {
+            prefix = Integer.parseInt(prefixStr);
+          } catch (NumberFormatException e) {
+            throw new ValidationException(
+                e,
+                new InvalidResult(RESOURCES, "valueOf.prefix.parseError", prefixStr)
+            );
+          }
         }
-      }
       return InetAddressPrefix.valueOf(
           InetAddress.valueOf(address.substring(0, slashPos)),
           prefix
@@ -192,8 +191,7 @@ public final class InetAddressPrefix implements
     InetAddressPrefix other = (InetAddressPrefix) obj;
     return
         address.equals(other.address)
-            && prefix == other.prefix
-    ;
+            && prefix == other.prefix;
   }
 
   @Override
@@ -202,6 +200,8 @@ public final class InetAddressPrefix implements
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  The address and optional prefix as <code><i>address</i>[/<i>prefix</i>]</code>.
    *
    * @see  #valueOf(String)  for the inverse function
@@ -252,7 +252,7 @@ public final class InetAddressPrefix implements
     @SuppressWarnings("deprecation")
     AddressFamily family = address.getAddressFamily();
     switch (family) {
-      case INET : {
+      case INET: {
         assert address.hi == InetAddress.IPV4_HI;
         assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
         long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
@@ -266,12 +266,13 @@ public final class InetAddressPrefix implements
           );
         }
       }
-      case INET6 : {
+      case INET6: {
         // Note: Careful of Java's left shift modulo 64 behavior
         if (prefix == 128) {
           return address;
         }
-        long fromHi, fromLo;
+        long fromHi;
+        long fromLo;
         if (prefix == 0) {
           fromHi = fromLo = 0;
         } else if (prefix < 64) {
@@ -299,7 +300,7 @@ public final class InetAddressPrefix implements
           );
         }
       }
-      default :
+      default:
         throw new AssertionError("Unexpected address family: " + family);
     }
   }
@@ -313,7 +314,7 @@ public final class InetAddressPrefix implements
   public InetAddress getTo() {
     AddressFamily family = address.getAddressFamily();
     switch (family) {
-      case INET : {
+      case INET: {
         assert address.hi == InetAddress.IPV4_HI;
         assert (address.lo & InetAddress.IPV4_NET_MAPPED_LO) == InetAddress.IPV4_NET_MAPPED_LO;
         long netmask = (0xffffffffL << (32 - prefix)) & 0xffffffffL;
@@ -327,12 +328,13 @@ public final class InetAddressPrefix implements
           );
         }
       }
-      case INET6 : {
+      case INET6: {
         // Note: Careful of Java's left shift modulo 64 behavior
         if (prefix == 128) {
           return address;
         }
-        long toHi, toLo;
+        long toHi;
+        long toLo;
         if (prefix == 0) {
           toHi = toLo = 0xffffffffffffffffL;
         } else if (prefix < 64) {
@@ -360,7 +362,7 @@ public final class InetAddressPrefix implements
           );
         }
       }
-      default :
+      default:
         throw new AssertionError("Unexpected address family: " + family);
     }
   }
@@ -393,12 +395,12 @@ public final class InetAddressPrefix implements
       long otherLo
   ) {
     switch (addressFamily) {
-      case INET : {
+      case INET: {
         assert thisHi == otherHi;
         long netmask = (0xffffffffL << (32 - thisPrefix)) & 0xffffffffL;
         return (thisLo & netmask) == (otherLo & netmask);
       }
-      case INET6 : {
+      case INET6: {
         // Note: Careful of Java's left shift modulo 64 behavior
         if (thisPrefix == 128) {
           return thisHi == otherHi && thisLo == otherLo;
@@ -419,7 +421,7 @@ public final class InetAddressPrefix implements
           return (thisLo & netmask) == (otherLo & netmask);
         }
       }
-      default :
+      default:
         throw new AssertionError("Unexpected address family: " + addressFamily);
     }
   }
@@ -467,8 +469,7 @@ public final class InetAddressPrefix implements
             thisPrefix,
             otherHi,
             otherLo
-        )
-    ;
+        );
   }
 
   /**

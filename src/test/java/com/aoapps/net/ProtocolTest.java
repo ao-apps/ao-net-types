@@ -23,8 +23,12 @@
 
 package com.aoapps.net;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Locale;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**

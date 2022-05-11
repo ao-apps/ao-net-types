@@ -49,8 +49,7 @@ public final class HostAddress implements
     Comparable<HostAddress>,
     Serializable,
     DtoFactory<com.aoapps.net.dto.HostAddress>,
-    Internable<HostAddress>
-{
+    Internable<HostAddress> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, HostAddress.class);
 
@@ -124,8 +123,7 @@ public final class HostAddress implements
     return
         isIp(address)
             ? valueOf(InetAddress.valueOf(address))
-            : valueOf(DomainName.valueOf(address))
-    ;
+            : valueOf(DomainName.valueOf(address));
   }
 
   /**
@@ -193,8 +191,7 @@ public final class HostAddress implements
     HostAddress other = (HostAddress) obj;
     return
         Objects.equals(domainName, other.domainName)
-            && Objects.equals(inetAddress, other.inetAddress)
-    ;
+            && Objects.equals(inetAddress, other.inetAddress);
   }
 
   @Override

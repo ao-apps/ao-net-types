@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ao-net-types - Networking-related value types.
+Copyright (C) 2022  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of ao-net-types.
+
+ao-net-types is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ao-net-types is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+
+  <!-- TODO: Complete Javadocs -->
+  <suppress checks="(MissingJavadocMethod|MissingJavadocType|SummaryJavadoc)" />
+
+  <!-- TODO: Remove in 3.0.0 release -->
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]InetAddress\.java$"
+    message="'(isIPv4|isIPv6)'"
+  />
+
+  <!-- Allowing "I" prefix to denote interface -->
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]IPortRange\.java$"
+    message="'IPortRange'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]IPortRangeTest\.java$"
+    message="'IPortRangeTest'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]dto[/\\]IPortRange\.java$"
+    message="'IPortRange'"
+  />
+
+  <!-- Consistency with standard "URLDecoder", "URLEncoder", and "URL" -->
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]AnyURI\.java$"
+    message="'(AnyURI|newAnyURI|toASCIIString|toIRI|toIRICache|toURI|toURICache)'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]AnyURITest\.java$"
+    message="'(AnyURITest|anyURI|testDecodeURI.*|testEncodeURI.*)'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]EmptyURIParameters\.java$"
+    message="'EmptyURIParameters'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]IRI\.java$"
+    message="'IRI'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]MutableURIParameters\.java$"
+    message="'MutableURIParameters'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]UnmodifiableURIParameters\.java$"
+    message="'UnmodifiableURIParameters'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIDecoder\.java$"
+    message="'(URIDecoder|decodeURI|decodeURIComponent)'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIDecoderTest\.java$"
+    message="'(URIDecoderTest|testDecodeURI)'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIEncoder\.java$"
+    message="'(URIEncoder|encodeURI|encodeURIComponent)'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIEncoderTest\.java$"
+    message="'(URIEncoderTest|testEncodeURI)'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIParser\.java$"
+    message="'URIParser'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIParameters\.java$"
+    message="'URIParameters'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIParametersMap\.java$"
+    message="'URIParametersMap'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIParametersUtils\.java$"
+    message="'URIParametersUtils'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIResolver\.java$"
+    message="'URIResolver'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIResolverTest\.java$"
+    message="'URIResolverTest'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URI\.java$"
+    message="'URI'"
+  />
+
+  <!-- Using underscores in test method names -->
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]InetAddressPrefixTest\.java$"
+    message="'test.*_.*'"
+  />
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]InetAddressPrefixesTest\.java$"
+    message="'test.*_.*'"
+  />
+
+  <!-- Will continue using "RFC" prefix -->
+  <suppress
+    checks="AbbreviationAsWordInName"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]RFC[0-9]+.*\.java$"
+    message="'RFC[0-9]+'"
+  />
+
+  <!-- Will not reorder overloads -->
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]AnyURITest\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]DomainLabel\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]DomainLabels\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]DomainName\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]Email\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]HostAddress\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]InetAddressPrefix\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]MacAddress\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]MutableURIParameters\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]Path\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]Port\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]PortRange\.java$"
+  />
+  <suppress
+    checks="OverloadMethodsDeclarationOrder"
+    files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIEncoder\.java$"
+  />
+
+</suppressions>

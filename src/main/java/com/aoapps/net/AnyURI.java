@@ -86,6 +86,7 @@ import java.util.Objects;
  * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
  * They are not meant for general purpose URL manipulation, and are not trying to replace
  * any full-featured URI tools.
+ * </p>
  * <p>
  * Consider the following if needing more than what this provides (in no particular order):
  * </p>
@@ -239,9 +240,12 @@ public class AnyURI {
     if (this == other) {
       return true;
     } else if (uri.equals(other.uri)) {
-      assert schemeLength == other.schemeLength : "uri equal with schemeLength mismatch: uri = " + uri + ", this.schemeLength = " + this.schemeLength + ", other.schemeLength = " + other.schemeLength;
-      assert queryIndex == other.queryIndex : "uri equal with queryIndex mismatch: uri = " + uri + ", this.queryIndex = " + this.queryIndex + ", other.queryIndex = " + other.queryIndex;
-      assert fragmentIndex == other.fragmentIndex : "uri equal with fragmentIndex mismatch: uri = " + uri + ", this.fragmentIndex = " + this.fragmentIndex + ", other.fragmentIndex = " + other.fragmentIndex;
+      assert schemeLength == other.schemeLength
+          : "uri equal with schemeLength mismatch: uri = " + uri + ", this.schemeLength = " + this.schemeLength + ", other.schemeLength = " + other.schemeLength;
+      assert queryIndex == other.queryIndex
+          : "uri equal with queryIndex mismatch: uri = " + uri + ", this.queryIndex = " + this.queryIndex + ", other.queryIndex = " + other.queryIndex;
+      assert fragmentIndex == other.fragmentIndex
+          : "uri equal with fragmentIndex mismatch: uri = " + uri + ", this.fragmentIndex = " + this.fragmentIndex + ", other.fragmentIndex = " + other.fragmentIndex;
       return true;
     } else {
       return false;

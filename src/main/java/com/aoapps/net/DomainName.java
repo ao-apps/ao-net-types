@@ -68,8 +68,7 @@ public final class DomainName implements
     Comparable<DomainName>,
     FastExternalizable,
     DtoFactory<com.aoapps.net.dto.DomainName>,
-    Internable<DomainName>
-{
+    Internable<DomainName> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, DomainName.class);
 
@@ -107,13 +106,12 @@ public final class DomainName implements
     return
         slashPos != -1
             && isNumeric(label, beginIndex, slashPos)
-            && isNumeric(label, slashPos + 1, endIndex)
-    ;
+            && isNumeric(label, slashPos + 1, endIndex);
   }
 
   /**
    * Checks if ends with .in-addr.arpa (case insensitive).
-   *
+   * <pre>
    * Performance measurement of new implementation versus old (10,000,000 iterations):
    *     "This is not an arpa"
    *         Old: 2911.130028 ms
@@ -127,6 +125,7 @@ public final class DomainName implements
    *         Old: 2712.463721 ms
    *         New: 284.561373 ms
    *         Improvement: 9.5 times
+   * </pre>
    */
   public static boolean isArpa(String domain) {
     // Stupid-fast implementation - performance vs. complexity gone too far?
@@ -134,20 +133,19 @@ public final class DomainName implements
     char ch;
     return
         pos >= 0
-            &&      domain.charAt(pos++) == '.'
+            &&        domain.charAt(pos++)  == '.'
             && ((ch = domain.charAt(pos++)) == 'i' || ch == 'I')
             && ((ch = domain.charAt(pos++)) == 'n' || ch == 'N')
-            &&      domain.charAt(pos++) == '-'
+            &&        domain.charAt(pos++)  == '-'
             && ((ch = domain.charAt(pos++)) == 'a' || ch == 'A')
             && ((ch = domain.charAt(pos++)) == 'd' || ch == 'D')
             && ((ch = domain.charAt(pos++)) == 'd' || ch == 'D')
             && ((ch = domain.charAt(pos++)) == 'r' || ch == 'R')
-            &&      domain.charAt(pos++) == '.'
+            &&        domain.charAt(pos++)  == '.'
             && ((ch = domain.charAt(pos++)) == 'a' || ch == 'A')
             && ((ch = domain.charAt(pos++)) == 'r' || ch == 'R')
             && ((ch = domain.charAt(pos++)) == 'p' || ch == 'P')
-            && ((ch = domain.charAt(pos  )) == 'a' || ch == 'A')
-    ;
+            && ((ch = domain.charAt(pos))   == 'a' || ch == 'A');
     //return domain.toLowerCase(Locale.ENGLISH).endsWith(".in-addr.arpa");
   }
   /*
@@ -290,10 +288,8 @@ public final class DomainName implements
   }
 
   // Note: These constants must go below the static checks due to class initialization order
-  public static final DomainName
-      LOCALHOST,
-      LOCALHOST_LOCALDOMAIN
-  ;
+  public static final DomainName LOCALHOST;
+  public static final DomainName LOCALHOST_LOCALDOMAIN;
 
   static {
     LOCALHOST = new DomainName("localhost", "localhost").intern();
@@ -334,8 +330,7 @@ public final class DomainName implements
   public boolean equals(Object obj) {
     return
         (obj instanceof DomainName)
-            && lowerDomain.equals(((DomainName) obj).lowerDomain)
-    ;
+            && lowerDomain.equals(((DomainName) obj).lowerDomain);
   }
 
   @Override

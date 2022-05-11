@@ -102,6 +102,8 @@ public interface URIParameters extends Writable {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see URIParametersUtils#appendQueryString(com.aoapps.net.URIParameters, java.lang.Appendable)
    */
   @Override
@@ -115,6 +117,8 @@ public interface URIParameters extends Writable {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see URIParametersUtils#appendQueryString(com.aoapps.net.URIParameters, com.aoapps.lang.io.Encoder, java.lang.Appendable)
    */
   @Override

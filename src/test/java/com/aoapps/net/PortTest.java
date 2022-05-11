@@ -23,15 +23,17 @@
 
 package com.aoapps.net;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import com.aoapps.lang.validation.ValidationException;
+import org.junit.Test;
+
 /**
  * @see Port
  *
  * @author  AO Industries, Inc.
  */
-import com.aoapps.lang.validation.ValidationException;
-import static org.junit.Assert.*;
-import org.junit.Test;
-
 public class PortTest {
 
   @Test
@@ -52,14 +54,16 @@ public class PortTest {
 
   @Test
   public void testMaxFrom() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         Port.valueOf(65535, Protocol.TCP)
     );
   }
 
   @Test
   public void testMinTo() throws ValidationException {
-    assertNotNull( // Using this assertion to avoid editor warnings about return value not used
+    assertNotNull(
+        "Using this assertion to avoid editor warnings about return value not used",
         Port.valueOf(1, Protocol.TCP)
     );
   }

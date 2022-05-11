@@ -52,8 +52,7 @@ public final class MacAddress implements
     Comparable<MacAddress>,
     Serializable,
     DtoFactory<com.aoapps.net.dto.MacAddress>,
-    Internable<MacAddress>
-{
+    Internable<MacAddress> {
 
   private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, MacAddress.class);
 
@@ -207,8 +206,7 @@ public final class MacAddress implements
   public boolean equals(Object obj) {
     return
         (obj instanceof MacAddress)
-            && address.equals(((MacAddress) obj).address)
-    ;
+            && address.equals(((MacAddress) obj).address);
   }
 
   @Override
