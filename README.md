@@ -22,7 +22,7 @@ Networking-related value types.
 * [Project Home](https://oss.aoapps.com/net-types/)
 * [Changelog](https://oss.aoapps.com/net-types/changelog)
 * [API Docs](https://oss.aoapps.com/net-types/apidocs/)
-* [Maven Central Repository](https://central.sonatype.com/search?namespace=com.aoapps&q=a%3Aao-net-types)
+* [Maven Central Repository](https://central.sonatype.com/artifact/com.aoapps/ao-net-types)
 * [GitHub](https://github.com/ao-apps/ao-net-types)
 
 ## Features
