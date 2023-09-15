@@ -130,7 +130,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
         <configuration>
-          <ignoredUnusedDeclaredDependencies>
+          <ignoredUnusedDeclaredDependencies combine.children="append">
             <dependency>com.aoapps:ao-tlds:jar</dependency><!-- Secondary artifact -->
           </ignoredUnusedDeclaredDependencies>
         </configuration>
