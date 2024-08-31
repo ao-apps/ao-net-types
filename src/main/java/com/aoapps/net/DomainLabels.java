@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2011-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -133,6 +133,16 @@ public final class DomainLabels
     this.lowerLabels = lowerLabels;
   }
 
+  /**
+   * @deprecated  Only required for implementation, do not use directly.
+   *
+   * @see  FastExternalizable
+   */
+  @Deprecated // Java 9: (forRemoval = true)
+  public DomainLabels() {
+    // Do nothing
+  }
+
   private void validate() throws ValidationException {
     ValidationResult result = validate(labels);
     if (!result.isValid()) {
@@ -205,16 +215,6 @@ public final class DomainLabels
 
   // <editor-fold defaultstate="collapsed" desc="FastExternalizable">
   private static final long serialVersionUID = -2681659044454796989L;
-
-  /**
-   * @deprecated  Only required for implementation, do not use directly.
-   *
-   * @see  FastExternalizable
-   */
-  @Deprecated // Java 9: (forRemoval = true)
-  public DomainLabels() {
-    // Do nothing
-  }
 
   @Override
   public long getSerialVersionUID() {

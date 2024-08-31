@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -319,6 +319,16 @@ public final class DomainName implements
     this.lowerDomain = lowerDomain;
   }
 
+  /**
+   * @deprecated  Only required for implementation, do not use directly.
+   *
+   * @see  FastExternalizable
+   */
+  @Deprecated // Java 9: (forRemoval = true)
+  public DomainName() {
+    // Do nothing
+  }
+
   private void validate() throws ValidationException {
     ValidationResult result = validate(domain);
     if (!result.isValid()) {
@@ -432,16 +442,6 @@ public final class DomainName implements
 
   // <editor-fold defaultstate="collapsed" desc="FastExternalizable">
   private static final long serialVersionUID = 2384488670340662487L;
-
-  /**
-   * @deprecated  Only required for implementation, do not use directly.
-   *
-   * @see  FastExternalizable
-   */
-  @Deprecated // Java 9: (forRemoval = true)
-  public DomainName() {
-    // Do nothing
-  }
 
   @Override
   public long getSerialVersionUID() {

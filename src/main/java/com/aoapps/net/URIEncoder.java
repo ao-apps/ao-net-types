@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022, 2023, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -239,15 +239,15 @@ public final class URIEncoder {
     }
   }
 
-  static String encodeRfc3986ReservedCharacters_percent_and_invalid(char ch) {
+  static String encodeRfc3986ReservedCharactersPercentAndInvalid(char ch) {
     return (ch < 128) ? encodedRfc3986ReservedCharacters_percent_and_invalid[ch] : null;
   }
 
-  private static boolean assertEncodeRfc3986ReservedCharacters_percent_and_invalidConsistent() {
+  private static boolean assertEncodeRfc3986ReservedCharactersPercentAndInvalidConsistent() {
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; i++) {
       char ch = (char) i;
       boolean isInBitSet = rfc3986ReservedCharacters_percent_and_invalid.get(ch);
-      String replacement = encodeRfc3986ReservedCharacters_percent_and_invalid(ch);
+      String replacement = encodeRfc3986ReservedCharactersPercentAndInvalid(ch);
       if (isInBitSet) {
         if (replacement == null) {
           throw new AssertionError("Character is in rfc3986ReservedCharacters_percent_and_invalid, but is not encoded: " + ch);
@@ -262,7 +262,7 @@ public final class URIEncoder {
   }
 
   static {
-    assert assertEncodeRfc3986ReservedCharacters_percent_and_invalidConsistent();
+    assert assertEncodeRfc3986ReservedCharactersPercentAndInvalidConsistent();
   }
 
   private static final BitSet rfc3986ReservedCharacters_percent_invalid_and_space;
