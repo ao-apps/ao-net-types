@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2017-03-17T22:44:47-05:00"
-    dateModified="2024-08-31T19:37:53Z"
+    dateModified="2024-09-12T21:07:22Z"
   >
     <c:set var="latestRelease" value="2.0.2" />
     <c:if test="${
@@ -55,6 +55,11 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
       >
         <ul>
           <li>Updated to <ao:a href="https://checkstyle.org/releasenotes.html#Release_10.18.1">Checkstyle 10.18.1</ao:a>.</li>
+          <li>
+            When parameter values are an <code>Enum</code>, the parameter value is obtained from <code>Enum.name()</code> instead of
+            <code>Enum.toString()</code>.  This is to intuitively use enums as parameters when <code>Enum.toString()</code> is
+            overridden.
+          </li>
         </ul>
       </changelog:release>
     </c:if>

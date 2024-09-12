@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011, 2016, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2011, 2016, 2019, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -49,6 +49,11 @@ public interface MutableURIParameters extends URIParameters {
    * converted to a string.  It is incorrect to change the state of the provided value; doing
    * so may or may not affect the value of the resulting parameter.
    * </p>
+   * <p>
+   * When the value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
+   * {@link Enum#toString()}.  This is to intuitively use enums as parameters when {@link Enum#toString()} is
+   * overridden.
+   * </p>
    *
    * @param name   Required when {@code value} is not {@code null}.
    *
@@ -58,7 +63,7 @@ public interface MutableURIParameters extends URIParameters {
    */
   default MutableURIParameters add(String name, Object value) {
     if (value != null) {
-      add(name, Coercion.toString(value));
+      add(name, (value instanceof Enum) ? ((Enum) value).name() : Coercion.toString(value));
     }
     return this;
   }
@@ -85,6 +90,11 @@ public interface MutableURIParameters extends URIParameters {
    * converted to a string.  It is incorrect to change the state of the provided value; doing
    * so may or may not affect the value of the resulting parameter.
    * </p>
+   * <p>
+   * When a value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
+   * {@link Enum#toString()}.  This is to intuitively use enums as parameters when {@link Enum#toString()} is
+   * overridden.
+   * </p>
    *
    * @param name   Required when {@code value} has any element that is not {@code null}.
    *
@@ -109,6 +119,11 @@ public interface MutableURIParameters extends URIParameters {
    * the conversion to string may be deferred, or the value may be streamed instead of being
    * converted to a string.  It is incorrect to change the state of the provided value; doing
    * so may or may not affect the value of the resulting parameter.
+   * </p>
+   * <p>
+   * When a value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
+   * {@link Enum#toString()}.  This is to intuitively use enums as parameters when {@link Enum#toString()} is
+   * overridden.
    * </p>
    *
    * @param name   Required when {@code value} has any element that is not {@code null}.

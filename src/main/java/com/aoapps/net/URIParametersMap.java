@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011, 2013, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -219,7 +219,7 @@ public class URIParametersMap implements MutableURIParameters {
     //  str = (String)value;
     //} else {
     //  // Coerce to string now
-    //  str = Coercion.toString(value);
+    //  str = (value instanceof Enum) ? ((Enum) value).name() : Coercion.toString(value);
     //  values.set(0, str);
     //}
     //return str;
