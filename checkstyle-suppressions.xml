@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-net-types - Networking-related value types.
-Copyright (C) 2022  AO Industries, Inc.
+Copyright (C) 2022, 2024  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -212,6 +212,12 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
   <suppress
     checks="OverloadMethodsDeclarationOrder"
     files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIEncoder\.java$"
+  />
+
+  <!-- Allow non-standard method names in tests -->
+  <suppress
+    checks="MethodName"
+    files="[/\\]test[/\\]java[/\\]com[/\\]aoapps[/\\]net[/\\]"
   />
 
 </suppressions>
