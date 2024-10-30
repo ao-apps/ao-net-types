@@ -44,16 +44,14 @@ public interface MutableURIParameters extends URIParameters {
 
   /**
    * Adds a parameter with a single value.
-   * <p>
-   * The conversion to string may be deferred, or the value may be streamed instead of being
+   *
+   * <p>The conversion to string may be deferred, or the value may be streamed instead of being
    * converted to a string.  It is incorrect to change the state of the provided value; doing
-   * so may or may not affect the value of the resulting parameter.
-   * </p>
-   * <p>
-   * When the value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
+   * so may or may not affect the value of the resulting parameter.</p>
+   *
+   * <p>When the value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
    * {@link Enum#toString()}.  This is to intuitively use enums as parameters when {@link Enum#toString()} is
-   * overridden.
-   * </p>
+   * overridden.</p>
    *
    * @param name   Required when {@code value} is not {@code null}.
    *
@@ -84,17 +82,15 @@ public interface MutableURIParameters extends URIParameters {
 
   /**
    * Adds a parameter with multiple values.
-   * <p>
-   * The iteration of values will be performed immediately, but
+   *
+   * <p>The iteration of values will be performed immediately, but
    * the conversion to string may be deferred, or the value may be streamed instead of being
    * converted to a string.  It is incorrect to change the state of the provided value; doing
-   * so may or may not affect the value of the resulting parameter.
-   * </p>
-   * <p>
-   * When a value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
+   * so may or may not affect the value of the resulting parameter.</p>
+   *
+   * <p>When a value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
    * {@link Enum#toString()}.  This is to intuitively use enums as parameters when {@link Enum#toString()} is
-   * overridden.
-   * </p>
+   * overridden.</p>
    *
    * @param name   Required when {@code value} has any element that is not {@code null}.
    *
@@ -114,17 +110,15 @@ public interface MutableURIParameters extends URIParameters {
 
   /**
    * Adds a parameter with multiple values.
-   * <p>
-   * The iteration of values will be performed immediately, but
+   *
+   * <p>The iteration of values will be performed immediately, but
    * the conversion to string may be deferred, or the value may be streamed instead of being
    * converted to a string.  It is incorrect to change the state of the provided value; doing
-   * so may or may not affect the value of the resulting parameter.
-   * </p>
-   * <p>
-   * When a value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
+   * so may or may not affect the value of the resulting parameter.</p>
+   *
+   * <p>When a value is an {@link Enum}, the parameter value is obtained from {@link Enum#name()} instead of
    * {@link Enum#toString()}.  This is to intuitively use enums as parameters when {@link Enum#toString()} is
-   * overridden.
-   * </p>
+   * overridden.</p>
    *
    * @param name   Required when {@code value} has any element that is not {@code null}.
    *

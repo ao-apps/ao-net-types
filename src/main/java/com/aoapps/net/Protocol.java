@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -205,13 +205,11 @@ public enum Protocol {
 
   /**
    * Gets a {@link Protocol} given its decimal representation.
-   * <p>
-   * For the duplicated decimal {@code 84} shared by both {@link #TTP}
-   * and {@link #IPTM}, returns {@link #IPTM}.
-   * </p>
-   * <p>
-   * Returns {@link #UNASSIGNED} for any unassigned decimal.
-   * </p>
+   *
+   * <p>For the duplicated decimal {@code 84} shared by both {@link #TTP}
+   * and {@link #IPTM}, returns {@link #IPTM}.</p>
+   *
+   * <p>Returns {@link #UNASSIGNED} for any unassigned decimal.</p>
    *
    * @throws IllegalArgumentException when decimal is not between 0 and 255.
    */
@@ -291,10 +289,9 @@ public enum Protocol {
    * The 8-bit protocol number.  Protocol 84 has two different listings,
    * both TTP and IPTM.  This value cannot be assumed to match the enum
    * {@link #ordinal()}.
-   * <p>
-   * {@link #UNASSIGNED} is used for all unassigned decimal values and is
-   * represented by {@code -1}.
-   * </p>
+   *
+   * <p>{@link #UNASSIGNED} is used for all unassigned decimal values and is
+   * represented by {@code -1}.</p>
    *
    * @return The 8-bit protocol number or {@code -1} for {@link #UNASSIGNED}.
    */

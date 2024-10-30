@@ -34,14 +34,13 @@ import java.util.Locale;
 
 /**
  * URI encoding utilities.
- * <p>
- * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
+ *
+ * <p>TODO: These methods are for highest performance and are consistent with the JavaScript methods.
  * They are not meant for general purpose URL manipulation, and are not trying to replace
- * any full-featured URI tools.
- * </p>
- * <p>
- * Consider the following if needing more than what this provides (in no particular order):
- * </p>
+ * any full-featured URI tools.</p>
+ *
+ * <p>Consider the following if needing more than what this provides (in no particular order):</p>
+ *
  * <ol>
  * <li>{@link URL}</li>
  * <li>{@link java.net.URI}</li>
@@ -65,13 +64,11 @@ public final class URIEncoder {
 
   /**
    * Encodes a value for use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLEncoder#encode(java.lang.String)} then replaces
-   * '+' with "%20".
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLEncoder#encode(java.lang.String)} then replaces
+   * '+' with "%20".</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @see URIDecoder#decodeURIComponent(java.lang.String)
    */
@@ -85,13 +82,11 @@ public final class URIEncoder {
 
   /**
    * Encodes a value for use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-   * '+' with "%20".
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
+   * '+' with "%20".</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.Appendable)
    */
@@ -107,13 +102,11 @@ public final class URIEncoder {
 
   /**
    * Encodes a value for use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-   * '+' with "%20".
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
+   * '+' with "%20".</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @param encoder  An optional encoder the output is applied through
    *
@@ -135,13 +128,11 @@ public final class URIEncoder {
 
   /**
    * Encodes a value for use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-   * '+' with "%20".
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
+   * '+' with "%20".</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.StringBuilder)
    */
@@ -155,13 +146,11 @@ public final class URIEncoder {
 
   /**
    * Encodes a value for use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
-   * '+' with "%20".
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLEncoder#encode(java.lang.String, java.lang.String)} then replaces
+   * '+' with "%20".</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.StringBuffer)
    */
@@ -178,12 +167,10 @@ public final class URIEncoder {
    * Encodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
    * '%' (for already percent-encoded), and unprintable invalid.
-   * <p>
-   * Any existing lower-case percent-encoded values are normalized to upper-case.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>Any existing lower-case percent-encoded values are normalized to upper-case.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a></p>
    *
    * @return  The encoded URI or {@code url} when not modified
    *
@@ -205,12 +192,10 @@ public final class URIEncoder {
    * Encodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
    * '%' (for already percent-encoded), and unprintable invalid.
-   * <p>
-   * Any existing lower-case percent-encoded values are normalized to upper-case.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>Any existing lower-case percent-encoded values are normalized to upper-case.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a></p>
    *
    * @see URIDecoder#decodeURI(java.lang.String, java.lang.Appendable)
    */
@@ -297,12 +282,10 @@ public final class URIEncoder {
    * Encodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
    * '%' (for already percent-encoded), and unprintable invalid.
-   * <p>
-   * Any existing lower-case percent-encoded values are normalized to upper-case.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>Any existing lower-case percent-encoded values are normalized to upper-case.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a></p>
    *
    * @param encoder  An optional encoder the output is applied through
    *
@@ -395,12 +378,10 @@ public final class URIEncoder {
    * Encodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
    * '%' (for already percent-encoded), and unprintable invalid.
-   * <p>
-   * Any existing lower-case percent-encoded values are normalized to upper-case.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>Any existing lower-case percent-encoded values are normalized to upper-case.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a></p>
    *
    * @see URIDecoder#decodeURI(java.lang.String, java.lang.StringBuilder)
    */
@@ -417,12 +398,10 @@ public final class URIEncoder {
    * Encodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>,
    * '%' (for already percent-encoded), and unprintable invalid.
-   * <p>
-   * Any existing lower-case percent-encoded values are normalized to upper-case.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>Any existing lower-case percent-encoded values are normalized to upper-case.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI() - JavaScript | MDN</a></p>
    *
    * @see URIDecoder#decodeURI(java.lang.String, java.lang.StringBuffer)
    */

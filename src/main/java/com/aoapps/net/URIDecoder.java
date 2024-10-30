@@ -32,14 +32,13 @@ import java.net.URLDecoder;
 
 /**
  * URI decoding utilities.
- * <p>
- * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
+ *
+ * <p>TODO: These methods are for highest performance and are consistent with the JavaScript methods.
  * They are not meant for general purpose URL manipulation, and are not trying to replace
- * any full-featured URI tools.
- * </p>
- * <p>
- * Consider the following if needing more than what this provides (in no particular order):
- * </p>
+ * any full-featured URI tools.</p>
+ *
+ * <p>Consider the following if needing more than what this provides (in no particular order):</p>
+ *
  * <ol>
  * <li>{@link URL}</li>
  * <li>{@link java.net.URI}</li>
@@ -63,12 +62,10 @@ public final class URIDecoder {
 
   /**
    * Decodes a value from its use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @see URIEncoder#encodeURIComponent(java.lang.String)
    */
@@ -82,12 +79,10 @@ public final class URIDecoder {
 
   /**
    * Decodes a value from its use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @see URIEncoder#encodeURIComponent(java.lang.String, java.lang.Appendable)
    */
@@ -103,12 +98,10 @@ public final class URIDecoder {
 
   /**
    * Decodes a value from its use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @param encoder  An optional encoder the output is appthrough
    *
@@ -130,12 +123,10 @@ public final class URIDecoder {
 
   /**
    * Decodes a value from its use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @see URIEncoder#encodeURIComponent(java.lang.String, java.lang.StringBuilder)
    */
@@ -149,12 +140,10 @@ public final class URIDecoder {
 
   /**
    * Decodes a value from its use in a path component or fragment in the default encoding <code>{@link IRI#ENCODING}</code>.
-   * <p>
-   * This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.
-   * </p>
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>This uses {@link URLDecoder#decode(java.lang.String, java.lang.String)}.</p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent() - JavaScript | MDN</a></p>
    *
    * @see URIEncoder#encodeURIComponent(java.lang.String, java.lang.StringBuffer)
    */
@@ -211,9 +200,8 @@ public final class URIDecoder {
    * Decodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
    * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a></p>
    *
    * @return  The decoded URI or {@code url} when not modified
    *
@@ -235,9 +223,8 @@ public final class URIDecoder {
    * Decodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
    * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a></p>
    *
    * @see URIEncoder#encodeURI(java.lang.String, java.lang.Appendable)
    */
@@ -250,9 +237,8 @@ public final class URIDecoder {
    * Decodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
    * Furthermore, characters that would decode to a reserved or invalid character are left percent-encoded to avoid ambiguity.
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a></p>
    *
    * @param encoder  An optional encoder the output is applied through
    *
@@ -290,9 +276,8 @@ public final class URIDecoder {
    * Decodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
    * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a></p>
    *
    * @see URIEncoder#encodeURI(java.lang.String, java.lang.StringBuilder)
    */
@@ -309,9 +294,8 @@ public final class URIDecoder {
    * Decodes the characters in the URI, not including any characters defined in
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a>.
    * Furthermore, characters that would decode to a reserved character are left percent-encoded to avoid ambiguity.
-   * <p>
-   * See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a>
-   * </p>
+   *
+   * <p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI() - JavaScript | MDN</a></p>
    *
    * @see URIEncoder#encodeURI(java.lang.String, java.lang.StringBuffer)
    */

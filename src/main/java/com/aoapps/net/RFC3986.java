@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2019, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,15 +27,13 @@ import java.util.BitSet;
 
 /**
  * Java helper for <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 - Uniform Resource Identifier (URI): Generic Syntax</a>.
- * <p>
- * TODO: Find something that does this well already.
+ *
+ * <p>TODO: Find something that does this well already.
  * <a href="https://jena.apache.org/documentation/notes/iri.html">jena-iri</a>?
  * <a href="https://github.com/xbib/net>org.xbib:net-url</a>?
- * <a href="https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/utils/URIBuilder.html">URIBuilder</a>?
- * </p>
- * <p>
- * TODO: Base on <a href="https://url.spec.whatwg.org/">URL Standard</a>, once stabilized and ubiquitous.
- * </p>
+ * <a href="https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/utils/URIBuilder.html">URIBuilder</a>?</p>
+ *
+ * <p>TODO: Base on <a href="https://url.spec.whatwg.org/">URL Standard</a>, once stabilized and ubiquitous.</p>
  *
  * @author  AO Industries, Inc.
  */

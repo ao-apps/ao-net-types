@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -41,11 +41,11 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * Represents either an IPv4 or an IPv6 IP address.
- * <p>
- * The internal storage is always that of an IPv6 address.
+ *
+ * <p>The internal storage is always that of an IPv6 address.
  * IPv4 addresses are stored as IPv4-mapped addresses (<code>::ffff:a.b.c.d</code>),
- * but their external representation is always dotted-decimal IPv4 notation (<code>a.b.c.d</code>).
- * </p>
+ * but their external representation is always dotted-decimal IPv4 notation (<code>a.b.c.d</code>).</p>
+ *
  * <ul>
  *   <li><a href="https://wikipedia.org/wiki/IPv4#Address_representations">https://wikipedia.org/wiki/IPv4#Address_representations</a></li>
  *   <li><a href="https://wikipedia.org/wiki/IPv6_Addresses#Notation">https://wikipedia.org/wiki/IPv6_Addresses#Notation</a></li>
@@ -118,10 +118,9 @@ public final class InetAddress implements
 
   /**
    * Checks if the address is valid by calling <code>parse(String)</code> and discarding the result.
-   * <p>
-   * When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
-   * (see {@link #toBracketedString()}).
-   * </p>
+   *
+   * <p>When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
+   * (see {@link #toBracketedString()}).</p>
    *
    * @see  #parse(String)
    */
@@ -143,10 +142,9 @@ public final class InetAddress implements
 
   /**
    * Parses either an IPv4 or IPv6 address.
-   * <p>
-   * When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
-   * (see {@link #toBracketedString()}).
-   * </p>
+   *
+   * <p>When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
+   * (see {@link #toBracketedString()}).</p>
    *
    * @param address  when {@code null}, returns {@code null}
    */
@@ -814,9 +812,8 @@ public final class InetAddress implements
 
   /**
    * The IPv4 Broadcast (<code>255.255.255.255/32</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc922#section-7">RFC 922, Section 7</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc922#section-7">RFC 922, Section 7</a>.</p>
    *
    * @see  #IPV4_BROADCAST_LO
    */

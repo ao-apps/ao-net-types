@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,18 +29,15 @@ import java.io.Serializable;
 
 /**
  * Something that can give a port range.
- * <p>
- * A single port must be represented by {@link Port}
- * while a port range must use {@link PortRange}.
- * </p>
- * <p>
- * {@link Port} and {@link PortRange} are compatible with
+ *
+ * <p>A single port must be represented by {@link Port}
+ * while a port range must use {@link PortRange}.</p>
+ *
+ * <p>{@link Port} and {@link PortRange} are compatible with
  * {@link #equals(java.lang.Object)}, {@link #hashCode()},
- * and {@link #compareTo(com.aoapps.net.IPortRange)}.
- * </p>
- * <p>
- * Java 1.8: Make this an interface with default methods.
- * </p>
+ * and {@link #compareTo(com.aoapps.net.IPortRange)}.</p>
+ *
+ * <p>Java 1.8: Make this an interface with default methods.</p>
  *
  * @author  AO Industries, Inc.
  */

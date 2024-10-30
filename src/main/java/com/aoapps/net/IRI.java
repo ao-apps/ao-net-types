@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -30,20 +30,17 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Implementation of {@link AnyURI} that prefers <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>.
- * <p>
- * This has consistently formatted percent encodings.
- * </p>
- * <p>
- * Furthermore, this assumes UTF-8 encoding for the query parameters.
+ *
+ * <p>This has consistently formatted percent encodings.</p>
+ *
+ * <p>Furthermore, this assumes UTF-8 encoding for the query parameters.
  * If the query parameters include any arbitrary encoded data, use
- * {@link AnyURI} or {@link URI} instead.
- * </p>
- * <p>
- * When a strict ASCII-only representation of a <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+ * {@link AnyURI} or {@link URI} instead.</p>
+ *
+ * <p>When a strict ASCII-only representation of a <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
  * is required, use {@link URI}.  When a Unicode representation of a <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>
  * is preferred, use {@link IRI}.  Otherwise, to support both, use {@link AnyURI}, which should also perform
- * the best since it performs fewer conversions.
- * </p>
+ * the best since it performs fewer conversions.</p>
  *
  * @author  AO Industries, Inc.
  */
@@ -77,10 +74,9 @@ public class IRI extends AnyURI {
   /**
    * Gets the full IRI in <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>
    * Unicode format.
-   * <p>
-   * This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
-   * and contain consistently formatted percent encodings.
-   * </p>
+   *
+   * <p>This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+   * and contain consistently formatted percent encodings.</p>
    */
   @Override
   public String toString() {
@@ -90,10 +86,9 @@ public class IRI extends AnyURI {
   /**
    * Gets the full URI in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
-   * <p>
-   * This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
-   * and contain consistently formatted percent encodings.
-   * </p>
+   *
+   * <p>This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+   * and contain consistently formatted percent encodings.</p>
    */
   @Override
   public String toASCIIString() {
@@ -161,10 +156,9 @@ public class IRI extends AnyURI {
   /**
    * Gets this URI encoded in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
-   * <p>
-   * This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
-   * and contain consistently formatted percent encodings.
-   * </p>
+   *
+   * <p>This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+   * and contain consistently formatted percent encodings.</p>
    *
    * @return  The {@link URI}.
    */

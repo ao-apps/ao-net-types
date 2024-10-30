@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -51,18 +51,15 @@ import java.util.concurrent.ConcurrentMap;
  *   <li>Not end with /.. or /.</li>
  *   <li>Not contain any // in the path</li>
  * </ul>
- * <p>
- * Note, this concept of path is minimally restrictive and only represents a well-formed path.
+ *
+ * <p>Note, this concept of path is minimally restrictive and only represents a well-formed path.
  * The path may not be valid for some contexts, such as the path part of a URL.
- * This does not implement <a href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a>.
- * </p>
- * <p>
- * TODO: Should we disallow any number path element that is all dots, such as "...." and not just "." and ".."?
- * </p>
- * <p>
- * TODO: This matches <code>UnixPath</code> in aoserv-client with the exception of allowing trailing slash.
- *       Remove this redundancy?
- * </p>
+ * This does not implement <a href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a>.</p>
+ *
+ * <p>TODO: Should we disallow any number path element that is all dots, such as "...." and not just "." and ".."?</p>
+ *
+ * <p>TODO: This matches <code>UnixPath</code> in aoserv-client with the exception of allowing trailing slash.
+ *       Remove this redundancy?</p>
  *
  * @author  AO Industries, Inc.
  */
@@ -300,10 +297,9 @@ public final class Path implements
 
   /**
    * Gets a prefix path of the given length.
-   * <p>
-   * <b>Implementation Note:</b><br>
-   * Calls {@link #subPath(int, int) subPath(0, len)}
-   * </p>
+   *
+   * <p><b>Implementation Note:</b><br>
+   * Calls {@link #subPath(int, int) subPath(0, len)}</p>
    *
    * @param  len  Must be greater than {@code 0}.
    *
@@ -315,10 +311,9 @@ public final class Path implements
 
   /**
    * Gets a suffix path starting at the given index.
-   * <p>
-   * <b>Implementation Note:</b><br>
-   * Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}
-   * </p>
+   *
+   * <p><b>Implementation Note:</b><br>
+   * Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}</p>
    *
    * @param  beginIndex  Must align with a {@link #SEPARATOR_CHAR}.
    *

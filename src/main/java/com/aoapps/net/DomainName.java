@@ -111,8 +111,8 @@ public final class DomainName implements
 
   /**
    * Checks if ends with .in-addr.arpa (case insensitive).
-   * <pre>
-   * Performance measurement of new implementation versus old (10,000,000 iterations):
+   *
+   * <pre>Performance measurement of new implementation versus old (10,000,000 iterations):
    *     "This is not an arpa"
    *         Old: 2911.130028 ms
    *         New: 37.805258 ms
@@ -124,8 +124,7 @@ public final class DomainName implements
    *     "subnet0.144.71.64.in-addr.arpa"
    *         Old: 2712.463721 ms
    *         New: 284.561373 ms
-   *         Improvement: 9.5 times
-   * </pre>
+   *         Improvement: 9.5 times</pre>
    */
   public static boolean isArpa(String domain) {
     // Stupid-fast implementation - performance vs. complexity gone too far?

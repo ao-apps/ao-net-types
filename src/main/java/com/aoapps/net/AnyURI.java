@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -35,9 +35,9 @@ import java.util.Objects;
  * Extremely minimal representation of an <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
  * or <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>,
  * optimized for altering the path, query, or fragment for URI rewriting.
- * <p>
- * This only deals with four parts of the URI:
- * </p>
+ *
+ * <p>This only deals with four parts of the URI:</p>
+ *
  * <ol>
  *   <li>scheme - everything before the first ':' (exclusive).</li>
  *   <li>hier-part - everything after the scheme and before the first '?' or '#' (exclusive).
@@ -46,50 +46,46 @@ import java.util.Objects;
  *   <li>query - everything after the first '?' (exclusive) and the fragment '#' (exclusive)</li>
  *   <li>fragment - everything after the first '#' (exclusive)</li>
  * </ol>
- * <p>
- * This class specifically:
- * </p>
+ *
+ * <p>This class specifically:</p>
+ *
  * <ol>
  * <li>Does not do significant amounts of normalization</li>
  * <li>Does not support any relative path resolution</li>
  * <li>Does not do any scheme-specific validation</li>
  * <li>Does not thoroughly detect malformed URIs</li>
  * </ol>
- * <p>
- * Instances of this class are immutable and thus thread-safe.  Mutating
- * operations return a new instance.
- * </p>
- * <p>
- * When a strict ASCII-only representation of a <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+ *
+ * <p>Instances of this class are immutable and thus thread-safe.  Mutating
+ * operations return a new instance.</p>
+ *
+ * <p>When a strict ASCII-only representation of a <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
  * is required, use {@link URI}.  When a Unicode representation of a <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>
  * is preferred, use {@link IRI}.  Otherwise, to support both, use {@link AnyURI}, which should also perform
- * the best since it performs fewer conversions.
- * </p>
+ * the best since it performs fewer conversions.</p>
+ *
  * <hr>
- * <p>
- * Encoding and decoding is always done in UTF-8.  This choice is supported by
+ *
+ * <p>Encoding and decoding is always done in UTF-8.  This choice is supported by
  * <a href="https://www.w3.org/International/wiki/IRIStatus">IRIStatus - Query encoding</a>,
- * and is consistent with {@link java.net.URI}.
- * </p>
- * <p>
- * This simplification allows us to no longer pass encoding around and no longer
+ * and is consistent with {@link java.net.URI}.</p>
+ *
+ * <p>This simplification allows us to no longer pass encoding around and no longer
  * throw any {@link UnsupportedEncodingException} as UTF-8 is a
- * {@linkplain StandardCharsets#UTF_8 standard character set}.
- * </p>
- * <p>
- * We do not support the use of any encoding other than UTF-8, which allows us
+ * {@linkplain StandardCharsets#UTF_8 standard character set}.</p>
+ *
+ * <p>We do not support the use of any encoding other than UTF-8, which allows us
  * to avoid all the gray zones of the various protocol specifications, versions,
- * and implementations.
- * </p>
+ * and implementations.</p>
+ *
  * <hr>
- * <p>
- * TODO: These methods are for highest performance and are consistent with the JavaScript methods.
+ *
+ * <p>TODO: These methods are for highest performance and are consistent with the JavaScript methods.
  * They are not meant for general purpose URL manipulation, and are not trying to replace
- * any full-featured URI tools.
- * </p>
- * <p>
- * Consider the following if needing more than what this provides (in no particular order):
- * </p>
+ * any full-featured URI tools.</p>
+ *
+ * <p>Consider the following if needing more than what this provides (in no particular order):</p>
+ *
  * <ol>
  * <li>{@link URL}</li>
  * <li>{@link java.net.URI}</li>
@@ -99,8 +95,11 @@ import java.util.Objects;
  * <li><a href="https://jena.apache.org/documentation/notes/iri.html">jena-iri</a></li>
  * <li><a href="https://github.com/xbib/net">org.xbib:net-url</a></li>
  * </ol>
+ *
  * <hr>
+ *
  * <p>Further reading:</p>
+ *
  * <ol>
  * <li><a href="https://www.w3.org/International/wiki/IRIStatus">IRIStatus - Query encoding</a>:
  *   <blockquote>
@@ -198,16 +197,14 @@ public class AnyURI {
 
   /**
    * Gets the full URI.
-   * <p>
-   * This may be a mixture of <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
+   *
+   * <p>This may be a mixture of <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII and <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a> Unicode
-   * formats.
-   * </p>
-   * <p>
-   * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
+   * formats.</p>
+   *
+   * <p>This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
    * Use {@link #toIRI()}.{@link IRI#toString() toString()} or {@link #toIRI()}.{@link IRI#toURI() toURI()}.{@link URI#toString() toString()}
-   * if consistent formatting is required.
-   * </p>
+   * if consistent formatting is required.</p>
    */
   @Override
   public String toString() {
@@ -217,11 +214,10 @@ public class AnyURI {
   /**
    * Gets the full URI in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
-   * <p>
-   * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
+   *
+   * <p>This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
    * Use {@link #toIRI()}.{@link IRI#toASCIIString() toASCIIString()}
-   * if consistent formatting is required.
-   * </p>
+   * if consistent formatting is required.</p>
    */
   public String toASCIIString() {
     return toURI().toASCIIString();
@@ -322,10 +318,9 @@ public class AnyURI {
   /**
    * Gets the scheme for a URI, or {@code null} when has no scheme.
    * An empty scheme will never be returned (if the URI starts with ':').
-   * <p>
-   * This method may involve string manipulation, favor the <code>writeScheme(…)</code>
-   * and <code>appendScheme(…)</code> methods when appropriate.
-   * </p>
+   *
+   * <p>This method may involve string manipulation, favor the <code>writeScheme(…)</code>
+   * and <code>appendScheme(…)</code> methods when appropriate.</p>
    *
    * @return  The scheme, not including colon, or {@code null} when there is no scheme.
    *          For example {@code "http"}.
@@ -457,10 +452,9 @@ public class AnyURI {
   /**
    * Gets the hier-part - everything after the scheme and before the first '?' or '#' (exclusive).  This may
    * include host, port, path, and such, which this class is not concerned with.
-   * <p>
-   * This method may involve string manipulation, favor the <code>writeHierPart(…)</code>
-   * and <code>appendHierPart(…)</code> methods when appropriate.
-   * </p>
+   *
+   * <p>This method may involve string manipulation, favor the <code>writeHierPart(…)</code>
+   * and <code>appendHierPart(…)</code> methods when appropriate.</p>
    *
    * @return  the part of the URI after the scheme and up to the first '?' or '#' (exclusive), or the full URI when neither found.
    */
@@ -608,10 +602,9 @@ public class AnyURI {
 
   /**
    * Gets the query string.
-   * <p>
-   * This method may involve string manipulation, favor the <code>writeQueryString(…)</code>
-   * and <code>appendQuery(…)</code> methods when appropriate.
-   * </p>
+   *
+   * <p>This method may involve string manipulation, favor the <code>writeQueryString(…)</code>
+   * and <code>appendQuery(…)</code> methods when appropriate.</p>
    *
    * @return  the query string (not including the '?') or {@code null} when there is no query.
    */
@@ -747,10 +740,9 @@ public class AnyURI {
 
   /**
    * Gets the fragment.
-   * <p>
-   * This method may involve string manipulation, favor the <code>writeFragment(…)</code>
-   * and <code>appendFragment(…)</code> methods when appropriate.
-   * </p>
+   *
+   * <p>This method may involve string manipulation, favor the <code>writeFragment(…)</code>
+   * and <code>appendFragment(…)</code> methods when appropriate.</p>
    *
    * @return  the fragment (not including the '#') or {@code null} when there is no fragment.
    */
@@ -838,10 +830,9 @@ public class AnyURI {
    * Is this URI percent-encoding normalized?
    * Normalized percent encoding means it will have only the required percent encodings,
    * and the encodings are capitalized hexadecimal.
-   * <p>
-   * Note: This only refers to the percent encodings.  This is not related to
-   * full {@linkplain java.net.URI#normalize() URI normalization}.
-   * </p>
+   *
+   * <p>Note: This only refers to the percent encodings.  This is not related to
+   * full {@linkplain java.net.URI#normalize() URI normalization}.</p>
    */
   public boolean isEncodingNormalized() {
     return false;
@@ -853,10 +844,9 @@ public class AnyURI {
   /**
    * Gets this URI encoded in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
-   * <p>
-   * This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
-   * Use {@link #toIRI()}.{@link IRI#toURI() toURI()} if consistent formatting is required.
-   * </p>
+   *
+   * <p>This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
+   * Use {@link #toIRI()}.{@link IRI#toURI() toURI()} if consistent formatting is required.</p>
    *
    * @return  The {@link URI} or {@code this} when unmodified.
    *
@@ -1381,9 +1371,8 @@ public class AnyURI {
 
   /**
    * Replaces the fragment in the default encoding {@link IRI#ENCODING}.
-   * <p>
-   * TODO: Implement specification of <a href="https://dev.w3.org/html5/spec-LC/urls.html#url-manipulation-and-creation">fragment-escape</a>.
-   * </p>
+   *
+   * <p>TODO: Implement specification of <a href="https://dev.w3.org/html5/spec-LC/urls.html#url-manipulation-and-creation">fragment-escape</a>.</p>
    *
    * @param fragment  The fragment (not including the '#') or {@code null} for no fragment.
    *

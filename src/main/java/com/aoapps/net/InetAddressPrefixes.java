@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -47,9 +47,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 loopback network (<code>127.0.0.0/8</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc1122#section-3.2.1.3">RFC 1122, Section 3.2.1.3 Addressing</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc1122#section-3.2.1.3">RFC 1122, Section 3.2.1.3 Addressing</a>.</p>
    */
   public static final InetAddressPrefix LOOPBACK_IPV4 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -61,9 +60,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 link local network (<code>169.254.0.0/16</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc3927">RFC 3927</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc3927">RFC 3927</a>.</p>
    */
   public static final InetAddressPrefix LINK_LOCAL_IPV4 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -75,9 +73,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv6 link local network (<code>fe80::/10</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.6">RFC 4291, Section 2.5.6. Link-Local IPv6 Unicast Addresses</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.6">RFC 4291, Section 2.5.6. Link-Local IPv6 Unicast Addresses</a>.</p>
    */
   public static final InetAddressPrefix LINK_LOCAL_IPV6 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -89,9 +86,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 multicast network (<code>224.0.0.0/4</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc3171">RFC 3171</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc3171">RFC 3171</a>.</p>
    */
   public static final InetAddressPrefix MULTICAST_IPV4 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -103,9 +99,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv6 multicast network (<code>ff00::/8</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.7">RFC 4291, Section 2.7. Multicast Addresses</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.7">RFC 4291, Section 2.7. Multicast Addresses</a>.</p>
    */
   public static final InetAddressPrefix MULTICAST_IPV6 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -117,9 +112,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 private network (<code>10.0.0.0/8</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>.</p>
    */
   public static final InetAddressPrefix UNIQUE_LOCAL_IPV4_8 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -131,9 +125,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 private network (<code>172.16.0.0/12</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>.</p>
    */
   public static final InetAddressPrefix UNIQUE_LOCAL_IPV4_12 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -145,9 +138,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 private network (<code>192.168.0.0/16</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>.</p>
    */
   public static final InetAddressPrefix UNIQUE_LOCAL_IPV4_16 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -159,9 +151,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv6 unique local network (<code>fc00::/7</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc4193">RFC 4193</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc4193">RFC 4193</a>.</p>
    */
   public static final InetAddressPrefix UNIQUE_LOCAL_IPV6 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -173,9 +164,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 6to4 Relay network (<code>192.88.99.0/24</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc3068">RFC 3068</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc3068">RFC 3068</a>.</p>
    */
   public static final InetAddressPrefix _6TO4_IPV4 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -187,9 +177,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv6 multicast network (<code>2002::/16</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc3056">RFC 3056</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc3056">RFC 3056</a>.</p>
    */
   public static final InetAddressPrefix _6TO4_IPV6 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -201,9 +190,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The Teredo tunneling network (<code>2001::/32</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc4380">RFC 4380</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc4380">RFC 4380</a>.</p>
    */
   public static final InetAddressPrefix TEREDO_IPV6 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -215,9 +203,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 documentation network (<code>192.0.2.0/24</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc5737">RFC 5737</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc5737">RFC 5737</a>.</p>
    */
   public static final InetAddressPrefix DOCUMENTATION_IPV4_1 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -229,9 +216,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 documentation network (<code>198.51.100.0/24</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc5737">RFC 5737</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc5737">RFC 5737</a>.</p>
    */
   public static final InetAddressPrefix DOCUMENTATION_IPV4_2 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -243,9 +229,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 documentation network (<code>203.0.113.0/24</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc5737">RFC 5737</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc5737">RFC 5737</a>.</p>
    */
   public static final InetAddressPrefix DOCUMENTATION_IPV4_3 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -257,9 +242,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv6 documentation network (<code>2001:db8::/32</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc5737">RFC 5737</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc5737">RFC 5737</a>.</p>
    */
   public static final InetAddressPrefix DOCUMENTATION_IPV6 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -271,9 +255,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 benchmark network (<code>198.18.0.0/15</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc2544">RFC 2544</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc2544">RFC 2544</a>.</p>
    */
   public static final InetAddressPrefix BENCHMARK_IPV4 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -285,9 +268,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv6 benchmark network (<code>2001:2::/48</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc5180">RFC 5180</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc5180">RFC 5180</a>.</p>
    */
   public static final InetAddressPrefix BENCHMARK_IPV6 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -299,9 +281,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv6 ORCHIDv2 network (<code>2001:20::/28</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc7343">RFC 7343</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc7343">RFC 7343</a>.</p>
    */
   public static final InetAddressPrefix ORCHID_IPV6 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
@@ -313,9 +294,8 @@ public final class InetAddressPrefixes {
 
   /**
    * The IPv4 Carrier-grade NAT (<code>100.64.0.0/10</code>).
-   * <p>
-   * See <a href="https://datatracker.ietf.org/doc/html/rfc6598">RFC 5698</a>.
-   * </p>
+   *
+   * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc6598">RFC 5698</a>.</p>
    */
   public static final InetAddressPrefix CARRIER_GRADE_NAT_IPV4 = InetAddressPrefix.valueOfNoValidate(
       InetAddress.valueOf(
