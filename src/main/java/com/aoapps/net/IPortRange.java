@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -37,7 +37,7 @@ import java.io.Serializable;
  * {@link #equals(java.lang.Object)}, {@link #hashCode()},
  * and {@link #compareTo(com.aoapps.net.IPortRange)}.</p>
  *
- * <p>Java 1.8: Make this an interface with default methods.</p>
+ * <p>TODO: Java 1.8: Make this an interface with default methods.</p>
  *
  * @author  AO Industries, Inc.
  */

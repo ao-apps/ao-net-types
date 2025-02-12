@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-net-types - Networking-related value types.
-Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -34,7 +34,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     title="@{documented.name}"
     description="@{documented.description}"
     datePublished="2017-03-17T13:34:38-05:00"
-    dateModified="2023-04-14T16:43:04Z"
+    dateModified="2025-02-12T02:29:49Z"
   >
     <core:child page="changelog.jspx" />
     <core:child page="apidocs/index.jspx" />
@@ -86,7 +86,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
         <li><ao:a href="https://oss.aoapps.com/lang/apidocs/com.aoapps.lang/com/aoapps/lang/io/FastExternalizable.html">Fast serializable</ao:a> and self-validating objects.</li>
         <li><ao:a href="https://oss.aoapps.com/lang/apidocs/com.aoapps.lang/com/aoapps/lang/util/Internable.html">Internable</ao:a> for memory savings on large datasets.</li>
         <li>Small footprint, minimal dependencies - not part of a big monolithic package.</li>
-        <li>Java 1.8 implementation:
+        <li>Java 11 implementation:
           <ul>
             <li>Android compatible.</li>
           </ul>

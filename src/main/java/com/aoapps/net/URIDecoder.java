@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -26,7 +26,6 @@ package com.aoapps.net;
 import com.aoapps.lang.Strings;
 import com.aoapps.lang.io.Encoder;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 
@@ -70,11 +69,7 @@ public final class URIDecoder {
    * @see URIEncoder#encodeURIComponent(java.lang.String)
    */
   public static String decodeURIComponent(String s) {
-    try {
-      return (s == null) ? null : URLDecoder.decode(s, IRI.ENCODING.name()); // Java 10: No .name()
-    } catch (UnsupportedEncodingException e) {
-      throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-    }
+    return (s == null) ? null : URLDecoder.decode(s, IRI.ENCODING);
   }
 
   /**
@@ -87,12 +82,8 @@ public final class URIDecoder {
    * @see URIEncoder#encodeURIComponent(java.lang.String, java.lang.Appendable)
    */
   public static void decodeURIComponent(String s, Appendable out) throws IOException {
-    try {
-      if (s != null) {
-        out.append(URLDecoder.decode(s, IRI.ENCODING.name())); // Java 10: No .name()
-      }
-    } catch (UnsupportedEncodingException e) {
-      throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+    if (s != null) {
+      out.append(URLDecoder.decode(s, IRI.ENCODING));
     }
   }
 
@@ -108,16 +99,12 @@ public final class URIDecoder {
    * @see URIEncoder#encodeURIComponent(java.lang.String, com.aoapps.lang.io.Encoder, java.lang.Appendable)
    */
   public static void decodeURIComponent(String s, Encoder encoder, Appendable out) throws IOException {
-    try {
-      if (s != null) {
-        if (encoder == null) {
-          decodeURIComponent(s, out);
-        } else {
-          encoder.append(URLDecoder.decode(s, IRI.ENCODING.name()), out); // Java 10: No .name()
-        }
+    if (s != null) {
+      if (encoder == null) {
+        decodeURIComponent(s, out);
+      } else {
+        encoder.append(URLDecoder.decode(s, IRI.ENCODING), out);
       }
-    } catch (UnsupportedEncodingException e) {
-      throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
     }
   }
 

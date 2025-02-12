@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020, 2021, 2022, 2023, 2024  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022, 2023, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -26,7 +26,6 @@ package com.aoapps.net;
 import com.aoapps.lang.Strings;
 import com.aoapps.lang.io.Encoder;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.BitSet;
@@ -73,11 +72,7 @@ public final class URIEncoder {
    * @see URIDecoder#decodeURIComponent(java.lang.String)
    */
   public static String encodeURIComponent(String s) {
-    try {
-      return (s == null) ? null : Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20"); // Java 10: No .name()
-    } catch (UnsupportedEncodingException e) {
-      throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-    }
+    return (s == null) ? null : Strings.replace(URLEncoder.encode(s, IRI.ENCODING), '+', "%20");
   }
 
   /**
@@ -91,12 +86,8 @@ public final class URIEncoder {
    * @see URIDecoder#decodeURIComponent(java.lang.String, java.lang.Appendable)
    */
   public static void encodeURIComponent(String s, Appendable out) throws IOException {
-    try {
-      if (s != null) {
-        Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out); // Java 10: No .name()
-      }
-    } catch (UnsupportedEncodingException e) {
-      throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+    if (s != null) {
+      Strings.replace(URLEncoder.encode(s, IRI.ENCODING), '+', "%20", out);
     }
   }
 
@@ -113,16 +104,12 @@ public final class URIEncoder {
    * @see URIDecoder#decodeURIComponent(java.lang.String, com.aoapps.lang.io.Encoder, java.lang.Appendable)
    */
   public static void encodeURIComponent(String s, Encoder encoder, Appendable out) throws IOException {
-    try {
-      if (s != null) {
-        if (encoder == null) {
-          encodeURIComponent(s, out);
-        } else {
-          Strings.replace(URLEncoder.encode(s, IRI.ENCODING.name()), '+', "%20", out, encoder); // Java 10: No .name()
-        }
+    if (s != null) {
+      if (encoder == null) {
+        encodeURIComponent(s, out);
+      } else {
+        Strings.replace(URLEncoder.encode(s, IRI.ENCODING), '+', "%20", out, encoder);
       }
-    } catch (UnsupportedEncodingException e) {
-      throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
     }
   }
 
@@ -293,82 +280,78 @@ public final class URIEncoder {
    */
   public static void encodeURI(String uri, Encoder encoder, Appendable out) throws IOException {
     if (uri != null) {
-      try {
-        int len = uri.length();
-        int pos = 0;
-        while (pos < len) {
-          int nextPos = Strings.indexOf(uri, rfc3986ReservedCharacters_percent_invalid_and_space, pos);
-          if (nextPos == -1) {
+      int len = uri.length();
+      int pos = 0;
+      while (pos < len) {
+        int nextPos = Strings.indexOf(uri, rfc3986ReservedCharacters_percent_invalid_and_space, pos);
+        if (nextPos == -1) {
+          // TODO: Avoid substring?
+          String encoded = URLEncoder.encode(uri.substring(pos), IRI.ENCODING);
+          if (encoder == null) {
+            out.append(encoded);
+          } else {
+            encoder.append(encoded, out);
+          }
+          // Old with second check for space -> '+' -> "%20":
+          // encodeURIComponent(uri.substring(pos), out, encoder);
+          pos = len;
+        } else {
+          if (nextPos != pos) {
             // TODO: Avoid substring?
-            String encoded = URLEncoder.encode(uri.substring(pos), IRI.ENCODING.name()); // Java 10: No .name()
+            String encoded = URLEncoder.encode(uri.substring(pos, nextPos), IRI.ENCODING);
             if (encoder == null) {
               out.append(encoded);
             } else {
               encoder.append(encoded, out);
             }
             // Old with second check for space -> '+' -> "%20":
-            // encodeURIComponent(uri.substring(pos), out, encoder);
-            pos = len;
-          } else {
-            if (nextPos != pos) {
-              // TODO: Avoid substring?
-              String encoded = URLEncoder.encode(uri.substring(pos, nextPos), IRI.ENCODING.name()); // Java 10: No .name()
-              if (encoder == null) {
-                out.append(encoded);
-              } else {
-                encoder.append(encoded, out);
-              }
-              // Old with second check for space -> '+' -> "%20":
-              // encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
-            }
-            char ch = uri.charAt(nextPos);
-            char ch2;
-            char ch3;
-            if (
-                ch == '%'
-                    && (nextPos + 2) < len
-                    && isHex(ch2 = uri.charAt(nextPos + 1))
-                    && isHex(ch3 = uri.charAt(nextPos + 2))
-            ) {
-              // Short-cut already percent-encoded
-              pos = nextPos + 3;
-              if (isLowerHex(ch2) || isLowerHex(ch3)) {
-                // Convert to uppercase hex
-                if (encoder == null) {
-                  out.append(ch);
-                  out.append(upperHex(ch2));
-                  out.append(upperHex(ch3));
-                } else {
-                  encoder.append(ch, out);
-                  encoder.append(upperHex(ch2), out);
-                  encoder.append(upperHex(ch3), out);
-                }
-              } else {
-                if (encoder == null) {
-                  out.append(uri, nextPos, pos);
-                } else {
-                  encoder.append(uri, nextPos, pos, out);
-                }
-              }
-            } else if (ch == ' ') {
-              pos = nextPos + 1;
-              if (encoder == null) {
-                out.append("%20");
-              } else {
-                encoder.append("%20", out);
-              }
-            } else {
-              pos = nextPos + 1;
+            // encodeURIComponent(uri.substring(pos, nextPos), out, encoder);
+          }
+          char ch = uri.charAt(nextPos);
+          char ch2;
+          char ch3;
+          if (
+              ch == '%'
+                  && (nextPos + 2) < len
+                  && isHex(ch2 = uri.charAt(nextPos + 1))
+                  && isHex(ch3 = uri.charAt(nextPos + 2))
+          ) {
+            // Short-cut already percent-encoded
+            pos = nextPos + 3;
+            if (isLowerHex(ch2) || isLowerHex(ch3)) {
+              // Convert to uppercase hex
               if (encoder == null) {
                 out.append(ch);
+                out.append(upperHex(ch2));
+                out.append(upperHex(ch3));
               } else {
                 encoder.append(ch, out);
+                encoder.append(upperHex(ch2), out);
+                encoder.append(upperHex(ch3), out);
               }
+            } else {
+              if (encoder == null) {
+                out.append(uri, nextPos, pos);
+              } else {
+                encoder.append(uri, nextPos, pos, out);
+              }
+            }
+          } else if (ch == ' ') {
+            pos = nextPos + 1;
+            if (encoder == null) {
+              out.append("%20");
+            } else {
+              encoder.append("%20", out);
+            }
+          } else {
+            pos = nextPos + 1;
+            if (encoder == null) {
+              out.append(ch);
+            } else {
+              encoder.append(ch, out);
             }
           }
         }
-      } catch (UnsupportedEncodingException e) {
-        throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
       }
     }
   }
