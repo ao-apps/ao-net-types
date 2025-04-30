@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -104,26 +104,26 @@ public final class Path implements
     if (path.charAt(0) != SEPARATOR_CHAR) {
       return new InvalidResult(RESOURCES, "validate.startWithNonSlash", path.charAt(0));
     }
-      // Not contain any null characters
-      {
-        int pos = path.indexOf('\0');
-        if (pos != -1) {
-          return new InvalidResult(RESOURCES, "validate.containsNullCharacter", pos);
-        }
+    // Not contain any null characters
+    {
+      int pos = path.indexOf('\0');
+      if (pos != -1) {
+        return new InvalidResult(RESOURCES, "validate.containsNullCharacter", pos);
       }
-      // Not contain any /../ or /./ path elements
-      {
-        int pos = path.indexOf(SLASH_DOT_DOT_SLASH);
-        if (pos != -1) {
-          return new InvalidResult(RESOURCES, "validate.containsDotDot", pos);
-        }
+    }
+    // Not contain any /../ or /./ path elements
+    {
+      int pos = path.indexOf(SLASH_DOT_DOT_SLASH);
+      if (pos != -1) {
+        return new InvalidResult(RESOURCES, "validate.containsDotDot", pos);
       }
-      {
-        int pos = path.indexOf(SLASH_DOT_SLASH);
-        if (pos != -1) {
-          return new InvalidResult(RESOURCES, "validate.containsDot", pos);
-        }
+    }
+    {
+      int pos = path.indexOf(SLASH_DOT_SLASH);
+      if (pos != -1) {
+        return new InvalidResult(RESOURCES, "validate.containsDot", pos);
       }
+    }
     // Not end with /.. or /.
     if (path.endsWith(SLASH_DOT)) {
       return new InvalidResult(RESOURCES, "validate.endsSlashDot");
@@ -131,13 +131,13 @@ public final class Path implements
     if (path.endsWith(SLASH_DOT_DOT)) {
       return new InvalidResult(RESOURCES, "validate.endsSlashDotDot");
     }
-      // Not contain any // in the path
-      {
-        int pos = path.indexOf(SLASH_SLASH);
-        if (pos != -1) {
-          return new InvalidResult(RESOURCES, "validate.containsDoubleSlash", pos);
-        }
+    // Not contain any // in the path
+    {
+      int pos = path.indexOf(SLASH_SLASH);
+      if (pos != -1) {
+        return new InvalidResult(RESOURCES, "validate.containsDoubleSlash", pos);
       }
+    }
     return ValidResult.getInstance();
   }
 

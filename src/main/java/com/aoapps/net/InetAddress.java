@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -359,40 +359,40 @@ public final class InetAddress implements
     boolean requireIpv6;
     int start;
     int end;
+    {
+      // Be non-empty
+      int len = address.length();
+      if (len == 0) {
+        return new InvalidResult(RESOURCES, "parse.empty");
+      }
       {
-        // Be non-empty
-        int len = address.length();
-        if (len == 0) {
-          return new InvalidResult(RESOURCES, "parse.empty");
-        }
-          {
-            final int maxLen = "[hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd]".length();
-            if (len > maxLen) {
-              return new InvalidResult(RESOURCES, "parse.tooLong");
-            }
-          }
-        if (
-            len >= 2
-                && address.charAt(0) == '['
-                && address.charAt(len - 1) == ']'
-        ) {
-          requireIpv6 = true;
-          start = 1;
-          end = len - 1;
-          if (start == end) {
-            return new InvalidResult(RESOURCES, "parse.bracketsEmptyIPv6");
-          }
-          final int maxLen = "hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd".length();
-          assert (end - start) == (len - 2);
-          if ((end - start) > maxLen) {
-            return new InvalidResult(RESOURCES, "parse.tooLong");
-          }
-        } else {
-          requireIpv6 = false;
-          start = 0;
-          end = len;
+        final int maxLen = "[hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd]".length();
+        if (len > maxLen) {
+          return new InvalidResult(RESOURCES, "parse.tooLong");
         }
       }
+      if (
+          len >= 2
+              && address.charAt(0) == '['
+              && address.charAt(len - 1) == ']'
+      ) {
+        requireIpv6 = true;
+        start = 1;
+        end = len - 1;
+        if (start == end) {
+          return new InvalidResult(RESOURCES, "parse.bracketsEmptyIPv6");
+        }
+        final int maxLen = "hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:ddd.ddd.ddd.ddd".length();
+        assert (end - start) == (len - 2);
+        if ((end - start) > maxLen) {
+          return new InvalidResult(RESOURCES, "parse.tooLong");
+        }
+      } else {
+        requireIpv6 = false;
+        start = 0;
+        end = len;
+      }
+    }
     // Look for any dot, stopping at a colon
     int dot3Pos = -1;
     for (int c = end - 1; c >= start; c--) {
