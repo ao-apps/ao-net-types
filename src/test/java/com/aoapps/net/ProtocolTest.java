@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2020, 2021, 2022, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -48,7 +48,7 @@ public class ProtocolTest {
             !(
                 p1 == Protocol.TTP
                     && p2 == Protocol.IPTM
-            )
+              )
         ) {
           assertEquals(p1, p2);
         }
