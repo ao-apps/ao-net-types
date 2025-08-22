@@ -219,13 +219,13 @@ public final class Email implements
   }
 
   public static Email valueOf(String localPart, DomainName domain) throws ValidationException {
-    //ConcurrentMap<String, Email> domainMap = interned.get(domain);
-    //if (domainMap != null) {
-    //  Email existing = domainMap.get(localPart);
-    //  if (existing != null) {
-    //    return existing;
-    //  }
-    //}
+    // ConcurrentMap<String, Email> domainMap = interned.get(domain);
+    // if (domainMap != null) {
+    //   Email existing = domainMap.get(localPart);
+    //   if (existing != null) {
+    //     return existing;
+    //   }
+    // }
     return new Email(localPart, domain, true);
   }
 
@@ -411,7 +411,7 @@ public final class Email implements
     if (localPart != null) {
       throw new IllegalStateException();
     }
-    //System.err.println("DEBUG: typeName = " + typeName);
+    // System.err.println("DEBUG: typeName = " + typeName);
     try {
       String email = stream.readString();
       int atPos = email.indexOf('@');

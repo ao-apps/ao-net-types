@@ -117,8 +117,8 @@ public final class DomainLabel implements
     if (label == null) {
       return null;
     }
-    //DomainLabel existing = interned.get(label);
-    //return existing != null ? existing : new DomainLabel(label);
+    // DomainLabel existing = interned.get(label);
+    // return existing != null ? existing : new DomainLabel(label);
     return new DomainLabel(label, true);
   }
 

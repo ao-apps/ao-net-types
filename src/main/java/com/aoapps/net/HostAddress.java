@@ -131,8 +131,8 @@ public final class HostAddress implements
     if (domainName == null) {
       return null;
     }
-    //HostAddress existing = internedByDomainName.get(domainName);
-    //return existing != null ? existing : new HostAddress(domainName);
+    // HostAddress existing = internedByDomainName.get(domainName);
+    // return existing != null ? existing : new HostAddress(domainName);
     return new HostAddress(domainName);
   }
 
@@ -143,8 +143,8 @@ public final class HostAddress implements
     if (ip == null) {
       return null;
     }
-    //HostAddress existing = internedByInetAddress.get(ip);
-    //return existing != null ? existing : new HostAddress(ip);
+    // HostAddress existing = internedByInetAddress.get(ip);
+    // return existing != null ? existing : new HostAddress(ip);
     return new HostAddress(ip);
   }
 

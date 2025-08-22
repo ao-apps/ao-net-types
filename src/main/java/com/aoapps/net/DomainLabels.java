@@ -105,8 +105,8 @@ public final class DomainLabels
     if (labels == null) {
       return null;
     }
-    //DomainLabels existing = interned.get(labels);
-    //return existing != null ? existing : new DomainLabels(labels);
+    // DomainLabels existing = interned.get(labels);
+    // return existing != null ? existing : new DomainLabels(labels);
     return new DomainLabels(labels, true);
   }
 

@@ -145,7 +145,7 @@ public final class DomainName implements
             && ((ch = domain.charAt(pos++)) == 'r' || ch == 'R')
             && ((ch = domain.charAt(pos++)) == 'p' || ch == 'P')
             && ((ch = domain.charAt(pos))   == 'a' || ch == 'A');
-    //return domain.toLowerCase(Locale.ENGLISH).endsWith(".in-addr.arpa");
+    // return domain.toLowerCase(Locale.ENGLISH).endsWith(".in-addr.arpa");
   }
   /*
   private static boolean isArpaBenchmark(String domain) {
@@ -281,8 +281,8 @@ public final class DomainName implements
     if (domain == null) {
       return null;
     }
-    //DomainName existing = interned.get(domain);
-    //return existing != null ? existing : new DomainName(domain);
+    // DomainName existing = interned.get(domain);
+    // return existing != null ? existing : new DomainName(domain);
     return new DomainName(domain, true);
   }
 

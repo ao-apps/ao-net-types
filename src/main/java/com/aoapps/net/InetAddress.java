@@ -153,8 +153,8 @@ public final class InetAddress implements
       return null;
     }
     // If found in interned, it is valid
-    //InetAddress existing = internedByAddress.get(address);
-    //return existing != null ? existing : valueOf(parse(address));
+    // InetAddress existing = internedByAddress.get(address);
+    // return existing != null ? existing : valueOf(parse(address));
     Object result = parse(address);
     if (result instanceof LongLong) {
       return valueOf((LongLong) result);
@@ -173,8 +173,8 @@ public final class InetAddress implements
     if (ip == null) {
       return null;
     }
-    //InetAddress existing = interned.get(ip);
-    //return existing != null ? existing : new InetAddress(ip);
+    // InetAddress existing = interned.get(ip);
+    // return existing != null ? existing : new InetAddress(ip);
     return valueOf(ip.getHigh(), ip.getLow());
   }
 
@@ -184,8 +184,8 @@ public final class InetAddress implements
    * @see  #valueOf(com.aoapps.lang.math.LongLong)
    */
   public static InetAddress valueOf(long hi, long lo) {
-    //InetAddress existing = interned.get(ip);
-    //return existing != null ? existing : new InetAddress(ip);
+    // InetAddress existing = interned.get(ip);
+    // return existing != null ? existing : new InetAddress(ip);
     return new InetAddress(hi, lo);
   }
 

@@ -127,7 +127,7 @@ public interface MutableURIParameters extends URIParameters {
    *
    * @see  Coercion
    */
-  default MutableURIParameters add(String name, Object ... values) {
+  default MutableURIParameters add(String name, Object... values) {
     if (values != null) {
       for (Object value : values) {
         add(name, value);

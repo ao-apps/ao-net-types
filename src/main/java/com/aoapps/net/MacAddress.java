@@ -157,8 +157,8 @@ public final class MacAddress implements
     if (address == null) {
       return null;
     }
-    //MacAddress existing = interned.get(address);
-    //return existing != null ? existing : new MacAddress(address);
+    // MacAddress existing = interned.get(address);
+    // return existing != null ? existing : new MacAddress(address);
     return new MacAddress(address, true);
   }
 

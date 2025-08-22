@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2011, 2013, 2016, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -213,16 +213,16 @@ public class URIParametersMap implements MutableURIParameters {
     assert !values.isEmpty();
     return values.get(0);
     // TODO: Defer conversion to String
-    //Object value = values.get(0);
-    //String str;
-    //if (value instanceof String) {
-    //  str = (String)value;
-    //} else {
-    //  // Coerce to string now
-    //  str = (value instanceof Enum) ? ((Enum) value).name() : Coercion.toString(value);
-    //  values.set(0, str);
-    //}
-    //return str;
+    // Object value = values.get(0);
+    // String str;
+    // if (value instanceof String) {
+    //   str = (String)value;
+    // } else {
+    //   // Coerce to string now
+    //   str = (value instanceof Enum) ? ((Enum) value).name() : Coercion.toString(value);
+    //   values.set(0, str);
+    // }
+    // return str;
   }
 
   @Override
@@ -287,7 +287,7 @@ public class URIParametersMap implements MutableURIParameters {
   }
 
   @Override
-  public URIParametersMap add(String name, Object ... values) {
+  public URIParametersMap add(String name, Object... values) {
     MutableURIParameters.super.add(name, values);
     return this;
   }

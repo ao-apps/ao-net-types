@@ -153,8 +153,8 @@ public final class Path implements
     if (path.length() == 1 && path.charAt(0) == SEPARATOR_CHAR) {
       return ROOT;
     }
-    //UnixPath existing = interned.get(path);
-    //return existing != null ? existing : new UnixPath(path);
+    // UnixPath existing = interned.get(path);
+    // return existing != null ? existing : new UnixPath(path);
     return new Path(path, true);
   }
 
