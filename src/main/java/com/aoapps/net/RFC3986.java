@@ -47,7 +47,7 @@ final class RFC3986 {
   /**
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
    */
-  static final BitSet GEN_DELIMS;
+  private static final BitSet GEN_DELIMS;
 
   static {
     GEN_DELIMS = new BitSet(128);
@@ -63,14 +63,7 @@ final class RFC3986 {
   /**
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
    */
-  static boolean isGenDelim(char ch) {
-    return GEN_DELIMS.get(ch);
-  }
-
-  /**
-   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
-   */
-  static final BitSet SUB_DELIMS;
+  private static final BitSet SUB_DELIMS;
 
   static {
     SUB_DELIMS = new BitSet(128);
@@ -90,14 +83,7 @@ final class RFC3986 {
   /**
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
    */
-  static boolean isSubDelim(char ch) {
-    return SUB_DELIMS.get(ch);
-  }
-
-  /**
-   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
-   */
-  static final BitSet RESERVED;
+  private static final BitSet RESERVED;
 
   static {
     RESERVED = new BitSet(128);
@@ -106,16 +92,9 @@ final class RFC3986 {
   }
 
   /**
-   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a>.
-   */
-  static boolean isReserved(char ch) {
-    return RESERVED.get(ch);
-  }
-
-  /**
    * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a>.
    */
-  static final BitSet UNRESERVED;
+  private static final BitSet UNRESERVED;
 
   static {
     UNRESERVED = new BitSet(128);
@@ -129,13 +108,6 @@ final class RFC3986 {
   }
 
   /**
-   * <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a>.
-   */
-  static boolean isUnreserved(char ch) {
-    return UNRESERVED.get(ch);
-  }
-
-  /**
    * The set of characters in US-ASCII that are valid in either URI or IRI.  Characters outside this set should never be in a URI or IRI:
    * <ul>
    * <li>'%' (for already percent-encoded)</li>
@@ -143,25 +115,13 @@ final class RFC3986 {
    * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a></li>
    * </ul>
    */
-  static final BitSet VALID;
+  private static final BitSet VALID;
 
   static {
     VALID = new BitSet(128);
     VALID.set('%');
     VALID.or(RESERVED);
     VALID.or(UNRESERVED);
-  }
-
-  /**
-   * The set of characters in US-ASCII that are valid in either URI or IRI.  Characters outside this set should never be in a URI or IRI:
-   * <ul>
-   * <li>'%' (for already percent-encoded)</li>
-   * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a></li>
-   * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a></li>
-   * </ul>
-   */
-  static boolean isValid(char ch) {
-    return VALID.get(ch);
   }
 
   static final BitSet RESERVED_OR_INVALID;
@@ -175,10 +135,6 @@ final class RFC3986 {
         RESERVED_OR_INVALID.set(i);
       }
     }
-  }
-
-  static boolean isReservedOrInvalid(char ch) {
-    return RESERVED_OR_INVALID.get(ch);
   }
 
   /**
