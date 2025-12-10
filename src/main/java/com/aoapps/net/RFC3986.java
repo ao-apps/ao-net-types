@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2019, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -141,9 +141,6 @@ final class RFC3986 {
    * <li>'%' (for already percent-encoded)</li>
    * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a></li>
    * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a></li>
-   * <li>Printable characters in US-ASCII that are not allowed in URIs, namely "&lt;", "&gt;", '"', space,
-   *     "{", "}", "|", "\", "^", and "`".
-   * </li>
    * </ul>
    */
   static final BitSet VALID;
@@ -153,17 +150,6 @@ final class RFC3986 {
     VALID.set('%');
     VALID.or(RESERVED);
     VALID.or(UNRESERVED);
-    // IRI-only US-ASCII
-    VALID.set('<');
-    VALID.set('>');
-    VALID.set('"');
-    VALID.set(' ');
-    VALID.set('{');
-    VALID.set('}');
-    VALID.set('|');
-    VALID.set('\\');
-    VALID.set('^');
-    VALID.set('`');
   }
 
   /**
@@ -172,9 +158,6 @@ final class RFC3986 {
    * <li>'%' (for already percent-encoded)</li>
    * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">Reserved Characters</a></li>
    * <li><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.3">Unreserved Characters</a></li>
-   * <li>Printable characters in US-ASCII that are not allowed in URIs, namely "&lt;", "&gt;", '"', space,
-   *     "{", "}", "|", "\", "^", and "`".
-   * </li>
    * </ul>
    */
   static boolean isValid(char ch) {

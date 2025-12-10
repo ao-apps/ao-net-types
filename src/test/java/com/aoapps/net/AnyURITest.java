@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -1027,7 +1027,7 @@ public class AnyURITest {
     );
     testDecodeURI(
         null,
-        "かおり BBB#fragment?notParam%25%25%25",
+        "かおり%20BBB#fragment?notParam%25%25%25",
         "%E3%81%8B%E3%81%8A%E3%82%8A%20BBB#fragment?notParam%25%25%25"
     );
     testDecodeURI(

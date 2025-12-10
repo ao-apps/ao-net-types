@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2016, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2016, 2019, 2021, 2022, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -41,7 +41,7 @@ public class URIDecoderTest {
     );
     assertEquals(
         "Checking not double-encoding after #",
-        "https://search.maven.org/#search|gav|1|g:\"@com.aoapps\" AND a:\"@ao-hodgepodge\"",
+        "https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22",
         URIDecoder.decodeURI("https://search.maven.org/#search%7Cgav%7C1%7Cg:%22@com.aoapps%22%20AND%20a:%22@ao-hodgepodge%22")
     );
     assertEquals(
