@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ao-net-types - Networking-related value types.
+Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of ao-net-types.
+
+ao-net-types is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ao-net-types is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<jsp:root
+  xmlns:ao="https://oss.aoapps.com/taglib/"
+  xmlns:core="https://semanticcms.com/core/taglib/"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:section="https://semanticcms.com/section/taglib/"
+  version="2.1"
+>
+  <jsp:directive.page language="java" pageEncoding="UTF-8" />
+  <jsp:directive.page session="false" />
+  <core:page
+    title="@{documented.name}"
+    description="@{documented.description}"
+    datePublished="2017-03-17T13:34:38-05:00"
+    dateModified="2025-07-02T23:05:45Z"
+  >
+    <core:child page="changelog.jspx" />
+    <core:child page="apidocs/index.jspx" />
+    <header>
+      <ao:include
+        page="/ao-badges/badges.inc.jspx"
+        arg.projectStatus="current-stable"
+        arg.managementStatus="production"
+        arg.packagingStatus="active"
+        arg.javaseVersion="@{documented.javase.version}"
+        arg.semanticVersioning="2.0.0"
+        arg.license="lgpl-3.0"
+        arg.scmUrl="@{project.scm.url}"
+        arg.githubBuildWorkflow="Build"
+        arg.githubBuildFile="build.yml"
+        arg.mavenBadge="maven-central"
+        arg.groupId="@{project.groupId}"
+        arg.artifactId="@{documented.artifactId}"
+        arg.sonarQualityGate="true"
+        arg.sonarLinesOfCode="true"
+        arg.sonarReliability="true"
+        arg.sonarSecurity="true"
+        arg.sonarMaintainability="true"
+        arg.sonarCoverage="true"
+      />
+    </header>
+    <p>
+      @{documented.description}
+    </p>
+    <section:nav label="Project Links">
+      <ul>
+        <li><core:link page="index.jspx">Project Home</core:link></li>
+        <li><core:link page="changelog.jspx">Changelog</core:link></li>
+        <li><core:link page="apidocs/index.jspx">API Docs</core:link></li>
+        <li><ao:a href="https://central.sonatype.com/artifact/${ao:encodeURIComponent('@{project.groupId}')}/${ao:encodeURIComponent('@{documented.artifactId}')}">Central Repository</ao:a></li>
+        <li><ao:a href="@{project.scm.url}">GitHub</ao:a></li>
+      </ul>
+    </section:nav>
+    <section:section label="Features">
+      <ul>
+        <li>IPv4 and IPv6 address families.</li>
+        <li>Individual addresses and network ranges.</li>
+        <li>Protocols, ports, and port ranges.</li>
+        <li>Supports optimization through reduction of IP and port combinations through:
+          <ul>
+            <li>Coalescing of addresses and network ranges into fewer network ranges.</li>
+            <li>Coalescing of ports and port ranges into fewer port ranges.</li>
+          </ul>
+        </li>
+        <li><ao:a href="https://oss.aoapps.com/lang/apidocs/com.aoapps.lang/com/aoapps/lang/io/FastExternalizable.html">Fast serializable</ao:a> and self-validating objects.</li>
+        <li><ao:a href="https://oss.aoapps.com/lang/apidocs/com.aoapps.lang/com/aoapps/lang/util/Internable.html">Internable</ao:a> for memory savings on large datasets.</li>
+        <li>Small footprint, minimal dependencies - not part of a big monolithic package.</li>
+        <li>Java 11 implementation:
+          <ul>
+            <li>Android compatible.</li>
+          </ul>
+        </li>
+        <li>Compatible <ao:a href="https://www.postgresql.org/">PostgreSQL</ao:a> type implementations for database-level integrity.</li>
+      </ul>
+    </section:section>
+    <section:section label="Motivation">
+      <p>
+        The <ao:a href="https://aoindustries.com/aoserv/">AOServ Platform</ao:a> allows configuration of services on a per-port and per-IP basis.
+        System configuration components like <ao:a href="https://aoindustries.com/ao-selinux/">AO SELinux</ao:a> and
+        <ao:a href="https://aoindustries.com/ao-firewalld/">AO firewalld</ao:a> support configurations over port ranges and network ranges.
+      </p>
+      <p>
+        These value types are a common representation of networking configuration shared between various components.
+        They have minimal dependencies and may be useful for projects needing to go beyond the stock <code>java.net.*</code> classes.
+      </p>
+    </section:section>
+    <section:aside label="Evaluated Alternatives">
+      <p>
+        Admittedly, several features of this API are redundant with the
+        <ao:a rel="nofollow" href="@{javadoc.link.javase}java/net/package-summary.html">standard Java API</ao:a>.
+        This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient
+        for your needs, please prefer the <ao:a rel="nofollow" href="@{javadoc.link.javase}java/net/package-summary.html">standard Java API</ao:a>.
+      </p>
+    </section:aside>
+  </core:page>
+</jsp:root>
