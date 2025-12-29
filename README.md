@@ -35,8 +35,6 @@ Networking-related value types.
 * [Fast serializable](https://oss.aoapps.com/lang/apidocs/com.aoapps.lang/com/aoapps/lang/io/FastExternalizable.html) and self-validating objects.
 * [Internable](https://oss.aoapps.com/lang/apidocs/com.aoapps.lang/com/aoapps/lang/util/Internable.html) for memory savings on large datasets.
 * Small footprint, minimal dependencies - not part of a big monolithic package.
-* Java 11 implementation:
-    * Android compatible.
 * Compatible [PostgreSQL](https://www.postgresql.org/) type implementations for database-level integrity.
 
 ## Motivation

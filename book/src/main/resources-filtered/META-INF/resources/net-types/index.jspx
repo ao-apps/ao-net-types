@@ -34,7 +34,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     title="@{documented.name}"
     description="@{documented.description}"
     datePublished="2017-03-17T13:34:38-05:00"
-    dateModified="2025-07-02T23:05:45Z"
+    dateModified="2025-12-27T21:16:29Z"
   >
     <core:child page="changelog.jspx" />
     <core:child page="apidocs/index.jspx" />
@@ -87,11 +87,6 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
         <li><ao:a href="https://oss.aoapps.com/lang/apidocs/com.aoapps.lang/com/aoapps/lang/io/FastExternalizable.html">Fast serializable</ao:a> and self-validating objects.</li>
         <li><ao:a href="https://oss.aoapps.com/lang/apidocs/com.aoapps.lang/com/aoapps/lang/util/Internable.html">Internable</ao:a> for memory savings on large datasets.</li>
         <li>Small footprint, minimal dependencies - not part of a big monolithic package.</li>
-        <li>Java 11 implementation:
-          <ul>
-            <li>Android compatible.</li>
-          </ul>
-        </li>
         <li>Compatible <ao:a href="https://www.postgresql.org/">PostgreSQL</ao:a> type implementations for database-level integrity.</li>
       </ul>
     </section:section>
