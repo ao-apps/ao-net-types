@@ -34,8 +34,8 @@ import java.io.Serializable;
  * while a port range must use {@link PortRange}.</p>
  *
  * <p>{@link Port} and {@link PortRange} are compatible with
- * {@link #equals(java.lang.Object)}, {@link #hashCode()},
- * and {@link #compareTo(com.aoapps.net.IPortRange)}.</p>
+ * {@link IPortRange#equals(java.lang.Object)}, {@link IPortRange#hashCode()},
+ * and {@link IPortRange#compareTo(com.aoapps.net.IPortRange)}.</p>
  *
  * <p>TODO: Java 1.8: Make this an interface with default methods.</p>
  *

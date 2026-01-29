@@ -206,10 +206,10 @@ public enum Protocol {
   /**
    * Gets a {@link Protocol} given its decimal representation.
    *
-   * <p>For the duplicated decimal {@code 84} shared by both {@link #TTP}
-   * and {@link #IPTM}, returns {@link #IPTM}.</p>
+   * <p>For the duplicated decimal {@code 84} shared by both {@link Protocol#TTP}
+   * and {@link Protocol#IPTM}, returns {@link Protocol#IPTM}.</p>
    *
-   * <p>Returns {@link #UNASSIGNED} for any unassigned decimal.</p>
+   * <p>Returns {@link Protocol#UNASSIGNED} for any unassigned decimal.</p>
    *
    * @throws IllegalArgumentException when decimal is not between 0 and 255.
    */
@@ -242,7 +242,7 @@ public enum Protocol {
    *
    * @return  the protocol or {@code null} if not found
    *
-   * @see #toString()
+   * @see Protocol#toString()
    */
   public static Protocol getProtocolByKeyword(String keyword) throws IllegalArgumentException {
     return protocolsByUpperKeyword.get(keyword.toUpperCase(Locale.ROOT));
@@ -278,7 +278,7 @@ public enum Protocol {
    *
    * @return The keyword, if present, or enum name when no keyword.
    *
-   * @see #getProtocolByKeyword(java.lang.String)
+   * @see Protocol#getProtocolByKeyword(java.lang.String)
    */
   @Override
   public String toString() {
@@ -288,12 +288,12 @@ public enum Protocol {
   /**
    * The 8-bit protocol number.  Protocol 84 has two different listings,
    * both TTP and IPTM.  This value cannot be assumed to match the enum
-   * {@link #ordinal()}.
+   * {@link Protocol#ordinal()}.
    *
-   * <p>{@link #UNASSIGNED} is used for all unassigned decimal values and is
+   * <p>{@link Protocol#UNASSIGNED} is used for all unassigned decimal values and is
    * represented by {@code -1}.</p>
    *
-   * @return The 8-bit protocol number or {@code -1} for {@link #UNASSIGNED}.
+   * @return The 8-bit protocol number or {@code -1} for {@link Protocol#UNASSIGNED}.
    */
   public short getDecimal() {
     return decimal;
@@ -302,7 +302,7 @@ public enum Protocol {
   /**
    * @return The keyword or {@code ""} when no keyword in table
    *
-   * @see #toString()
+   * @see Protocol#toString()
    */
   public String getKeyword() {
     return keyword;

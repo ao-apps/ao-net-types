@@ -120,9 +120,9 @@ public final class InetAddress implements
    * Checks if the address is valid by calling <code>parse(String)</code> and discarding the result.
    *
    * <p>When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
-   * (see {@link #toBracketedString()}).</p>
+   * (see {@link InetAddress#toBracketedString()}).</p>
    *
-   * @see  #parse(String)
+   * @see  InetAddress#parse(String)
    */
   public static ValidationResult validate(String address) {
     // Be non-null
@@ -144,7 +144,7 @@ public final class InetAddress implements
    * Parses either an IPv4 or IPv6 address.
    *
    * <p>When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
-   * (see {@link #toBracketedString()}).</p>
+   * (see {@link InetAddress#toBracketedString()}).</p>
    *
    * @param address  when {@code null}, returns {@code null}
    */
@@ -167,7 +167,7 @@ public final class InetAddress implements
    *
    * @param  ip  If ip is null, returns null.
    *
-   * @see  #valueOf(long, long)
+   * @see  InetAddress#valueOf(long, long)
    */
   public static InetAddress valueOf(LongLong ip) {
     if (ip == null) {
@@ -181,7 +181,7 @@ public final class InetAddress implements
   /**
    * Gets an IPv6 address from its numerical representation.
    *
-   * @see  #valueOf(com.aoapps.lang.math.LongLong)
+   * @see  InetAddress#valueOf(com.aoapps.lang.math.LongLong)
    */
   public static InetAddress valueOf(long hi, long lo) {
     // InetAddress existing = interned.get(ip);
@@ -759,8 +759,8 @@ public final class InetAddress implements
   /**
    * Gets the high-order 64 bits of the numeric address.
    *
-   * @see #getLow()
-   * @see #getIp()
+   * @see InetAddress#getLow()
+   * @see InetAddress#getIp()
    */
   public long getHigh() {
     return hi;
@@ -769,8 +769,8 @@ public final class InetAddress implements
   /**
    * Gets the low-order 64 bits of the numeric address.
    *
-   * @see #getHigh()
-   * @see #getIp()
+   * @see InetAddress#getHigh()
+   * @see InetAddress#getIp()
    */
   public long getLow() {
     return lo;
@@ -779,8 +779,8 @@ public final class InetAddress implements
   /**
    * Gets the numeric address as a 128-bit integer.
    *
-   * @see #getHigh()
-   * @see #getLow()
+   * @see InetAddress#getHigh()
+   * @see InetAddress#getLow()
    */
   public LongLong getIp() {
     return LongLong.valueOf(hi, lo);
@@ -801,7 +801,7 @@ public final class InetAddress implements
   }
 
   /**
-   * @see  #LOOPBACK_IPV6
+   * @see  InetAddress#LOOPBACK_IPV6
    * @see  InetAddressPrefixes#LOOPBACK_IPV4
    */
   public boolean isLoopback() {
@@ -815,7 +815,7 @@ public final class InetAddress implements
    *
    * <p>See <a href="https://datatracker.ietf.org/doc/html/rfc922#section-7">RFC 922, Section 7</a>.</p>
    *
-   * @see  #IPV4_BROADCAST_LO
+   * @see  InetAddress#IPV4_BROADCAST_LO
    */
   public boolean isBroadcast() {
     return hi == IPV4_HI && lo == IPV4_BROADCAST_LO;
@@ -911,7 +911,7 @@ public final class InetAddress implements
   }
 
   /**
-   * @deprecated  Please use {@link #getProtocolFamily()} as of Java 1.7.
+   * @deprecated  Please use {@link InetAddress#getProtocolFamily()} as of Java 1.7.
    */
   @Deprecated
   public AddressFamily getAddressFamily() {
@@ -957,7 +957,7 @@ public final class InetAddress implements
   }
 
   /**
-   * @deprecated  Please use {@link #getProtocolFamily()}
+   * @deprecated  Please use {@link InetAddress#getProtocolFamily()}
    */
   // TODO: Remove in 3.0.0 release
   @Deprecated
@@ -966,7 +966,7 @@ public final class InetAddress implements
   }
 
   /**
-   * @deprecated  Please use {@link #getProtocolFamily()}
+   * @deprecated  Please use {@link InetAddress#getProtocolFamily()}
    */
   // TODO: Remove in 3.0.0 release
   @Deprecated

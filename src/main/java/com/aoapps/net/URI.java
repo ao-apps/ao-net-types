@@ -31,7 +31,7 @@ import java.io.IOException;
  *
  * <p>This may have additional, unnecessary percent encodings, if they were present
  * in the {@code anyUri} provided to the constructor.  If consistent formatting
- * is required, use {@link IRI}.{@link IRI#toURI() toURI()}.  See {@link #isEncodingNormalized()}.</p>
+ * is required, use {@link IRI}.{@link IRI#toURI() toURI()}.  See {@link URI#isEncodingNormalized()}.</p>
  *
  * <p>Furthermore, there is no assumption about the query parameter encodings, and
  * the query could, in theory, contain any arbitrary encoded data.  Existing
@@ -86,8 +86,8 @@ public class URI extends AnyURI {
    * Gets the full URI in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
    *
-   * <p>This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
-   * Use {@link #toIRI()}.{@link IRI#toString() toString()} or {@link #toIRI()}.{@link IRI#toURI() toURI()}.{@link URI#toString() toString()}
+   * <p>This might not be {@linkplain URI#isEncodingNormalized() percent-encoding normalized}.
+   * Use {@link URI#toIRI()}.{@link IRI#toString() toString()} or {@link URI#toIRI()}.{@link IRI#toURI() toURI()}.{@link URI#toString() toString()}
    * if consistent formatting is required.</p>
    */
   @Override

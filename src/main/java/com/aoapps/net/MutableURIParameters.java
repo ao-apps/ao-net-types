@@ -72,7 +72,7 @@ public interface MutableURIParameters extends URIParameters {
    * @param name   May not be {@code null}.
    * @param value  May not be {@code null}.
    *
-   * @deprecated  Please use {@link #add(java.lang.String, java.lang.String)} directly.
+   * @deprecated  Please use {@link MutableURIParameters#add(java.lang.String, java.lang.String)} directly.
    */
   @Deprecated
   default void addParameter(String name, String value) {
@@ -143,7 +143,7 @@ public interface MutableURIParameters extends URIParameters {
    * @param values  When {@code null}, no parameters are added.
    *                May not contain any {@code null} elements.
    *
-   * @deprecated  Please use {@link #add(java.lang.String, java.lang.Iterable)} directly.
+   * @deprecated  Please use {@link MutableURIParameters#add(java.lang.String, java.lang.Iterable)} directly.
    */
   @Deprecated
   default void addParameters(String name, Iterable<String> values) {

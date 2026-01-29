@@ -75,7 +75,7 @@ public class IRI extends AnyURI {
    * Gets the full IRI in <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a>
    * Unicode format.
    *
-   * <p>This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+   * <p>This will be {@linkplain IRI#isEncodingNormalized() percent-encoding normalized}
    * and contain consistently formatted percent encodings.</p>
    */
   @Override
@@ -87,7 +87,7 @@ public class IRI extends AnyURI {
    * Gets the full URI in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
    *
-   * <p>This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+   * <p>This will be {@linkplain IRI#isEncodingNormalized() percent-encoding normalized}
    * and contain consistently formatted percent encodings.</p>
    */
   @Override
@@ -157,7 +157,7 @@ public class IRI extends AnyURI {
    * Gets this URI encoded in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
    *
-   * <p>This will be {@linkplain #isEncodingNormalized() percent-encoding normalized}
+   * <p>This will be {@linkplain IRI#isEncodingNormalized() percent-encoding normalized}
    * and contain consistently formatted percent encodings.</p>
    *
    * @return  The {@link URI}.

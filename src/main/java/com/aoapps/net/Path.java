@@ -263,7 +263,7 @@ public final class Path implements
   /**
    * Gets a sub path of the given beginning and end.
    *
-   * @param  beginIndex  Must align with a {@link #SEPARATOR_CHAR}.
+   * @param  beginIndex  Must align with a {@link Path#SEPARATOR_CHAR}.
    * @param  endIndex    One-past the last character to include.
    *                     Must be greater than {@code beginIndex}.
    *
@@ -299,11 +299,11 @@ public final class Path implements
    * Gets a prefix path of the given length.
    *
    * <p><b>Implementation Note:</b><br>
-   * Calls {@link #subPath(int, int) subPath(0, len)}</p>
+   * Calls {@link Path#subPath(int, int) subPath(0, len)}</p>
    *
    * @param  len  Must be greater than {@code 0}.
    *
-   * @see  #subPath(int, int)
+   * @see  Path#subPath(int, int)
    */
   public Path prefix(int len) throws IllegalArgumentException, IndexOutOfBoundsException {
     return subPath(0, len);
@@ -313,11 +313,11 @@ public final class Path implements
    * Gets a suffix path starting at the given index.
    *
    * <p><b>Implementation Note:</b><br>
-   * Calls {@link #subPath(int, int) subPath(beginIndex, path.length())}</p>
+   * Calls {@link Path#subPath(int, int) subPath(beginIndex, path.length())}</p>
    *
-   * @param  beginIndex  Must align with a {@link #SEPARATOR_CHAR}.
+   * @param  beginIndex  Must align with a {@link Path#SEPARATOR_CHAR}.
    *
-   * @see  #subPath(int, int)
+   * @see  Path#subPath(int, int)
    */
   public Path suffix(int beginIndex) throws IllegalArgumentException, IndexOutOfBoundsException {
     return subPath(beginIndex, path.length());

@@ -202,8 +202,8 @@ public class AnyURI {
    * US-ASCII and <a href="https://datatracker.ietf.org/doc/html/rfc3987">RFC 3987 IRI</a> Unicode
    * formats.</p>
    *
-   * <p>This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
-   * Use {@link #toIRI()}.{@link IRI#toString() toString()} or {@link #toIRI()}.{@link IRI#toURI() toURI()}.{@link URI#toString() toString()}
+   * <p>This might not be {@linkplain AnyURI#isEncodingNormalized() percent-encoding normalized}.
+   * Use {@link AnyURI#toIRI()}.{@link IRI#toString() toString()} or {@link AnyURI#toIRI()}.{@link IRI#toURI() toURI()}.{@link URI#toString() toString()}
    * if consistent formatting is required.</p>
    */
   @Override
@@ -215,8 +215,8 @@ public class AnyURI {
    * Gets the full URI in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
    *
-   * <p>This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
-   * Use {@link #toIRI()}.{@link IRI#toASCIIString() toASCIIString()}
+   * <p>This might not be {@linkplain AnyURI#isEncodingNormalized() percent-encoding normalized}.
+   * Use {@link AnyURI#toIRI()}.{@link IRI#toASCIIString() toASCIIString()}
    * if consistent formatting is required.</p>
    */
   public String toASCIIString() {
@@ -224,7 +224,7 @@ public class AnyURI {
   }
 
   /**
-   * Compares the {@link #uri URI} directly.  No encoding or decoding
+   * Compares the {@link AnyURI#uri URI} directly.  No encoding or decoding
    * is performed.  This does not compare URIs semantically.
    */
   @Override
@@ -251,7 +251,7 @@ public class AnyURI {
   /**
    * The hash code is the same as the hash code of the uri.
    *
-   * @see  #toString()
+   * @see  AnyURI#toString()
    * @see  String#hashCode()
    */
   @Override
@@ -845,8 +845,8 @@ public class AnyURI {
    * Gets this URI encoded in <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</a>
    * US-ASCII format.
    *
-   * <p>This might not be {@linkplain #isEncodingNormalized() percent-encoding normalized}.
-   * Use {@link #toIRI()}.{@link IRI#toURI() toURI()} if consistent formatting is required.</p>
+   * <p>This might not be {@linkplain AnyURI#isEncodingNormalized() percent-encoding normalized}.
+   * Use {@link AnyURI#toIRI()}.{@link IRI#toURI() toURI()} if consistent formatting is required.</p>
    *
    * @return  The {@link URI} or {@code this} when unmodified.
    *

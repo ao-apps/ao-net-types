@@ -77,7 +77,7 @@ public final class InetAddressPrefix implements
    *
    * @param  address  If address is null, returns null.
    *
-   * @throws  ValidationException  See {@link #validate(com.aoapps.net.InetAddress, int)}
+   * @throws  ValidationException  See {@link InetAddressPrefix#validate(com.aoapps.net.InetAddress, int)}
    */
   public static InetAddressPrefix valueOf(InetAddress address, int prefix) throws ValidationException {
     if (address == null) {
@@ -98,7 +98,7 @@ public final class InetAddressPrefix implements
    *
    * @param address  The address and optional prefix as <code><i>address</i>[/<i>prefix</i>]</code>.
    *
-   * @see  #toString()  for the inverse function
+   * @see  InetAddressPrefix#toString()  for the inverse function
    */
   @SuppressWarnings("deprecation")
   public static InetAddressPrefix valueOf(String address) throws ValidationException {
@@ -177,10 +177,10 @@ public final class InetAddressPrefix implements
   /**
    * Equal when has equal address and prefix.  This means two prefixes that
    * represent the same address range, but have different addresses, are not
-   * considered equal.  To check if represent the same range, {@link #normalize() normalize}
+   * considered equal.  To check if represent the same range, {@link InetAddressPrefix#normalize() normalize}
    * each address prefix.
    *
-   * @see  #normalize()
+   * @see  InetAddressPrefix#normalize()
    */
   @Override
   public boolean equals(Object obj) {
@@ -203,7 +203,7 @@ public final class InetAddressPrefix implements
    *
    * @return  The address and optional prefix as <code><i>address</i>[/<i>prefix</i>]</code>.
    *
-   * @see  #valueOf(String)  for the inverse function
+   * @see  InetAddressPrefix#valueOf(String)  for the inverse function
    */
   @Override
   @SuppressWarnings("deprecation")
@@ -245,7 +245,7 @@ public final class InetAddressPrefix implements
   /**
    * Gets the first address in the network range represented by this address and prefix.
    *
-   * @return  {@link #getAddress()} when from == address, otherwise new address.
+   * @return  {@link InetAddressPrefix#getAddress()} when from == address, otherwise new address.
    */
   public InetAddress getFrom() {
     @SuppressWarnings("deprecation")
@@ -309,7 +309,7 @@ public final class InetAddressPrefix implements
   /**
    * Gets the last address in the network range represented by this address and prefix.
    *
-   * @return  {@link #getAddress()} when to == address, otherwise new address.
+   * @return  {@link InetAddressPrefix#getAddress()} when to == address, otherwise new address.
    */
   @SuppressWarnings("deprecation")
   public InetAddress getTo() {
@@ -374,7 +374,7 @@ public final class InetAddressPrefix implements
    * Normalizes this address prefix, where all bits not in {@code prefix} are zeroed.
    * This means the address will be the first address in the network range.
    *
-   * @see #getFrom()
+   * @see InetAddressPrefix#getFrom()
    */
   public InetAddressPrefix normalize() {
     InetAddress from = getFrom();
@@ -385,7 +385,7 @@ public final class InetAddressPrefix implements
   }
 
   /**
-   * Shared static contains to avoid object allocation on {@link #coalesce(com.aoapps.net.InetAddressPrefix)}.
+   * Shared static contains to avoid object allocation on {@link InetAddressPrefix#coalesce(com.aoapps.net.InetAddressPrefix)}.
    * The addresses must have already had their {@link InetAddress#getAddressFamily() families} checked as equal.
    */
   @SuppressWarnings("deprecation")
@@ -452,7 +452,7 @@ public final class InetAddressPrefix implements
   }
 
   /**
-   * Shared static contains to avoid object allocation on {@link #coalesce(com.aoapps.net.InetAddressPrefix)}.
+   * Shared static contains to avoid object allocation on {@link InetAddressPrefix#coalesce(com.aoapps.net.InetAddressPrefix)}.
    * The addresses must have already had their {@link InetAddress#getAddressFamily() families} checked as equal.
    */
   @SuppressWarnings("deprecation")
@@ -501,7 +501,7 @@ public final class InetAddressPrefix implements
   /**
    * Combines this address prefix with the given address prefix if possible.
    * Will only combine address prefixes of the same {@link AddressFamily}.
-   * Returns a {@link #normalize() normalized} network range.
+   * Returns a {@link InetAddressPrefix#normalize() normalized} network range.
    * <ol>
    * <li>If different address prefixes are non-overlapping and non-adjacent along prefix boundaries, returns {@code null}.
    * <li>If the combined address prefix equals {@code this}, returns {@code this}.</li>

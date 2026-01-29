@@ -92,7 +92,7 @@ public final class HostAddress implements
    * Validates a host address, must be either a valid domain name or a valid IP address.
    *
    * <p>When enclosed in brackets <code>"[...]"</code>, will be validated as an IPv6 {@link InetAddress}
-   * (see {@link #toBracketedString()}).</p>
+   * (see {@link HostAddress#toBracketedString()}).</p>
    *
    * <p>TODO: Must be non-arpa</p>
    */
@@ -110,7 +110,7 @@ public final class HostAddress implements
 
   /**
    * When enclosed in brackets <code>"[...]"</code>, will be parsed as an IPv6 {@link InetAddress}
-   * (see {@link #toBracketedString()}).
+   * (see {@link HostAddress#toBracketedString()}).
    *
    * @param address  when {@code null}, returns {@code null}
    */
