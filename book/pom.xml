@@ -29,12 +29,12 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     <relativePath>../../parent/pom.xml</relativePath>
   </parent>
 
-  <groupId>com.aoapps</groupId><artifactId>ao-net-types-book</artifactId><version>3.0.0-SNAPSHOT</version>
+  <groupId>com.aoapps</groupId><artifactId>ao-net-types-book</artifactId><version>3.0.0</version>
   <packaging>jar</packaging>
 
   <properties>
     <!-- Must be set to ${git.commit.time} for snapshots or ISO 8601 timestamp for releases. -->
-    <project.build.outputTimestamp>${git.commit.time}</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-02-02T13:19:33Z</project.build.outputTimestamp>
     <module.name>com.aoapps.net.types.book</module.name>
     <subproject.subpath>book/</subproject.subpath>
     <!-- Java 17 -->
@@ -84,7 +84,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     <connection>scm:git:git://github.com/ao-apps/ao-net-types.git</connection>
     <developerConnection>scm:git:git@github.com:ao-apps/ao-net-types.git</developerConnection>
     <url>https://github.com/ao-apps/ao-net-types</url>
-    <tag>HEAD</tag>
+    <tag>ao-net-types-book-3.0.0</tag>
   </scm>
 
   <issueManagement>
