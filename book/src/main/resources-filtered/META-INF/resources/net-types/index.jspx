@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-net-types - Networking-related value types.
-Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025  AO Industries, Inc.
+Copyright (C) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -34,7 +34,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     title="@{documented.name}"
     description="@{documented.description}"
     datePublished="2017-03-17T13:34:38-05:00"
-    dateModified="2025-12-27T21:16:29Z"
+    dateModified="2026-02-05T18:09:30Z"
   >
     <core:child page="changelog.jspx" />
     <core:child page="apidocs/index.jspx" />
@@ -104,9 +104,9 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     <section:aside label="Evaluated Alternatives">
       <p>
         Admittedly, several features of this API are redundant with the
-        <ao:a rel="nofollow" href="@{javadoc.link.javase}java/net/package-summary.html">standard Java API</ao:a>.
+        <ao:a rel="nofollow" href="@{javadoc.link.javase}java.base/java/net/package-summary.html">standard Java API</ao:a>.
         This API has a long history and, as the Java platform matures, is increasingly redundant.  When it is sufficient
-        for your needs, please prefer the <ao:a rel="nofollow" href="@{javadoc.link.javase}java/net/package-summary.html">standard Java API</ao:a>.
+        for your needs, please prefer the <ao:a rel="nofollow" href="@{javadoc.link.javase}java.base/java/net/package-summary.html">standard Java API</ao:a>.
       </p>
     </section:aside>
   </core:page>

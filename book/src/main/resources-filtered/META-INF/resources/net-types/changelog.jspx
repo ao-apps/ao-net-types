@@ -37,7 +37,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2017-03-17T22:44:47-05:00"
-    dateModified="2026-01-30T15:00:33Z"
+    dateModified="2026-02-05T18:09:30Z"
   >
     <c:set var="latestRelease" value="3.0.0" />
     <c:if test="${
@@ -208,7 +208,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
       <ul>
         <li>
           Defined <ao:a href="https://en.wikipedia.org/wiki/SQLSTATE">SQLSTATE</ao:a> values for all
-          <ao:a rel="nofollow" href="@{javadoc.link.javase}java/sql/SQLException.html">SQLException</ao:a>.
+          <ao:a rel="nofollow" href="@{documented.javadoc.link.javase}java.sql/java/sql/SQLException.html">SQLException</ao:a>.
         </li>
         <li>
           Split development-only classes into a new sub-project in <code>devel/</code>.  This
