@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -610,6 +610,9 @@ public final class InetAddress implements
   /**
    * Converts this IP address to its String representation.
    */
+  // TODO: Don't compress a single :0: to ::
+  // Incorrect: 2001:db8::1:1:1:1:1
+  // Correct: 2001:db8:0:1:1:1:1:1
   @Override
   public String toString() {
     if (hi == UNSPECIFIED_HI && lo == IPV6_UNSPECIFIED_LO) {
