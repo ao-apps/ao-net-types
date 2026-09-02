@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2019, 2021, 2022, 2024, 2025  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2019, 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -197,21 +197,21 @@ public abstract class IPortRange implements
     if (this.overlaps(other)) {
       // Some overlap range
       from = Math.min(this.getFrom(), other.getFrom());
-      to   = Math.max(this.getTo(),   other.getTo());
+      to = Math.max(this.getTo(), other.getTo());
     } else if ((this.getTo() + 1) == other.getFrom()) {
       // This is adjacent before other
-      from =  this.getFrom();
-      to   = other.getTo();
+      from = this.getFrom();
+      to = other.getTo();
     } else if ((other.getTo() + 1) == this.getFrom()) {
       // This is adjacent after other
       from = other.getFrom();
-      to   =  this.getTo();
+      to = this.getTo();
     } else {
       // No overlap and not adjacent
       return null;
     }
-    if (from ==  this.getFrom() && to ==  this.getTo()) {
-      return  this;
+    if (from == this.getFrom() && to == this.getTo()) {
+      return this;
     }
     if (from == other.getFrom() && to == other.getTo()) {
       return other;

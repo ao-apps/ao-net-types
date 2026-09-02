@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-net-types - Networking-related value types.
-Copyright (C) 2022, 2024  AO Industries, Inc.
+Copyright (C) 2022, 2024, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -32,7 +32,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
 
   <!-- TODO: Remove in 3.0.0 release -->
   <suppress
-    checks="AbbreviationAsWordInName"
+    checks="(AbbreviationAsWordInName|GoogleMethodName)"
     files="[/\\]com[/\\]aoapps[/\\]net[/\\]InetAddress\.java$"
     message="'(isIPv4|isIPv6)'"
   />
@@ -56,7 +56,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
 
   <!-- Consistency with standard "URLDecoder", "URLEncoder", and "URL" -->
   <suppress
-    checks="AbbreviationAsWordInName"
+    checks="(AbbreviationAsWordInName|GoogleMethodName)"
     files="[/\\]com[/\\]aoapps[/\\]net[/\\]AnyURI\.java$"
     message="'(AnyURI|newAnyURI|toASCIIString|toIRI|toIRICache|toURI|toURICache)'"
   />
@@ -86,7 +86,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     message="'UnmodifiableURIParameters'"
   />
   <suppress
-    checks="AbbreviationAsWordInName"
+    checks="(AbbreviationAsWordInName|GoogleMethodName)"
     files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIDecoder\.java$"
     message="'(URIDecoder|decodeURI|decodeURIComponent)'"
   />
@@ -96,7 +96,7 @@ along with ao-net-types.  If not, see <https://www.gnu.org/licenses/>.
     message="'(URIDecoderTest|testDecodeURI)'"
   />
   <suppress
-    checks="AbbreviationAsWordInName"
+    checks="(AbbreviationAsWordInName|GoogleMethodName)"
     files="[/\\]com[/\\]aoapps[/\\]net[/\\]URIEncoder\.java$"
     message="'(URIEncoder|encodeURI|encodeURIComponent)'"
   />

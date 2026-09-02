@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2001-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2001-2013, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -109,15 +109,14 @@ public final class Port extends IPortRange implements
 
   private final int port;
 
-  /* Unused
-  private Port(int port, Protocol protocol, boolean validate) throws ValidationException {
-    super(protocol);
-    this.port = port;
-    if (validate) {
-      validate();
-    }
-  }
-   */
+  // Unused
+  // private Port(int port, Protocol protocol, boolean validate) throws ValidationException {
+  //   super(protocol);
+  //   this.port = port;
+  //   if (validate) {
+  //     validate();
+  //   }
+  // }
 
   /**
    * @param  port  Does not validate, should only be used with a known valid value.
@@ -169,12 +168,11 @@ public final class Port extends IPortRange implements
   public boolean equals(Object obj) {
     // enum pattern, this is safe:
     return this == obj;
-    /* enum pattern, don't need this:
-    return
-      obj instanceof Port
-      && ((Port)obj).port == port
-      && ((Port)obj).protocol == protocol;
-     */
+    // enum pattern, don't need this:
+    // return
+    //   obj instanceof Port
+    //   && ((Port)obj).port == port
+    //   && ((Port)obj).protocol == protocol;
   }
 
   @Override

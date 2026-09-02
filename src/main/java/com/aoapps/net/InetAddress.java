@@ -64,17 +64,17 @@ public final class InetAddress implements
   /**
    * Bits for IPv4 representations.
    */
-  static final long IPV4_HI                     = 0x0000000000000000L;
+  static final long IPV4_HI = 0x0000000000000000L;
 
   /**
    * Bits for IPv4 representations: <code>::ffff:a.b.c.d</code>.
    */
-  static final long IPV4_NET_MAPPED_LO          = 0x0000ffff00000000L;
+  static final long IPV4_NET_MAPPED_LO = 0x0000ffff00000000L;
 
   /**
    * Bits for IPv4 representations: <code>::a.b.c.d</code>.
    */
-  private static final long IPV4_NET_COMPAT_LO  = 0x0000000000000000L;
+  private static final long IPV4_NET_COMPAT_LO = 0x0000000000000000L;
 
   /**
    * Network prefix mask: IPv6 /96.
@@ -84,7 +84,7 @@ public final class InetAddress implements
   /**
    * Unspecified.
    */
-  private static final long UNSPECIFIED_HI      = 0x0000000000000000L;
+  private static final long UNSPECIFIED_HI = 0x0000000000000000L;
 
   /**
    * Unspecified: <code>0.0.0.0/32</code>.
@@ -99,22 +99,22 @@ public final class InetAddress implements
   /**
    * Bits for loopback.
    */
-  private static final long LOOPBACK_HI         = 0x0000000000000000L;
+  private static final long LOOPBACK_HI = 0x0000000000000000L;
 
   /**
    * Bits for loopback: <code>127.0.0.1</code>.
    */
-  private static final long IPV4_LOOPBACK_LO    = 0x0000ffff7f000001L;
+  private static final long IPV4_LOOPBACK_LO = 0x0000ffff7f000001L;
 
   /**
    * Bits for loopback: <code>::1</code>.
    */
-  private static final long IPV6_LOOPBACK_LO    = 0x0000000000000001L;
+  private static final long IPV6_LOOPBACK_LO = 0x0000000000000001L;
 
   /**
    * IPv4 Broadcast: <code>255.255.255.255/32</code>.
    */
-  private static final long IPV4_BROADCAST_LO   = 0x0000ffffffffffffL;
+  private static final long IPV4_BROADCAST_LO = 0x0000ffffffffffffL;
 
   /**
    * Checks if the address is valid by calling <code>parse(String)</code> and discarding the result.
@@ -293,7 +293,7 @@ public final class InetAddress implements
           (h1 << 12)
               | (h2 << 8)
               | (h3 << 4)
-              |  h4;
+              | h4;
       return null;
     } else if (len == 3) {
       InvalidResult result = getHexValue(address.charAt(start), value);
@@ -314,7 +314,7 @@ public final class InetAddress implements
       value[0] =
           (h1 << 8)
               | (h2 << 4)
-              |  h3;
+              | h3;
       return null;
     } else if (len == 2) {
       InvalidResult result = getHexValue(address.charAt(start), value);
@@ -329,7 +329,7 @@ public final class InetAddress implements
       final int h2 = value[0];
       value[0] =
           (h1 << 4)
-              |  h2;
+              | h2;
       return null;
     } else if (len == 1) {
       return getHexValue(address.charAt(start), value);
@@ -618,7 +618,7 @@ public final class InetAddress implements
     if (hi == UNSPECIFIED_HI && lo == IPV6_UNSPECIFIED_LO) {
       return "::";
     }
-    if (hi == LOOPBACK_HI    && lo == IPV6_LOOPBACK_LO) {
+    if (hi == LOOPBACK_HI && lo == IPV6_LOOPBACK_LO) {
       return "::1";
     }
     if (hi == IPV4_HI) {

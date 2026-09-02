@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2017, 2018, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2017, 2018, 2020, 2021, 2022, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -89,16 +89,15 @@ public final class PortRange extends IPortRange implements
   private final int from;
   private final int to;
 
-  /* Unused
-  private PortRange(int from, int to, Protocol protocol, boolean validate) throws ValidationException {
-    super(protocol);
-    this.from = from;
-    this.to = to;
-    if (validate) {
-      validate();
-    }
-  }
-   */
+  // Unused
+  // private PortRange(int from, int to, Protocol protocol, boolean validate) throws ValidationException {
+  //   super(protocol);
+  //   this.from = from;
+  //   this.to = to;
+  //   if (validate) {
+  //     validate();
+  //   }
+  // }
 
   /**
    * @param  from  Does not validate, should only be used with a known valid value.

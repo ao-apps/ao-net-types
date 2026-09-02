@@ -1,6 +1,6 @@
 /*
  * ao-net-types - Networking-related value types.
- * Copyright (C) 2010-2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
+ * Copyright (C) 2010-2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -74,10 +74,9 @@ public final class DomainName implements
 
   public static final int MAX_LENGTH = 253;
 
-  /*
-  private static boolean isNumeric(String label) {
-    return isNumeric(label, 0, label.length());
-  }*/
+  // private static boolean isNumeric(String label) {
+  //   return isNumeric(label, 0, label.length());
+  // }
 
   private static boolean isNumeric(String label, int start, int end) {
     if ((end - start) <= 0) {
@@ -132,43 +131,43 @@ public final class DomainName implements
     char ch;
     return
         pos >= 0
-            &&        domain.charAt(pos++)  == '.'
+            && domain.charAt(pos++) == '.'
             && ((ch = domain.charAt(pos++)) == 'i' || ch == 'I')
             && ((ch = domain.charAt(pos++)) == 'n' || ch == 'N')
-            &&        domain.charAt(pos++)  == '-'
+            && domain.charAt(pos++) == '-'
             && ((ch = domain.charAt(pos++)) == 'a' || ch == 'A')
             && ((ch = domain.charAt(pos++)) == 'd' || ch == 'D')
             && ((ch = domain.charAt(pos++)) == 'd' || ch == 'D')
             && ((ch = domain.charAt(pos++)) == 'r' || ch == 'R')
-            &&        domain.charAt(pos++)  == '.'
+            && domain.charAt(pos++) == '.'
             && ((ch = domain.charAt(pos++)) == 'a' || ch == 'A')
             && ((ch = domain.charAt(pos++)) == 'r' || ch == 'R')
             && ((ch = domain.charAt(pos++)) == 'p' || ch == 'P')
-            && ((ch = domain.charAt(pos))   == 'a' || ch == 'A');
+            && ((ch = domain.charAt(pos)) == 'a' || ch == 'A');
     // return domain.toLowerCase(Locale.ENGLISH).endsWith(".in-addr.arpa");
   }
-  /*
-  private static boolean isArpaBenchmark(String domain) {
-    return domain.toLowerCase(Locale.ENGLISH).endsWith(".in-addr.arpa");
-  }
 
-  private static void benchmark() {
-    final int iterations = 10000000;
-    long startTime = System.nanoTime();
-    for (int i=0; i<iterations; i++) {
-      isArpa("subnet0.144.71.64.in-addr.arpa");
-    }
-    long midTime = System.nanoTime();
-    for (int i=0; i<iterations; i++) {
-      isArpaBenchmark("subnet0.144.71.64.in-addr.arpa");
-    }
-    long endTime = System.nanoTime();
-    System.out.println("Old: "+BigDecimal.valueOf(endTime-midTime, 6)+" ms");
-    System.out.println("New: "+BigDecimal.valueOf(midTime-startTime, 6)+" ms");
-  }
-  public static void main(String[] args) {
-    for (int c=0; c<100; c++) benchmark();
-  }*/
+  // private static boolean isArpaBenchmark(String domain) {
+  //   return domain.toLowerCase(Locale.ENGLISH).endsWith(".in-addr.arpa");
+  // }
+  //
+  // private static void benchmark() {
+  //   final int iterations = 10000000;
+  //   long startTime = System.nanoTime();
+  //   for (int i=0; i<iterations; i++) {
+  //     isArpa("subnet0.144.71.64.in-addr.arpa");
+  //   }
+  //   long midTime = System.nanoTime();
+  //   for (int i=0; i<iterations; i++) {
+  //     isArpaBenchmark("subnet0.144.71.64.in-addr.arpa");
+  //   }
+  //   long endTime = System.nanoTime();
+  //   System.out.println("Old: "+BigDecimal.valueOf(endTime-midTime, 6)+" ms");
+  //   System.out.println("New: "+BigDecimal.valueOf(midTime-startTime, 6)+" ms");
+  // }
+  // public static void main(String[] args) {
+  //   for (int c=0; c<100; c++) benchmark();
+  // }
 
   private static final char[] localhostCharsLower = "localhost".toCharArray();
   private static final char[] localhostCharsUpper = "LOCALHOST".toCharArray();
